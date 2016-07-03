@@ -15,7 +15,7 @@ from engine.topicmap.models.language import Language
 
 class Metadatum:
 
-    def __init__(self, key, value, entity_identifier,
+    def __init__(self, name, value, entity_identifier,
                  identifier=None,
                  data_type=DataType.string,
                  scope='*',
@@ -24,7 +24,7 @@ class Metadatum:
         self.__identifier = (str(uuid.uuid1()) if identifier is None else slugify(str(identifier)))
         self.__scope = scope if scope == '*' else slugify(scope)
 
-        self.key = key
+        self.name = name
         self.data_type = data_type
         self.language = language
         self.value = value

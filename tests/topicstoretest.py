@@ -19,9 +19,16 @@ class TopicStoreTest(unittest.TestCase):
     def testInit(self):
         topic1 = self.topic_store.get_topic('frontpage')
 
-        self.assertEqual('Front page', topic1.first_base_name.name)
+        self.assertEqual('Front Page', topic1.first_base_name.name)
         self.assertEqual('frontpage', topic1.identifier)
         self.assertEqual('topic', topic1.instance_of)
+
+        metadata1 = self.topic_store.get_metadata('frontpage')
+
+        self.assertLess(0, len(metadata1))
+
+        for metadatum in metadata1:
+            print("Name: {0}, Value: {1}".format(metadatum.name, metadatum.value))
 
     def tearDown(self):
         self.topic_store.close()

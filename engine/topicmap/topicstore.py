@@ -13,7 +13,10 @@ from engine.topicmap.models.topic import Topic
 from engine.topicmap.models.occurrence import Occurrence
 from engine.topicmap.models.association import Association
 from engine.topicmap.models.metadatum import Metadatum
+from engine.topicmap.models.basename import BaseName
 from engine.topicmap.models.language import Language
+from engine.topicmap.topicstoreexception import TopicStoreException
+
 
 class TopicStore:
 
@@ -24,7 +27,7 @@ class TopicStore:
 
     def open(self, path):
         self.__connection = sqlite3.connect(path)
-        self.__connection.row_factory = sqlite3.Row  # TODO: Verify if necessary.
+        self.__connection.row_factory = sqlite3.Row
 
     def close(self):
         self.__connection.close()
@@ -47,7 +50,7 @@ class TopicStore:
     def put_base_names(self):
         pass
 
-    def get_topic(self, identifier, occurrence_scope='*', language=Language.en):
+    def get_topic(self, identifier):
         result = None
         with self.__connection:
             cursor = self.__connection.cursor()
@@ -55,8 +58,15 @@ class TopicStore:
                 cursor.execute("SELECT identifier, instance_of FROM topic WHERE identifier = ?", (identifier,))
                 record = cursor.fetchone()
                 if record:
-                    result = Topic(record[0], record[1])
+                    result = Topic(record['identifier'], record['instance_of'])
                     result.clear_base_names()
+                    cursor.execute("SELECT name, language, identifier FROM basename WHERE topic_identifier_fk = ?", (identifier,))
+                    base_names = cursor.fetchall()
+                    if base_names:
+                        for base_name in base_names:
+                            result.add_base_name(BaseName(base_name['name'], Language[base_name['language']], base_name['identifier']))
+            except sqlite3.Error as e:
+                raise TopicStoreException(e)
             finally:
                 if cursor:
                     cursor.close()
@@ -86,8 +96,21 @@ class TopicStore:
     def get_topic_names(self):
         pass
 
-    def topic_exists(self):
-        pass
+    def topic_exists(self, identifier):
+        result = False
+        with self.__connection:
+            cursor = self.__connection.cursor()
+            try:
+                cursor.execute("SELECT identifier FROM topics WHERE identifier = ?", (identifier,))
+                record = cursor.fetchone()
+                if record:
+                    result = True
+            except sqlite3.Error as e:
+                raise TopicStoreException(e)
+            finally:
+                if cursor:
+                    cursor.close()
+        return result
 
     # ASSOCIATIONS
 
@@ -132,20 +155,41 @@ class TopicStore:
     def put_occurrences(self):
         pass
 
-    def put_occurrence_data(self):
+    def put_occurrence_data(self, identifier, resource_data):
+        with self.__connection:
+            cursor = self.__connection.cursor()
+            try:
+                cursor.execute("UPDATE occurrence SET resource_data = ? WHERE identifier = ?", (resource_data, identifier))
+            except sqlite3.Error as e:
+                raise TopicStoreException(e)
+            finally:
+                if cursor:
+                    cursor.close()
+
+    def delete_occurrence(self, identifier):
         pass
 
-    def delete_occurrence(self):
+    def delete_occurrences(self, topic_identifier):
         pass
 
-    def delete_occurrences(self):
+    def get_occurrence(self, identifier):
         pass
 
-    def get_occurrence(self):
-        pass
-
-    def get_occurrence_data(self):
-        pass
+    def get_occurrence_data(self, identifier):
+        resource_data = None
+        with self.__connection:
+            cursor = self.__connection.cursor()
+            try:
+                cursor.execute("SELECT resource_data FROM occurrence WHERE identifier = ?", (identifier,))
+                record = cursor.fetchone()
+                if record:
+                    resource_data = record['resource_data']
+            except sqlite3.Error as e:
+                raise TopicStoreException(e)
+            finally:
+                if cursor:
+                    cursor.close()
+        return resource_data
 
     def get_occurrences(self):
         pass
@@ -164,23 +208,58 @@ class TopicStore:
     def put_metadatum(self):
         pass
 
-    def delete_metadatum(self):
+    def put_metadata(self):
         pass
 
-    def delete_metadatum_by_id(self):
+    def delete_metadatum(self):
         pass
 
     def delete_metadata(self):
         pass
 
-    def put_metadata(self):
-        pass
+    def get_metadatum(self, identifier):
+        metadatum = None
+        with self.__connection:
+            cursor = self.__connection.cursor()
+            try:
+                cursor.execute("SELECT * FROM metadatum WHERE identifier = ?", (identifier,))
+                record = cursor.fetchone()
+                if record:
+                    metadatum = Metadatum(
+                        record['name'],
+                        record['value'],
+                        record['parent_identifier_fk'],
+                        record['identifier'],
+                        record['data_type'],
+                        record['scope'],
+                        Language[record['language']])
+            except sqlite3.Error as e:
+                raise TopicStoreException(e)
+            finally:
+                if cursor:
+                    cursor.close()
+        return metadatum
 
-    def get_metadatum(self):
-        pass
-
-    def get_metadata(self):
-        pass
-
-    def get_metadatum_by_id(self):
-        pass
+    def get_metadata(self, entity_identifier, language=Language.en):
+        metadata = []
+        with self.__connection:
+            cursor = self.__connection.cursor()
+            try:
+                cursor.execute("SELECT * FROM metadatum WHERE parent_identifier_fk = ? AND language = ?", (entity_identifier, language.name))
+                records = cursor.fetchall()
+                for record in records:
+                    metadatum = Metadatum(
+                        record['name'],
+                        record['value'],
+                        record['parent_identifier_fk'],
+                        record['identifier'],
+                        record['data_type'],
+                        record['scope'],
+                        Language[record['language']])
+                    metadata.append(metadatum)
+            except sqlite3.Error as e:
+                raise TopicStoreException(e)
+            finally:
+                if cursor:
+                    cursor.close()
+        return metadata

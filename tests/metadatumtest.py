@@ -15,10 +15,10 @@ from engine.topicmap.models.language import Language
 class MetadatumTest(unittest.TestCase):
 
     def setUp(self):
-        self.metadatum1 = Metadatum('key', 'value', 'identifier-1')
+        self.metadatum1 = Metadatum('name', 'value', 'identifier-1')
 
     def testInit(self):
-        self.assertEqual('key', self.metadatum1.key)
+        self.assertEqual('name', self.metadatum1.name)
         self.assertEqual('value', self.metadatum1.value)
         self.assertEqual('identifier-1', self.metadatum1.entity_identifier)
         self.assertEqual(DataType.string, self.metadatum1.data_type)

@@ -64,7 +64,7 @@ class Topic(Entity):
             elif language == Language.nl:
                 result = BaseName("Onbepaald", Language.nl)
             elif language == Language.nb:
-                result = BaseName("Undefined", Language.nb)  # Norwegian (Bokmål)
+                result = BaseName("Ikke Definert", Language.nb)  # Norwegian (Bokmål)
             else:
                 result = BaseName("Undefined", Language.en)
         return result
