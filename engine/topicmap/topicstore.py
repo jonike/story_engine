@@ -5,16 +5,13 @@ June 15, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 """
 
-
 import sqlite3
-import unittest
 
-from engine.topicmap.models.topic import Topic
-from engine.topicmap.models.occurrence import Occurrence
-from engine.topicmap.models.association import Association
-from engine.topicmap.models.metadatum import Metadatum
 from engine.topicmap.models.basename import BaseName
 from engine.topicmap.models.language import Language
+from engine.topicmap.models.metadatum import Metadatum
+from engine.topicmap.models.topic import Topic
+from engine.topicmap.retrievaloption import RetrievalOption
 from engine.topicmap.topicstoreexception import TopicStoreException
 
 
@@ -50,7 +47,10 @@ class TopicStore:
     def put_base_names(self):
         pass
 
-    def get_topic(self, identifier):
+    def get_topic(self, identifier,
+                  resolve_metadata=RetrievalOption.dont_resolve_metadata,
+                  resolve_occurrences=RetrievalOption.dont_resolve_occurrences,
+                  inline_resource_data=RetrievalOption.dont_inline_resource_data):
         result = None
         with self.__connection:
             cursor = self.__connection.cursor()
@@ -65,6 +65,11 @@ class TopicStore:
                     if base_names:
                         for base_name in base_names:
                             result.add_base_name(BaseName(base_name['name'], Language[base_name['language']], base_name['identifier']))
+                    if resolve_metadata is RetrievalOption.resolve_metadata:
+                        result.add_metadata(self.get_metadata(identifier))
+                    if resolve_occurrences is RetrievalOption.resolve_occurrences:
+                        if inline_resource_data is RetrievalOption.inline_resource_data:
+                            pass
             except sqlite3.Error as e:
                 raise TopicStoreException(e)
             finally:
@@ -172,7 +177,8 @@ class TopicStore:
     def delete_occurrences(self, topic_identifier):
         pass
 
-    def get_occurrence(self, identifier):
+    def get_occurrence(self, identifier,
+                       inline_resource_data=RetrievalOption.dont_inline_resource_data):
         pass
 
     def get_occurrence_data(self, identifier):
@@ -191,7 +197,9 @@ class TopicStore:
                     cursor.close()
         return resource_data
 
-    def get_occurrences(self):
+    def get_occurrences(self,
+                        inline_resource_data=RetrievalOption.dont_inline_resource_data,
+                        language=Language.en):
         pass
 
     def get_occurrences_by_instance_of(self):
