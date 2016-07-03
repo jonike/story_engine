@@ -5,8 +5,6 @@ June 12, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 """
 
-import unittest
-
 from engine.topicmap.models.entity import Entity
 from engine.topicmap.models.basename import BaseName
 from engine.topicmap.models.language import Language
@@ -114,22 +112,3 @@ class Topic(Entity):
 
     def clear_occurrences(self):
         del self.__occurrences[:]
-
-# ===============================================================================
-
-
-class TopicTest(unittest.TestCase):
-
-    def setUp(self):
-        self.topic1 = Topic()
-
-    def testInit(self):
-        self.assertEqual()
-
-    def tearDown(self):
-        pass
-
-# ===============================================================================
-
-if __name__ == '__main__':
-    unittest.main()

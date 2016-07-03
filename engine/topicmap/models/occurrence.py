@@ -6,7 +6,6 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 """
 
 import uuid
-import unittest
 
 from slugify import slugify
 
@@ -24,7 +23,7 @@ class Occurrence(Entity):
                  resource_ref='',
                  resource_data=None,
                  language=Language.en):
-        super.__init__(identifier, instance_of)
+        super().__init__(identifier, instance_of)
 
         self.__topic_identifier = (str(uuid.uuid1()) if topic_identifier is None else slugify(str(topic_identifier)))
         self.__scope = slugify(str(scope))
@@ -51,22 +50,3 @@ class Occurrence(Entity):
 
     def has_data(self):
         return self.resource_data is not None
-
-# ===============================================================================
-
-
-class OccurrenceTest(unittest.TestCase):
-
-    def setUp(self):
-        pass
-
-    def testInit(self):
-        pass
-
-    def tearDown(self):
-        pass
-
-# ===============================================================================
-
-if __name__ == '__main__':
-    unittest.main()

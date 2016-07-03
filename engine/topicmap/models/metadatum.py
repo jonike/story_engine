@@ -6,7 +6,6 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 """
 
 import uuid
-import unittest
 
 from slugify import slugify
 
@@ -49,27 +48,3 @@ class Metadatum:
     @scope.setter
     def scope(self, value):
         self.__scope = value if value == '*' else slugify(value)
-
-# ===============================================================================
-
-
-class MetadatumTest(unittest.TestCase):
-
-    def setUp(self):
-        self.metadatum1 = Metadatum('key', 'value', 'identifier-1')
-
-    def testInit(self):
-        self.assertEqual('key', self.metadatum1.key)
-        self.assertEqual('value', self.metadatum1.value)
-        self.assertEqual('identifier-1', self.metadatum1.entity_identifier)
-        self.assertEqual(DataType.string, self.metadatum1.data_type)
-        self.assertEqual('*', self.metadatum1.scope)
-        self.assertEqual(Language.en, self.metadatum1.language)
-
-    def tearDown(self):
-        pass
-
-# ===============================================================================
-
-if __name__ == '__main__':
-    unittest.main()

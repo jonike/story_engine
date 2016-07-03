@@ -6,7 +6,6 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 """
 
 import uuid
-import unittest
 
 from slugify import slugify
 
@@ -28,21 +27,3 @@ class BaseName:
     def identifier(self):
         return self.__identifier
 
-# ===============================================================================
-
-
-class BasenameTest(unittest.TestCase):
-
-    def setUp(self):
-        pass
-
-    def testInit(self):
-        pass
-
-    def tearDown(self):
-        pass
-
-# ===============================================================================
-
-if __name__ == '__main__':
-    unittest.main()
