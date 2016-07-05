@@ -7,7 +7,7 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 
 import unittest
 
-from engine.topicmap.models.topic import Topic
+from engine.store.models.topic import Topic
 
 
 class TopicTest(unittest.TestCase):

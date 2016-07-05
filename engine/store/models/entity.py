@@ -13,9 +13,9 @@ from slugify import slugify
 class Entity:
 
     def __init__(self,
-                 identifier=None,
+                 identifier='',
                  instance_of='entity'):
-        self.__identifier = (str(uuid.uuid1()) if identifier is None else slugify(str(identifier)))
+        self.__identifier = (str(uuid.uuid1()) if identifier is '' else slugify(str(identifier)))
         self.__instance_of = slugify(str(instance_of))
         self.__metadata = []
 

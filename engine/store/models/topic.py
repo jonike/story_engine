@@ -5,15 +5,15 @@ June 12, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 """
 
-from engine.topicmap.models.entity import Entity
-from engine.topicmap.models.basename import BaseName
-from engine.topicmap.models.language import Language
+from engine.store.models.entity import Entity
+from engine.store.models.basename import BaseName
+from engine.store.models.language import Language
 
 
 class Topic(Entity):
 
     def __init__(self,
-                 identifier=None,
+                 identifier='',
                  instance_of='topic',
                  base_name='Undefined',
                  language=Language.en):

@@ -9,19 +9,19 @@ import uuid
 
 from slugify import slugify
 
-from engine.topicmap.models.datatype import DataType
-from engine.topicmap.models.language import Language
+from engine.store.models.datatype import DataType
+from engine.store.models.language import Language
 
 
 class Metadatum:
 
     def __init__(self, name, value, entity_identifier,
-                 identifier=None,
+                 identifier='',
                  data_type=DataType.string,
                  scope='*',
                  language=Language.en):
         self.__entity_identifier = slugify(entity_identifier)
-        self.__identifier = (str(uuid.uuid1()) if identifier is None else slugify(str(identifier)))
+        self.__identifier = (str(uuid.uuid1()) if identifier is '' else slugify(str(identifier)))
         self.__scope = scope if scope == '*' else slugify(scope)
 
         self.name = name

@@ -5,7 +5,7 @@ July 03, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 """
 
-from engine.topicmap.models.topic import Topic
+from engine.store.models.topic import Topic
 
 
 class Association(Topic):

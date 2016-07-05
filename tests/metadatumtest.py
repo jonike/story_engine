@@ -7,9 +7,9 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 
 import unittest
 
-from engine.topicmap.models.metadatum import Metadatum
-from engine.topicmap.models.datatype import DataType
-from engine.topicmap.models.language import Language
+from engine.store.models.metadatum import Metadatum
+from engine.store.models.datatype import DataType
+from engine.store.models.language import Language
 
 
 class MetadatumTest(unittest.TestCase):

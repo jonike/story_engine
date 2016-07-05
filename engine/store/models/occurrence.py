@@ -9,23 +9,23 @@ import uuid
 
 from slugify import slugify
 
-from engine.topicmap.models.entity import Entity
-from engine.topicmap.models.language import Language
+from engine.store.models.entity import Entity
+from engine.store.models.language import Language
 
 
 class Occurrence(Entity):
 
     def __init__(self,
-                 identifier=None,
+                 identifier='',
                  instance_of='occurrence',
-                 topic_identifier=None,
+                 topic_identifier='',
                  scope='*',  # Universal scope
                  resource_ref='',
                  resource_data=None,
                  language=Language.en):
         super().__init__(identifier, instance_of)
 
-        self.__topic_identifier = (str(uuid.uuid1()) if topic_identifier is None else slugify(str(topic_identifier)))
+        self.__topic_identifier = (str(uuid.uuid1()) if topic_identifier is '' else slugify(str(topic_identifier)))
         self.__scope = slugify(str(scope))
 
         self.resource_ref = resource_ref

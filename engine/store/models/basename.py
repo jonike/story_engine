@@ -9,7 +9,7 @@ import uuid
 
 from slugify import slugify
 
-from engine.topicmap.models.language import Language
+from engine.store.models.language import Language
 
 
 class BaseName:
