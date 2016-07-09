@@ -26,7 +26,7 @@ class Occurrence(Entity):
         super().__init__(identifier, instance_of)
 
         self.__topic_identifier = (str(uuid.uuid1()) if topic_identifier is '' else slugify(str(topic_identifier)))
-        self.__scope = slugify(str(scope))
+        self.__scope = scope if scope == '*' else slugify(scope)
 
         self.resource_ref = resource_ref
         self.resource_data = resource_data

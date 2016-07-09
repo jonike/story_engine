@@ -15,10 +15,12 @@ class GetOccurrencesCommand:
 
     def __init__(self, database_path,
                  topic_identifier='',
-                 inline_resource_data=RetrievalOption.dont_inline_resource_data):
+                 inline_resource_data=RetrievalOption.dont_inline_resource_data,
+                 resolve_metadata=RetrievalOption.dont_resolve_metadata):
         self.database_path = database_path
         self.topic_identifier = topic_identifier
         self.inline_resource_data = inline_resource_data
+        self.resolve_metadata = resolve_metadata
 
     def execute(self):
         pass

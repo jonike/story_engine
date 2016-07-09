@@ -10,7 +10,9 @@ import unittest
 from engine.store.commands.topic.topicexists import TopicExistsCommand
 from engine.store.commands.topic.gettopic import GetTopicCommand
 from engine.store.commands.metadatum.getmetadatum import GetMetadatumCommand
+from engine.store.commands.occurrence.getoccurrence import GetOccurrenceCommand
 from engine.store.retrievaloption import RetrievalOption
+from engine.store.models.language import Language
 
 
 class TopicStoreTest(unittest.TestCase):
@@ -50,6 +52,19 @@ class TopicStoreTest(unittest.TestCase):
         self.assertEqual('creation-timestamp', metadatum1.name)
         self.assertEqual('2015/02/21 09:21:00', metadatum1.value)
         self.assertEqual('89d9bd44-b252-469d-b377-f07c73c24269', metadatum1.identifier)
+
+    def testGetOccurrenceCommand(self):
+        occurrence1 = GetOccurrenceCommand(self.database_path,
+                                           '59124c31-22ad-4f17-ba4b-1a03bb69cb2d',
+                                           RetrievalOption.inline_resource_data,
+                                           RetrievalOption.resolve_metadata).execute()
+
+        self.assertEqual('59124c31-22ad-4f17-ba4b-1a03bb69cb2d', occurrence1.identifier)
+        self.assertEqual('note', occurrence1.instance_of)
+        self.assertEqual('*', occurrence1.scope)
+        self.assertEqual(Language.en, occurrence1.language)
+        self.assertEqual(b"I'm a note for the test topic", occurrence1.resource_data)
+
 
     def tearDown(self):
         pass

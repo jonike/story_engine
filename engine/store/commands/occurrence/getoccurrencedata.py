@@ -37,5 +37,4 @@ class GetOccurrenceDataCommand:
                 cursor.close()
             if connection:
                 connection.close()
-
         return result
