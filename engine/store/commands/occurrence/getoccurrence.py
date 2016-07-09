@@ -1,5 +1,5 @@
 """
-GetOccurrenceDataCommand class. Part of the StoryTechnologies Builder project.
+GetOccurrenceCommand class. Part of the StoryTechnologies Builder project.
 
 July 05, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)

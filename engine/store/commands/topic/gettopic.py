@@ -55,7 +55,7 @@ class GetTopicCommand:
                 if self.resolve_metadata is RetrievalOption.resolve_metadata:
                     result.add_metadata(GetMetadataCommand(self.database_path, self.identifier, self.language).execute())
                 if self.resolve_occurrences is RetrievalOption.resolve_occurrences:
-                    pass
+                    pass  # TODO: Implement.
         except sqlite3.Error as e:
             raise TopicStoreException(e)
         finally:
@@ -63,5 +63,4 @@ class GetTopicCommand:
                 cursor.close()
             if connection:
                 connection.close()
-
         return result

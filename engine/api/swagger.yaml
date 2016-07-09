@@ -1,0 +1,31 @@
+swagger: '2.0'
+info:
+  title: StoryTechnologies Scene API
+  version: '0.1'
+consumes:
+  - application/json
+produces:
+  - application/json
+basePath: /1.0
+paths:
+  '/topics/{topic_identifier}':
+    get:
+      operationId: engine.api.service.get_topic
+      summary: Get a single topic
+      parameters:
+        - $ref: '#/parameters/topic_identifier'
+      responses:
+        200:
+          description: Return topic
+        404:
+          description: Topic does not exist
+
+parameters:
+  topic_identifier:
+    name: topic_identifier
+    description: Topic's unique identifier
+    in: path
+    type: string
+    required: true
+    pattern: "^[a-zA-Z0-9-]+$"
+
