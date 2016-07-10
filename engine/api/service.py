@@ -48,7 +48,7 @@ def get_topic(topic_identifier):
         return "Not found", 404
 
 
-def get_occurrence(identifier):
+def get_occurrence(occurrence_identifier):
     pass
 
 
@@ -56,7 +56,7 @@ def get_occurrences(topic_identifier):
     pass
 
 
-def get_association(identifier):
+def get_association(association_identifier):
     pass
 
 
@@ -64,7 +64,7 @@ def get_associations(topic_identifier):
     pass
 
 
-def get_metadatum(identifier):
+def get_metadatum(metadatum_identifier):
     pass
 
 
