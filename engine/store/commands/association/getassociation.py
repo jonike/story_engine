@@ -26,6 +26,9 @@ class GetAssociationCommand:
 
         cursor = connection.cursor()
         try:
+            # SELECT identifier, instance_of, scope FROM topic WHERE identifier = ? AND scope IS NOT NULL
+            # SELECT name, language FROM basename WHERE topic_identifier_fk = ?
+            # SELECT * FROM member WHERE association_identifier_fk = ?
             pass
         except sqlite3.Error as e:
             raise TopicStoreException(e)
