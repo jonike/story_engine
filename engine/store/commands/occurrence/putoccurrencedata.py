@@ -16,7 +16,7 @@ class PutOccurrenceDataCommand:
         self.identifier = identifier
         self.resource_data = resource_data
 
-    def execute(self):
+    def do(self):
         if self.identifier is '' or self.resource_data is None:
             raise TopicStoreException("Missing 'identifier' and/or 'resource data' parameters")
 

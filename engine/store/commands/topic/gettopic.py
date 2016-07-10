@@ -13,6 +13,7 @@ from engine.store.models.topic import Topic
 from engine.store.retrievaloption import RetrievalOption
 from engine.store.topicstoreexception import TopicStoreException
 from engine.store.commands.metadatum.getmetadata import GetMetadataCommand
+from engine.store.commands.occurrence.getoccurrences import GetOccurrencesCommand
 
 
 class GetTopicCommand:
@@ -30,7 +31,7 @@ class GetTopicCommand:
         self.inline_resource_data = inline_resource_data
         self.language = language
 
-    def execute(self):
+    def do(self):
         if self.identifier is '':
             raise TopicStoreException("Missing 'identifier' parameter")
         result = None
@@ -53,9 +54,9 @@ class GetTopicCommand:
                         result.add_base_name(
                             BaseName(base_name['name'], Language[base_name['language']], base_name['identifier']))
                 if self.resolve_metadata is RetrievalOption.resolve_metadata:
-                    result.add_metadata(GetMetadataCommand(self.database_path, self.identifier, self.language).execute())
+                    result.add_metadata(GetMetadataCommand(self.database_path, self.identifier, self.language).do())
                 if self.resolve_occurrences is RetrievalOption.resolve_occurrences:
-                    pass  # TODO: Implement.
+                    result.add_occurrences(GetOccurrencesCommand(self.database_path, self.identifier).do())
         except sqlite3.Error as e:
             raise TopicStoreException(e)
         finally:

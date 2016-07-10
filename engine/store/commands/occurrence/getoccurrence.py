@@ -27,7 +27,7 @@ class GetOccurrenceCommand:
         self.resolve_metadata = resolve_metadata
         self.language = language
 
-    def execute(self):
+    def do(self):
         if self.identifier is '':
             raise TopicStoreException("Missing 'identifier' parameter")
         result = None
@@ -42,7 +42,7 @@ class GetOccurrenceCommand:
             if record:
                 resource_data = None
                 if self.inline_resource_data:
-                    resource_data = GetOccurrenceDataCommand(self.database_path, self.identifier).execute()
+                    resource_data = GetOccurrenceDataCommand(self.database_path, self.identifier).do()
                 result = Occurrence(
                         record['identifier'],
                         record['instance_of'],
@@ -52,7 +52,7 @@ class GetOccurrenceCommand:
                         resource_data,
                         Language[record['language']])
                 if self.resolve_metadata is RetrievalOption.resolve_metadata:
-                    result.add_metadata(GetMetadataCommand(self.database_path, self.identifier, self.language).execute())
+                    result.add_metadata(GetMetadataCommand(self.database_path, self.identifier, self.language).do())
         except sqlite3.Error as e:
             raise TopicStoreException(e)
         finally:

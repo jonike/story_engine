@@ -18,7 +18,7 @@ class GetMetadatumCommand:
         self.database_path = database_path
         self.identifier = identifier
 
-    def execute(self):
+    def do(self):
         if self.identifier is '':
             raise TopicStoreException("Missing 'identifier' parameter")
         result = None

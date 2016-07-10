@@ -47,3 +47,26 @@ def get_topic(topic_identifier):
     else:
         return "Not found", 404
 
+
+def get_occurrence(identifier):
+    pass
+
+
+def get_occurrences(topic_identifier):
+    pass
+
+
+def get_association(identifier):
+    pass
+
+
+def get_associations(topic_identifier):
+    pass
+
+
+def get_metadatum(identifier):
+    pass
+
+
+def get_metadata(entity_identifier):
+    pass
