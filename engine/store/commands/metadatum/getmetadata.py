@@ -20,7 +20,7 @@ class GetMetadataCommand:
         self.language = language
 
     def do(self):
-        if self.entity_identifier is '':
+        if self.entity_identifier == '':
             raise TopicStoreException("Missing 'entity identifier' parameter")
         result = []
 

@@ -17,8 +17,8 @@ class BaseName:
     def __init__(self,
                  name,
                  language=Language.en,
-                 identifier=None):
-        self.__identifier = (str(uuid.uuid1()) if identifier is None else slugify(str(identifier)))
+                 identifier=''):
+        self.__identifier = (str(uuid.uuid1()) if identifier == '' else slugify(str(identifier)))
 
         self.name = name
         self.language = language

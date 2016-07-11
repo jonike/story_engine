@@ -11,6 +11,7 @@ from slugify import slugify
 
 from engine.store.models.entity import Entity
 from engine.store.models.language import Language
+from engine.store.topicstoreexception import TopicStoreException
 
 
 class Occurrence(Entity):
@@ -38,7 +39,9 @@ class Occurrence(Entity):
 
     @scope.setter
     def scope(self, value):
-        self.__scope = slugify(str(value))
+        if value == '':
+            raise TopicStoreException("Empty 'value' parameter")
+        self.__scope = value if value == '*' else slugify(value)
 
     @property
     def topic_identifier(self):
@@ -46,6 +49,8 @@ class Occurrence(Entity):
 
     @topic_identifier.setter
     def topic_identifier(self, value):
+        if value == '':
+            raise TopicStoreException("Empty 'value' parameter")
         self.__topic_identifier = slugify(str(value))
 
     def has_data(self):

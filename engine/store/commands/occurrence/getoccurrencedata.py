@@ -17,7 +17,7 @@ class GetOccurrenceDataCommand:
         self.identifier = identifier
 
     def do(self):
-        if self.identifier is '':
+        if self.identifier == '':
             raise TopicStoreException("Missing 'identifier' parameter")
         result = None
 

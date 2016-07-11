@@ -31,7 +31,7 @@ class GetOccurrencesCommand:
         self.language = language
 
     def do(self):
-        if self.topic_identifier is '':
+        if self.topic_identifier == '':
             raise TopicStoreException("Missing 'topic identifier' parameter")
         result = []
 

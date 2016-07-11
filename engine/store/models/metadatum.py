@@ -11,6 +11,7 @@ from slugify import slugify
 
 from engine.store.models.datatype import DataType
 from engine.store.models.language import Language
+from engine.store.topicstoreexception import TopicStoreException
 
 
 class Metadatum:
@@ -20,8 +21,10 @@ class Metadatum:
                  data_type=DataType.string,
                  scope='*',
                  language=Language.en):
+        if entity_identifier == '':
+            raise TopicStoreException("Empty 'entity identifier' parameter")
         self.__entity_identifier = slugify(entity_identifier)
-        self.__identifier = (str(uuid.uuid1()) if identifier is '' else slugify(str(identifier)))
+        self.__identifier = (str(uuid.uuid1()) if identifier == '' else slugify(str(identifier)))
         self.__scope = scope if scope == '*' else slugify(scope)
 
         self.name = name
@@ -35,6 +38,8 @@ class Metadatum:
 
     @entity_identifier.setter
     def entity_identifier(self, value):
+        if value == '':
+            raise TopicStoreException("Empty 'value' parameter")
         self.__entity_identifier = slugify(str(value))
 
     @property
@@ -47,4 +52,6 @@ class Metadatum:
 
     @scope.setter
     def scope(self, value):
+        if value == '':
+            raise TopicStoreException("Empty 'value' parameter")
         self.__scope = value if value == '*' else slugify(value)

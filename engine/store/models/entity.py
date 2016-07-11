@@ -9,13 +9,17 @@ import uuid
 
 from slugify import slugify
 
+from engine.store.topicstoreexception import TopicStoreException
+
 
 class Entity:
 
     def __init__(self,
                  identifier='',
                  instance_of='entity'):
-        self.__identifier = (str(uuid.uuid1()) if identifier is '' else slugify(str(identifier)))
+        if instance_of == '':
+            raise TopicStoreException("Empty 'instance of' parameter")
+        self.__identifier = (str(uuid.uuid1()) if identifier == '' else slugify(str(identifier)))
         self.__instance_of = slugify(str(instance_of))
         self.__metadata = []
 
@@ -29,6 +33,8 @@ class Entity:
 
     @instance_of.setter
     def instance_of(self, value):
+        if value == '':
+            raise TopicStoreException("Empty 'value' parameter")
         self.__instance_of = slugify(str(value))
 
     @property

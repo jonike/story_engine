@@ -40,30 +40,30 @@ class Topic(Entity):
 
         # Does the base name exist in the requested language?
         for base_name in self.__base_names:
-            if base_name.language == language:
+            if base_name.language is language:
                 result = base_name
                 break
 
         # A base name for the requested language does not exist, fall back to the English base name.
         if result is None:
             for base_name in self.__base_names:
-                if base_name.language == Language.en:
+                if base_name.language is Language.en:
                     result = base_name
                     break
 
         # An English base name is not present either, hence return a base name of "Undefined" in the requested language.
         if result is None:
-            if language == Language.es:
+            if language is Language.es:
                 result = BaseName("Sin Definir", Language.es)
-            elif language == Language.de:
+            elif language is Language.de:
                 result = BaseName("Undefiniert", Language.de)
-            elif language == Language.it:
+            elif language is Language.it:
                 result = BaseName("Indefinito", Language.it)
-            elif language == Language.fr:
+            elif language is Language.fr:
                 result = BaseName("Indéfini", Language.fr)
-            elif language == Language.nl:
+            elif language is Language.nl:
                 result = BaseName("Onbepaald", Language.nl)
-            elif language == Language.nb:
+            elif language is Language.nb:
                 result = BaseName("Ikke Definert", Language.nb)  # Norwegian (Bokmål)
             else:
                 result = BaseName("Undefined", Language.en)
