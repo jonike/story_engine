@@ -22,13 +22,11 @@ class GetTopicCommand:
                  identifier='',
                  resolve_metadata=RetrievalOption.dont_resolve_metadata,
                  resolve_occurrences=RetrievalOption.dont_resolve_occurrences,
-                 inline_resource_data=RetrievalOption.dont_inline_resource_data,
                  language=Language.en):
         self.database_path = database_path
         self.identifier = identifier
         self.resolve_metadata = resolve_metadata
         self.resolve_occurrences = resolve_occurrences
-        self.inline_resource_data = inline_resource_data
         self.language = language
 
     def do(self):
@@ -41,18 +39,20 @@ class GetTopicCommand:
 
         cursor = connection.cursor()
         try:
-            cursor.execute("SELECT identifier, instance_of FROM topic WHERE identifier = ?", (self.identifier,))
-            record = cursor.fetchone()
-            if record:
-                result = Topic(record['identifier'], record['instance_of'])
+            cursor.execute("SELECT identifier, instance_of FROM topic WHERE identifier = ? AND scope IS NULL", (self.identifier,))
+            topic_record = cursor.fetchone()
+            if topic_record:
+                result = Topic(topic_record['identifier'], topic_record['instance_of'])
                 result.clear_base_names()
                 cursor.execute("SELECT name, language, identifier FROM basename WHERE topic_identifier_fk = ?",
                                (self.identifier,))
-                base_names = cursor.fetchall()
-                if base_names:
-                    for base_name in base_names:
+                base_name_records = cursor.fetchall()
+                if base_name_records:
+                    for base_name_record in base_name_records:
                         result.add_base_name(
-                            BaseName(base_name['name'], Language[base_name['language']], base_name['identifier']))
+                            BaseName(base_name_record['name'],
+                                     Language[base_name_record['language']],
+                                     base_name_record['identifier']))
                 if self.resolve_metadata is RetrievalOption.resolve_metadata:
                     result.add_metadata(GetMetadataCommand(self.database_path, self.identifier, self.language).do())
                 if self.resolve_occurrences is RetrievalOption.resolve_occurrences:

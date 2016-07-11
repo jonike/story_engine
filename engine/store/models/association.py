@@ -15,23 +15,26 @@ from engine.store.topicstoreexception import TopicStoreException
 
 class Association(Topic):
 
-    def __init__(self, src_topic_ref, dest_topic_ref,
-                 src_role_spec='related',
-                 dest_role_spec='related',
+    def __init__(self,
                  identifier='',
                  instance_of='association',
-                 scope='*',
                  base_name='Undefined',
-                 language=Language.en):
+                 language=Language.en,
+                 scope='*',
+                 src_topic_ref='',
+                 dest_topic_ref='',
+                 src_role_spec='related',
+                 dest_role_spec='related'):
         super().__init__(identifier, instance_of, base_name, language)
 
         self.__scope = scope if scope == '*' else slugify(str(scope))
         self.__members = []
 
-        src_member = Member(src_topic_ref, src_role_spec)
-        dest_member = Member(dest_topic_ref, dest_role_spec)
-        self.__members.append(src_member)
-        self.__members.append(dest_member)
+        if src_topic_ref != '' and src_role_spec != '' and dest_topic_ref != '' and dest_role_spec != '':
+            src_member = Member(src_topic_ref, src_role_spec)
+            dest_member = Member(dest_topic_ref, dest_role_spec)
+            self.__members.append(src_member)
+            self.__members.append(dest_member)
 
     @property
     def scope(self):

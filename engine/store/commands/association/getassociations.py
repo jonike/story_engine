@@ -17,7 +17,7 @@ class GetAssociationsCommand:
         self.identifier = topic_identifier
 
     def do(self):
-        if self.identifier is '':
+        if self.identifier == '':
             raise TopicStoreException("Missing 'topic identifier' parameter")
         result = False
 
