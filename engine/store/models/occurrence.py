@@ -41,7 +41,7 @@ class Occurrence(Entity):
     def scope(self, value):
         if value == '':
             raise TopicStoreException("Empty 'value' parameter")
-        self.__scope = value if value == '*' else slugify(value)
+        self.__scope = value if value == '*' else slugify(str(value))
 
     @property
     def topic_identifier(self):
