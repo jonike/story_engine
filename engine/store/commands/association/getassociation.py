@@ -33,7 +33,7 @@ class GetAssociationCommand:
     def do(self):
         if self.identifier == '':
             raise TopicStoreException("Missing 'identifier' parameter")
-        result = False
+        result = None
 
         connection = sqlite3.connect(self.database_path)
         connection.row_factory = sqlite3.Row
