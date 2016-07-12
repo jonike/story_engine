@@ -8,6 +8,7 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 import sqlite3
 
 from engine.store.models.language import Language
+from engine.store.models.datatype import DataType
 from engine.store.models.metadatum import Metadatum
 from engine.store.topicstoreexception import TopicStoreException
 
@@ -36,7 +37,7 @@ class GetMetadatumCommand:
                     record['value'],
                     record['parent_identifier_fk'],
                     record['identifier'],
-                    record['data_type'],
+                    DataType[record['data_type']],
                     record['scope'],
                     Language[record['language']])
         except sqlite3.Error as e:
