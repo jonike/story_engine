@@ -8,10 +8,10 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 import sqlite3
 
 from engine.store.topicstoreexception import TopicStoreException
-from engine.store.models.association import Association
 from engine.store.models.language import Language
 from engine.store.retrievaloption import RetrievalOption
 from engine.store.commands.association.getassociation import GetAssociationCommand
+
 
 class GetAssociationsCommand:
 

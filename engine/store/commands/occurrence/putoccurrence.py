@@ -20,14 +20,20 @@ class PutOccurrenceCommand:
     def do(self):
         if self.occurrence is None:
             raise TopicStoreException("Missing 'occurrence' parameter")
-        result = None
 
         connection = sqlite3.connect(self.database_path)
         connection.row_factory = sqlite3.Row
 
         try:
             with connection:  # https://docs.python.org/3/library/sqlite3.html#using-the-connection-as-a-context-manager
-                connection.execute("INSERT INTO occurrence (identifier, instance_of, scope, resource_ref, resource_data, topic_identifier_fk, language) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", (self.occurrence.identifier, self.occurrence.instance_of, self.occurrence.scope, self.occurrence.resource_ref, self.occurrence.resource_data, self.occurrence.topic_identifier, str(self.occurrence.language)))
+                connection.execute("INSERT INTO occurrence (identifier, instance_of, scope, resource_ref, resource_data, topic_identifier_fk, language) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+                                   (self.occurrence.identifier,
+                                    self.occurrence.instance_of,
+                                    self.occurrence.scope,
+                                    self.occurrence.resource_ref,
+                                    self.occurrence.resource_data,
+                                    self.occurrence.topic_identifier,
+                                    str(self.occurrence.language)))
         except sqlite3.Error as e:
             raise TopicStoreException(e)
         finally:

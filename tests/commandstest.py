@@ -11,9 +11,14 @@ from engine.store.commands.topic.topicexists import TopicExistsCommand
 from engine.store.commands.occurrence.occurrenceexists import OccurrenceExistsCommand
 from engine.store.commands.topic.gettopic import GetTopicCommand
 from engine.store.commands.metadatum.getmetadatum import GetMetadatumCommand
+from engine.store.commands.metadatum.putmetadatum import PutMetadatumCommand
 from engine.store.commands.occurrence.getoccurrence import GetOccurrenceCommand
+from engine.store.commands.topic.puttopic import PutTopicCommand
 from engine.store.retrievaloption import RetrievalOption
 from engine.store.models.language import Language
+from engine.store.models.datatype import DataType
+from engine.store.models.topic import Topic
+from engine.store.models.metadatum import Metadatum
 
 
 class CommandsTest(unittest.TestCase):
@@ -74,6 +79,32 @@ class CommandsTest(unittest.TestCase):
 
         self.assertEqual(True, existing_occurrence)
         self.assertEqual(False, non_existing_occurrence)
+
+    def testPutTopicCommand(self):
+        topic_identifier = 'test-topic2'
+        topic_exists = TopicExistsCommand(self.database_path, topic_identifier).do()
+        if not topic_exists:
+            topic1 = Topic(topic_identifier, 'topic', 'Test Topic')
+            PutTopicCommand(self.database_path, topic1).do()
+        else:
+            get_topic_command = GetTopicCommand(self.database_path, topic_identifier, RetrievalOption.resolve_metadata)
+
+            topic2 = get_topic_command.do()
+
+            self.assertEqual('Test Topic', topic2.first_base_name.name)
+            self.assertEqual(topic_identifier, topic2.identifier)
+            self.assertEqual('topic', topic2.instance_of)
+
+    def testPutMetadatum(self):
+        metadatum_name = 'metadatum-name'
+        metadatum1 = Metadatum(metadatum_name, 'metadatum-value', 'frontpage', data_type=DataType.string, scope='test', language=Language.es)
+        PutMetadatumCommand(self.database_path, metadatum1).do()
+
+        metadatum2 = GetMetadatumCommand(self.database_path, metadatum1.identifier).do()
+
+        self.assertEqual('metadatum-name', metadatum2.name)
+        self.assertEqual('metadatum-value', metadatum2.value)
+        self.assertEqual(metadatum2.identifier, metadatum1.identifier)
 
     def tearDown(self):
         pass
