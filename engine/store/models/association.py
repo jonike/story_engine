@@ -44,7 +44,7 @@ class Association(Topic):
     def scope(self, value):
         if value == '':
             raise TopicStoreException("Empty 'scope' parameter")
-        self.__scope = slugify(str(value))
+        self.__scope = value if value == '*' else slugify(str(value))
 
     def create_member(self, topic_ref, role_spec='related'):
         member = Member(topic_ref, role_spec)
