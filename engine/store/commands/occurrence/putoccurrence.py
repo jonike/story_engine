@@ -7,7 +7,12 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 
 import sqlite3
 
-from engine.store.models.occurrence import Occurrence
+from datetime import datetime
+
+from engine.store.models.language import Language
+from engine.store.models.datatype import DataType
+from engine.store.models.metadatum import Metadatum
+from engine.store.commands.metadatum.putmetadatum import PutMetadatumCommand
 from engine.store.topicstoreexception import TopicStoreException
 
 
@@ -34,6 +39,12 @@ class PutOccurrenceCommand:
                                     self.occurrence.resource_data,
                                     self.occurrence.topic_identifier,
                                     str(self.occurrence.language)))
+            timestamp = str(datetime.now())
+            metadatum = Metadatum('creation-timestamp', timestamp, self.occurrence.identifier,
+                                  data_type=DataType.timestamp,
+                                  scope='*',
+                                  language=Language.en)
+            PutMetadatumCommand(self.database_path, metadatum).do()
         except sqlite3.Error as e:
             raise TopicStoreException(e)
         finally:

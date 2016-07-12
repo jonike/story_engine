@@ -41,14 +41,15 @@ CREATE TABLE IF NOT EXISTS topicref (
 CREATE UNIQUE INDEX IF NOT EXISTS topicref_1_index ON topicref (topic_ref, member_identifier_fk);
 
 CREATE TABLE IF NOT EXISTS topic (
-    _id INTEGER PRIMARY KEY AUTOINCREMENT,
     identifier TEXT,
     instance_of TEXT,
     scope TEXT
 );
-CREATE INDEX IF NOT EXISTS topic_1_index ON topic (identifier);
-CREATE INDEX IF NOT EXISTS topic_2_index ON topic (scope);
-CREATE INDEX IF NOT EXISTS topic_3_index ON topic (identifier, scope);
+CREATE UNIQUE INDEX IF NOT EXISTS topic_1_index ON topic (identifier);
+CREATE INDEX IF NOT EXISTS topic_2_index ON topic (instance_of);
+CREATE INDEX IF NOT EXISTS topic_3_index ON topic (scope);
+CREATE INDEX IF NOT EXISTS topic_4_index ON topic (identifier, scope);
+CREATE INDEX IF NOT EXISTS topic_5_index ON topic (identifier, instance_of);
 
 CREATE TABLE IF NOT EXISTS basename (
     identifier TEXT,

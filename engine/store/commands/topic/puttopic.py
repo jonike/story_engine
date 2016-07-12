@@ -10,7 +10,10 @@ import sqlite3
 from datetime import datetime
 
 from engine.store.models.language import Language
+from engine.store.models.datatype import DataType
+from engine.store.models.metadatum import Metadatum
 from engine.store.topicstoreexception import TopicStoreException
+from engine.store.commands.metadatum.putmetadatum import PutMetadatumCommand
 
 
 class PutTopicCommand:
@@ -36,6 +39,12 @@ class PutTopicCommand:
                                         base_name.name,
                                         self.topic.identifier,
                                         str(base_name.language)))
+                timestamp = str(datetime.now())
+                metadatum = Metadatum('creation-timestamp', timestamp, self.topic.identifier,
+                                      data_type=DataType.timestamp,
+                                      scope='*',
+                                      language=Language.en)
+            PutMetadatumCommand(self.database_path, metadatum).do()
         except sqlite3.Error as e:
             raise TopicStoreException(e)
         finally:
