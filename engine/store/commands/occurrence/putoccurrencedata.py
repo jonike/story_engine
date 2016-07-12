@@ -17,7 +17,7 @@ class PutOccurrenceDataCommand:
         self.resource_data = resource_data
 
     def do(self):
-        if self.identifier is '' or self.resource_data is None:
+        if self.identifier == '' or self.resource_data is None:
             raise TopicStoreException("Missing 'identifier' and/or 'resource data' parameters")
 
         connection = sqlite3.connect(self.database_path)
