@@ -21,7 +21,6 @@ class PutMetadatumCommand:
             raise TopicStoreException("Missing 'metadatum' parameter")
 
         connection = sqlite3.connect(self.database_path)
-        connection.row_factory = sqlite3.Row
 
         try: 
             with connection:  # https://docs.python.org/3/library/sqlite3.html#using-the-connection-as-a-context-manager
