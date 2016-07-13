@@ -9,7 +9,6 @@ import sqlite3
 
 from datetime import datetime
 
-from engine.store.models.language import Language
 from engine.store.models.datatype import DataType
 from engine.store.models.metadatum import Metadatum
 from engine.store.topicstoreexception import TopicStoreException
@@ -18,17 +17,15 @@ from engine.store.commands.metadatum.putmetadatum import PutMetadatumCommand
 
 class PutAssociationCommand:
 
-    def __init__(self, database_path, association=None, language=Language.en):
+    def __init__(self, database_path, association=None):
         self.database_path = database_path
         self.association = association
-        self.language = language
 
     def do(self):
         if self.association is None:
             raise TopicStoreException("Missing 'association' parameter")
 
         connection = sqlite3.connect(self.database_path)
-        connection.row_factory = sqlite3.Row
 
         try:
             with connection:  # https://docs.python.org/3/library/sqlite3.html#using-the-connection-as-a-context-manager
