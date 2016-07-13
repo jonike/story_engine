@@ -34,6 +34,10 @@ class Member:
     @property
     def identifier(self):
         return self.__identifier
+        
+    @property
+    def topic_refs(self):
+        return self.__topic_refs
 
     def add_topic_ref(self, topic_ref):
         if topic_ref == '':
