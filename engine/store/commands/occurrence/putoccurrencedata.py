@@ -21,7 +21,6 @@ class PutOccurrenceDataCommand:
             raise TopicStoreException("Missing 'identifier' and/or 'resource data' parameters")
 
         connection = sqlite3.connect(self.database_path)
-        connection.row_factory = sqlite3.Row
 
         cursor = connection.cursor()
         try:
