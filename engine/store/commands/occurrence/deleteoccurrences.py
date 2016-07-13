@@ -8,6 +8,7 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 import sqlite3
 
 from engine.store.topicstoreexception import TopicStoreException
+from engine.store.commands.occurrence.deleteoccurrence import DeleteOccurrenceCommand
 
 
 class DeleteOccurrencesCommand:
@@ -21,11 +22,15 @@ class DeleteOccurrencesCommand:
             raise TopicStoreException("Missing 'topic identifier' parameter")
 
         connection = sqlite3.connect(self.database_path)
+        connection.row_factory = sqlite3.Row
 
+        cursor = connection.cursor()
         try:
-            with connection:  # https://docs.python.org/3/library/sqlite3.html#using-the-connection-as-a-context-manager
-                connection.execute("DELETE FROM occurrence WHERE topic_identifier_fk = ?", (self.topic_identifier,))
-            # TODO: Delete the metadata for all of the occurrences.
+            connection.execute("SELECT identifier FROM occurrence WHERE topic_identifier_fk = ?", (self.topic_identifier,))
+            records = cursor.fetchall()
+            for record in records:
+                # TODO: Optimize.
+                DeleteOccurrenceCommand(self.database_path, record['identifier']).do()
         except sqlite3.Error as e:
             raise TopicStoreException(e)
         finally:

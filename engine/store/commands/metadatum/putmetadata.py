@@ -24,15 +24,15 @@ class PutMetadataCommand:
 
         try:
             with connection:  # https://docs.python.org/3/library/sqlite3.html#using-the-connection-as-a-context-manager
-                for metadatum in metadata:
+                for metadatum in self.metadata:
                     connection.execute("INSERT INTO metadatum (identifier, parent_identifier_fk, name, value, data_type, scope, language) VALUES (?, ?, ?, ?, ?, ?, ?)",
-                                       (self.metadatum.identifier,
-                                        self.metadatum.entity_identifier,
-                                        self.metadatum.name,
-                                        self.metadatum.value,
-                                        str(self.metadatum.data_type),
-                                        self.metadatum.scope,
-                                        str(self.metadatum.language)))
+                                       (metadatum.identifier,
+                                        metadatum.entity_identifier,
+                                        metadatum.name,
+                                        metadatum.value,
+                                        str(metadatum.data_type),
+                                        metadatum.scope,
+                                        str(metadatum.language)))
         except sqlite3.Error as e:
             raise TopicStoreException(e)
         finally:

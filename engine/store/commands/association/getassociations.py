@@ -44,6 +44,7 @@ class GetAssociationsCommand:
                     member_records = cursor.fetchall()
                     if member_records:
                         for member_record in member_records:
+                            # TODO: Optimize.
                             association = GetAssociationCommand(member_record['association_identifier_fk'], self.resolve_metadata, self.resolve_occurrences, self.language).do()
                             if association:
                                 result.append(association)

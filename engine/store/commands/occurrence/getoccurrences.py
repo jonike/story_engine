@@ -45,6 +45,7 @@ class GetOccurrencesCommand:
             for record in records:
                 resource_data = None
                 if self.inline_resource_data:
+                    # TODO: Optimize.
                     resource_data = GetOccurrenceDataCommand(self.database_path, self.identifier).do()
                 occurrence = Occurrence(
                     record['identifier'],
@@ -55,6 +56,7 @@ class GetOccurrencesCommand:
                     resource_data,
                     Language[record['language']])
                 if self.resolve_metadata is RetrievalOption.resolve_metadata:
+                    # TODO: Optimize.
                     occurrence.add_metadata(
                         GetMetadataCommand(self.database_path, self.identifier, self.language).do())
                 result.append(occurrence)

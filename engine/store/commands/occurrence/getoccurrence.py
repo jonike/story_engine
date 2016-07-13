@@ -52,6 +52,7 @@ class GetOccurrenceCommand:
                         resource_data,
                         Language[record['language']])
                 if self.resolve_metadata is RetrievalOption.resolve_metadata:
+                    # TODO: Optimize.
                     result.add_metadata(GetMetadataCommand(self.database_path, self.identifier, self.language).do())
         except sqlite3.Error as e:
             raise TopicStoreException(e)

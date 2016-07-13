@@ -24,7 +24,7 @@ class DeleteMetadataCommand:
 
         try:
             with connection:  # https://docs.python.org/3/library/sqlite3.html#using-the-connection-as-a-context-manager
-                connection.execute("DELETE FROM metadatum WHERE parent_identifier_fk = ?", (self.entity_identifier))
+                connection.execute("DELETE FROM metadatum WHERE parent_identifier_fk = ?", (self.entity_identifier,))
         except sqlite3.Error as e:
             raise TopicStoreException(e)
         finally:

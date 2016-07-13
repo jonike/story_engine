@@ -9,6 +9,7 @@ import sqlite3
 
 from datetime import datetime
 
+from engine.store.models.language import Language
 from engine.store.models.datatype import DataType
 from engine.store.models.metadatum import Metadatum
 from engine.store.topicstoreexception import TopicStoreException
@@ -36,9 +37,9 @@ class PutAssociationCommand:
                                         base_name.name,
                                         self.association.identifier,
                                         str(base_name.language)))
-                for member in association.members:
-                    connection.execute("INSERT INTO member (identifier, role_spec, association_identifier_fk) VALUES (?, ?, ?)", (member.identifier, member.role_spec, association.identifier))
-                    for topic_ref in members.topic_refs:
+                for member in self.association.members:
+                    connection.execute("INSERT INTO member (identifier, role_spec, association_identifier_fk) VALUES (?, ?, ?)", (member.identifier, member.role_spec, self.association.identifier))
+                    for topic_ref in member.topic_refs:
                         connection.execute("INSERT INTO topicref (topic_ref, member_identifier_fk) VALUES (?, ?)", (topic_ref, member.identifier))
 
             timestamp = str(datetime.now())
