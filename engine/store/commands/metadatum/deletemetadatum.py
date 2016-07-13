@@ -1,5 +1,5 @@
 """
-DeleteMetadatumCommand class. Part of the StoryTechnologies Builder project.
+DeleteOccurrenceCommand class. Part of the StoryTechnologies Builder project.
 
 July 13, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
@@ -8,9 +8,10 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 import sqlite3
 
 from engine.store.topicstoreexception import TopicStoreException
+from engine.store.commands.metadatum.deletemetadata import DeleteMetadataCommand
 
 
-class DeleteMetadatumCommand:
+class DeleteOccurrenceCommand:
 
     def __init__(self, database_path, identifier=''):
         self.database_path = database_path
@@ -24,7 +25,8 @@ class DeleteMetadatumCommand:
 
         try:
             with connection:  # https://docs.python.org/3/library/sqlite3.html#using-the-connection-as-a-context-manager
-                connection.execute("DELETE FROM metadatum WHERE identifier = ?", (self.identifier,))
+                connection.execute("DELETE FROM occurrence WHERE identifier = ?", (self.identifier,))
+            DeleteMetadataCommand(self.database_path, self.identifier).do()  # Delete the occurrence's metadata
         except sqlite3.Error as e:
             raise TopicStoreException(e)
         finally:
