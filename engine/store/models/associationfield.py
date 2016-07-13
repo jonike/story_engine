@@ -9,6 +9,6 @@ from enum import Enum
 
 
 class AssociationField(Enum):
-    instance_of = 1
-    role_spec = 2
-    topic_ref = 3
+    instance_of = 0
+    role_spec = 1
+    topic_ref = 2
