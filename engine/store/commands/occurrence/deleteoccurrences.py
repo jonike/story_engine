@@ -25,6 +25,7 @@ class DeleteOccurrencesCommand:
         try:
             with connection:  # https://docs.python.org/3/library/sqlite3.html#using-the-connection-as-a-context-manager
                 connection.execute("DELETE FROM occurrence WHERE topic_identifier_fk = ?", (self.topic_identifier,))
+            # TODO: Delete the metadata for all of the occurrences.
         except sqlite3.Error as e:
             raise TopicStoreException(e)
         finally:
