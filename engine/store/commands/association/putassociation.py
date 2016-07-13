@@ -33,17 +33,19 @@ class PutAssociationCommand:
         try:
             with connection:  # https://docs.python.org/3/library/sqlite3.html#using-the-connection-as-a-context-manager
                 connection.execute("INSERT INTO topic (identifier, instance_of, scope) VALUES (?, ?, ?)", (self.association.identifier, self.association.instance_of, self.association.scope))
-                for base_name in self.topic.base_names:
+                for base_name in self.association.base_names:
                     connection.execute("INSERT INTO basename (identifier, name, topic_identifier_fk, language) VALUES (?, ?, ?, ?)",
                                        (base_name.identifier,
                                         base_name.name,
-                                        self.topic.identifier,
+                                        self.association.identifier,
                                         str(base_name.language)))
-                # INSERT INTO member (identifier, role_spec, association_identifier_fk) VALUES (?, ?, ?)
-                # INSERT INTO topicref (topic_ref, member_identifier_fk) VALUES (?, ?)
+                for member in association.members:
+                    connection.execute("INSERT INTO member (identifier, role_spec, association_identifier_fk) VALUES (?, ?, ?)", (member.identifier, member.role_spec, association.identifier))
+                    for topic_ref in members.topic_refs:
+                        connection.execute("INSERT INTO topicref (topic_ref, member_identifier_fk) VALUES (?, ?)", (topic_ref, member.identifier))
 
             timestamp = str(datetime.now())
-            metadatum = Metadatum('creation-timestamp', timestamp, self.topic.identifier,
+            metadatum = Metadatum('creation-timestamp', timestamp, self.association.identifier,
                                   data_type=DataType.timestamp,
                                   scope='*',
                                   language=Language.en)
