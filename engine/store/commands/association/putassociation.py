@@ -13,7 +13,8 @@ from engine.store.models.language import Language
 from engine.store.models.datatype import DataType
 from engine.store.models.metadatum import Metadatum
 from engine.store.topicstoreexception import TopicStoreException
-from engine.store.commands.metadatum.putmetadatum import PutMetadatumCommand
+#from engine.store.commands.metadatum.putmetadatum import PutMetadatumCommand
+from engine.store.commands.metadatum.putmetadata import PutMetadataCommand
 
 
 class PutAssociationCommand:
@@ -43,11 +44,13 @@ class PutAssociationCommand:
                         connection.execute("INSERT INTO topicref (topic_ref, member_identifier_fk) VALUES (?, ?)", (topic_ref, member.identifier))
 
             timestamp = str(datetime.now())
-            metadatum = Metadatum('creation-timestamp', timestamp, self.association.identifier,
+            timestamp_metadatum = Metadatum('creation-timestamp', timestamp, self.association.identifier,
                                   data_type=DataType.timestamp,
                                   scope='*',
                                   language=Language.en)
-            PutMetadatumCommand(self.database_path, metadatum).do()
+            #PutMetadatumCommand(self.database_path, metadatum).do()
+            association.add_metadatum(timestamp_metadatum)
+            PutMetadataCommand(self.database_path, association.metadata)
         except sqlite3.Error as e:
             raise TopicStoreException(e)
         finally:
