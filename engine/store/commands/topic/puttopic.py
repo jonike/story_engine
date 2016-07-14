@@ -39,13 +39,14 @@ class PutTopicCommand:
                                         base_name.name,
                                         self.topic.identifier,
                                         str(base_name.language)))
+            if not topic.get_metadatum_by_key('creation-timestamp'):
                 timestamp = str(datetime.now())
                 timestamp_metadatum = Metadatum('creation-timestamp', timestamp, self.topic.identifier,
                                       data_type=DataType.timestamp,
                                       scope='*',
                                       language=Language.en)
-            #PutMetadatumCommand(self.database_path, metadatum).do()
-            topic.add_metadatum(timestamp_metadatum)
+                #PutMetadatumCommand(self.database_path, metadatum).do()
+                topic.add_metadatum(timestamp_metadatum)
             PutMetadataCommand(self.database_path, topic.metadata).do()
             
         except sqlite3.Error as e:
