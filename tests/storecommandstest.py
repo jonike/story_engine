@@ -21,7 +21,7 @@ from engine.store.models.topic import Topic
 from engine.store.models.metadatum import Metadatum
 
 
-class CommandsTest(unittest.TestCase):
+class StoreCommandsTest(unittest.TestCase):
 
     def setUp(self):
         self.database_path = '/home/brettk/Source/storytechnologies/story-engine/topics.db'
@@ -32,6 +32,7 @@ class CommandsTest(unittest.TestCase):
         if not topic_exists:
             topic1 = Topic(topic_identifier, 'topic', 'Front Page')
             PutTopicCommand(self.database_path, topic1).do()
+
         topic_exists_command = TopicExistsCommand(self.database_path)
 
         topic_exists_command.identifier = 'frontpage'
@@ -97,12 +98,12 @@ class CommandsTest(unittest.TestCase):
         if not topic_exists:
             topic1 = Topic(topic_identifier, 'topic', 'Test Topic')
             PutTopicCommand(self.database_path, topic1).do()
-        else:
-            topic2 = GetTopicCommand(self.database_path, topic_identifier, RetrievalOption.resolve_metadata).do()
 
-            self.assertEqual('Test Topic', topic2.first_base_name.name)
-            self.assertEqual(topic_identifier, topic2.identifier)
-            self.assertEqual('topic', topic2.instance_of)
+        topic2 = GetTopicCommand(self.database_path, topic_identifier, RetrievalOption.resolve_metadata).do()
+
+        self.assertEqual('Test Topic', topic2.first_base_name.name)
+        self.assertEqual(topic_identifier, topic2.identifier)
+        self.assertEqual('topic', topic2.instance_of)
 
     def testPutMetadatum(self):
         metadatum_name = 'metadatum-name'
