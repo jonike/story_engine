@@ -19,6 +19,17 @@ paths:
           description: Return topic
         404:
           description: Topic does not exist
+  '/scenes/{scene_identifier}':
+    get:
+      operationId: engine.api.service.get_scene
+      summary: Get a single scene
+      parameters:
+        - $ref: '#/parameters/scene_identifier'
+      responses:
+        200:
+          description: Return scene
+        404:
+          description: Scene does not exist
 
 parameters:
   topic_identifier:
@@ -28,4 +39,10 @@ parameters:
     type: string
     required: true
     pattern: "^\\*|[a-zA-Z0-9-]+$"
-
+  scene_identifier:
+    name: scene_identifier
+    description: Scene's unique identifier
+    in: path
+    type: string
+    required: true
+    pattern: "^[a-zA-Z0-9-]+$"
