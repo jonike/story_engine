@@ -7,7 +7,9 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 
 import sqlite3
 
+from engine.store.models.topic import Topic
 from engine.store.topicstoreexception import TopicStoreException
+from engine.store.commands.topic.puttopic import PutTopicCommand
 from engine.store.commands.map.topicfield import TopicField
 
 
@@ -48,13 +50,8 @@ class InitMapCommand:
 
     def do(self):
 
-        connection = sqlite3.connect(self.database_path)
-
-        try:
-            with connection:  # https://docs.python.org/3/library/sqlite3.html#using-the-connection-as-a-context-manager
-                pass
-        except sqlite3.Error as e:
-            raise TopicStoreException(e)
-        finally:
-            if connection:
-                connection.close()
+        put_topic_command = PutTopicCommand(self.database_path)
+        for item in self.items:
+            topic = Topic(identifier=item[TopicField.identifier.value], base_name=item[TopicField.base_name.value])
+            put_topic_command.topic = topic
+            put_topic_command.do()

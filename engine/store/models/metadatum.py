@@ -21,9 +21,12 @@ class Metadatum:
                  data_type=DataType.string,
                  scope='*',
                  language=Language.en):
-        if entity_identifier == '':
-            raise TopicStoreException("Empty 'entity identifier' parameter")
-        self.__entity_identifier = slugify(entity_identifier)
+        # self.__entity_identifier = slugify(entity_identifier)
+        if entity_identifier == '*':  # Universal Scope.
+            self.__entity_identifier = '*'
+        else:
+            self.__entity_identifier = slugify(str(entity_identifier))
+
         self.__identifier = (str(uuid.uuid1()) if identifier == '' else slugify(str(identifier)))
         self.__scope = scope if scope == '*' else slugify(scope)
 
@@ -40,7 +43,10 @@ class Metadatum:
     def entity_identifier(self, value):
         if value == '':
             raise TopicStoreException("Empty 'value' parameter")
-        self.__entity_identifier = slugify(str(value))
+        elif value == '*':  # Universal Scope.
+            self.__entity_identifier = '*'
+        else:
+            self.__entity_identifier = slugify(str(value))
 
     @property
     def identifier(self):

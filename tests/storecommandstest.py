@@ -27,15 +27,15 @@ class StoreCommandsTest(unittest.TestCase):
         self.database_path = '/home/brettk/Source/storytechnologies/story-engine/topics.db'
 
     def testTopicExistsCommand(self):
-        topic_identifier = 'frontpage'
+        topic_identifier = 'genesis'
         topic_exists = TopicExistsCommand(self.database_path, topic_identifier).do()
         if not topic_exists:
-            topic1 = Topic(topic_identifier, 'topic', 'Front Page')
+            topic1 = Topic(topic_identifier, 'topic', 'Genesis')
             PutTopicCommand(self.database_path, topic1).do()
 
         topic_exists_command = TopicExistsCommand(self.database_path)
 
-        topic_exists_command.identifier = 'frontpage'
+        topic_exists_command.identifier = 'genesis'
         existing_topic = topic_exists_command.do()
 
         topic_exists_command.identifier = 'non-existing-topic'
@@ -45,18 +45,18 @@ class StoreCommandsTest(unittest.TestCase):
         self.assertEqual(False, non_existing_topic)
 
     def testGetTopicCommand(self):
-        topic_identifier = 'frontpage'
+        topic_identifier = 'genesis'
         topic_exists = TopicExistsCommand(self.database_path, topic_identifier).do()
         if not topic_exists:
-            topic1 = Topic(topic_identifier, 'topic', 'Front Page')
+            topic1 = Topic(topic_identifier, 'topic', 'Genesis')
             PutTopicCommand(self.database_path, topic1).do()
 
-        get_topic_command = GetTopicCommand(self.database_path, 'frontpage', RetrievalOption.resolve_metadata)
+        get_topic_command = GetTopicCommand(self.database_path, 'genesis', RetrievalOption.resolve_metadata)
 
         topic1 = get_topic_command.do()
 
-        self.assertEqual('Front Page', topic1.first_base_name.name)
-        self.assertEqual('frontpage', topic1.identifier)
+        self.assertEqual('Genesis', topic1.first_base_name.name)
+        self.assertEqual('genesis', topic1.identifier)
         self.assertEqual('topic', topic1.instance_of)
 
         self.assertLess(0, len(topic1.metadata))
@@ -107,7 +107,7 @@ class StoreCommandsTest(unittest.TestCase):
 
     def testPutMetadatum(self):
         metadatum_name = 'metadatum-name'
-        metadatum1 = Metadatum(metadatum_name, 'metadatum-value', 'frontpage', data_type=DataType.string, scope='test', language=Language.es)
+        metadatum1 = Metadatum(metadatum_name, 'metadatum-value', 'genesis', data_type=DataType.string, scope='test', language=Language.es)
         PutMetadatumCommand(self.database_path, metadatum1).do()
 
         metadatum2 = GetMetadatumCommand(self.database_path, metadatum1.identifier).do()

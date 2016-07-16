@@ -20,13 +20,12 @@ class Entity:
         if instance_of == '':
             raise TopicStoreException("Empty 'instance of' parameter")
 
-        # self.__identifier = (str(uuid.uuid1()) if identifier == '' else slugify(str(identifier)))
         if identifier == '':
             self.__identifier = str(uuid.uuid1())
         elif identifier == '*':  # Universal Scope.
             self.__identifier = '*'
         else:
-            slugify(str(identifier))
+            self.__identifier = slugify(str(identifier))
 
         self.__instance_of = slugify(str(instance_of))
         self.__metadata = []

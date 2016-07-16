@@ -26,8 +26,13 @@ class Occurrence(Entity):
                  language=Language.en):
         super().__init__(identifier, instance_of)
 
-        self.__topic_identifier = (str(uuid.uuid1()) if topic_identifier is '' else slugify(str(topic_identifier)))
-        self.__scope = scope if scope == '*' else slugify(scope)
+        #self.__topic_identifier = (str(uuid.uuid1()) if topic_identifier == '' else slugify(str(topic_identifier)))
+        if topic_identifier == '*':  # Universal Scope.
+            self.__topic_identifier = '*'
+        else:
+            self.__topic_identifier = slugify(str(topic_identifier))
+
+        self.__scope = scope if scope == '*' else slugify(str(scope))
 
         self.resource_ref = resource_ref
         self.resource_data = resource_data
@@ -51,7 +56,10 @@ class Occurrence(Entity):
     def topic_identifier(self, value):
         if value == '':
             raise TopicStoreException("Empty 'value' parameter")
-        self.__topic_identifier = slugify(str(value))
+        elif value == '*':  # Universal Scope.
+            self.__topic_identifier = '*'
+        else:
+            self.__topic_identifier = slugify(str(value))
 
     def has_data(self):
         return self.resource_data is not None

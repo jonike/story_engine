@@ -19,6 +19,9 @@ class PutMetadatumCommand:
     def do(self):
         if self.metadatum is None:
             raise TopicStoreException("Missing 'metadatum' parameter")
+        else:
+            if self.metadatum.entity_identifier == '':
+                raise TopicStoreException("Metadatum has an empty 'entity identifier' property")
 
         connection = sqlite3.connect(self.database_path)
 

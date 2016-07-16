@@ -25,6 +25,9 @@ class PutOccurrenceCommand:
     def do(self):
         if self.occurrence is None:
             raise TopicStoreException("Missing 'occurrence' parameter")
+        else:
+            if self.occurrence.topic_identifier == '':
+                raise TopicStoreException("Occurrence has an empty 'topic identifier' property")
 
         connection = sqlite3.connect(self.database_path)
 
