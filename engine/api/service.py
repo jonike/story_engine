@@ -14,7 +14,7 @@ database_path = '/home/brettk/Source/storytechnologies/story-engine/topics.db'
 
 def get_topic(topic_identifier):
     get_topic_command = GetTopicCommand(database_path, topic_identifier, RetrievalOption.resolve_metadata)
-    topic = get_topic_command.execute()
+    topic = get_topic_command.do()
     if topic:
         metadata = []
         base_names = []
