@@ -5,27 +5,19 @@ July 16, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 """
 
-from engine.store.commands.topic.topicexists import TopicExistsCommand
-from engine.store.commands.topic.puttopic import PutTopicCommand
 from engine.store.models.topic import Topic
+from engine.store.models.occurrence import Occurrence
 from engine.store.models.metadatum import Metadatum
-
-from engine.core.commands.scene.sceneexception import SceneException
+from engine.core.models.scene import Scene
+from engine.core.coreexception import CoreException
 
 
 class InitSceneCommand:
 
-    def __init__(self, database_path,
-                 scene_identifier='',
-                 location=None,
-                 rotation=None,
-                 scale=None):
+    def __init__(self, database_path, scene):
         self.database_path = database_path
-        self.scene_identifier = scene_identifier
-        self.location = location
-        self.rotation = rotation
-        self.scale = scale
+        self.scene = scene
 
     def do(self):
-        if self.scene_identifier == '':
-            raise SceneException("Missing 'scene identifier' parameter")
+        if self.scene is None:
+            raise CoreException("Missing 'scene' parameter")

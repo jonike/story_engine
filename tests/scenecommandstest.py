@@ -6,10 +6,9 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 """
 
 import unittest
-import os.path
 
 from engine.core.commands.scene.initscene import InitSceneCommand
-from engine.core.commands.scene.addpath import AddPathCommand
+from engine.core.commands.scene.addnavigation import AddNavigationCommand
 from engine.core.commands.scene.addprop import AddPropCommand
 from engine.core.commands.scene.addcharacter import AddCharacterCommand
 
@@ -22,7 +21,7 @@ class SceneCommandsTest(unittest.TestCase):
     def testInitSceneCommand(self):
         pass
 
-    def testAddPathCommand(self):
+    def testAddNavigationCommand(self):
         pass
 
     def testAddPropCommand(self):

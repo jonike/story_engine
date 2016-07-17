@@ -19,6 +19,7 @@ class InitMapCommand:
         self.database_path = database_path
         self.items = {
             ('entity', 'Entity'),
+            ('topic', 'Topic'),
             ('association', 'Association'),
             ('occurrence', 'Occurrence'),
             ('*', 'Universal Scope'),
@@ -44,8 +45,7 @@ class InitMapCommand:
             ('south', 'South'),
             ('south-west', 'Southwest'),
             ('west', 'West'),
-            ('north-west', 'Northwest'),
-            ('topic', 'Topic'),
+            ('north-west', 'Northwest')
         }
 
     def do(self):

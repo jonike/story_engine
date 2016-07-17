@@ -24,7 +24,7 @@ class CreateMapCommand:
         try:
             with connection:  # https://docs.python.org/3/library/sqlite3.html#using-the-connection-as-a-context-manager
                 for statement in statements.split(';'):
-                    print(statement)
+                    print(statement)  # For debugging purposes.
                     connection.execute(statement)
         except sqlite3.Error as e:
             raise TopicStoreException(e)
