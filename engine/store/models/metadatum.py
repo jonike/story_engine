@@ -21,7 +21,6 @@ class Metadatum:
                  data_type=DataType.string,
                  scope='*',
                  language=Language.en):
-        # self.__entity_identifier = slugify(entity_identifier)
         if entity_identifier == '*':  # Universal Scope.
             self.__entity_identifier = '*'
         else:
