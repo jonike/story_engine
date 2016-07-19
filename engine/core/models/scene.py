@@ -12,3 +12,5 @@ class Scene(Entity):
 
     def __init__(self, identifier, name):
         super().__init__(identifier, 'scene', name)
+
+        self.__associations = None

@@ -30,6 +30,9 @@ class SceneCommandsTest(unittest.TestCase):
     def testAddCharacterCommand(self):
         pass
 
+    def testGetSceneCommand(self):
+        pass
+
     def tearDown(self):
         pass
 

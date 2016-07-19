@@ -21,8 +21,8 @@ class GetAssociationGroupsCommand:
         self.associations = associations
 
     def do(self):
-        if self.identifier == '':
-            raise TopicStoreException("Missing 'identifier' parameter")
+        if self.identifier == '' and self.associations is None:
+            raise TopicStoreException("At least one of the 'identifier' or 'associations' parameters is required")
         result = DoubleKeyDict()
 
         if self.associations is None:
