@@ -9,7 +9,7 @@ from engine.core.models.entity import Entity
 from engine.core.coreexception import CoreException
 
 
-class Resource(Entity):
+class Asset(Entity):
 
     def __init__(self, reference, instance_of):
         if instance_of not in {'image', 'video', 'scene'}:

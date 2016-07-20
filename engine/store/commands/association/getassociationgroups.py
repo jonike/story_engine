@@ -13,7 +13,8 @@ from engine.store.commands.association.getassociations import GetAssociationsCom
 
 class GetAssociationGroupsCommand:
 
-    def __init__(self, database_path,
+    def __init__(self,
+                 database_path='',
                  identifier='',
                  associations=None):
         self.database_path = database_path
@@ -23,10 +24,12 @@ class GetAssociationGroupsCommand:
     def do(self):
         if self.identifier == '' and self.associations is None:
             raise TopicStoreException("At least one of the 'identifier' or 'associations' parameters is required")
-        result = DoubleKeyDict()
 
-        if self.associations is None:
-            self.associations = GetAssociationsCommand(self.identifier).do()
+        if self.associations is None and self.database_path == '':
+            raise TopicStoreException("Missing 'database path' parameter")
+
+        result = DoubleKeyDict()
+        self.associations = GetAssociationsCommand(self.database_path, self.identifier).do()
 
         for association in self.associations:
             resolved_topic_refs = self._resolve_topic_refs(association)

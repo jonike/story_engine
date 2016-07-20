@@ -18,7 +18,9 @@ from engine.store.commands.metadatum.putmetadata import PutMetadataCommand
 
 class AddCharacterCommand:
 
-    def __init__(self, database_path, character=None, scene_identifier=''):
+    def __init__(self, database_path,
+                 character=None,
+                 scene_identifier=''):
         self.database_path = database_path
         self.scene_identifier = scene_identifier
         self.character = character

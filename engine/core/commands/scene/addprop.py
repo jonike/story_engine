@@ -18,7 +18,9 @@ from engine.store.commands.metadatum.putmetadata import PutMetadataCommand
 
 class AddPropCommand:
 
-    def __init__(self, database_path, prop=None, scene_identifier=''):
+    def __init__(self, database_path,
+                 prop=None,
+                 scene_identifier=''):
         self.database_path = database_path
         self.scene_identifier = scene_identifier
         self.prop = prop

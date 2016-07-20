@@ -29,8 +29,13 @@ class InitSceneCommand:
         location_metadatum = Metadatum('location', self.scene.location, topic.identifier)
         rotation_metadatum = Metadatum('rotation', self.scene.rotation, topic.identifier)
         scale_metadatum = Metadatum('scale', self.scene.scale, topic.identifier)
+        ordinal_metadatum = Metadatum('ordinal', self.scene.ordinal, topic.identifier)
 
-        PutMetadataCommand(self.database_path, [location_metadatum, rotation_metadatum, scale_metadatum])
+        PutMetadataCommand(self.database_path,
+                           [location_metadatum,
+                            rotation_metadatum,
+                            scale_metadatum,
+                            ordinal_metadatum])
 
         for resource in self.scene.resources:
             occurrence = Occurrence(

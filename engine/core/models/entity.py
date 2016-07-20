@@ -7,7 +7,7 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 
 from slugify import slugify
 
-from engine.core.models.resource import Resource
+from engine.core.models.asset import Asset
 
 
 class Entity:
@@ -23,7 +23,7 @@ class Entity:
         self.__location = location
         self.__rotation = rotation
         self.__scale = scale
-        self.__resources = []
+        self.__assets = []
 
     @property
     def identifier(self):
@@ -34,8 +34,8 @@ class Entity:
         return self.__instance_of
 
     @property
-    def resources(self):
-        return self.__resources
+    def assets(self):
+        return self.__assets
 
     @property
     def location(self):
@@ -61,11 +61,11 @@ class Entity:
     def scale(self, value):
         self.__scale = value
 
-    def add_resource(self, resource):
-        if isinstance(resource, Resource):
-            self.__resources.append(resource)
+    def add_asset(self, asset):
+        if isinstance(asset, Asset):
+            self.__assets.append(asset)
 
-    def add_resources(self, resources):
-        for resource in resources:
-            if isinstance(resource, Resource):
-                self.__resources.append(resource)
+    def add_assets(self, assets):
+        for asset in assets:
+            if isinstance(asset, Asset):
+                self.__assets.append(asset)
