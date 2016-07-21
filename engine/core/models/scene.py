@@ -27,8 +27,8 @@ class Scene(Entity):
         return GetAssociationGroupsCommand(associations=self.__associations).do()
 
     @property
-    def topics(self):
-        return self.__topics
+    def entities(self):
+        return self.__entities
 
     def add_association(self, association):
         self.__associations.append(association)

@@ -14,7 +14,7 @@ class Asset:
     """
 
     def __init__(self, reference, instance_of):
-        if instance_of not in {'image', 'video', 'scene'}:
+        if instance_of not in {'image', 'video', 'scene', 'html'}:
             raise CoreException("Unrecognized 'instance of' parameter")
         self.reference = reference
         self.instance_of = instance_of

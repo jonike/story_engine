@@ -23,7 +23,7 @@ class InitSceneCommand:
     def do(self):
         if self.scene is None:
             raise CoreException("Missing 'scene' parameter")
-        topic = Topic(self.scene.identifier. self.scene.instance_of, self.scene.name)
+        topic = Topic(self.scene.identifier, self.scene.instance_of, self.scene.name)
         PutTopicCommand(self.database_path, topic).do()
 
         location_metadatum = Metadatum('location', self.scene.location, topic.identifier)
@@ -35,11 +35,11 @@ class InitSceneCommand:
                            [location_metadatum,
                             rotation_metadatum,
                             scale_metadatum,
-                            ordinal_metadatum])
+                            ordinal_metadatum]).do()
 
-        for resource in self.scene.resources:
+        for asset in self.scene.assets:
             occurrence = Occurrence(
-                instance_of=resource.instance_of,
+                instance_of=asset.instance_of,
                 topic_identifier=topic.identifier,
-                resource_ref=resource.reference)
+                resource_ref=asset.reference)
             PutOccurrenceCommand(self.database_path, occurrence).do()

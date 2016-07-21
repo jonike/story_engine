@@ -14,15 +14,15 @@ class Entity:
 
     def __init__(self, identifier, instance_of,
                  name='Undefined',
-                 location=(0.0, 0.0, 0.0),
-                 rotation=(0.0, 0.0, 0.0),
-                 scale=1.0):
+                 location='(0.0, 0.0, 0.0)',
+                 rotation='(0.0, 0.0, 0.0)',
+                 scale='1.0'):
         self.__identifier = slugify(str(identifier))
         self.__instance_of = slugify(str(instance_of))
-        self.__name = name
-        self.__location = location
-        self.__rotation = rotation
-        self.__scale = scale
+        self.name = name
+        self.location = location
+        self.rotation = rotation
+        self.scale = scale
         self.__assets = []
 
     @property
@@ -36,30 +36,6 @@ class Entity:
     @property
     def assets(self):
         return self.__assets
-
-    @property
-    def location(self):
-        return self.__location
-
-    @location.setter
-    def location(self, value):
-        self.__location = value
-
-    @property
-    def rotation(self):
-        return self.__rotation
-
-    @rotation.setter
-    def rotation(self, value):
-        self.__rotation = value
-
-    @property
-    def scale(self):
-        return self.__scale
-
-    @scale.setter
-    def scale(self, value):
-        self.__scale = value
 
     def add_asset(self, asset):
         if isinstance(asset, Asset):
