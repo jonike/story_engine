@@ -42,7 +42,7 @@ class PutAssociationCommand:
                     for topic_ref in member.topic_refs:
                         connection.execute("INSERT INTO topicref (topic_ref, member_identifier_fk) VALUES (?, ?)", (topic_ref, member.identifier))
 
-            if not self.association.get_metadatum_by_key('creation-timestamp'):
+            if not self.association.get_metadatum_by_name('creation-timestamp'):
                 timestamp = str(datetime.now())
                 timestamp_metadatum = Metadatum('creation-timestamp', timestamp, self.association.identifier,
                                                 data_type=DataType.timestamp,

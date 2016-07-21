@@ -40,7 +40,7 @@ class PutOccurrenceCommand:
                                     self.occurrence.resource_data,
                                     self.occurrence.topic_identifier,
                                     str(self.occurrence.language)))
-            if not self.occurrence.get_metadatum_by_key('creation-timestamp'):
+            if not self.occurrence.get_metadatum_by_name('creation-timestamp'):
                 timestamp = str(datetime.now())
                 timestamp_metadatum = Metadatum('creation-timestamp', timestamp, self.occurrence.identifier,
                                                 data_type=DataType.timestamp,

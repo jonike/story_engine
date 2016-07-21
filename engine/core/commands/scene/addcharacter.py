@@ -51,4 +51,4 @@ class AddCharacterCommand:
             dest_topic_ref=self.scene_identifier,
             src_role_spec='included-in',
             dest_role_spec='part-of')
-        PutAssociationCommand(self.database_path, association)
+        PutAssociationCommand(self.database_path, association).do()

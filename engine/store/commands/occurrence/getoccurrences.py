@@ -46,7 +46,7 @@ class GetOccurrencesCommand:
                 resource_data = None
                 if self.inline_resource_data:
                     # TODO: Optimize.
-                    resource_data = GetOccurrenceDataCommand(self.database_path, self.identifier).do()
+                    resource_data = GetOccurrenceDataCommand(self.database_path, record['identifier']).do()
                 occurrence = Occurrence(
                     record['identifier'],
                     record['instance_of'],

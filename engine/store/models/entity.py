@@ -66,10 +66,10 @@ class Entity:
                 break
         return result
 
-    def get_metadatum_by_key(self, key):
+    def get_metadatum_by_name(self, name):
         result = None
         for metadatum in self.__metadata:
-            if metadatum.key == key:
+            if metadatum.name == name:
                 result = metadatum
                 break
         return result

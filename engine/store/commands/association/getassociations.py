@@ -45,7 +45,7 @@ class GetAssociationsCommand:
                     if member_records:
                         for member_record in member_records:
                             # TODO: Optimize.
-                            association = GetAssociationCommand(member_record['association_identifier_fk'], self.resolve_metadata, self.resolve_occurrences, self.language).do()
+                            association = GetAssociationCommand(self.database_path, member_record['association_identifier_fk'], self.resolve_metadata, self.resolve_occurrences, self.language).do()
                             if association:
                                 result.append(association)
         except sqlite3.Error as e:

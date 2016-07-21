@@ -38,7 +38,7 @@ class PutTopicCommand:
                                         base_name.name,
                                         self.topic.identifier,
                                         str(base_name.language)))
-            if not self.topic.get_metadatum_by_key('creation-timestamp'):
+            if not self.topic.get_metadatum_by_name('creation-timestamp'):
                 timestamp = str(datetime.now())
                 timestamp_metadatum = Metadatum('creation-timestamp', timestamp, self.topic.identifier,
                                                 data_type=DataType.timestamp,

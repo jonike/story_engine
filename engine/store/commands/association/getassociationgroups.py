@@ -22,6 +22,7 @@ class GetAssociationGroupsCommand:
         self.associations = associations
 
     def do(self):
+        # TODO: Review logic for lines 26-34.
         if self.identifier == '' and self.associations is None:
             raise TopicStoreException("At least one of the 'identifier' or 'associations' parameters is required")
 
@@ -29,14 +30,15 @@ class GetAssociationGroupsCommand:
             raise TopicStoreException("Missing 'database path' parameter")
 
         result = DoubleKeyDict()
-        self.associations = GetAssociationsCommand(self.database_path, self.identifier).do()
+        if not self.associations:
+            self.associations = GetAssociationsCommand(self.database_path, self.identifier).do()
 
         for association in self.associations:
             resolved_topic_refs = self._resolve_topic_refs(association)
             for resolved_topic_ref in resolved_topic_refs:
-                instance_of = resolved_topic_ref[AssociationField.instance_of]
-                role_spec = resolved_topic_ref[AssociationField.role_spec]
-                topic_ref = resolved_topic_ref[AssociationField.topic_ref]
+                instance_of = resolved_topic_ref[AssociationField.instance_of.value]
+                role_spec = resolved_topic_ref[AssociationField.role_spec.value]
+                topic_ref = resolved_topic_ref[AssociationField.topic_ref.value]
                 if topic_ref != self.identifier:
                     if [instance_of, role_spec] in result:
                         topic_refs = result[instance_of, role_spec]

@@ -91,12 +91,12 @@ class Topic(Entity):
         del self.__base_names[:]
 
     def add_occurrence(self, occurrence):
-        occurrence.topic_identifier = self.__identifier
+        occurrence.topic_identifier = self.identifier
         self.__occurrences.append(occurrence)
 
     def add_occurrences(self, occurrences):
         for occurrence in occurrences:
-            occurrence.topic_identifier = self.__identifier
+            occurrence.topic_identifier = self.identifier
             self.__occurrences.append(occurrence)
 
     def remove_occurrence(self, identifier):

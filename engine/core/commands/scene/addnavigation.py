@@ -32,4 +32,4 @@ class AddNavigationCommand:
             dest_topic_ref=self.dest_scene_identifier,
             src_role_spec=self.src_scene_role,
             dest_role_spec=self.dest_scene_role)
-        PutAssociationCommand(self.database_path, association)
+        PutAssociationCommand(self.database_path, association).do()

@@ -40,8 +40,7 @@ class GetAssociationCommand:
 
         cursor = connection.cursor()
         try:
-            cursor.execute("SELECT identifier, instance_of, scope FROM topic WHERE identifier = ? AND scope IS NOT NULL",
-                           (self.identifier,))
+            cursor.execute("SELECT identifier, instance_of, scope FROM topic WHERE identifier = ? AND scope IS NOT NULL", (self.identifier,))
             association_record = cursor.fetchone()
             if association_record:
                 result = Association(
@@ -58,14 +57,17 @@ class GetAssociationCommand:
                             BaseName(base_name_record['name'],
                                      Language[base_name_record['language']],
                                      base_name_record['identifier']))
-                member_records = cursor.execute("SELECT * FROM member WHERE association_identifier_fk = ?", (self.identifier,))
+                cursor.execute("SELECT * FROM member WHERE association_identifier_fk = ?", (self.identifier,))
+                member_records = cursor.fetchall()
                 if member_records:
                     for member_record in member_records:
                         role_spec = member_record['role_spec']
                         cursor.execute("SELECT * FROM topicref WHERE member_identifier_fk = ?", (member_record['identifier'],))
                         topic_ref_records = cursor.fetchall()
                         if topic_ref_records:
-                            member = Member(role_spec, identifier=member_record['identifier'])
+                            member = Member(
+                                role_spec=role_spec,
+                                identifier=member_record['identifier'])
                             for topic_ref_record in topic_ref_records:
                                 member.add_topic_ref(topic_ref_record['topic_ref'])
                             result.add_member(member)
