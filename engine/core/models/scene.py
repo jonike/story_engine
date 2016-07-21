@@ -14,9 +14,9 @@ class Scene(Entity):
     def __init__(self, identifier, name, ordinal=-1):
         super().__init__(identifier, 'scene', name)
         self.__associations = []
-        self.__topics = []
+        self.__entities = []  # Characters and props.
 
-        self.ordinal = ordinal
+        self.ordinal = ordinal  # The ordinal indicates the scene's position in the sceneline.
 
     @property
     def associations(self):
@@ -31,13 +31,15 @@ class Scene(Entity):
         return self.__topics
 
     def add_association(self, association):
-        pass
+        self.__associations.append(association)
 
     def add_associations(self, associations):
-        pass
+        for association in associations:
+            self.__associations.append(association)
 
-    def add_topic(self, topic):
-        pass
+    def add_entity(self, entity):
+        self.__entities.append(entity)
 
-    def add_topics(self, topics):
-        pass
+    def add_entities(self, entities):
+        for entity in entities:
+            self.__entities.append(entity)

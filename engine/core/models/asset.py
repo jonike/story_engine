@@ -5,11 +5,13 @@ July 19, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 """
 
-from engine.core.models.entity import Entity
 from engine.core.coreexception import CoreException
 
 
-class Asset(Entity):
+class Asset:
+    """
+    An asset is either a character or a prop to be placed within a scene.
+    """
 
     def __init__(self, reference, instance_of):
         if instance_of not in {'image', 'video', 'scene'}:

@@ -32,8 +32,12 @@ class GetSceneCommand:
 
                 self.result.add_associations(GetAssociationsCommand(self.database_path, self.scene_identifier))
 
-                # TODO: Implement retrieval of related topics (i.e., characters and props).
-
+                if self.result.associations:
+                    groups = self.result.association_groups
+                    for instance_of in groups.dict:
+                        for role in groups.dict[instance_of]:
+                            for topic_ref in groups[instance_of, role]:
+                                self.result.add_entity(GetTopicCommand(self.database_path, topic_ref, RetrievalOption.resolve_metadata, RetrievalOption.resolve_occurrences))
         except TopicStoreException as e:
             raise CoreException(e)
         return self.result

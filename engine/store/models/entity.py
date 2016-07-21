@@ -56,7 +56,7 @@ class Entity:
             self.__metadata.append(metadatum)
 
     def remove_metadatum(self, identifier):
-        self.__metadata[:] = [x for x in self.__metadata if x.identifier != identifier]  # TODO: Verify correctness.
+        self.__metadata[:] = [x for x in self.__metadata if x.identifier != identifier]
 
     def get_metadatum(self, identifier):
         result = None

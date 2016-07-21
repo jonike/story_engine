@@ -38,11 +38,11 @@ class AddCharacterCommand:
 
         PutMetadataCommand(self.database_path, [location_metadatum, rotation_metadatum, scale_metadatum])
 
-        for resource in self.character.resources:
+        for asset in self.character.assets:
             occurrence = Occurrence(
-                instance_of=resource.instance_of,
+                instance_of=asset.instance_of,
                 topic_identifier=topic.identifier,
-                resource_ref=resource.reference)
+                resource_ref=asset.reference)
             PutOccurrenceCommand(self.database_path, occurrence).do()
 
         association = Association(
