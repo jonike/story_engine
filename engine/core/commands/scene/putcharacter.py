@@ -1,5 +1,5 @@
 """
-AddCharacterCommand class. Part of the StoryTechnologies Builder project.
+PutCharacterCommand class. Part of the StoryTechnologies Builder project.
 
 July 16, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)

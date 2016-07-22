@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  title: StoryTechnologies Scene API
+  title: StoryTechnologies Story API
   version: '0.1'
 consumes:
   - application/json
@@ -19,17 +19,39 @@ paths:
           description: Return topic
         404:
           description: Topic does not exist
-  '/scenes/{scene_identifier}':
+  '/scenes/{entity_identifier}':
     get:
       operationId: engine.api.service.get_scene
       summary: Get a single scene
       parameters:
-        - $ref: '#/parameters/scene_identifier'
+        - $ref: '#/parameters/entity_identifier'
       responses:
         200:
           description: Return scene
         404:
           description: Scene does not exist
+  '/props/{entity_identifier}':
+    get:
+      operationId: engine.api.service.get_prop
+      summary: Get a single prop
+      parameters:
+        - $ref: '#/parameters/entity_identifier'
+      responses:
+        200:
+          description: Return prop
+        404:
+          description: Prop does not exist
+  '/characters/{entity_identifier}':
+    get:
+      operationId: engine.api.service.get_character
+      summary: Get a single character
+      parameters:
+        - $ref: '#/parameters/entity_identifier'
+      responses:
+        200:
+          description: Return character
+        404:
+          description: Character does not exist
 
 parameters:
   topic_identifier:
@@ -39,9 +61,9 @@ parameters:
     type: string
     required: true
     pattern: "^\\*|[a-zA-Z0-9-]+$"
-  scene_identifier:
-    name: scene_identifier
-    description: Scene's unique identifier
+  entity_identifier:
+    name: entity_identifier
+    description: Entity's unique identifier
     in: path
     type: string
     required: true

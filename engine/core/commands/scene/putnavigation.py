@@ -1,5 +1,5 @@
 """
-AddNavigationCommand class. Part of the StoryTechnologies Builder project.
+PutNavigationCommand class. Part of the StoryTechnologies Builder project.
 
 July 16, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)

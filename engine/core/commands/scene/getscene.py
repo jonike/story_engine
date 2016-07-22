@@ -35,6 +35,7 @@ class GetSceneCommand:
 
                 self.result.add_associations(GetAssociationsCommand(self.database_path, self.identifier).do())
 
+                # Add scene's entities (props and characters).
                 if self.result.associations:
                     groups = self.result.association_groups
                     for instance_of in groups.dict:
@@ -43,7 +44,6 @@ class GetSceneCommand:
                             break
                         for role in groups.dict[instance_of]:
                             for topic_ref in groups[instance_of, role]:
-                                # self.result.add_entity(GetTopicCommand(self.database_path, topic_ref, RetrievalOption.resolve_metadata, RetrievalOption.resolve_occurrences).do())
                                 if instance_of == 'prop':
                                     self.result.add_entity(GetPropCommand(self.database_path, topic_ref).do())
                                 elif instance_of == 'character':
