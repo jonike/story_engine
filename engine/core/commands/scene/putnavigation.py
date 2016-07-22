@@ -10,7 +10,7 @@ from engine.core.coreexception import CoreException
 from engine.store.commands.association.putassociation import PutAssociationCommand
 
 
-class AddNavigationCommand:
+class PutNavigationCommand:
 
     def __init__(self, database_path,
                  src_scene_identifier='',

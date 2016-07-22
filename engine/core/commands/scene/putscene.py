@@ -14,7 +14,7 @@ from engine.store.commands.occurrence.putoccurrence import PutOccurrenceCommand
 from engine.store.commands.metadatum.putmetadata import PutMetadataCommand
 
 
-class InitSceneCommand:
+class PutSceneCommand:
 
     def __init__(self, database_path, scene):
         self.database_path = database_path

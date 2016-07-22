@@ -39,6 +39,7 @@ class GetSceneCommand:
                             break
                         for role in groups.dict[instance_of]:
                             for topic_ref in groups[instance_of, role]:
+                                # TODO: Refactor to get the appropriate type of object (i.e., character or prop).
                                 self.result.add_entity(GetTopicCommand(self.database_path, topic_ref, RetrievalOption.resolve_metadata, RetrievalOption.resolve_occurrences).do())
         except TopicStoreException as e:
             raise CoreException(e)
