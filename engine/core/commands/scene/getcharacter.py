@@ -6,7 +6,12 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 """
 
 from engine.core.coreexception import CoreException
+from engine.core.models.asset import Asset
+from engine.core.models.character import Character
+from engine.store.commands.occurrence.getoccurrences import GetOccurrencesCommand
 from engine.store.topicstoreexception import TopicStoreException
+from engine.store.commands.topic.gettopic import GetTopicCommand
+from engine.store.retrievaloption import RetrievalOption
 
 
 class GetCharacterCommand:
@@ -19,7 +24,16 @@ class GetCharacterCommand:
             raise CoreException("Missing 'identifier' parameter")
         result = None
         try:
-            pass
+            topic = GetTopicCommand(self.database_path, self.identifier, RetrievalOption.resolve_metadata).do()
+            if topic:
+                result = Character(topic.identifier, topic.first_base_name.name)
+                result.location = topic.get_metadatum_by_name('location').value
+                result.rotation = topic.get_metadatum_by_name('rotation').value
+                result.scale = topic.get_metadatum_by_name('scale').value
+
+                occurrences = GetOccurrencesCommand(self.database_path, self.identifier).do()
+                for occurrence in occurrences:
+                    result.add_asset(Asset(occurrence.resource_ref, occurrence.instance_of))
         except TopicStoreException as e:
             raise CoreException(e)
         return result
