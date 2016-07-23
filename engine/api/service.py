@@ -6,6 +6,9 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 """
 from engine.core.models.character import Character
 from engine.core.models.prop import Prop
+from engine.store.commands.association.getassociation import GetAssociationCommand
+from engine.store.commands.metadatum.getmetadatum import GetMetadatumCommand
+from engine.store.commands.occurrence.getoccurrence import GetOccurrenceCommand
 from engine.store.commands.topic.gettopic import GetTopicCommand
 from engine.store.retrievaloption import RetrievalOption
 from engine.core.commands.scene.getscene import GetSceneCommand
@@ -51,10 +54,33 @@ def get_topic(topic_identifier):
         return "Not found", 404
 
 
+def get_occurrence(entity_identifier):
+    occurrence = GetOccurrenceCommand(database_path, entity_identifier).do()
+    if occurrence:
+        return "Occurrence found", 200
+    else:
+        return "Not found", 404
+
+
+def get_association(entity_identifier):
+    association = GetAssociationCommand(database_path, entity_identifier)
+    if association:
+        return "Association found", 200
+    else:
+        return "Not found", 404
+
+
+def get_metadatum(entity_identifier):
+    metadatum = GetMetadatumCommand(database_path, entity_identifier)
+    if metadatum:
+        return "Metadatum found", 200
+    else:
+        return "Not found", 404
+
+
 def get_scene(entity_identifier):
     scene = GetSceneCommand(database_path, entity_identifier).do()
     if scene:
-        associations = []
         assets = []
         entities = []
         props = []
@@ -110,7 +136,6 @@ def get_scene(entity_identifier):
                 'scale': scene.scale,
                 'ordinal': scene.ordinal,
                 'assets': assets,
-                'associations': associations,
                 'entities': entities
             }
         }
@@ -120,9 +145,25 @@ def get_scene(entity_identifier):
 
 
 def get_prop(entity_identifier):
-    prop = GetPropCommand(database_path, entity_identifier)
+    prop = GetPropCommand(database_path, entity_identifier).do()
     if prop:
-        return "Not implemented", 200
+        assets = []
+        for asset in prop.assets:
+            assets.append({
+                'reference': asset.reference,
+                'instanceOf': asset.instance_of
+            })
+        result = {
+            'prop': {
+                'identifier': prop.identifier,
+                'name': prop.name,
+                'location': prop.location,
+                'rotation': prop.rotation,
+                'scale': prop.scale,
+                'assets': assets
+            }
+        }
+        return result, 200
     else:
         return "Not found", 404
 
@@ -130,6 +171,22 @@ def get_prop(entity_identifier):
 def get_character(entity_identifier):
     character = GetCharacterCommand(database_path, entity_identifier)
     if character:
-        return "Not implemented", 200
+        assets = []
+        for asset in character.assets:
+            assets.append({
+                'reference': asset.reference,
+                'instanceOf': asset.instance_of
+            })
+        result = {
+            'character': {
+                'identifier': character.identifier,
+                'name': character.name,
+                'location': character.location,
+                'rotation': character.rotation,
+                'scale': character.scale,
+                'assets': assets
+            }
+        }
+        return result, 200
     else:
         return "Not found", 404
