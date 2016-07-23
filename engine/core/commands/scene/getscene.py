@@ -8,6 +8,7 @@ from engine.core.commands.scene.getcharacter import GetCharacterCommand
 from engine.core.commands.scene.getprop import GetPropCommand
 from engine.core.coreexception import CoreException
 from engine.core.models.asset import Asset
+from engine.core.models.path import Path
 from engine.store.commands.occurrence.getoccurrences import GetOccurrencesCommand
 from engine.store.topicstoreexception import TopicStoreException
 from engine.store.commands.topic.gettopic import GetTopicCommand
@@ -39,14 +40,14 @@ class GetSceneCommand:
                 if self.result.associations:
                     groups = self.result.association_groups
                     for instance_of in groups.dict:
-                        # Do not include the (related) scene topics.
-                        if instance_of == 'navigation':
-                            continue
                         for role in groups.dict[instance_of]:
                             for topic_ref in groups[instance_of, role]:
                                 if topic_ref == self.identifier:
                                     continue
-                                if instance_of == 'prop':
+                                if instance_of == 'navigation':
+                                    path = Path(role, topic_ref)
+                                    self.result.add_path(path)
+                                elif instance_of == 'prop':
                                     self.result.add_entity(GetPropCommand(self.database_path, topic_ref).do())
                                 elif instance_of == 'character':
                                     self.result.add_entity(GetCharacterCommand(self.database_path, topic_ref).do())

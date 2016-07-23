@@ -85,6 +85,7 @@ def get_scene(entity_identifier):
         entities = []
         props = []
         characters = []
+        paths = []
         for entity in scene.entities:
             if isinstance(entity, Prop):
                 prop_assets = []
@@ -127,6 +128,11 @@ def get_scene(entity_identifier):
                 'reference': asset.reference,
                 'instanceOf': asset.instance_of
             })
+        for path in scene.paths:
+            paths.append({
+                'direction': path.direction,
+                'to': path.to
+            })
         result = {
             'scene': {
                 'identifier': scene.identifier,
@@ -136,7 +142,8 @@ def get_scene(entity_identifier):
                 'scale': scene.scale,
                 'ordinal': scene.ordinal,
                 'assets': assets,
-                'entities': entities
+                'entities': entities,
+                'paths': paths
             }
         }
         return result, 200

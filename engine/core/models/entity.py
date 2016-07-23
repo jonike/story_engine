@@ -8,6 +8,7 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 from slugify import slugify
 
 from engine.core.models.asset import Asset
+from engine.core.models.path import Path
 
 
 class Entity:
@@ -24,6 +25,7 @@ class Entity:
         self.rotation = rotation
         self.scale = scale
         self.__assets = []
+        self.__paths = []
 
     @property
     def identifier(self):
@@ -45,3 +47,16 @@ class Entity:
         for asset in assets:
             if isinstance(asset, Asset):
                 self.__assets.append(asset)
+
+    @property
+    def paths(self):
+        return self.__paths
+
+    def add_path(self, path):
+        if isinstance(path, Path):
+            self.__paths.append(path)
+
+    def add_paths(self, paths):
+        for path in paths:
+            if isinstance(path, Path):
+                self.__paths.append(path)

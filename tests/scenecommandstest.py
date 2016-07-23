@@ -41,7 +41,7 @@ class SceneCommandsTest(unittest.TestCase):
         self.assertTrue(True, TopicExistsCommand(self.database_path, 'scene-001').do())
         self.assertTrue(True, TopicExistsCommand(self.database_path, 'scene-002').do())
 
-        PutNavigationCommand(self.database_path, 'scene-001', 'scene-002').do()
+        PutNavigationCommand(self.database_path, 'scene-001', 'scene-002', 'south', 'north').do()
 
         prop1 = Prop('prop-001', 'Test Prop 001')
         prop1.location = '(1.0, 2.0, 3.0)'
