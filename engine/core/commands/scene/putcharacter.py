@@ -29,14 +29,14 @@ class PutCharacterCommand:
         if self.scene_identifier == '' or self.character is None:
             raise CoreException("Missing 'scene identifier' or 'character' parameter")
 
-        topic = Topic(self.character.identifier.self.character.instance_of, self.character.name)
+        topic = Topic(self.character.identifier, self.character.instance_of, self.character.name)
         PutTopicCommand(self.database_path, topic).do()
 
         location_metadatum = Metadatum('location', self.character.location, topic.identifier)
         rotation_metadatum = Metadatum('rotation', self.character.rotation, topic.identifier)
         scale_metadatum = Metadatum('scale', self.character.scale, topic.identifier)
 
-        PutMetadataCommand(self.database_path, [location_metadatum, rotation_metadatum, scale_metadatum])
+        PutMetadataCommand(self.database_path, [location_metadatum, rotation_metadatum, scale_metadatum]).do()
 
         for asset in self.character.assets:
             occurrence = Occurrence(

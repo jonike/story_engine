@@ -18,14 +18,13 @@ class MapCommandsTest(unittest.TestCase):
     def setUp(self):
         self.database_path = '/home/brettk/Source/storytechnologies/story-engine/topics.db'
 
-    def testCreateMapCommand(self):
+    def testMapCommands(self):
         if not os.path.isfile(self.database_path):
             create_map_command = CreateMapCommand(self.database_path)
             create_map_command.do()
 
         self.assertEqual(True, os.path.isfile(self.database_path))
 
-    def testInitMapCommand(self):
         if not TopicExistsCommand(self.database_path, 'genesis').do():
             InitMapCommand(self.database_path).do()
 

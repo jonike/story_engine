@@ -29,14 +29,14 @@ class PutPropCommand:
         if self.scene_identifier == '' or self.prop is None:
             raise CoreException("Missing 'scene identifier' or 'property' parameter")
 
-        topic = Topic(self.prop.identifier.self.prop.instance_of, self.prop.name)
+        topic = Topic(self.prop.identifier, self.prop.instance_of, self.prop.name)
         PutTopicCommand(self.database_path, topic).do()
 
         location_metadatum = Metadatum('location', self.prop.location, topic.identifier)
         rotation_metadatum = Metadatum('rotation', self.prop.rotation, topic.identifier)
         scale_metadatum = Metadatum('scale', self.prop.scale, topic.identifier)
 
-        PutMetadataCommand(self.database_path, [location_metadatum, rotation_metadatum, scale_metadatum])
+        PutMetadataCommand(self.database_path, [location_metadatum, rotation_metadatum, scale_metadatum]).do()
 
         for asset in self.prop.assets:
             occurrence = Occurrence(

@@ -39,11 +39,13 @@ class GetSceneCommand:
                 if self.result.associations:
                     groups = self.result.association_groups
                     for instance_of in groups.dict:
-                        # Do not include the scene topics.
-                        if instance_of == 'navigation':  # TODO: Test.
-                            break
+                        # Do not include the (related) scene topics.
+                        if instance_of == 'navigation':
+                            continue
                         for role in groups.dict[instance_of]:
                             for topic_ref in groups[instance_of, role]:
+                                if topic_ref == self.identifier:
+                                    continue
                                 if instance_of == 'prop':
                                     self.result.add_entity(GetPropCommand(self.database_path, topic_ref).do())
                                 elif instance_of == 'character':

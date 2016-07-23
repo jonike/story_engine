@@ -61,9 +61,46 @@ def get_scene(entity_identifier):
         characters = []
         for entity in scene.entities:
             if isinstance(entity, Prop):
-                pass
+                prop_assets = []
+                for prop_asset in entity.assets:
+                    prop_assets.append({
+                        'reference': prop_asset.reference,
+                        'instanceOf': prop_asset.instance_of
+                    })
+                props.append({
+                    'identifier': entity.identifier,
+                    'name': entity.name,
+                    'location': entity.location,
+                    'rotation': entity.rotation,
+                    'scale': entity.scale,
+                    'assets': prop_assets
+                })
             elif isinstance(entity, Character):
-                pass
+                character_assets = []
+                for character_asset in entity.assets:
+                    character_assets.append({
+                        'reference': character_asset.reference,
+                        'instanceOf': character_asset.instance_of
+                    })
+                characters.append({
+                    'identifier': entity.identifier,
+                    'name': entity.name,
+                    'location': entity.location,
+                    'rotation': entity.rotation,
+                    'scale': entity.scale,
+                    'assets': character_assets
+                })
+        entities.append({
+            'props': props
+        })
+        entities.append({
+            'characters': characters
+        })
+        for asset in scene.assets:
+            assets.append({
+                'reference': asset.reference,
+                'instanceOf': asset.instance_of
+            })
         result = {
             'scene': {
                 'identifier': scene.identifier,
