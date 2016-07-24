@@ -7,8 +7,11 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 
 import connexion
 
+from flask_cors import CORS
+
 
 app = connexion.App(__name__)
+CORS(app.app)
 app.add_api('swagger.yaml')
 application = app.app
 

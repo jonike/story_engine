@@ -15,8 +15,8 @@ class Entity:
 
     def __init__(self, identifier, instance_of,
                  name='Undefined',
-                 location='(0.0, 0.0, 0.0)',
-                 rotation='(0.0, 0.0, 0.0)',
+                 location='[0.0, 0.0, 0.0]',  # The x, y, and z coordinates.
+                 rotation='[0.0, 0.0, 0.0, 0.0]',  # The x, y, z, and w coordinates.
                  scale='1.0'):
         self.__identifier = slugify(str(identifier))
         self.__instance_of = slugify(str(instance_of))

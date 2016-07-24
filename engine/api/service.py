@@ -4,6 +4,7 @@ Scene API functions. Part of the StoryTechnologies Builder project.
 July 09, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 """
+
 from engine.core.models.character import Character
 from engine.core.models.prop import Prop
 from engine.store.commands.association.getassociation import GetAssociationCommand
@@ -57,6 +58,7 @@ def get_topic(topic_identifier):
 def get_occurrence(entity_identifier):
     occurrence = GetOccurrenceCommand(database_path, entity_identifier).do()
     if occurrence:
+        # TODO: Implementation.
         return "Occurrence found", 200
     else:
         return "Not found", 404
@@ -65,6 +67,7 @@ def get_occurrence(entity_identifier):
 def get_association(entity_identifier):
     association = GetAssociationCommand(database_path, entity_identifier)
     if association:
+        # TODO: Implementation.
         return "Association found", 200
     else:
         return "Not found", 404
@@ -73,6 +76,7 @@ def get_association(entity_identifier):
 def get_metadatum(entity_identifier):
     metadatum = GetMetadatumCommand(database_path, entity_identifier)
     if metadatum:
+        # TODO: Implementation.
         return "Metadatum found", 200
     else:
         return "Not found", 404
@@ -82,7 +86,6 @@ def get_scene(entity_identifier):
     scene = GetSceneCommand(database_path, entity_identifier).do()
     if scene:
         assets = []
-        entities = []
         props = []
         characters = []
         paths = []
@@ -117,12 +120,10 @@ def get_scene(entity_identifier):
                     'scale': entity.scale,
                     'assets': character_assets
                 })
-        entities.append({
-            'props': props
-        })
-        entities.append({
+        entities = {
+            'props': props,
             'characters': characters
-        })
+        }
         for asset in scene.assets:
             assets.append({
                 'reference': asset.reference,
@@ -176,7 +177,7 @@ def get_prop(entity_identifier):
 
 
 def get_character(entity_identifier):
-    character = GetCharacterCommand(database_path, entity_identifier)
+    character = GetCharacterCommand(database_path, entity_identifier).do()
     if character:
         assets = []
         for asset in character.assets:
