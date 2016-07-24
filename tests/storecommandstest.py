@@ -11,9 +11,9 @@ from engine.store.commands.topic.topicexists import TopicExistsCommand
 from engine.store.commands.occurrence.occurrenceexists import OccurrenceExistsCommand
 from engine.store.commands.topic.gettopic import GetTopicCommand
 from engine.store.commands.metadatum.getmetadatum import GetMetadatumCommand
-from engine.store.commands.metadatum.putmetadatum import PutMetadatumCommand
+from engine.store.commands.metadatum.setmetadatum import SetMetadatumCommand
 from engine.store.commands.occurrence.getoccurrence import GetOccurrenceCommand
-from engine.store.commands.topic.puttopic import PutTopicCommand
+from engine.store.commands.topic.settopic import SetTopicCommand
 from engine.store.retrievaloption import RetrievalOption
 from engine.store.models.language import Language
 from engine.store.models.datatype import DataType
@@ -31,7 +31,7 @@ class StoreCommandsTest(unittest.TestCase):
         topic_exists = TopicExistsCommand(self.database_path, topic_identifier).do()
         if not topic_exists:
             topic1 = Topic(topic_identifier, 'topic', 'Genesis')
-            PutTopicCommand(self.database_path, topic1).do()
+            SetTopicCommand(self.database_path, topic1).do()
 
         topic_exists_command = TopicExistsCommand(self.database_path)
 
@@ -49,7 +49,7 @@ class StoreCommandsTest(unittest.TestCase):
         topic_exists = TopicExistsCommand(self.database_path, topic_identifier).do()
         if not topic_exists:
             topic1 = Topic(topic_identifier, 'topic', 'Genesis')
-            PutTopicCommand(self.database_path, topic1).do()
+            SetTopicCommand(self.database_path, topic1).do()
 
         get_topic_command = GetTopicCommand(self.database_path, 'genesis', RetrievalOption.resolve_metadata)
 
@@ -92,12 +92,12 @@ class StoreCommandsTest(unittest.TestCase):
     #     self.assertEqual(True, existing_occurrence)
     #     self.assertEqual(False, non_existing_occurrence)
 
-    def testPutTopicCommand(self):
+    def testSetTopicCommand(self):
         topic_identifier = 'test-topic2'
         topic_exists = TopicExistsCommand(self.database_path, topic_identifier).do()
         if not topic_exists:
             topic1 = Topic(topic_identifier, 'topic', 'Test Topic')
-            PutTopicCommand(self.database_path, topic1).do()
+            SetTopicCommand(self.database_path, topic1).do()
 
         topic2 = GetTopicCommand(self.database_path, topic_identifier, RetrievalOption.resolve_metadata).do()
 
@@ -105,10 +105,10 @@ class StoreCommandsTest(unittest.TestCase):
         self.assertEqual(topic_identifier, topic2.identifier)
         self.assertEqual('topic', topic2.instance_of)
 
-    def testPutMetadatum(self):
+    def testSetMetadatum(self):
         metadatum_name = 'metadatum-name'
         metadatum1 = Metadatum(metadatum_name, 'metadatum-value', 'genesis', data_type=DataType.string, scope='test', language=Language.es)
-        PutMetadatumCommand(self.database_path, metadatum1).do()
+        SetMetadatumCommand(self.database_path, metadatum1).do()
 
         metadatum2 = GetMetadatumCommand(self.database_path, metadatum1.identifier).do()
 
@@ -116,7 +116,7 @@ class StoreCommandsTest(unittest.TestCase):
         self.assertEqual('metadatum-value', metadatum2.value)
         self.assertEqual(metadatum2.identifier, metadatum1.identifier)
 
-    def testPutOccurrence(self):
+    def testSetOccurrence(self):
         pass
 
     def tearDown(self):

@@ -14,6 +14,7 @@ from engine.store.commands.metadatum.getmetadata import GetMetadataCommand
 from engine.store.models.occurrence import Occurrence
 from engine.store.models.language import Language
 
+
 class GetOccurrenceCommand:
 
     def __init__(self, database_path,

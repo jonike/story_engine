@@ -1,5 +1,5 @@
 """
-PutOccurrenceCommand class. Part of the StoryTechnologies Builder project.
+SetOccurrenceCommand class. Part of the StoryTechnologies Builder project.
 
 July 12, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
@@ -12,11 +12,11 @@ from datetime import datetime
 from engine.store.models.language import Language
 from engine.store.models.datatype import DataType
 from engine.store.models.metadatum import Metadatum
-from engine.store.commands.metadatum.putmetadata import PutMetadataCommand
+from engine.store.commands.metadatum.setmetadata import SetMetadataCommand
 from engine.store.topicstoreexception import TopicStoreException
 
 
-class PutOccurrenceCommand:
+class SetOccurrenceCommand:
 
     def __init__(self, database_path, occurrence=None):
         self.database_path = database_path
@@ -47,7 +47,7 @@ class PutOccurrenceCommand:
                                                 scope='*',
                                                 language=Language.en)
                 self.occurrence.add_metadatum(timestamp_metadatum)
-            PutMetadataCommand(self.database_path, self.occurrence.metadata)
+            SetMetadataCommand(self.database_path, self.occurrence.metadata).do()
         except sqlite3.Error as e:
             raise TopicStoreException(e)
         finally:

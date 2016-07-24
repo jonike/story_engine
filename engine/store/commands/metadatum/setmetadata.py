@@ -1,15 +1,15 @@
 """
-PutMetadataCommand class. Part of the StoryTechnologies Builder project.
+SetMetadataCommand class. Part of the StoryTechnologies Builder project.
 
 July 13, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 """
 
 from engine.store.topicstoreexception import TopicStoreException
-from engine.store.commands.metadatum.putmetadatum import PutMetadatumCommand
+from engine.store.commands.metadatum.setmetadatum import SetMetadatumCommand
 
 
-class PutMetadataCommand:
+class SetMetadataCommand:
 
     def __init__(self, database_path, metadata=None):
         self.database_path = database_path
@@ -19,7 +19,7 @@ class PutMetadataCommand:
         if self.metadata is None:
             raise TopicStoreException("Missing 'metadata' parameter")
 
-        put_metadatum_command = PutMetadatumCommand(self.database_path)
+        set_metadatum_command = SetMetadatumCommand(self.database_path)
         for metadatum in self.metadata:
-            put_metadatum_command.metadatum = metadatum
-            put_metadatum_command.do()
+            set_metadatum_command.metadatum = metadatum
+            set_metadatum_command.do()

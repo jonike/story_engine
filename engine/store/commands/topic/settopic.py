@@ -1,5 +1,5 @@
 """
-PutTopicCommand class. Part of the StoryTechnologies Builder project.
+SetTopicCommand class. Part of the StoryTechnologies Builder project.
 
 July 12, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
@@ -13,10 +13,10 @@ from engine.store.models.language import Language
 from engine.store.models.datatype import DataType
 from engine.store.models.metadatum import Metadatum
 from engine.store.topicstoreexception import TopicStoreException
-from engine.store.commands.metadatum.putmetadata import PutMetadataCommand
+from engine.store.commands.metadatum.setmetadata import SetMetadataCommand
 
 
-class PutTopicCommand:
+class SetTopicCommand:
 
     def __init__(self, database_path, topic=None, language=Language.en):
         self.database_path = database_path
@@ -45,8 +45,7 @@ class PutTopicCommand:
                                                 scope='*',
                                                 language=Language.en)
                 self.topic.add_metadatum(timestamp_metadatum)
-            PutMetadataCommand(self.database_path, self.topic.metadata).do()
-            
+            SetMetadataCommand(self.database_path, self.topic.metadata).do()
         except sqlite3.Error as e:
             raise TopicStoreException(e)
         finally:

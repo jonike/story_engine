@@ -1,5 +1,5 @@
 """
-PutCharacterCommand class. Part of the StoryTechnologies Builder project.
+SetCharacterCommand class. Part of the StoryTechnologies Builder project.
 
 July 16, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
@@ -10,13 +10,13 @@ from engine.store.models.occurrence import Occurrence
 from engine.store.models.association import Association
 from engine.store.models.metadatum import Metadatum
 from engine.core.coreexception import CoreException
-from engine.store.commands.topic.puttopic import PutTopicCommand
-from engine.store.commands.occurrence.putoccurrence import PutOccurrenceCommand
-from engine.store.commands.association.putassociation import PutAssociationCommand
-from engine.store.commands.metadatum.putmetadata import PutMetadataCommand
+from engine.store.commands.topic.settopic import SetTopicCommand
+from engine.store.commands.occurrence.setoccurrence import SetOccurrenceCommand
+from engine.store.commands.association.setassociation import SetAssociationCommand
+from engine.store.commands.metadatum.setmetadata import SetMetadataCommand
 
 
-class PutCharacterCommand:
+class SetCharacterCommand:
 
     def __init__(self, database_path,
                  character=None,
@@ -30,20 +30,20 @@ class PutCharacterCommand:
             raise CoreException("Missing 'scene identifier' or 'character' parameter")
 
         topic = Topic(self.character.identifier, self.character.instance_of, self.character.name)
-        PutTopicCommand(self.database_path, topic).do()
+        SetTopicCommand(self.database_path, topic).do()
 
         location_metadatum = Metadatum('location', self.character.location, topic.identifier)
         rotation_metadatum = Metadatum('rotation', self.character.rotation, topic.identifier)
         scale_metadatum = Metadatum('scale', self.character.scale, topic.identifier)
 
-        PutMetadataCommand(self.database_path, [location_metadatum, rotation_metadatum, scale_metadatum]).do()
+        SetMetadataCommand(self.database_path, [location_metadatum, rotation_metadatum, scale_metadatum]).do()
 
         for asset in self.character.assets:
             occurrence = Occurrence(
                 instance_of=asset.instance_of,
                 topic_identifier=topic.identifier,
                 resource_ref=asset.reference)
-            PutOccurrenceCommand(self.database_path, occurrence).do()
+            SetOccurrenceCommand(self.database_path, occurrence).do()
 
         association = Association(
             instance_of='character',
@@ -51,4 +51,4 @@ class PutCharacterCommand:
             dest_topic_ref=self.scene_identifier,
             src_role_spec='included-in',
             dest_role_spec='part-of')
-        PutAssociationCommand(self.database_path, association).do()
+        SetAssociationCommand(self.database_path, association).do()

@@ -1,5 +1,5 @@
 """
-PutOccurrenceDataCommand class. Part of the StoryTechnologies Builder project.
+SetOccurrenceDataCommand class. Part of the StoryTechnologies Builder project.
 
 July 04, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
@@ -10,7 +10,7 @@ import sqlite3
 from engine.store.topicstoreexception import TopicStoreException
 
 
-class PutOccurrenceDataCommand:
+class SetOccurrenceDataCommand:
     def __init__(self, database_path, identifier='', resource_data=None):
         self.database_path = database_path
         self.identifier = identifier

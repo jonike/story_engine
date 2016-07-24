@@ -5,11 +5,8 @@ July 16, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 """
 
-import sqlite3
-
 from engine.store.models.topic import Topic
-from engine.store.topicstoreexception import TopicStoreException
-from engine.store.commands.topic.puttopic import PutTopicCommand
+from engine.store.commands.topic.settopic import SetTopicCommand
 from engine.store.commands.map.topicfield import TopicField
 
 
@@ -41,6 +38,8 @@ class InitMapCommand:
             ('character', 'Character'),
             ('image', 'Image'),
             ('video', 'Video'),
+            ('text', 'Text'),
+            ('html', 'HTML'),
             ('dialogue', 'Dialogue'),
             ('north', 'North'),
             ('north-east', 'Northeast'),
@@ -54,8 +53,8 @@ class InitMapCommand:
 
     def do(self):
 
-        put_topic_command = PutTopicCommand(self.database_path)
+        set_topic_command = SetTopicCommand(self.database_path)
         for item in self.items:
             topic = Topic(identifier=item[TopicField.identifier.value], base_name=item[TopicField.base_name.value])
-            put_topic_command.topic = topic
-            put_topic_command.do()
+            set_topic_command.topic = topic
+            set_topic_command.do()
