@@ -4,6 +4,7 @@ Map 1 procedural definition script. Part of the StoryTechnologies Builder projec
 July 24, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 """
+
 from engine.core.commands.scene.setcharacter import SetCharacterCommand
 from engine.core.commands.scene.setprop import SetPropCommand
 from engine.core.commands.scene.setscene import SetSceneCommand
@@ -41,14 +42,14 @@ SetNavigationCommand(database_path, 'scene-001', 'scene-003', 'east', 'west').do
 
 # Define and persist a character.
 character1 = Character('robot-001', 'Robot 001')
-character1.location = '[1.0, 1.0, 1.0]'  # x, y, z = 1m
+character1.location = '[4.0, 0.0, 4.0]'  # x ("width"), y ("height"), z ("depth")
 asset4 = Asset('robot-001.json', 'scene')
 character1.add_asset(asset4)
 SetCharacterCommand(database_path, character1, 'scene-001').do()
 
 # Define and persist a prop.
 prop1 = Prop('prop-001', 'Crates 001')
-prop1.location = '[2.0, 2.0, 2.0]'  # x, y, z = 2m
+prop1.location = '[2.0, 0.0, 2.0]'  # x ("width"), y ("height"), z ("depth")
 asset5 = Asset('crates-001.json', 'scene')
 prop1.add_asset(asset5)
 SetPropCommand(database_path, prop1, 'scene-002').do()
