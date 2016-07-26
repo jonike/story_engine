@@ -13,7 +13,7 @@ class Asset:
     An asset is either a character or a prop to be placed within a scene.
     """
 
-    def __init__(self, reference, instance_of):
+    def __init__(self, reference: str, instance_of: str) -> object:
         # The 'scene' asset is a Blender/Blend4Web scene exported as JSON.
         if instance_of not in {'image', 'video', 'scene', 'html', 'text'}:
             raise CoreException("Unrecognized 'instance of' parameter")

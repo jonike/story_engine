@@ -10,6 +10,6 @@ from engine.core.models.entity import Entity
 
 class Character(Entity):
 
-    def __init__(self, identifier, name):
+    def __init__(self, identifier: str, name: str) -> object:
         super().__init__(identifier, 'character', name)
 
