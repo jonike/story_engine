@@ -8,8 +8,11 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 from engine.core.models.character import Character
 from engine.core.models.prop import Prop
 from engine.store.commands.association.getassociation import GetAssociationCommand
+from engine.store.commands.association.getassociations import GetAssociationsCommand
+from engine.store.commands.metadatum.getmetadata import GetMetadataCommand
 from engine.store.commands.metadatum.getmetadatum import GetMetadatumCommand
 from engine.store.commands.occurrence.getoccurrence import GetOccurrenceCommand
+from engine.store.commands.occurrence.getoccurrences import GetOccurrencesCommand
 from engine.store.commands.topic.gettopic import GetTopicCommand
 from engine.store.retrievaloption import RetrievalOption
 from engine.core.commands.scene.getscene import GetSceneCommand
@@ -55,6 +58,15 @@ def get_topic(topic_identifier):
         return "Not found", 404
 
 
+def get_topics():
+    topics = GetTopicsCommand(database_path).do()
+    if topics:
+        # TODO: Implementation.
+        return "Topics found", 200
+    else:
+        return "Not found", 404
+    
+
 def get_occurrence(entity_identifier):
     occurrence = GetOccurrenceCommand(database_path, entity_identifier).do()
     if occurrence:
@@ -64,8 +76,17 @@ def get_occurrence(entity_identifier):
         return "Not found", 404
 
 
+def get_occurrences(topic_identifier):
+    occurrences = GetOccurrencesCommand(database_path, topic_identifier).do()
+    if occurrences:
+        # TODO: Implementation.
+        return "Occurrences found", 200
+    else:
+        return "Not found", 404
+
+
 def get_association(entity_identifier):
-    association = GetAssociationCommand(database_path, entity_identifier)
+    association = GetAssociationCommand(database_path, entity_identifier).do()
     if association:
         # TODO: Implementation.
         return "Association found", 200
@@ -73,11 +94,29 @@ def get_association(entity_identifier):
         return "Not found", 404
 
 
+def get_associations(topic_identifier):
+    associations = GetAssociationsCommand(database_path, topic_identifier).do()
+    if associations:
+        # TODO: Implementation.
+        return "Associations found", 200
+    else:
+        return "Not found", 404
+
+
 def get_metadatum(entity_identifier):
-    metadatum = GetMetadatumCommand(database_path, entity_identifier)
+    metadatum = GetMetadatumCommand(database_path, entity_identifier).do()
     if metadatum:
         # TODO: Implementation.
         return "Metadatum found", 200
+    else:
+        return "Not found", 404
+
+
+def get_metadata(entity_identifier):
+    metadata = GetMetadataCommand(database_path, entity_identifier).do()
+    if metadata:
+        # TODO: Implementation.
+        return "Metadata found", 200
     else:
         return "Not found", 404
 

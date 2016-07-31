@@ -7,6 +7,7 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 
 import unittest
 
+from engine.store.commands.topic.gettopics import GetTopicsCommand
 from engine.store.commands.topic.topicexists import TopicExistsCommand
 from engine.store.commands.occurrence.occurrenceexists import OccurrenceExistsCommand
 from engine.store.commands.topic.gettopic import GetTopicCommand
@@ -61,60 +62,34 @@ class StoreCommandsTest(unittest.TestCase):
 
         self.assertLess(0, len(topic1.metadata))
 
-    # def testGetMetadatumCommand(self):
-    #     metadatum1 = GetMetadatumCommand(self.database_path, '89d9bd44-b252-469d-b377-f07c73c24269').do()
+    # def testSetTopicCommand(self):
+    #     topic_identifier = 'test-topic2'
+    #     topic_exists = TopicExistsCommand(self.database_path, topic_identifier).do()
+    #     if not topic_exists:
+    #         topic1 = Topic(topic_identifier, 'topic', 'Test Topic')
+    #         SetTopicCommand(self.database_path, topic1).do()
     #
-    #     self.assertEqual('creation-timestamp', metadatum1.name)
-    #     self.assertEqual('2015/02/21 09:21:00', metadatum1.value)
-    #     self.assertEqual('89d9bd44-b252-469d-b377-f07c73c24269', metadatum1.identifier)
+    #     topic2 = GetTopicCommand(self.database_path, topic_identifier, RetrievalOption.resolve_metadata).do()
     #
-    # def testGetOccurrenceCommand(self):
-    #     occurrence1 = GetOccurrenceCommand(self.database_path,
-    #                                        '59124c31-22ad-4f17-ba4b-1a03bb69cb2d',
-    #                                        RetrievalOption.inline_resource_data,
-    #                                        RetrievalOption.resolve_metadata).do()
+    #     self.assertEqual('Test Topic', topic2.first_base_name.name)
+    #     self.assertEqual(topic_identifier, topic2.identifier)
+    #     self.assertEqual('topic', topic2.instance_of)
     #
-    #     self.assertEqual('59124c31-22ad-4f17-ba4b-1a03bb69cb2d', occurrence1.identifier)
-    #     self.assertEqual('note', occurrence1.instance_of)
-    #     self.assertEqual('*', occurrence1.scope)
-    #     self.assertEqual(Language.en, occurrence1.language)
-    #     self.assertEqual(b"I'm a note for the test topic", occurrence1.resource_data)
+    # def testSetMetadatum(self):
+    #     metadatum_name = 'metadatum-name'
+    #     metadatum1 = Metadatum(metadatum_name, 'metadatum-value', 'genesis', data_type=DataType.string, scope='test', language=Language.es)
+    #     SetMetadatumCommand(self.database_path, metadatum1).do()
     #
-    # def testOccurrenceExistsCommand(self):
-    #     occurrence_exists_command = OccurrenceExistsCommand(self.database_path)
+    #     metadatum2 = GetMetadatumCommand(self.database_path, metadatum1.identifier).do()
     #
-    #     occurrence_exists_command.identifier = '59124c31-22ad-4f17-ba4b-1a03bb69cb2d'
-    #     existing_occurrence = occurrence_exists_command.do()
-    #
-    #     occurrence_exists_command.identifier = 'non-existing-occurrence'
-    #     non_existing_occurrence = occurrence_exists_command.do()
-    #
-    #     self.assertEqual(True, existing_occurrence)
-    #     self.assertEqual(False, non_existing_occurrence)
+    #     self.assertEqual('metadatum-name', metadatum2.name)
+    #     self.assertEqual('metadatum-value', metadatum2.value)
+    #     self.assertEqual(metadatum2.identifier, metadatum1.identifier)
 
-    def testSetTopicCommand(self):
-        topic_identifier = 'test-topic2'
-        topic_exists = TopicExistsCommand(self.database_path, topic_identifier).do()
-        if not topic_exists:
-            topic1 = Topic(topic_identifier, 'topic', 'Test Topic')
-            SetTopicCommand(self.database_path, topic1).do()
+    def testGetTopics(self):
+        topics = GetTopicsCommand(self.database_path).do()
 
-        topic2 = GetTopicCommand(self.database_path, topic_identifier, RetrievalOption.resolve_metadata).do()
-
-        self.assertEqual('Test Topic', topic2.first_base_name.name)
-        self.assertEqual(topic_identifier, topic2.identifier)
-        self.assertEqual('topic', topic2.instance_of)
-
-    def testSetMetadatum(self):
-        metadatum_name = 'metadatum-name'
-        metadatum1 = Metadatum(metadatum_name, 'metadatum-value', 'genesis', data_type=DataType.string, scope='test', language=Language.es)
-        SetMetadatumCommand(self.database_path, metadatum1).do()
-
-        metadatum2 = GetMetadatumCommand(self.database_path, metadatum1.identifier).do()
-
-        self.assertEqual('metadatum-name', metadatum2.name)
-        self.assertEqual('metadatum-value', metadatum2.value)
-        self.assertEqual(metadatum2.identifier, metadatum1.identifier)
+        self.assertEqual(40, len(topics))
 
     def testSetOccurrence(self):
         pass
