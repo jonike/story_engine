@@ -16,7 +16,7 @@ from engine.store.models.language import Language
 class GetTopicsCommand:
 
     def __init__(self, database_path,
-                 instance_of = '',
+                 instance_of='',
                  resolve_metadata=RetrievalOption.dont_resolve_metadata,
                  language=Language.en,
                  offset=0,
