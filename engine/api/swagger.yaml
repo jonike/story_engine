@@ -32,6 +32,17 @@ paths:
           description: Return topic
         404:
           description: Topic does not exist
+  '/associations/{identifier}':
+    get:
+      operationId: engine.api.service.get_associations
+      summary: Get the associations for a given topic
+      parameters:
+        - $ref: '#/parameters/identifier'
+      responses:
+        200:
+          description: Return associations
+        404:
+          description: Topic does not have associations
   '/scenes/{identifier}':
     get:
       operationId: engine.api.service.get_scene

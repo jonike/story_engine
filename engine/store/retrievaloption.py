@@ -15,5 +15,3 @@ class RetrievalOption(Enum):
     dont_resolve_occurrences = 4
     inline_resource_data = 5
     dont_inline_resource_data = 6
-
-

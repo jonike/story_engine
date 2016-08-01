@@ -8,6 +8,7 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 from engine.core.models.character import Character
 from engine.core.models.prop import Prop
 from engine.store.commands.association.getassociation import GetAssociationCommand
+from engine.store.commands.association.getassociationgroups import GetAssociationGroupsCommand
 from engine.store.commands.association.getassociations import GetAssociationsCommand
 from engine.store.commands.metadatum.getmetadata import GetMetadataCommand
 from engine.store.commands.metadatum.getmetadatum import GetMetadatumCommand
@@ -15,6 +16,7 @@ from engine.store.commands.occurrence.getoccurrence import GetOccurrenceCommand
 from engine.store.commands.occurrence.getoccurrences import GetOccurrencesCommand
 from engine.store.commands.topic.gettopic import GetTopicCommand
 from engine.store.commands.topic.gettopics import GetTopicsCommand
+from engine.store.models.doublekeydict import DoubleKeyDict
 from engine.store.retrievaloption import RetrievalOption
 from engine.core.commands.scene.getscene import GetSceneCommand
 from engine.core.commands.scene.getprop import GetPropCommand
@@ -97,8 +99,8 @@ def get_topics(instance_of='topic', offset=0, limit=100):
         return "Not found", 404
     
 
-def get_occurrence(identifier):
-    occurrence = GetOccurrenceCommand(database_path, identifier).do()
+def get_occurrence(identifier, inline_resource_data=RetrievalOption.dont_inline_resource_data):
+    occurrence = GetOccurrenceCommand(database_path, identifier, inline_resource_data).do()
     if occurrence:
         # TODO: Implementation.
         return "Occurrence found", 200
@@ -125,10 +127,23 @@ def get_association(identifier):
 
 
 def get_associations(identifier):
-    associations = GetAssociationsCommand(database_path, identifier).do()
-    if associations:
-        # TODO: Implementation.
-        return "Associations found", 200
+    associations = GetAssociationGroupsCommand(database_path, identifier).do()
+    if len(associations):
+        level1 = []
+        for instance_of in associations.dict:
+            topic1 = GetTopicCommand(database_path, instance_of).do()
+            level1.append({instance_of: topic1.first_base_name.name})
+            level2 = []
+            for role in associations.dict[instance_of]:
+                topic2 = GetTopicCommand(database_path, role).do()
+                level2.append({role: topic2.first_base_name.name})
+                level3 = []
+                for topic_ref in associations[instance_of, role]:
+                    topic3 = GetTopicCommand(database_path, topic_ref).do()
+                    level3.append({topic_ref: topic3.first_base_name.name})
+                level2.append(level3)
+            level1.append(level2)
+        return level1, 200
     else:
         return "Not found", 404
 
