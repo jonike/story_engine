@@ -143,7 +143,10 @@ def get_associations(identifier):
                     level3.append({topic_ref: topic3.first_base_name.name})
                 level2.append(level3)
             level1.append(level2)
-        return level1, 200
+        result = {
+            'groups': level1
+        }
+        return result, 200
     else:
         return "Not found", 404
 
