@@ -131,22 +131,17 @@ def get_associations(identifier):
     if len(associations):
         level1 = []
         for instance_of in associations.dict:
-            topic1 = GetTopicCommand(database_path, instance_of).do()
-            level1.append({instance_of: topic1.first_base_name.name})
             level2 = []
             for role in associations.dict[instance_of]:
-                topic2 = GetTopicCommand(database_path, role).do()
-                level2.append({role: topic2.first_base_name.name})
                 level3 = []
                 for topic_ref in associations[instance_of, role]:
                     topic3 = GetTopicCommand(database_path, topic_ref).do()
-                    level3.append({topic_ref: topic3.first_base_name.name})
-                level2.append(level3)
-            level1.append(level2)
-        result = {
-            'groups': level1
-        }
-        return result, 200
+                    level3.append({'text': topic3.first_base_name.name, 'href': topic_ref, 'instanceOf': instance_of})
+                topic2 = GetTopicCommand(database_path, role).do()
+                level2.append({'text': topic2.first_base_name.name, 'nodes': level3})
+            topic1 = GetTopicCommand(database_path, instance_of).do()
+            level1.append({'text': topic1.first_base_name.name, 'nodes': level2})
+        return level1, 200
     else:
         return "Not found", 404
 
