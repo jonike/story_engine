@@ -47,8 +47,8 @@ class SetPropCommand:
 
         association = Association(
             instance_of='prop',
-            src_topic_ref=topic.identifier,
+            src_topic_ref=topic.identifier,  # The prop's reference.
             dest_topic_ref=self.scene_identifier,
             src_role_spec='included-in',
-            dest_role_spec='part-of')
+            dest_role_spec='includes')
         SetAssociationCommand(self.database_path, association).do()
