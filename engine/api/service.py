@@ -9,14 +9,13 @@ from engine.core.models.character import Character
 from engine.core.models.prop import Prop
 from engine.store.commands.association.getassociation import GetAssociationCommand
 from engine.store.commands.association.getassociationgroups import GetAssociationGroupsCommand
-from engine.store.commands.association.getassociations import GetAssociationsCommand
 from engine.store.commands.metadatum.getmetadata import GetMetadataCommand
 from engine.store.commands.metadatum.getmetadatum import GetMetadatumCommand
 from engine.store.commands.occurrence.getoccurrence import GetOccurrenceCommand
 from engine.store.commands.occurrence.getoccurrences import GetOccurrencesCommand
 from engine.store.commands.topic.gettopic import GetTopicCommand
+from engine.store.commands.topic.gettopicidentifiers import GetTopicIdentifiersCommand
 from engine.store.commands.topic.gettopics import GetTopicsCommand
-from engine.store.models.doublekeydict import DoubleKeyDict
 from engine.store.retrievaloption import RetrievalOption
 from engine.core.commands.scene.getscene import GetSceneCommand
 from engine.core.commands.scene.getprop import GetPropCommand
@@ -24,6 +23,15 @@ from engine.core.commands.scene.getcharacter import GetCharacterCommand
 
 
 database_path = '/home/brettk/Source/storytechnologies/story-engine/topics.db'
+
+
+def get_topic_identifiers(query, offset=0, limit=100, filter_entities=RetrievalOption.filter_entities):
+    # TODO: Implement 'filter entities' switch.
+    result = GetTopicIdentifiersCommand(database_path, query, filter_entities, offset, limit).do()
+    if result:
+        return result, 200
+    else:
+        return "Not found", 404
 
 
 def get_topic(identifier):
