@@ -21,12 +21,14 @@ class GetOccurrencesCommand:
                  topic_identifier='',
                  inline_resource_data=RetrievalOption.dont_inline_resource_data,
                  resolve_metadata=RetrievalOption.dont_resolve_metadata,
+                 instance_of='',
                  scope='*',
                  language=Language.en):
         self.database_path = database_path
         self.topic_identifier = topic_identifier
         self.inline_resource_data = inline_resource_data
         self.resolve_metadata = resolve_metadata
+        self.instance_of = instance_of
         self.scope = scope
         self.language = language
 
@@ -40,7 +42,14 @@ class GetOccurrencesCommand:
 
         cursor = connection.cursor()
         try:
-            cursor.execute("SELECT identifier, instance_of, scope, resource_ref, topic_identifier_fk, language FROM occurrence WHERE topic_identifier_fk = ? AND scope = ? AND language = ?", (self.topic_identifier, self.scope, self.language.name))
+            if self.instance_of == '':
+                sql = "SELECT identifier, instance_of, scope, resource_ref, topic_identifier_fk, language FROM occurrence WHERE topic_identifier_fk = ? AND scope = ? AND language = ?"
+                bind_variables = (self.topic_identifier, self.scope, self.language.name)
+            else:
+                sql = "SELECT identifier, instance_of, scope, resource_ref, topic_identifier_fk, language FROM occurrence WHERE topic_identifier_fk = ? AND instance_of = ? AND scope = ? AND language = ?"
+                bind_variables = (self.topic_identifier, self.instance_of, self.scope, self.language.name)
+
+            cursor.execute(sql, bind_variables)
             records = cursor.fetchall()
             for record in records:
                 resource_data = None
