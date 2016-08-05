@@ -33,7 +33,7 @@ class GetPropCommand:
 
                 occurrences = GetOccurrencesCommand(self.database_path, self.identifier).do()
                 for occurrence in occurrences:
-                    result.add_asset(Asset(occurrence.resource_ref, occurrence.instance_of))
+                    result.add_asset(Asset(occurrence.instance_of, occurrence.resource_ref))
         except TopicStoreException as e:
             raise CoreException(e)
         return result

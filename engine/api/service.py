@@ -143,7 +143,7 @@ def get_occurrences(identifier,
                     'instanceOf': occurrence.instance_of,
                     'scope': occurrence.scope,
                     'resourceRef': occurrence.resource_ref,
-                    'resourceData': base64.b64encode(occurrence.resource_data),
+                    'resourceData': base64.b64encode(occurrence.resource_data).decode('utf-8'),
                     'language': str(occurrence.language),
                     'metadata': metadata
                 }

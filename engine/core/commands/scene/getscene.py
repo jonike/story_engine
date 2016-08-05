@@ -54,7 +54,7 @@ class GetSceneCommand:
 
                 occurrences = GetOccurrencesCommand(self.database_path, self.identifier).do()
                 for occurrence in occurrences:
-                    self.result.add_asset(Asset(occurrence.resource_ref, occurrence.instance_of))
+                    self.result.add_asset(Asset(occurrence.instance_of, occurrence.resource_ref))
         except TopicStoreException as e:
             raise CoreException(e)
         return self.result

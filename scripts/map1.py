@@ -52,7 +52,7 @@ character1 = Character('robot-001', 'Robot 001')
 character1.location = '[3.0, 0.0, 0.0]'  # x ("width"), y ("height"), z ("depth")
 asset4 = Asset('scene', 'robot-001.json')
 character1.add_asset(asset4)
-character1_text = """##Robot
+character1_text = """## Robot
 
 A **robot** is a mechanical or virtual artificial agent, usually an electromechanical machine that is guided by a computer
 program or electronic circuitry, and thus a type of an embedded system.
@@ -78,7 +78,7 @@ prop1 = Prop('prop-001', 'Crates 001')
 prop1.location = '[2.0, 0.0, 2.0]'  # x ("width"), y ("height"), z ("depth")
 asset6 = Asset('scene', 'crates-001.json')
 prop1.add_asset(asset6)
-prop1_text = """Crate
+prop1_text = """## Crate
 
 A **crate** is a large strong container, often made of wood or metal.
 """
