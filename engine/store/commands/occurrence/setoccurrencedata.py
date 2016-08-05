@@ -14,7 +14,7 @@ class SetOccurrenceDataCommand:
     def __init__(self, database_path, identifier='', resource_data=None):
         self.database_path = database_path
         self.identifier = identifier
-        self.resource_data = resource_data
+        self.resource_data = bytes(resource_data, 'utf-8')
 
     def do(self):
         if self.identifier == '' or self.resource_data is None:
@@ -22,13 +22,11 @@ class SetOccurrenceDataCommand:
 
         connection = sqlite3.connect(self.database_path)
 
-        cursor = connection.cursor()
         try:
-            cursor.execute("UPDATE occurrence SET resource_data = ? WHERE identifier = ?", (self.resource_data, self.identifier))
+            with connection:
+                connection.execute("UPDATE occurrence SET resource_data = ? WHERE identifier = ?", (self.resource_data, self.identifier))
         except sqlite3.Error as e:
             raise TopicStoreException(e)
         finally:
-            if cursor:
-                cursor.close()
             if connection:
                 connection.close()

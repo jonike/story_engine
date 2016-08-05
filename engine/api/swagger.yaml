@@ -50,6 +50,28 @@ paths:
           description: Return topic
         404:
           description: Topic does not exist
+  '/topics/{identifier}/occurrences':
+    get:
+      operationId: engine.api.service.get_occurrences
+      summary: Get the occurrences for a given topic
+      parameters:
+        - $ref: '#/parameters/identifier'
+        - name: inline_resource_data
+          description: Retrieve (and inline) the occurrence's data
+          in: query
+          type: boolean
+          required: false
+        - name: resolve_metadata
+          description: Retrieve the occurrence's metadata
+          in: query
+          type: boolean
+          required: false
+        - $ref: '#/parameters/instance_of'
+      responses:
+        200:
+          description: Return occurrences
+        404:
+          description: Topic does not have occurrences
   '/associations/{identifier}':
     get:
       operationId: engine.api.service.get_associations

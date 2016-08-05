@@ -5,6 +5,8 @@ July 09, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 """
 
+import base64
+
 from engine.core.models.character import Character
 from engine.core.models.prop import Prop
 from engine.store.commands.association.getassociation import GetAssociationCommand
@@ -116,11 +118,38 @@ def get_occurrence(identifier, inline_resource_data=RetrievalOption.dont_inline_
         return "Not found", 404
 
 
-def get_occurrences(identifier):
-    occurrences = GetOccurrencesCommand(database_path, identifier).do()
+def get_occurrences(identifier,
+                    inline_resource_data=RetrievalOption.dont_inline_resource_data,
+                    resolve_metadata=RetrievalOption.dont_resolve_metadata,
+                    instance_of=''):
+    occurrences = GetOccurrencesCommand(database_path, identifier, inline_resource_data, resolve_metadata, instance_of).do()
     if occurrences:
-        # TODO: Implementation.
-        return "Occurrences found", 200
+        result = []
+        for occurrence in occurrences:
+            metadata = []
+            for metadatum in occurrence.metadata:
+                metadata.append({
+                    'identifier': metadatum.identifier,
+                    'name': metadatum.name,
+                    'value': metadatum.value,
+                    'entityIdentifier': metadatum.entity_identifier,
+                    'dataType': str(metadatum.data_type),
+                    'scope': metadatum.scope,
+                    'language': str(metadatum.language)
+                })
+            occurrence = {
+                'occurrence': {
+                    'identifier': occurrence.identifier,
+                    'instanceOf': occurrence.instance_of,
+                    'scope': occurrence.scope,
+                    'resourceRef': occurrence.resource_ref,
+                    'resourceData': base64.b64encode(occurrence.resource_data),
+                    'language': str(occurrence.language),
+                    'metadata': metadata
+                }
+            }
+            result.append(occurrence)
+        return result, 200
     else:
         return "Not found", 404
 

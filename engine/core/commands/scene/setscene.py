@@ -4,7 +4,7 @@ SetSceneCommand class. Part of the StoryTechnologies Builder project.
 July 16, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 """
-
+from engine.store.commands.occurrence.setoccurrencedata import SetOccurrenceDataCommand
 from engine.store.models.topic import Topic
 from engine.store.models.occurrence import Occurrence
 from engine.store.models.metadatum import Metadatum
@@ -43,3 +43,5 @@ class SetSceneCommand:
                 topic_identifier=topic.identifier,
                 resource_ref=asset.reference)
             SetOccurrenceCommand(self.database_path, occurrence).do()
+            if asset.data is not None:
+                SetOccurrenceDataCommand(self.database_path, occurrence.identifier, asset.data).do()
