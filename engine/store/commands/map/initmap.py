@@ -41,6 +41,8 @@ class InitMapCommand:
             ('text', 'Text'),
             ('html', 'HTML'),
             ('dialogue', 'Dialogue'),
+            ('up', 'Up'),
+            ('down', 'Down'),
             ('north', 'North'),
             ('north-east', 'Northeast'),
             ('east', 'East'),
