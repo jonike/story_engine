@@ -6,6 +6,7 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 """
 
 import base64
+import functools
 
 from engine.core.models.character import Character
 from engine.core.models.prop import Prop
@@ -36,6 +37,7 @@ def get_topic_identifiers(query, offset=0, limit=100, filter_entities=RetrievalO
         return "Not found", 404
 
 
+@functools.lru_cache(maxsize=64)
 def get_topic(identifier):
     topic = GetTopicCommand(database_path, identifier, RetrievalOption.resolve_metadata).do()
     if topic:
@@ -107,8 +109,9 @@ def get_topics(instance_of='topic', offset=0, limit=100):
         return result, 200
     else:
         return "Not found", 404
-    
 
+    
+@functools.lru_cache(maxsize=64)
 def get_occurrence(identifier, inline_resource_data=RetrievalOption.dont_inline_resource_data):
     occurrence = GetOccurrenceCommand(database_path, identifier, inline_resource_data).do()
     if occurrence:
@@ -154,6 +157,7 @@ def get_occurrences(identifier,
         return "Not found", 404
 
 
+@functools.lru_cache(maxsize=64)
 def get_association(identifier):
     association = GetAssociationCommand(database_path, identifier).do()
     if association:
@@ -183,6 +187,7 @@ def get_associations(identifier):
         return "Not found", 404
 
 
+@functools.lru_cache(maxsize=64)
 def get_metadatum(identifier):
     metadatum = GetMetadatumCommand(database_path, identifier).do()
     if metadatum:
@@ -201,6 +206,7 @@ def get_metadata(identifier):
         return "Not found", 404
 
 
+@functools.lru_cache(maxsize=64)
 def get_scene(identifier):
     scene = GetSceneCommand(database_path, identifier).do()
     if scene:
@@ -271,6 +277,7 @@ def get_scene(identifier):
         return "Not found", 404
 
 
+@functools.lru_cache(maxsize=64)
 def get_prop(identifier):
     prop = GetPropCommand(database_path, identifier).do()
     if prop:
@@ -295,6 +302,7 @@ def get_prop(identifier):
         return "Not found", 404
 
 
+@functools.lru_cache(maxsize=64)
 def get_character(identifier):
     character = GetCharacterCommand(database_path, identifier).do()
     if character:
