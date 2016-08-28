@@ -99,12 +99,12 @@ asset9 = Asset('scene', 'robot-001.json')
 character1.add_asset(asset9)
 character1_text = """## Robot
 
-A **robot** is a mechanical or virtual artificial agent, usually an electromechanical machine that is guided by a computer
-program or electronic circuitry, and thus a type of an embedded system.
+A **robot** is a mechanical or virtual artificial agent, usually an electromechanical machine that is guided by a
+computer program or electronic circuitry, and thus a type of an embedded system.
 
 Robots can be autonomous or semi-autonomous and range from humanoids such as Honda's *Advanced Step in Innovative
-Mobility* (ASIMO) and TOSY's *TOSY Ping Pong Playing Robot* (TOPIO) to industrial robots, medical operating robots, patent
-assist robots, dog therapy robots, collectively programmed swarm robots, UAV drones such as General Atomics MQ-1
+Mobility* (ASIMO) and TOSY's *TOSY Ping Pong Playing Robot* (TOPIO) to industrial robots, medical operating robots,
+patent assist robots, dog therapy robots, collectively programmed swarm robots, UAV drones such as General Atomics MQ-1
 Predator, and even microscopic nano robots. By mimicking a lifelike appearance or automating movements, a robot may
 convey a sense of intelligence or thought of its own.
 
