@@ -16,6 +16,3 @@ class Language(Enum):
     fr = 5  # French
     nl = 6  # Dutch
     nb = 7  # Norwegian (Bokmål)
-
-    def __str__(self):
-        return self.name

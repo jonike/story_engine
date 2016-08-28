@@ -36,7 +36,7 @@ class SetAssociationCommand:
                                        (base_name.identifier,
                                         base_name.name,
                                         self.association.identifier,
-                                        str(base_name.language)))
+                                        base_name.language.name))
                 for member in self.association.members:
                     connection.execute("INSERT INTO member (identifier, role_spec, association_identifier_fk) VALUES (?, ?, ?)", (member.identifier, member.role_spec, self.association.identifier))
                     for topic_ref in member.topic_refs:

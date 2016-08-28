@@ -49,15 +49,15 @@ def get_topic(identifier):
                 'name': metadatum.name,
                 'value': metadatum.value,
                 'entityIdentifier': metadatum.entity_identifier,
-                'dataType': str(metadatum.data_type),
+                'dataType': metadatum.data_type.name,
                 'scope': metadatum.scope,
-                'language': str(metadatum.language)
+                'language': metadatum.language.name
             })
         for base_name in topic.base_names:
             base_names.append({
                 'identifier': base_name.identifier,
                 'name': base_name.name,
-                'language': str(base_name.language)
+                'language': base_name.language.name
             })
         result = {
             'topic': {
@@ -86,15 +86,15 @@ def get_topics(instance_of='topic', offset=0, limit=100):
                     'name': metadatum.name,
                     'value': metadatum.value,
                     'entityIdentifier': metadatum.entity_identifier,
-                    'dataType': str(metadatum.data_type),
+                    'dataType': metadatum.data_type.name,
                     'scope': metadatum.scope,
-                    'language': str(metadatum.language)
+                    'language': metadatum.language.name
                 })
             for base_name in topic.base_names:
                 base_names.append({
                     'identifier': base_name.identifier,
                     'name': base_name.name,
-                    'language': str(base_name.language)
+                    'language': base_name.language.name
                 })
             topic = {
                 'topic': {
@@ -136,9 +136,9 @@ def get_occurrences(identifier,
                     'name': metadatum.name,
                     'value': metadatum.value,
                     'entityIdentifier': metadatum.entity_identifier,
-                    'dataType': str(metadatum.data_type),
+                    'dataType': metadatum.data_type.name,
                     'scope': metadatum.scope,
-                    'language': str(metadatum.language)
+                    'language': metadatum.language.name
                 })
             occurrence = {
                 'occurrence': {
@@ -147,7 +147,7 @@ def get_occurrences(identifier,
                     'scope': occurrence.scope,
                     'resourceRef': occurrence.resource_ref,
                     'resourceData': base64.b64encode(occurrence.resource_data).decode('utf-8'),
-                    'language': str(occurrence.language),
+                    'language': occurrence.language.name,
                     'metadata': metadata
                 }
             }

@@ -31,9 +31,9 @@ class SetMetadatumCommand:
                                     self.metadatum.entity_identifier,
                                     self.metadatum.name,
                                     self.metadatum.value,
-                                    str(self.metadatum.data_type),
+                                    self.metadatum.data_type.name,
                                     self.metadatum.scope,
-                                    str(self.metadatum.language)))
+                                    self.metadatum.language.name))
         except sqlite3.Error as e:
             raise TopicStoreException(e)
         finally:
