@@ -44,13 +44,16 @@ class GetSceneCommand:
                             for topic_ref in groups[instance_of, role]:
                                 if topic_ref == self.identifier:
                                     continue
-                                if instance_of == 'navigation':
-                                    path = Path(role, topic_ref)
-                                    self.result.add_path(path)
-                                elif instance_of == 'prop':
-                                    self.result.add_entity(GetPropCommand(self.database_path, topic_ref).do())
-                                elif instance_of == 'character':
-                                    self.result.add_entity(GetCharacterCommand(self.database_path, topic_ref).do())
+                                if __name__ == '__main__':
+                                    if instance_of == 'navigation':
+                                        path = Path(role, topic_ref)
+                                        self.result.add_path(path)
+                                    elif instance_of == 'prop':
+                                        self.result.add_entity(GetPropCommand(self.database_path, topic_ref).do())
+                                    elif instance_of == 'character':
+                                        self.result.add_entity(GetCharacterCommand(self.database_path, topic_ref).do())
+                                    elif instance_of == 'categorization':  # Tags.
+                                        self.result.add_tag(topic_ref)
 
                 occurrences = GetOccurrencesCommand(self.database_path, self.identifier).do()
                 for occurrence in occurrences:

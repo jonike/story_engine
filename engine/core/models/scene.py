@@ -24,6 +24,7 @@ class Scene(Entity):
 
     @property
     def association_groups(self):
+        # TODO: Review. Should a model class rely on command-level functionality?
         return GetAssociationGroupsCommand(associations=self.__associations).do()
 
     @property

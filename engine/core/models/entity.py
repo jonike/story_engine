@@ -26,6 +26,7 @@ class Entity:
         self.scale = scale
         self.__assets = []
         self.__paths = []
+        self.__tags = []
 
     @property
     def identifier(self):
@@ -60,3 +61,16 @@ class Entity:
         for path in paths:
             if isinstance(path, Path):
                 self.__paths.append(path)
+
+    @property
+    def tags(self):
+        return self.__tags
+
+    def add_tag(self, tag):
+        if isinstance(tag, str):
+            self.__tags.append(tag)
+
+    def add_tags(self, tags):
+        for tag in tags:
+            if isinstance(tag, str):
+                self.__tags.append(tag)
