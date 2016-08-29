@@ -269,7 +269,8 @@ def get_scene(identifier):
                 'ordinal': scene.ordinal,
                 'assets': assets,
                 'entities': entities,
-                'paths': paths
+                'paths': paths,
+                'tags': scene.tags
             }
         }
         return result, 200
