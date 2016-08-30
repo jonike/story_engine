@@ -21,4 +21,4 @@ class SetTagsCommand:
             raise TopicStoreException("Missing 'tags' or 'identifier' parameter")
 
         for tag in self.tags:
-            SetTagCommand(self.database_path, self.identifier, tag)
+            SetTagCommand(self.database_path, self.identifier, tag).do()
