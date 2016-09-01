@@ -214,6 +214,7 @@ def get_scene(identifier):
         props = []
         characters = []
         paths = []
+        metadata = []
         for entity in scene.entities:
             if isinstance(entity, Prop):
                 prop_assets = []
@@ -259,6 +260,16 @@ def get_scene(identifier):
                 'direction': path.direction,
                 'to': path.to
             })
+        for metadatum in scene.metadata:
+            metadata.append({
+                'identifier': metadatum.identifier,
+                'name': metadatum.name,
+                'value': metadatum.value,
+                'entityIdentifier': metadatum.entity_identifier,
+                'dataType': metadatum.data_type.name,
+                'scope': metadatum.scope,
+                'language': metadatum.language.name
+            })
         result = {
             'scene': {
                 'identifier': scene.identifier,
@@ -270,6 +281,7 @@ def get_scene(identifier):
                 'assets': assets,
                 'entities': entities,
                 'paths': paths,
+                'metadata': metadata,
                 'tags': scene.tags
             }
         }

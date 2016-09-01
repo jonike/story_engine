@@ -9,6 +9,7 @@ from slugify import slugify
 
 from engine.core.models.asset import Asset
 from engine.core.models.path import Path
+from engine.store.models.metadatum import Metadatum
 
 
 class Entity:
@@ -27,6 +28,7 @@ class Entity:
         self.__assets = []
         self.__paths = []
         self.__tags = []
+        self.__metadata = []
 
     @property
     def identifier(self):
@@ -74,3 +76,16 @@ class Entity:
         for tag in tags:
             if isinstance(tag, str):
                 self.__tags.append(tag)
+
+    @property
+    def metadata(self):
+        return self.__metadata
+
+    def add_metadatum(self, metadatum):
+        if isinstance(metadatum, Metadatum):
+            self.__metadata.append(metadatum)
+
+    def add_metadata(self, metadata):
+        for metadatum in metadata:
+            if isinstance(metadatum, Metadatum):
+                self.__metadata.append(metadatum)
