@@ -295,10 +295,21 @@ def get_prop(identifier):
     prop = GetPropCommand(database_path, identifier).do()
     if prop:
         assets = []
+        metadata = []
         for asset in prop.assets:
             assets.append({
                 'reference': asset.reference,
                 'instanceOf': asset.instance_of
+            })
+        for metadatum in prop.metadata:
+            metadata.append({
+                'identifier': metadatum.identifier,
+                'name': metadatum.name,
+                'value': metadatum.value,
+                'entityIdentifier': metadatum.entity_identifier,
+                'dataType': metadatum.data_type.name,
+                'scope': metadatum.scope,
+                'language': metadatum.language.name
             })
         result = {
             'prop': {
@@ -307,7 +318,8 @@ def get_prop(identifier):
                 'location': prop.location,
                 'rotation': prop.rotation,
                 'scale': prop.scale,
-                'assets': assets
+                'assets': assets,
+                'metadata': metadata
             }
         }
         return result, 200
@@ -320,10 +332,21 @@ def get_character(identifier):
     character = GetCharacterCommand(database_path, identifier).do()
     if character:
         assets = []
+        metadata = []
         for asset in character.assets:
             assets.append({
                 'reference': asset.reference,
                 'instanceOf': asset.instance_of
+            })
+        for metadatum in character.metadata:
+            metadata.append({
+                'identifier': metadatum.identifier,
+                'name': metadatum.name,
+                'value': metadatum.value,
+                'entityIdentifier': metadatum.entity_identifier,
+                'dataType': metadatum.data_type.name,
+                'scope': metadatum.scope,
+                'language': metadatum.language.name
             })
         result = {
             'character': {
@@ -332,7 +355,8 @@ def get_character(identifier):
                 'location': character.location,
                 'rotation': character.rotation,
                 'scale': character.scale,
-                'assets': assets
+                'assets': assets,
+                'metadata': metadata
             }
         }
         return result, 200

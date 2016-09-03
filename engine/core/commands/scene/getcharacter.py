@@ -34,6 +34,10 @@ class GetCharacterCommand:
                 occurrences = GetOccurrencesCommand(self.database_path, self.identifier).do()
                 for occurrence in occurrences:
                     result.add_asset(Asset(occurrence.instance_of, occurrence.resource_ref))
+
+                metadata = [metadatum for metadatum in topic.metadata if
+                            metadatum.name not in ('location', 'rotation', 'scale')]
+                result.add_metadata(metadata)
         except TopicStoreException as e:
             raise CoreException(e)
         return result

@@ -5,7 +5,8 @@ July 24, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 """
 
-from engine.store.commands.tag.settags import SetTagsCommand
+from engine.store.commands.metadatum.setmetadatum import SetMetadatumCommand
+from engine.store.models.metadatum import Metadatum
 from engine.core.commands.scene.setcharacter import SetCharacterCommand
 from engine.core.commands.scene.setprop import SetPropCommand
 from engine.core.commands.scene.setscene import SetSceneCommand
@@ -39,7 +40,9 @@ Problems look mighty small from 150 miles up.
 asset2 = Asset('text', data=scene1_text)
 scene1.add_asset(asset2)
 SetSceneCommand(repo_path, scene1).do()
-SetTagsCommand(repo_path, 'scene-001', ['interior', 'sci-fi']).do()
+#SetTagsCommand(repo_path, 'scene-001', ['interior', 'sci-fi']).do()
+metadatum1 = Metadatum('type', 'interior', 'scene-001')
+SetMetadatumCommand(repo_path, metadatum1).do()
 
 # Define and persist the second (crates) scene.
 asset3 = Asset('scene', 'scene-002.json')
@@ -54,7 +57,9 @@ Where ignorance lurks, so too do the frontiers of discovery and imagination.
 asset4 = Asset('text', data=scene2_text)
 scene2.add_asset(asset4)
 SetSceneCommand(repo_path, scene2).do()
-SetTagsCommand(repo_path, 'scene-002', ['interior', 'sci-fi']).do()
+#SetTagsCommand(repo_path, 'scene-002', ['interior', 'sci-fi']).do()
+metadatum2 = Metadatum('type', 'interior', 'scene-002')
+SetMetadatumCommand(repo_path, metadatum2).do()
 
 # Define and persist the third (empty) scene.
 asset5 = Asset('scene', 'scene-003.json')
@@ -72,7 +77,9 @@ explore ... We believe in what we're doing. Now it's time to go.
 asset6 = Asset('text', data=scene3_text)
 scene3.add_asset(asset6)
 SetSceneCommand(repo_path, scene3).do()
-SetTagsCommand(repo_path, 'scene-003', ['interior', 'sci-fi']).do()
+#SetTagsCommand(repo_path, 'scene-003', ['interior', 'sci-fi']).do()
+metadatum3 = Metadatum('type', 'interior', 'scene-003')
+SetMetadatumCommand(repo_path, metadatum3).do()
 
 # Define and persist the fourth (outside windmill) scene.
 asset7 = Asset('scene', 'scene-004.json')
@@ -90,7 +97,11 @@ nature, Man must explore ... and this is exploration at its greatest.
 asset8 = Asset('text', data=scene4_text)
 scene4.add_asset(asset8)
 SetSceneCommand(repo_path, scene4).do()
-SetTagsCommand(repo_path, 'scene-004', ['exterior', 'sci-fi', 'afternoon', 'summer']).do()
+#SetTagsCommand(repo_path, 'scene-004', ['exterior', 'sci-fi', 'afternoon', 'summer']).do()
+metadatum4 = Metadatum('type', 'exterior', 'scene-004')
+SetMetadatumCommand(repo_path, metadatum4).do()
+metadatum5 = Metadatum('time', '16:00', 'scene-004')
+SetMetadatumCommand(repo_path, metadatum5).do()
 
 # Define navigation paths between scenes.
 SetNavigationCommand(repo_path, 'scene-001', 'scene-002', 'south', 'north').do()

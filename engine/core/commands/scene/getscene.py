@@ -4,6 +4,7 @@ GetSceneCommand class. Part of the StoryTechnologies Builder project.
 July 19, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 """
+
 from engine.core.commands.scene.getcharacter import GetCharacterCommand
 from engine.core.commands.scene.getprop import GetPropCommand
 from engine.core.coreexception import CoreException
@@ -13,7 +14,6 @@ from engine.store.commands.occurrence.getoccurrences import GetOccurrencesComman
 from engine.store.topicstoreexception import TopicStoreException
 from engine.store.commands.topic.gettopic import GetTopicCommand
 from engine.store.commands.association.getassociations import GetAssociationsCommand
-from engine.store.commands.metadatum.getmetadata import GetMetadataCommand
 from engine.store.retrievaloption import RetrievalOption
 from engine.core.models.scene import Scene
 
@@ -58,7 +58,9 @@ class GetSceneCommand:
                 occurrences = GetOccurrencesCommand(self.database_path, self.identifier).do()
                 for occurrence in occurrences:
                     self.result.add_asset(Asset(occurrence.instance_of, occurrence.resource_ref))
-                metadata = GetMetadataCommand(self.database_path, self.identifier).do()
+
+                metadata = [metadatum for metadatum in topic.metadata
+                            if metadatum.name not in ('location', 'rotation', 'scale')]
                 self.result.add_metadata(metadata)
         except TopicStoreException as e:
             raise CoreException(e)
