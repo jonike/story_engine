@@ -72,7 +72,7 @@ paths:
           description: Return occurrences
         404:
           description: Topic does not have occurrences
-  '/associations/{identifier}':
+  '/topics/{identifier}/associations':
     get:
       operationId: engine.api.service.get_associations
       summary: Get the associations for a given topic

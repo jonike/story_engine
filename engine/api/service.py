@@ -140,13 +140,17 @@ def get_occurrences(identifier,
                     'scope': metadatum.scope,
                     'language': metadatum.language.name
                 })
+            if occurrence.resource_data is None:
+                resource_data = None
+            else:
+                resource_data = base64.b64encode(occurrence.resource_data).decode('utf-8')
             occurrence = {
                 'occurrence': {
                     'identifier': occurrence.identifier,
                     'instanceOf': occurrence.instance_of,
                     'scope': occurrence.scope,
                     'resourceRef': occurrence.resource_ref,
-                    'resourceData': base64.b64encode(occurrence.resource_data).decode('utf-8'),
+                    'resourceData': resource_data,
                     'language': occurrence.language.name,
                     'metadata': metadata
                 }
