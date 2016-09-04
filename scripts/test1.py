@@ -1,5 +1,5 @@
 """
-Map 1 procedural definition script. Part of the StoryTechnologies Builder project.
+Test 1 procedural definition script. Part of the StoryTechnologies Builder project.
 
 July 24, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
@@ -17,7 +17,7 @@ from engine.core.models.scene import Scene
 from engine.core.models.asset import Asset
 
 
-repo_path = '/home/brettk/Source/storytechnologies/story-engine/topics.db'
+repo_path = '/home/brettk/Source/storytechnologies/story-engine/data/test1.sqlite'
 
 
 # Define and persist the first (robot) scene.
@@ -100,7 +100,7 @@ SetSceneCommand(repo_path, scene4).do()
 #SetTagsCommand(repo_path, 'scene-004', ['exterior', 'sci-fi', 'afternoon', 'summer']).do()
 metadatum4 = Metadatum('type', 'exterior', 'scene-004')
 SetMetadatumCommand(repo_path, metadatum4).do()
-metadatum5 = Metadatum('time', '16:00', 'scene-004')
+metadatum5 = Metadatum('time', '16.0', 'scene-004')  # 16:00
 SetMetadatumCommand(repo_path, metadatum5).do()
 
 # Define navigation paths between scenes.

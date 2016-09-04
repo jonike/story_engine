@@ -25,7 +25,7 @@ from engine.core.commands.scene.getprop import GetPropCommand
 from engine.core.commands.scene.getcharacter import GetCharacterCommand
 
 
-database_path = '/home/brettk/Source/storytechnologies/story-engine/topics.db'
+database_path = '/home/brettk/Source/storytechnologies/story-engine/data/test1.sqlite'
 
 
 def get_topic_identifiers(query, offset=0, limit=100, filter_entities=RetrievalOption.filter_entities):

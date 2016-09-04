@@ -25,7 +25,7 @@ from engine.store.models.metadatum import Metadatum
 class StoreCommandsTest(unittest.TestCase):
 
     def setUp(self):
-        self.database_path = '/home/brettk/Source/storytechnologies/story-engine/topics.db'
+        self.database_path = '/home/brettk/Source/storytechnologies/story-engine/data/test1.sqlite'
 
     def testTopicExistsCommand(self):
         topic_identifier = 'genesis'
