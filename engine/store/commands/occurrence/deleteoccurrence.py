@@ -8,7 +8,7 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 import sqlite3
 
 from engine.store.topicstoreexception import TopicStoreException
-from engine.store.commands.metadatum.deletemetadata import DeleteMetadata
+from engine.store.commands.attribute.deleteattributes import DeleteAttributes
 
 
 class DeleteOccurrence:
@@ -26,7 +26,7 @@ class DeleteOccurrence:
         try:
             with connection:  # https://docs.python.org/3/library/sqlite3.html#using-the-connection-as-a-context-manager
                 connection.execute("DELETE FROM occurrence WHERE identifier = ?", (self.identifier,))
-            DeleteMetadata(self.database_path, self.identifier).do()  # Delete the occurrence's metadata
+            DeleteAttributes(self.database_path, self.identifier).do()  # Delete the occurrence's attributes
         except sqlite3.Error as e:
             raise TopicStoreException(e)
         finally:

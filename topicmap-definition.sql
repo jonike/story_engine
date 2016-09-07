@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS member (
 );
 CREATE INDEX IF NOT EXISTS member_1_index ON member (association_identifier_fk);
 
-CREATE TABLE IF NOT EXISTS metadatum (
+CREATE TABLE IF NOT EXISTS attribute (
     identifier TEXT,
     parent_identifier_fk TEXT,
     name TEXT,
@@ -14,12 +14,12 @@ CREATE TABLE IF NOT EXISTS metadatum (
     scope TEXT,
     language TEXT
 );
-CREATE UNIQUE INDEX IF NOT EXISTS metadatum_1_index ON metadatum (identifier, parent_identifier_fk, name, scope);
-CREATE INDEX IF NOT EXISTS metadatum_2_index ON metadatum (name);
-CREATE INDEX IF NOT EXISTS metadatum_3_index ON metadatum (identifier);
-CREATE INDEX IF NOT EXISTS metadatum_4_index ON metadatum (parent_identifier_fk, language);
-CREATE INDEX IF NOT EXISTS metadatum_5_index ON metadatum (parent_identifier_fk);
-CREATE INDEX IF NOT EXISTS metadatum_6_index ON metadatum (parent_identifier_fk, name);
+CREATE UNIQUE INDEX IF NOT EXISTS attribute_1_index ON attribute (identifier, parent_identifier_fk, name, scope);
+CREATE INDEX IF NOT EXISTS attribute_2_index ON attribute (name);
+CREATE INDEX IF NOT EXISTS attribute_3_index ON attribute (identifier);
+CREATE INDEX IF NOT EXISTS attribute_4_index ON attribute (parent_identifier_fk, language);
+CREATE INDEX IF NOT EXISTS attribute_5_index ON attribute (parent_identifier_fk);
+CREATE INDEX IF NOT EXISTS attribute_6_index ON attribute (parent_identifier_fk, name);
 
 CREATE TABLE IF NOT EXISTS occurrence (
     identifier TEXT PRIMARY KEY,

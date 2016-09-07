@@ -11,15 +11,15 @@ from engine.store.commands.topic.gettopics import GetTopics
 from engine.store.commands.topic.topicexists import TopicExists
 from engine.store.commands.occurrence.occurrenceexists import OccurrenceExists
 from engine.store.commands.topic.gettopic import GetTopic
-from engine.store.commands.metadatum.getmetadatum import GetMetadatum
-from engine.store.commands.metadatum.setmetadatum import SetMetadatum
+from engine.store.commands.attribute.getattribute import GetAttribute
+from engine.store.commands.attribute.setattribute import SetAttribute
 from engine.store.commands.occurrence.getoccurrence import GetOccurrence
 from engine.store.commands.topic.settopic import SetTopic
 from engine.store.retrievaloption import RetrievalOption
 from engine.store.models.language import Language
 from engine.store.models.datatype import DataType
 from engine.store.models.topic import Topic
-from engine.store.models.metadatum import Metadatum
+from engine.store.models.attribute import Attribute
 
 
 class StoresTest(unittest.TestCase):
@@ -52,7 +52,7 @@ class StoresTest(unittest.TestCase):
             topic1 = Topic(topic_identifier, 'topic', 'Genesis')
             SetTopic(self.database_path, topic1).do()
 
-        get_topic_command = GetTopic(self.database_path, 'genesis', RetrievalOption.resolve_metadata)
+        get_topic_command = GetTopic(self.database_path, 'genesis', RetrievalOption.resolve_attributes)
 
         topic1 = get_topic_command.do()
 
@@ -60,31 +60,7 @@ class StoresTest(unittest.TestCase):
         self.assertEqual('genesis', topic1.identifier)
         self.assertEqual('topic', topic1.instance_of)
 
-        self.assertLess(0, len(topic1.metadata))
-
-    # def testSetTopic(self):
-    #     topic_identifier = 'test-topic2'
-    #     topic_exists = TopicExists(self.database_path, topic_identifier).do()
-    #     if not topic_exists:
-    #         topic1 = Topic(topic_identifier, 'topic', 'Test Topic')
-    #         SetTopic(self.database_path, topic1).do()
-    #
-    #     topic2 = GetTopic(self.database_path, topic_identifier, RetrievalOption.resolve_metadata).do()
-    #
-    #     self.assertEqual('Test Topic', topic2.first_base_name.name)
-    #     self.assertEqual(topic_identifier, topic2.identifier)
-    #     self.assertEqual('topic', topic2.instance_of)
-    #
-    # def testSetMetadatum(self):
-    #     metadatum_name = 'metadatum-name'
-    #     metadatum1 = Metadatum(metadatum_name, 'metadatum-value', 'genesis', data_type=DataType.string, scope='test', language=Language.es)
-    #     SetMetadatum(self.database_path, metadatum1).do()
-    #
-    #     metadatum2 = GetMetadatum(self.database_path, metadatum1.identifier).do()
-    #
-    #     self.assertEqual('metadatum-name', metadatum2.name)
-    #     self.assertEqual('metadatum-value', metadatum2.value)
-    #     self.assertEqual(metadatum2.identifier, metadatum1.identifier)
+        self.assertLess(0, len(topic1.attributes))
 
     def testGetTopics(self):
         topics = GetTopics(self.database_path).do()

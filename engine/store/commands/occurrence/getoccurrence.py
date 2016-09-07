@@ -10,7 +10,7 @@ import sqlite3
 from engine.store.topicstoreexception import TopicStoreException
 from engine.store.retrievaloption import RetrievalOption
 from engine.store.commands.occurrence.getoccurrencedata import GetOccurrenceData
-from engine.store.commands.metadatum.getmetadata import GetMetadata
+from engine.store.commands.attribute.getattributes import GetAttributes
 from engine.store.models.occurrence import Occurrence
 from engine.store.models.language import Language
 
@@ -20,12 +20,12 @@ class GetOccurrence:
     def __init__(self, database_path,
                  identifier='',
                  inline_resource_data=RetrievalOption.dont_inline_resource_data,
-                 resolve_metadata=RetrievalOption.dont_resolve_metadata,
+                 resolve_attributes=RetrievalOption.dont_resolve_attributes,
                  language=Language.en):
         self.database_path = database_path
         self.identifier = identifier
         self.inline_resource_data = inline_resource_data
-        self.resolve_metadata = resolve_metadata
+        self.resolve_attributes = resolve_attributes
         self.language = language
 
     def do(self):
@@ -52,9 +52,9 @@ class GetOccurrence:
                         record['resource_ref'],
                         resource_data,
                         Language[record['language']])
-                if self.resolve_metadata is RetrievalOption.resolve_metadata:
+                if self.resolve_attributes is RetrievalOption.resolve_attributes:
                     # TODO: Optimize.
-                    result.add_metadata(GetMetadata(self.database_path, self.identifier, self.language).do())
+                    result.add_attributes(GetAttributes(self.database_path, self.identifier, self.language).do())
         except sqlite3.Error as e:
             raise TopicStoreException(e)
         finally:

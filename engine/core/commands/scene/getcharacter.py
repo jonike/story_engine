@@ -24,20 +24,20 @@ class GetCharacter:
             raise CoreException("Missing 'identifier' parameter")
         result = None
         try:
-            topic = GetTopic(self.database_path, self.identifier, RetrievalOption.resolve_metadata).do()
+            topic = GetTopic(self.database_path, self.identifier, RetrievalOption.resolve_attributes).do()
             if topic:
                 result = Character(topic.identifier, topic.first_base_name.name)
-                result.location = topic.get_metadatum_by_name('location').value
-                result.rotation = topic.get_metadatum_by_name('rotation').value
-                result.scale = topic.get_metadatum_by_name('scale').value
+                result.location = topic.get_attribute_by_name('location').value
+                result.rotation = topic.get_attribute_by_name('rotation').value
+                result.scale = topic.get_attribute_by_name('scale').value
 
                 occurrences = GetOccurrences(self.database_path, self.identifier).do()
                 for occurrence in occurrences:
                     result.add_asset(Asset(occurrence.instance_of, occurrence.resource_ref))
 
-                metadata = [metadatum for metadatum in topic.metadata if
-                            metadatum.name not in ('location', 'rotation', 'scale')]
-                result.add_metadata(metadata)
+                attributes = [attribute for attribute in topic.attributes if
+                            attribute.name not in ('location', 'rotation', 'scale')]
+                result.add_attributes(attributes)
         except TopicStoreException as e:
             raise CoreException(e)
         return result

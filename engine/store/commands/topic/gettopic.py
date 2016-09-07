@@ -12,7 +12,7 @@ from engine.store.models.language import Language
 from engine.store.models.topic import Topic
 from engine.store.retrievaloption import RetrievalOption
 from engine.store.topicstoreexception import TopicStoreException
-from engine.store.commands.metadatum.getmetadata import GetMetadata
+from engine.store.commands.attribute.getattributes import GetAttributes
 from engine.store.commands.occurrence.getoccurrences import GetOccurrences
 
 
@@ -20,12 +20,12 @@ class GetTopic:
 
     def __init__(self, database_path,
                  identifier='',
-                 resolve_metadata=RetrievalOption.dont_resolve_metadata,
+                 resolve_attributes=RetrievalOption.dont_resolve_attributes,
                  resolve_occurrences=RetrievalOption.dont_resolve_occurrences,
                  language=Language.en):
         self.database_path = database_path
         self.identifier = identifier
-        self.resolve_metadata = resolve_metadata
+        self.resolve_attributes = resolve_attributes
         self.resolve_occurrences = resolve_occurrences
         self.language = language
 
@@ -53,8 +53,8 @@ class GetTopic:
                             BaseName(base_name_record['name'],
                                      Language[base_name_record['language']],
                                      base_name_record['identifier']))
-                if self.resolve_metadata is RetrievalOption.resolve_metadata:
-                    result.add_metadata(GetMetadata(self.database_path, self.identifier, self.language).do())
+                if self.resolve_attributes is RetrievalOption.resolve_attributes:
+                    result.add_attributes(GetAttributes(self.database_path, self.identifier, self.language).do())
                 if self.resolve_occurrences is RetrievalOption.resolve_occurrences:
                     result.add_occurrences(GetOccurrences(self.database_path, self.identifier).do())
         except sqlite3.Error as e:

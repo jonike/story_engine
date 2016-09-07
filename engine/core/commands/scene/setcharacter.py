@@ -8,12 +8,12 @@ from engine.store.commands.occurrence.setoccurrencedata import SetOccurrenceData
 from engine.store.models.topic import Topic
 from engine.store.models.occurrence import Occurrence
 from engine.store.models.association import Association
-from engine.store.models.metadatum import Metadatum
+from engine.store.models.attribute import Attribute
 from engine.core.coreexception import CoreException
 from engine.store.commands.topic.settopic import SetTopic
 from engine.store.commands.occurrence.setoccurrence import SetOccurrence
 from engine.store.commands.association.setassociation import SetAssociation
-from engine.store.commands.metadatum.setmetadata import SetMetadata
+from engine.store.commands.attribute.setattributes import SetAttributes
 
 
 class SetCharacter:
@@ -32,11 +32,11 @@ class SetCharacter:
         topic = Topic(self.character.identifier, self.character.instance_of, self.character.name)
         SetTopic(self.database_path, topic).do()
 
-        location_metadatum = Metadatum('location', self.character.location, topic.identifier)
-        rotation_metadatum = Metadatum('rotation', self.character.rotation, topic.identifier)
-        scale_metadatum = Metadatum('scale', self.character.scale, topic.identifier)
+        location_attribute = Attribute('location', self.character.location, topic.identifier)
+        rotation_attribute = Attribute('rotation', self.character.rotation, topic.identifier)
+        scale_attribute = Attribute('scale', self.character.scale, topic.identifier)
 
-        SetMetadata(self.database_path, [location_metadatum, rotation_metadatum, scale_metadatum]).do()
+        SetAttributes(self.database_path, [location_attribute, rotation_attribute, scale_attribute]).do()
 
         for asset in self.character.assets:
             occurrence = Occurrence(

@@ -28,12 +28,12 @@ class GetScene:
         if self.identifier == '':
             raise CoreException("Missing 'scene identifier' parameter")
         try:
-            topic = GetTopic(self.database_path, self.identifier, RetrievalOption.resolve_metadata).do()
+            topic = GetTopic(self.database_path, self.identifier, RetrievalOption.resolve_attributes).do()
             if topic:
-                self.result = Scene(topic.identifier, topic.first_base_name.name, topic.get_metadatum_by_name('ordinal').value)
-                self.result.location = topic.get_metadatum_by_name('location').value
-                self.result.rotation = topic.get_metadatum_by_name('rotation').value
-                self.result.scale = topic.get_metadatum_by_name('scale').value
+                self.result = Scene(topic.identifier, topic.first_base_name.name, topic.get_attribute_by_name('ordinal').value)
+                self.result.location = topic.get_attribute_by_name('location').value
+                self.result.rotation = topic.get_attribute_by_name('rotation').value
+                self.result.scale = topic.get_attribute_by_name('scale').value
 
                 self.result.add_associations(GetAssociations(self.database_path, self.identifier).do())
 
@@ -59,9 +59,9 @@ class GetScene:
                 for occurrence in occurrences:
                     self.result.add_asset(Asset(occurrence.instance_of, occurrence.resource_ref))
 
-                metadata = [metadatum for metadatum in topic.metadata
-                            if metadatum.name not in ('location', 'rotation', 'scale')]
-                self.result.add_metadata(metadata)
+                attributes = [attribute for attribute in topic.attributes
+                            if attribute.name not in ('location', 'rotation', 'scale')]
+                self.result.add_attributes(attributes)
         except TopicStoreException as e:
             raise CoreException(e)
         return self.result

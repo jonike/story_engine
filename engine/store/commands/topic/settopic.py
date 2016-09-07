@@ -11,9 +11,9 @@ from datetime import datetime
 
 from engine.store.models.language import Language
 from engine.store.models.datatype import DataType
-from engine.store.models.metadatum import Metadatum
+from engine.store.models.attribute import Attribute
 from engine.store.topicstoreexception import TopicStoreException
-from engine.store.commands.metadatum.setmetadata import SetMetadata
+from engine.store.commands.attribute.setattributes import SetAttributes
 
 
 class SetTopic:
@@ -38,14 +38,14 @@ class SetTopic:
                                         base_name.name,
                                         self.topic.identifier,
                                         base_name.language.name))
-            if not self.topic.get_metadatum_by_name('creation-timestamp'):
+            if not self.topic.get_attribute_by_name('creation-timestamp'):
                 timestamp = str(datetime.now())
-                timestamp_metadatum = Metadatum('creation-timestamp', timestamp, self.topic.identifier,
+                timestamp_attribute = Attribute('creation-timestamp', timestamp, self.topic.identifier,
                                                 data_type=DataType.timestamp,
                                                 scope='*',
                                                 language=Language.en)
-                self.topic.add_metadatum(timestamp_metadatum)
-            SetMetadata(self.database_path, self.topic.metadata).do()
+                self.topic.add_attribute(timestamp_attribute)
+            SetAttributes(self.database_path, self.topic.attributes).do()
         except sqlite3.Error as e:
             raise TopicStoreException(e)
         finally:

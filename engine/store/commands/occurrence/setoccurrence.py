@@ -11,8 +11,8 @@ from datetime import datetime
 
 from engine.store.models.language import Language
 from engine.store.models.datatype import DataType
-from engine.store.models.metadatum import Metadatum
-from engine.store.commands.metadatum.setmetadata import SetMetadata
+from engine.store.models.attribute import Attribute
+from engine.store.commands.attribute.setattributes import SetAttributes
 from engine.store.topicstoreexception import TopicStoreException
 
 
@@ -40,14 +40,14 @@ class SetOccurrence:
                                     self.occurrence.resource_data,
                                     self.occurrence.topic_identifier,
                                     self.occurrence.language.name))
-            if not self.occurrence.get_metadatum_by_name('creation-timestamp'):
+            if not self.occurrence.get_attribute_by_name('creation-timestamp'):
                 timestamp = str(datetime.now())
-                timestamp_metadatum = Metadatum('creation-timestamp', timestamp, self.occurrence.identifier,
+                timestamp_attribute = Attribute('creation-timestamp', timestamp, self.occurrence.identifier,
                                                 data_type=DataType.timestamp,
                                                 scope='*',
                                                 language=Language.en)
-                self.occurrence.add_metadatum(timestamp_metadatum)
-            SetMetadata(self.database_path, self.occurrence.metadata).do()
+                self.occurrence.add_attribute(timestamp_attribute)
+            SetAttributes(self.database_path, self.occurrence.attributes).do()
         except sqlite3.Error as e:
             raise TopicStoreException(e)
         finally:

@@ -5,8 +5,8 @@ July 24, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 """
 
-from engine.store.commands.metadatum.setmetadatum import SetMetadatum
-from engine.store.models.metadatum import Metadatum
+from engine.store.commands.attribute.setattribute import SetAttribute
+from engine.store.models.attribute import Attribute
 from engine.core.commands.scene.setcharacter import SetCharacter
 from engine.core.commands.scene.setprop import SetProp
 from engine.core.commands.scene.setscene import SetScene
@@ -40,8 +40,8 @@ asset2 = Asset('text', data=scene1_text)
 scene1.add_asset(asset2)
 SetScene(repo_path, scene1).do()
 #SetTags(repo_path, 'scene-001', ['interior', 'sci-fi']).do()
-metadatum1 = Metadatum('type', 'interior', 'scene-001')
-SetMetadatum(repo_path, metadatum1).do()
+attribute1 = Attribute('type', 'interior', 'scene-001')
+SetAttribute(repo_path, attribute1).do()
 
 # Define and persist the second (crates) scene.
 asset3 = Asset('scene', 'scene-002.json')
@@ -57,8 +57,8 @@ asset4 = Asset('text', data=scene2_text)
 scene2.add_asset(asset4)
 SetScene(repo_path, scene2).do()
 #SetTags(repo_path, 'scene-002', ['interior', 'sci-fi']).do()
-metadatum2 = Metadatum('type', 'interior', 'scene-002')
-SetMetadatum(repo_path, metadatum2).do()
+attribute2 = Attribute('type', 'interior', 'scene-002')
+SetAttribute(repo_path, attribute2).do()
 
 # Define and persist the third (empty) scene.
 asset5 = Asset('scene', 'scene-003.json')
@@ -77,8 +77,8 @@ asset6 = Asset('text', data=scene3_text)
 scene3.add_asset(asset6)
 SetScene(repo_path, scene3).do()
 #SetTags(repo_path, 'scene-003', ['interior', 'sci-fi']).do()
-metadatum3 = Metadatum('type', 'interior', 'scene-003')
-SetMetadatum(repo_path, metadatum3).do()
+attribute3 = Attribute('type', 'interior', 'scene-003')
+SetAttribute(repo_path, attribute3).do()
 
 # Define and persist the fourth (outside windmill) scene.
 asset7 = Asset('scene', 'scene-004.json')
@@ -97,10 +97,10 @@ asset8 = Asset('text', data=scene4_text)
 scene4.add_asset(asset8)
 SetScene(repo_path, scene4).do()
 #SetTags(repo_path, 'scene-004', ['exterior', 'sci-fi', 'afternoon', 'summer']).do()
-metadatum4 = Metadatum('type', 'exterior', 'scene-004')
-SetMetadatum(repo_path, metadatum4).do()
-metadatum5 = Metadatum('time', '16.0', 'scene-004')  # 16:00
-SetMetadatum(repo_path, metadatum5).do()
+attribute4 = Attribute('type', 'exterior', 'scene-004')
+SetAttribute(repo_path, attribute4).do()
+attribute5 = Attribute('time', '16.0', 'scene-004')  # 16:00
+SetAttribute(repo_path, attribute5).do()
 
 # Define navigation paths between scenes.
 SetNavigation(repo_path, 'scene-001', 'scene-002', 'south', 'north').do()

@@ -1,5 +1,5 @@
 """
-GetMetadata class. Part of the StoryTechnologies Builder project.
+GetAttribute class. Part of the StoryTechnologies Builder project.
 
 July 04, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
@@ -9,32 +9,30 @@ import sqlite3
 
 from engine.store.models.language import Language
 from engine.store.models.datatype import DataType
-from engine.store.models.metadatum import Metadatum
+from engine.store.models.attribute import Attribute
 from engine.store.topicstoreexception import TopicStoreException
 
 
-class GetMetadata:
+class GetAttribute:
 
-    def __init__(self, database_path, entity_identifier='', language=Language.en):
+    def __init__(self, database_path, identifier):
         self.database_path = database_path
-        self.entity_identifier = entity_identifier
-        self.language = language
+        self.identifier = identifier
 
     def do(self):
-        if self.entity_identifier == '':
-            raise TopicStoreException("Missing 'entity identifier' parameter")
-        result = []
+        if self.identifier == '':
+            raise TopicStoreException("Missing 'identifier' parameter")
+        result = None
 
         connection = sqlite3.connect(self.database_path)
         connection.row_factory = sqlite3.Row
 
         cursor = connection.cursor()
         try:
-            cursor.execute("SELECT * FROM metadatum WHERE parent_identifier_fk = ? AND language = ?",
-                           (self.entity_identifier, self.language.name))
-            records = cursor.fetchall()
-            for record in records:
-                metadatum = Metadatum(
+            cursor.execute("SELECT * FROM attribute WHERE identifier = ?", (self.identifier,))
+            record = cursor.fetchone()
+            if record:
+                result = Attribute(
                     record['name'],
                     record['value'],
                     record['parent_identifier_fk'],
@@ -42,7 +40,6 @@ class GetMetadata:
                     DataType[record['data_type']],
                     record['scope'],
                     Language[record['language']])
-                result.append(metadatum)
         except sqlite3.Error as e:
             raise TopicStoreException(e)
         finally:

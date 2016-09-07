@@ -10,7 +10,7 @@ import sqlite3
 from engine.store.topicstoreexception import TopicStoreException
 from engine.store.retrievaloption import RetrievalOption
 from engine.store.commands.occurrence.getoccurrencedata import GetOccurrenceData
-from engine.store.commands.metadatum.getmetadata import GetMetadata
+from engine.store.commands.attribute.getattributes import GetAttributes
 from engine.store.models.occurrence import Occurrence
 from engine.store.models.language import Language
 
@@ -20,14 +20,14 @@ class GetOccurrences:
     def __init__(self, database_path,
                  topic_identifier='',
                  inline_resource_data=RetrievalOption.dont_inline_resource_data,
-                 resolve_metadata=RetrievalOption.dont_resolve_metadata,
+                 resolve_attributes=RetrievalOption.dont_resolve_attributes,
                  instance_of='',
                  scope='*',
                  language=Language.en):
         self.database_path = database_path
         self.topic_identifier = topic_identifier
         self.inline_resource_data = inline_resource_data
-        self.resolve_metadata = resolve_metadata
+        self.resolve_attributes = resolve_attributes
         self.instance_of = instance_of
         self.scope = scope
         self.language = language
@@ -64,10 +64,10 @@ class GetOccurrences:
                     record['resource_ref'],
                     resource_data,
                     Language[record['language']])
-                if self.resolve_metadata is RetrievalOption.resolve_metadata:
+                if self.resolve_attributes is RetrievalOption.resolve_attributes:
                     # TODO: Optimize.
-                    occurrence.add_metadata(
-                        GetMetadata(self.database_path, self.identifier, self.language).do())
+                    occurrence.add_attributes(
+                        GetAttributes(self.database_path, self.identifier, self.language).do())
                 result.append(occurrence)
         except sqlite3.Error as e:
             raise TopicStoreException(e)

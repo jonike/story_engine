@@ -1,5 +1,5 @@
 """
-Metadatum class. Part of the StoryTechnologies Builder project.
+Attribute class. Part of the StoryTechnologies Builder project.
 
 June 12, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
@@ -14,7 +14,7 @@ from engine.store.models.language import Language
 from engine.store.topicstoreexception import TopicStoreException
 
 
-class Metadatum:
+class Attribute:
 
     def __init__(self, name, value, entity_identifier,
                  identifier='',
@@ -35,7 +35,7 @@ class Metadatum:
         self.value = value
 
     def __repr__(self):
-        return("Metadatum('{0}', '{1}', '{2}', '{3}', {4}, '{5}', {6})".format(
+        return("Attribute('{0}', '{1}', '{2}', '{3}', {4}, '{5}', {6})".format(
             self.name,
             self.value,
             self.__entity_identifier,

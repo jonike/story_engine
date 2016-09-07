@@ -12,8 +12,8 @@ from engine.core.models.character import Character
 from engine.core.models.prop import Prop
 from engine.store.commands.association.getassociation import GetAssociation
 from engine.store.commands.association.getassociationgroups import GetAssociationGroups
-from engine.store.commands.metadatum.getmetadata import GetMetadata
-from engine.store.commands.metadatum.getmetadatum import GetMetadatum
+from engine.store.commands.attribute.getattributes import GetAttributes
+from engine.store.commands.attribute.getattribute import GetAttribute
 from engine.store.commands.occurrence.getoccurrence import GetOccurrence
 from engine.store.commands.occurrence.getoccurrences import GetOccurrences
 from engine.store.commands.topic.gettopic import GetTopic
@@ -39,19 +39,19 @@ def get_topic_identifiers(query, offset=0, limit=100, filter_entities=RetrievalO
 
 @functools.lru_cache(maxsize=64)
 def get_topic(identifier):
-    topic = GetTopic(database_path, identifier, RetrievalOption.resolve_metadata).do()
+    topic = GetTopic(database_path, identifier, RetrievalOption.resolve_attributes).do()
     if topic:
-        metadata = []
+        attributes = []
         base_names = []
-        for metadatum in topic.metadata:
-            metadata.append({
-                'identifier': metadatum.identifier,
-                'name': metadatum.name,
-                'value': metadatum.value,
-                'entityIdentifier': metadatum.entity_identifier,
-                'dataType': metadatum.data_type.name,
-                'scope': metadatum.scope,
-                'language': metadatum.language.name
+        for attribute in topic.attributes:
+            attributes.append({
+                'identifier': attribute.identifier,
+                'name': attribute.name,
+                'value': attribute.value,
+                'entityIdentifier': attribute.entity_identifier,
+                'dataType': attribute.data_type.name,
+                'scope': attribute.scope,
+                'language': attribute.language.name
             })
         for base_name in topic.base_names:
             base_names.append({
@@ -65,7 +65,7 @@ def get_topic(identifier):
                 'firstBaseName': topic.first_base_name.name,
                 'baseNames': base_names,
                 'instanceOf': topic.instance_of,
-                'metadata': metadata
+                'attributes': attributes
             }
         }
         return result, 200
@@ -78,17 +78,17 @@ def get_topics(instance_of='topic', offset=0, limit=100):
     if topics:
         result = []
         for topic in topics:
-            metadata = []
+            attributes = []
             base_names = []
-            for metadatum in topic.metadata:
-                metadata.append({
-                    'identifier': metadatum.identifier,
-                    'name': metadatum.name,
-                    'value': metadatum.value,
-                    'entityIdentifier': metadatum.entity_identifier,
-                    'dataType': metadatum.data_type.name,
-                    'scope': metadatum.scope,
-                    'language': metadatum.language.name
+            for attribute in topic.attributes:
+                attributes.append({
+                    'identifier': attribute.identifier,
+                    'name': attribute.name,
+                    'value': attribute.value,
+                    'entityIdentifier': attribute.entity_identifier,
+                    'dataType': attribute.data_type.name,
+                    'scope': attribute.scope,
+                    'language': attribute.language.name
                 })
             for base_name in topic.base_names:
                 base_names.append({
@@ -102,7 +102,7 @@ def get_topics(instance_of='topic', offset=0, limit=100):
                     'firstBaseName': topic.first_base_name.name,
                     'baseNames': base_names,
                     'instanceOf': topic.instance_of,
-                    'metadata': metadata
+                    'attributes': attributes
                 }
             }
             result.append(topic)
@@ -123,22 +123,22 @@ def get_occurrence(identifier, inline_resource_data=RetrievalOption.dont_inline_
 
 def get_occurrences(identifier,
                     inline_resource_data=RetrievalOption.dont_inline_resource_data,
-                    resolve_metadata=RetrievalOption.dont_resolve_metadata,
+                    resolve_attributes=RetrievalOption.dont_resolve_attributes,
                     instance_of=''):
-    occurrences = GetOccurrences(database_path, identifier, inline_resource_data, resolve_metadata, instance_of).do()
+    occurrences = GetOccurrences(database_path, identifier, inline_resource_data, resolve_attributes, instance_of).do()
     if occurrences:
         result = []
         for occurrence in occurrences:
-            metadata = []
-            for metadatum in occurrence.metadata:
-                metadata.append({
-                    'identifier': metadatum.identifier,
-                    'name': metadatum.name,
-                    'value': metadatum.value,
-                    'entityIdentifier': metadatum.entity_identifier,
-                    'dataType': metadatum.data_type.name,
-                    'scope': metadatum.scope,
-                    'language': metadatum.language.name
+            attributes = []
+            for attribute in occurrence.attributes:
+                attributes.append({
+                    'identifier': attribute.identifier,
+                    'name': attribute.name,
+                    'value': attribute.value,
+                    'entityIdentifier': attribute.entity_identifier,
+                    'dataType': attribute.data_type.name,
+                    'scope': attribute.scope,
+                    'language': attribute.language.name
                 })
             if occurrence.resource_data is None:
                 resource_data = None
@@ -152,7 +152,7 @@ def get_occurrences(identifier,
                     'resourceRef': occurrence.resource_ref,
                     'resourceData': resource_data,
                     'language': occurrence.language.name,
-                    'metadata': metadata
+                    'attributes': attributes
                 }
             }
             result.append(occurrence)
@@ -192,20 +192,20 @@ def get_associations(identifier):
 
 
 @functools.lru_cache(maxsize=64)
-def get_metadatum(identifier):
-    metadatum = GetMetadatum(database_path, identifier).do()
-    if metadatum:
+def get_attribute(identifier):
+    attribute = GetAttribute(database_path, identifier).do()
+    if attribute:
         # TODO: Implementation.
-        return "Metadatum found", 200
+        return "Attribute found", 200
     else:
         return "Not found", 404
 
 
-def get_metadata(identifier):
-    metadata = GetMetadata(database_path, identifier).do()
-    if metadata:
+def get_attributes(identifier):
+    attributes = GetAttributes(database_path, identifier).do()
+    if attributes:
         # TODO: Implementation.
-        return "Metadata found", 200
+        return "Attributes found", 200
     else:
         return "Not found", 404
 
@@ -218,7 +218,7 @@ def get_scene(identifier):
         props = []
         characters = []
         paths = []
-        metadata = []
+        attributes = []
         for entity in scene.entities:
             if isinstance(entity, Prop):
                 prop_assets = []
@@ -264,15 +264,15 @@ def get_scene(identifier):
                 'direction': path.direction,
                 'to': path.to
             })
-        for metadatum in scene.metadata:
-            metadata.append({
-                'identifier': metadatum.identifier,
-                'name': metadatum.name,
-                'value': metadatum.value,
-                'entityIdentifier': metadatum.entity_identifier,
-                'dataType': metadatum.data_type.name,
-                'scope': metadatum.scope,
-                'language': metadatum.language.name
+        for attribute in scene.attributes:
+            attributes.append({
+                'identifier': attribute.identifier,
+                'name': attribute.name,
+                'value': attribute.value,
+                'entityIdentifier': attribute.entity_identifier,
+                'dataType': attribute.data_type.name,
+                'scope': attribute.scope,
+                'language': attribute.language.name
             })
         result = {
             'scene': {
@@ -285,7 +285,7 @@ def get_scene(identifier):
                 'assets': assets,
                 'entities': entities,
                 'paths': paths,
-                'metadata': metadata,
+                'attributes': attributes,
                 'tags': scene.tags
             }
         }
@@ -299,21 +299,21 @@ def get_prop(identifier):
     prop = GetProp(database_path, identifier).do()
     if prop:
         assets = []
-        metadata = []
+        attributes = []
         for asset in prop.assets:
             assets.append({
                 'reference': asset.reference,
                 'instanceOf': asset.instance_of
             })
-        for metadatum in prop.metadata:
-            metadata.append({
-                'identifier': metadatum.identifier,
-                'name': metadatum.name,
-                'value': metadatum.value,
-                'entityIdentifier': metadatum.entity_identifier,
-                'dataType': metadatum.data_type.name,
-                'scope': metadatum.scope,
-                'language': metadatum.language.name
+        for attribute in prop.attributes:
+            attributes.append({
+                'identifier': attribute.identifier,
+                'name': attribute.name,
+                'value': attribute.value,
+                'entityIdentifier': attribute.entity_identifier,
+                'dataType': attribute.data_type.name,
+                'scope': attribute.scope,
+                'language': attribute.language.name
             })
         result = {
             'prop': {
@@ -323,7 +323,7 @@ def get_prop(identifier):
                 'rotation': prop.rotation,
                 'scale': prop.scale,
                 'assets': assets,
-                'metadata': metadata
+                'attributes': attributes
             }
         }
         return result, 200
@@ -336,21 +336,21 @@ def get_character(identifier):
     character = GetCharacter(database_path, identifier).do()
     if character:
         assets = []
-        metadata = []
+        attributes = []
         for asset in character.assets:
             assets.append({
                 'reference': asset.reference,
                 'instanceOf': asset.instance_of
             })
-        for metadatum in character.metadata:
-            metadata.append({
-                'identifier': metadatum.identifier,
-                'name': metadatum.name,
-                'value': metadatum.value,
-                'entityIdentifier': metadatum.entity_identifier,
-                'dataType': metadatum.data_type.name,
-                'scope': metadatum.scope,
-                'language': metadatum.language.name
+        for attribute in character.attributes:
+            attributes.append({
+                'identifier': attribute.identifier,
+                'name': attribute.name,
+                'value': attribute.value,
+                'entityIdentifier': attribute.entity_identifier,
+                'dataType': attribute.data_type.name,
+                'scope': attribute.scope,
+                'language': attribute.language.name
             })
         result = {
             'character': {
@@ -360,7 +360,7 @@ def get_character(identifier):
                 'rotation': character.rotation,
                 'scale': character.scale,
                 'assets': assets,
-                'metadata': metadata
+                'attributes': attributes
             }
         }
         return result, 200

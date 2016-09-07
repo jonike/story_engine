@@ -17,13 +17,13 @@ class GetTopics:
 
     def __init__(self, database_path,
                  instance_of='',
-                 resolve_metadata=RetrievalOption.dont_resolve_metadata,
+                 resolve_attributes=RetrievalOption.dont_resolve_attributes,
                  language=Language.en,
                  offset=0,
                  limit=100):
         self.database_path = database_path
         self.instance_of = instance_of
-        self.resolve_metadata = resolve_metadata
+        self.resolve_attributes = resolve_attributes
         self.language = language
         self.offset = offset
         self.limit = limit
@@ -46,7 +46,7 @@ class GetTopics:
             cursor.execute(sql, bind_variables)
             records = cursor.fetchall()
             for record in records:
-                result.append(GetTopic(self.database_path, record['identifier'], self.resolve_metadata, self.language).do())
+                result.append(GetTopic(self.database_path, record['identifier'], self.resolve_attributes, self.language).do())
         except sqlite3.Error as e:
             raise TopicStoreException(e)
         finally:

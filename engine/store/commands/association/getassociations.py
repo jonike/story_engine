@@ -17,12 +17,12 @@ class GetAssociations:
 
     def __init__(self, database_path,
                  identifier='',
-                 resolve_metadata=RetrievalOption.dont_resolve_metadata,
+                 resolve_attributes=RetrievalOption.dont_resolve_attributes,
                  resolve_occurrences=RetrievalOption.dont_resolve_occurrences,
                  language=Language.en):
         self.database_path = database_path
         self.identifier = identifier
-        self.resolve_metadata = resolve_metadata
+        self.resolve_attributes = resolve_attributes
         self.resolve_occurrences = resolve_occurrences
         self.language = language
 
@@ -45,7 +45,7 @@ class GetAssociations:
                     if member_records:
                         for member_record in member_records:
                             # TODO: Optimize.
-                            association = GetAssociation(self.database_path, member_record['association_identifier_fk'], self.resolve_metadata, self.resolve_occurrences, self.language).do()
+                            association = GetAssociation(self.database_path, member_record['association_identifier_fk'], self.resolve_attributes, self.resolve_occurrences, self.language).do()
                             if association:
                                 result.append(association)
         except sqlite3.Error as e:

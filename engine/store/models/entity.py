@@ -28,7 +28,7 @@ class Entity:
             self.__identifier = slugify(str(identifier))
 
         self.__instance_of = slugify(str(instance_of))
-        self.__metadata = []
+        self.__attributes = []
 
     @property
     def identifier(self):
@@ -45,34 +45,34 @@ class Entity:
         self.__instance_of = slugify(str(value))
 
     @property
-    def metadata(self):
-        return self.__metadata
+    def attributes(self):
+        return self.__attributes
 
-    def add_metadatum(self, metadatum):
-        self.__metadata.append(metadatum)
+    def add_attribute(self, attribute):
+        self.__attributes.append(attribute)
 
-    def add_metadata(self, metadata):
-        for metadatum in metadata:
-            self.__metadata.append(metadatum)
+    def add_attributes(self, attributes):
+        for attribute in attributes:
+            self.__attributes.append(attribute)
 
-    def remove_metadatum(self, identifier):
-        self.__metadata[:] = [x for x in self.__metadata if x.identifier != identifier]
+    def remove_attribute(self, identifier):
+        self.__attributes[:] = [x for x in self.__attributes if x.identifier != identifier]
 
-    def get_metadatum(self, identifier):
+    def get_attribute(self, identifier):
         result = None
-        for metadatum in self.__metadata:
-            if metadatum.identifier == identifier:
-                result = metadatum
+        for attribute in self.__attributes:
+            if attribute.identifier == identifier:
+                result = attribute
                 break
         return result
 
-    def get_metadatum_by_name(self, name):
+    def get_attribute_by_name(self, name):
         result = None
-        for metadatum in self.__metadata:
-            if metadatum.name == name:
-                result = metadatum
+        for attribute in self.__attributes:
+            if attribute.name == name:
+                result = attribute
                 break
         return result
 
-    def clear_metadata(self):
-        del self.__metadata[:]
+    def clear_attributes(self):
+        del self.__attributes[:]

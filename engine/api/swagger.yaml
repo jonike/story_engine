@@ -61,8 +61,8 @@ paths:
           in: query
           type: boolean
           required: false
-        - name: resolve_metadata
-          description: Retrieve the occurrence's metadata
+        - name: resolve_attributes
+          description: Retrieve the occurrence's attributes
           in: query
           type: boolean
           required: false
