@@ -15,7 +15,6 @@ from engine.store.commands.attribute.setattributes import SetAttributes
 
 
 class SetScene:
-
     def __init__(self, database_path, scene):
         self.database_path = database_path
         self.scene = scene
@@ -33,9 +32,9 @@ class SetScene:
 
         SetAttributes(self.database_path,
                       [location_attribute,
-                            rotation_attribute,
-                            scale_attribute,
-                            ordinal_attribute]).do()
+                       rotation_attribute,
+                       scale_attribute,
+                       ordinal_attribute]).do()
 
         for asset in self.scene.assets:
             occurrence = Occurrence(

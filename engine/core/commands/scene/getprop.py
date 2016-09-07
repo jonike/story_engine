@@ -36,7 +36,7 @@ class GetProp:
                     result.add_asset(Asset(occurrence.instance_of, occurrence.resource_ref))
 
                 attributes = [attribute for attribute in topic.attributes if
-                                attribute.name not in ('location', 'rotation', 'scale')]
+                              attribute.name not in ('location', 'rotation', 'scale')]
                 result.add_attributes(attributes)
         except TopicStoreException as e:
             raise CoreException(e)

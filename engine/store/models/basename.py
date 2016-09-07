@@ -26,4 +26,3 @@ class BaseName:
     @property
     def identifier(self):
         return self.__identifier
-
