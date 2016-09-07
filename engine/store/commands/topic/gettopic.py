@@ -1,5 +1,5 @@
 """
-GetTopicCommand class. Part of the StoryTechnologies Builder project.
+GetTopic class. Part of the StoryTechnologies Builder project.
 
 July 04, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
@@ -12,11 +12,11 @@ from engine.store.models.language import Language
 from engine.store.models.topic import Topic
 from engine.store.retrievaloption import RetrievalOption
 from engine.store.topicstoreexception import TopicStoreException
-from engine.store.commands.metadatum.getmetadata import GetMetadataCommand
-from engine.store.commands.occurrence.getoccurrences import GetOccurrencesCommand
+from engine.store.commands.metadatum.getmetadata import GetMetadata
+from engine.store.commands.occurrence.getoccurrences import GetOccurrences
 
 
-class GetTopicCommand:
+class GetTopic:
 
     def __init__(self, database_path,
                  identifier='',
@@ -54,9 +54,9 @@ class GetTopicCommand:
                                      Language[base_name_record['language']],
                                      base_name_record['identifier']))
                 if self.resolve_metadata is RetrievalOption.resolve_metadata:
-                    result.add_metadata(GetMetadataCommand(self.database_path, self.identifier, self.language).do())
+                    result.add_metadata(GetMetadata(self.database_path, self.identifier, self.language).do())
                 if self.resolve_occurrences is RetrievalOption.resolve_occurrences:
-                    result.add_occurrences(GetOccurrencesCommand(self.database_path, self.identifier).do())
+                    result.add_occurrences(GetOccurrences(self.database_path, self.identifier).do())
         except sqlite3.Error as e:
             raise TopicStoreException(e)
         finally:

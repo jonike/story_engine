@@ -1,5 +1,5 @@
 """
-DeleteMetadataCommand class. Part of the StoryTechnologies Builder project.
+DeleteMetadata class. Part of the StoryTechnologies Builder project.
 
 July 13, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
@@ -10,7 +10,7 @@ import sqlite3
 from engine.store.topicstoreexception import TopicStoreException
 
 
-class DeleteMetadataCommand:
+class DeleteMetadata:
 
     def __init__(self, database_path, entity_identifier=''):
         self.database_path = database_path

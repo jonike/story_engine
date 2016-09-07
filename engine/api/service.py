@@ -10,19 +10,19 @@ import functools
 
 from engine.core.models.character import Character
 from engine.core.models.prop import Prop
-from engine.store.commands.association.getassociation import GetAssociationCommand
-from engine.store.commands.association.getassociationgroups import GetAssociationGroupsCommand
-from engine.store.commands.metadatum.getmetadata import GetMetadataCommand
-from engine.store.commands.metadatum.getmetadatum import GetMetadatumCommand
-from engine.store.commands.occurrence.getoccurrence import GetOccurrenceCommand
-from engine.store.commands.occurrence.getoccurrences import GetOccurrencesCommand
-from engine.store.commands.topic.gettopic import GetTopicCommand
-from engine.store.commands.topic.gettopicidentifiers import GetTopicIdentifiersCommand
-from engine.store.commands.topic.gettopics import GetTopicsCommand
+from engine.store.commands.association.getassociation import GetAssociation
+from engine.store.commands.association.getassociationgroups import GetAssociationGroups
+from engine.store.commands.metadatum.getmetadata import GetMetadata
+from engine.store.commands.metadatum.getmetadatum import GetMetadatum
+from engine.store.commands.occurrence.getoccurrence import GetOccurrence
+from engine.store.commands.occurrence.getoccurrences import GetOccurrences
+from engine.store.commands.topic.gettopic import GetTopic
+from engine.store.commands.topic.gettopicidentifiers import GetTopicIdentifiers
+from engine.store.commands.topic.gettopics import GetTopics
 from engine.store.retrievaloption import RetrievalOption
-from engine.core.commands.scene.getscene import GetSceneCommand
-from engine.core.commands.scene.getprop import GetPropCommand
-from engine.core.commands.scene.getcharacter import GetCharacterCommand
+from engine.core.commands.scene.getscene import GetScene
+from engine.core.commands.scene.getprop import GetProp
+from engine.core.commands.scene.getcharacter import GetCharacter
 
 
 database_path = '/home/brettk/Source/storytechnologies/story-engine/data/test1.sqlite'
@@ -30,7 +30,7 @@ database_path = '/home/brettk/Source/storytechnologies/story-engine/data/test1.s
 
 def get_topic_identifiers(query, offset=0, limit=100, filter_entities=RetrievalOption.filter_entities):
     # TODO: Implement 'filter entities' switch.
-    result = GetTopicIdentifiersCommand(database_path, query, filter_entities, offset, limit).do()
+    result = GetTopicIdentifiers(database_path, query, filter_entities, offset, limit).do()
     if result:
         return result, 200
     else:
@@ -39,7 +39,7 @@ def get_topic_identifiers(query, offset=0, limit=100, filter_entities=RetrievalO
 
 @functools.lru_cache(maxsize=64)
 def get_topic(identifier):
-    topic = GetTopicCommand(database_path, identifier, RetrievalOption.resolve_metadata).do()
+    topic = GetTopic(database_path, identifier, RetrievalOption.resolve_metadata).do()
     if topic:
         metadata = []
         base_names = []
@@ -74,7 +74,7 @@ def get_topic(identifier):
 
 
 def get_topics(instance_of='topic', offset=0, limit=100):
-    topics = GetTopicsCommand(database_path, instance_of=instance_of, offset=offset, limit=limit).do()
+    topics = GetTopics(database_path, instance_of=instance_of, offset=offset, limit=limit).do()
     if topics:
         result = []
         for topic in topics:
@@ -113,7 +113,7 @@ def get_topics(instance_of='topic', offset=0, limit=100):
     
 @functools.lru_cache(maxsize=64)
 def get_occurrence(identifier, inline_resource_data=RetrievalOption.dont_inline_resource_data):
-    occurrence = GetOccurrenceCommand(database_path, identifier, inline_resource_data).do()
+    occurrence = GetOccurrence(database_path, identifier, inline_resource_data).do()
     if occurrence:
         # TODO: Implementation.
         return "Occurrence found", 200
@@ -125,7 +125,7 @@ def get_occurrences(identifier,
                     inline_resource_data=RetrievalOption.dont_inline_resource_data,
                     resolve_metadata=RetrievalOption.dont_resolve_metadata,
                     instance_of=''):
-    occurrences = GetOccurrencesCommand(database_path, identifier, inline_resource_data, resolve_metadata, instance_of).do()
+    occurrences = GetOccurrences(database_path, identifier, inline_resource_data, resolve_metadata, instance_of).do()
     if occurrences:
         result = []
         for occurrence in occurrences:
@@ -163,7 +163,7 @@ def get_occurrences(identifier,
 
 @functools.lru_cache(maxsize=64)
 def get_association(identifier):
-    association = GetAssociationCommand(database_path, identifier).do()
+    association = GetAssociation(database_path, identifier).do()
     if association:
         # TODO: Implementation.
         return "Association found", 200
@@ -172,7 +172,7 @@ def get_association(identifier):
 
 
 def get_associations(identifier):
-    associations = GetAssociationGroupsCommand(database_path, identifier).do()
+    associations = GetAssociationGroups(database_path, identifier).do()
     if len(associations):
         level1 = []
         for instance_of in associations.dict:
@@ -180,11 +180,11 @@ def get_associations(identifier):
             for role in associations.dict[instance_of]:
                 level3 = []
                 for topic_ref in associations[instance_of, role]:
-                    topic3 = GetTopicCommand(database_path, topic_ref).do()
+                    topic3 = GetTopic(database_path, topic_ref).do()
                     level3.append({'text': topic3.first_base_name.name, 'href': topic_ref, 'instanceOf': instance_of})
-                topic2 = GetTopicCommand(database_path, role).do()
+                topic2 = GetTopic(database_path, role).do()
                 level2.append({'text': topic2.first_base_name.name, 'nodes': level3})
-            topic1 = GetTopicCommand(database_path, instance_of).do()
+            topic1 = GetTopic(database_path, instance_of).do()
             level1.append({'text': topic1.first_base_name.name, 'nodes': level2})
         return level1, 200
     else:
@@ -193,7 +193,7 @@ def get_associations(identifier):
 
 @functools.lru_cache(maxsize=64)
 def get_metadatum(identifier):
-    metadatum = GetMetadatumCommand(database_path, identifier).do()
+    metadatum = GetMetadatum(database_path, identifier).do()
     if metadatum:
         # TODO: Implementation.
         return "Metadatum found", 200
@@ -202,7 +202,7 @@ def get_metadatum(identifier):
 
 
 def get_metadata(identifier):
-    metadata = GetMetadataCommand(database_path, identifier).do()
+    metadata = GetMetadata(database_path, identifier).do()
     if metadata:
         # TODO: Implementation.
         return "Metadata found", 200
@@ -212,7 +212,7 @@ def get_metadata(identifier):
 
 @functools.lru_cache(maxsize=64)
 def get_scene(identifier):
-    scene = GetSceneCommand(database_path, identifier).do()
+    scene = GetScene(database_path, identifier).do()
     if scene:
         assets = []
         props = []
@@ -296,7 +296,7 @@ def get_scene(identifier):
 
 @functools.lru_cache(maxsize=64)
 def get_prop(identifier):
-    prop = GetPropCommand(database_path, identifier).do()
+    prop = GetProp(database_path, identifier).do()
     if prop:
         assets = []
         metadata = []
@@ -333,7 +333,7 @@ def get_prop(identifier):
 
 @functools.lru_cache(maxsize=64)
 def get_character(identifier):
-    character = GetCharacterCommand(database_path, identifier).do()
+    character = GetCharacter(database_path, identifier).do()
     if character:
         assets = []
         metadata = []

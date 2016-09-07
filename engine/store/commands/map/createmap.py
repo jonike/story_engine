@@ -1,5 +1,5 @@
 """
-CreateMapCommand class. Part of the StoryTechnologies Builder project.
+CreateMap class. Part of the StoryTechnologies Builder project.
 
 July 16, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
@@ -10,7 +10,7 @@ import sqlite3
 from engine.store.topicstoreexception import TopicStoreException
 
 
-class CreateMapCommand:
+class CreateMap:
 
     def __init__(self, database_path):
         self.database_path = database_path

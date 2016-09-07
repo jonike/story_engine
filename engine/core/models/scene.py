@@ -6,7 +6,7 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 """
 
 from engine.core.models.entity import Entity
-from engine.store.commands.association.getassociationgroups import GetAssociationGroupsCommand
+from engine.store.commands.association.getassociationgroups import GetAssociationGroups
 
 
 class Scene(Entity):
@@ -25,7 +25,7 @@ class Scene(Entity):
     @property
     def association_groups(self):
         # TODO: Review. Should a model class rely on command-level functionality?
-        return GetAssociationGroupsCommand(associations=self.__associations).do()
+        return GetAssociationGroups(associations=self.__associations).do()
 
     @property
     def entities(self):

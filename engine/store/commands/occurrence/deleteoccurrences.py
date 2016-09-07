@@ -1,5 +1,5 @@
 """
-DeleteOccurrencesCommand class. Part of the StoryTechnologies Builder project.
+DeleteOccurrences class. Part of the StoryTechnologies Builder project.
 
 July 13, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
@@ -8,10 +8,10 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 import sqlite3
 
 from engine.store.topicstoreexception import TopicStoreException
-from engine.store.commands.occurrence.deleteoccurrence import DeleteOccurrenceCommand
+from engine.store.commands.occurrence.deleteoccurrence import DeleteOccurrence
 
 
-class DeleteOccurrencesCommand:
+class DeleteOccurrences:
 
     def __init__(self, database_path, topic_identifier=''):
         self.database_path = database_path
@@ -30,7 +30,7 @@ class DeleteOccurrencesCommand:
             records = cursor.fetchall()
             for record in records:
                 # TODO: Optimize.
-                DeleteOccurrenceCommand(self.database_path, record['identifier']).do()
+                DeleteOccurrence(self.database_path, record['identifier']).do()
         except sqlite3.Error as e:
             raise TopicStoreException(e)
         finally:

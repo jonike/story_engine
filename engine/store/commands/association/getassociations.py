@@ -1,5 +1,5 @@
 """
-GetAssociationsCommand class. Part of the StoryTechnologies Builder project.
+GetAssociations class. Part of the StoryTechnologies Builder project.
 
 July 10, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
@@ -10,10 +10,10 @@ import sqlite3
 from engine.store.topicstoreexception import TopicStoreException
 from engine.store.models.language import Language
 from engine.store.retrievaloption import RetrievalOption
-from engine.store.commands.association.getassociation import GetAssociationCommand
+from engine.store.commands.association.getassociation import GetAssociation
 
 
-class GetAssociationsCommand:
+class GetAssociations:
 
     def __init__(self, database_path,
                  identifier='',
@@ -45,7 +45,7 @@ class GetAssociationsCommand:
                     if member_records:
                         for member_record in member_records:
                             # TODO: Optimize.
-                            association = GetAssociationCommand(self.database_path, member_record['association_identifier_fk'], self.resolve_metadata, self.resolve_occurrences, self.language).do()
+                            association = GetAssociation(self.database_path, member_record['association_identifier_fk'], self.resolve_metadata, self.resolve_occurrences, self.language).do()
                             if association:
                                 result.append(association)
         except sqlite3.Error as e:

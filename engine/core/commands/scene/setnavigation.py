@@ -1,5 +1,5 @@
 """
-SetNavigationCommand class. Part of the StoryTechnologies Builder project.
+SetNavigation class. Part of the StoryTechnologies Builder project.
 
 July 16, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
@@ -7,10 +7,10 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 
 from engine.store.models.association import Association
 from engine.core.coreexception import CoreException
-from engine.store.commands.association.setassociation import SetAssociationCommand
+from engine.store.commands.association.setassociation import SetAssociation
 
 
-class SetNavigationCommand:
+class SetNavigation:
 
     def __init__(self, database_path,
                  src_scene_identifier='',
@@ -32,4 +32,4 @@ class SetNavigationCommand:
             dest_topic_ref=self.dest_scene_identifier,
             src_role_spec=self.src_scene_role,
             dest_role_spec=self.dest_scene_role)
-        SetAssociationCommand(self.database_path, association).do()
+        SetAssociation(self.database_path, association).do()

@@ -1,5 +1,5 @@
 """
-TopicExistsCommand class. Part of the StoryTechnologies Builder project.
+TopicExists class. Part of the StoryTechnologies Builder project.
 
 July 04, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
@@ -10,7 +10,7 @@ import sqlite3
 from engine.store.topicstoreexception import TopicStoreException
 
 
-class TopicExistsCommand:
+class TopicExists:
 
     def __init__(self, database_path, identifier=''):
         self.database_path = database_path

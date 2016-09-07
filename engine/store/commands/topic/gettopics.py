@@ -1,5 +1,5 @@
 """
-GetTopicsCommand class. Part of the StoryTechnologies Builder project.
+GetTopics class. Part of the StoryTechnologies Builder project.
 
 July 31, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
@@ -7,13 +7,13 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 
 import sqlite3
 
-from engine.store.commands.topic.gettopic import GetTopicCommand
+from engine.store.commands.topic.gettopic import GetTopic
 from engine.store.topicstoreexception import TopicStoreException
 from engine.store.retrievaloption import RetrievalOption
 from engine.store.models.language import Language
 
 
-class GetTopicsCommand:
+class GetTopics:
 
     def __init__(self, database_path,
                  instance_of='',
@@ -46,7 +46,7 @@ class GetTopicsCommand:
             cursor.execute(sql, bind_variables)
             records = cursor.fetchall()
             for record in records:
-                result.append(GetTopicCommand(self.database_path, record['identifier'], self.resolve_metadata, self.language).do())
+                result.append(GetTopic(self.database_path, record['identifier'], self.resolve_metadata, self.language).do())
         except sqlite3.Error as e:
             raise TopicStoreException(e)
         finally:

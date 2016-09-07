@@ -1,5 +1,5 @@
 """
-MapCommandsTest class. Part of the StoryTechnologies Builder project.
+MapsTest class. Part of the StoryTechnologies Builder project.
 
 July 03, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
@@ -8,27 +8,27 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 import unittest
 import os.path
 
-from engine.store.commands.map.createmap import CreateMapCommand
-from engine.store.commands.map.initmap import InitMapCommand
-from engine.store.commands.topic.topicexists import TopicExistsCommand
+from engine.store.commands.map.createmap import CreateMap
+from engine.store.commands.map.initmap import InitMap
+from engine.store.commands.topic.topicexists import TopicExists
 
 
-class MapCommandsTest(unittest.TestCase):
+class MapsTest(unittest.TestCase):
 
     def setUp(self):
         self.database_path = '/home/brettk/Source/storytechnologies/story-engine/data/test1.sqlite'
 
-    def testMapCommands(self):
+    def testMaps(self):
         if not os.path.isfile(self.database_path):
-            create_map_command = CreateMapCommand(self.database_path)
+            create_map_command = CreateMap(self.database_path)
             create_map_command.do()
 
         self.assertEqual(True, os.path.isfile(self.database_path))
 
-        if not TopicExistsCommand(self.database_path, 'genesis').do():
-            InitMapCommand(self.database_path).do()
+        if not TopicExists(self.database_path, 'genesis').do():
+            InitMap(self.database_path).do()
 
-        self.assertEqual(True, TopicExistsCommand(self.database_path, 'genesis').do())
+        self.assertEqual(True, TopicExists(self.database_path, 'genesis').do())
 
     def tearDown(self):
         pass

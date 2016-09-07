@@ -1,5 +1,5 @@
 """
-SetMetadatumCommand class. Part of the StoryTechnologies Builder project.
+SetMetadatum class. Part of the StoryTechnologies Builder project.
 
 July 12, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
@@ -10,7 +10,7 @@ import sqlite3
 from engine.store.topicstoreexception import TopicStoreException
 
 
-class SetMetadatumCommand:
+class SetMetadatum:
 
     def __init__(self, database_path, metadatum=None):
         self.database_path = database_path

@@ -1,5 +1,5 @@
 """
-GetMetadatumCommand class. Part of the StoryTechnologies Builder project.
+GetMetadatum class. Part of the StoryTechnologies Builder project.
 
 July 04, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
@@ -13,7 +13,7 @@ from engine.store.models.metadatum import Metadatum
 from engine.store.topicstoreexception import TopicStoreException
 
 
-class GetMetadatumCommand:
+class GetMetadatum:
 
     def __init__(self, database_path, identifier):
         self.database_path = database_path

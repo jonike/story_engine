@@ -1,5 +1,5 @@
 """
-GetOccurrencesCommand class. Part of the StoryTechnologies Builder project.
+GetOccurrences class. Part of the StoryTechnologies Builder project.
 
 July 05, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
@@ -9,13 +9,13 @@ import sqlite3
 
 from engine.store.topicstoreexception import TopicStoreException
 from engine.store.retrievaloption import RetrievalOption
-from engine.store.commands.occurrence.getoccurrencedata import GetOccurrenceDataCommand
-from engine.store.commands.metadatum.getmetadata import GetMetadataCommand
+from engine.store.commands.occurrence.getoccurrencedata import GetOccurrenceData
+from engine.store.commands.metadatum.getmetadata import GetMetadata
 from engine.store.models.occurrence import Occurrence
 from engine.store.models.language import Language
 
 
-class GetOccurrencesCommand:
+class GetOccurrences:
 
     def __init__(self, database_path,
                  topic_identifier='',
@@ -55,7 +55,7 @@ class GetOccurrencesCommand:
                 resource_data = None
                 if self.inline_resource_data:
                     # TODO: Optimize.
-                    resource_data = GetOccurrenceDataCommand(self.database_path, record['identifier']).do()
+                    resource_data = GetOccurrenceData(self.database_path, record['identifier']).do()
                 occurrence = Occurrence(
                     record['identifier'],
                     record['instance_of'],
@@ -67,7 +67,7 @@ class GetOccurrencesCommand:
                 if self.resolve_metadata is RetrievalOption.resolve_metadata:
                     # TODO: Optimize.
                     occurrence.add_metadata(
-                        GetMetadataCommand(self.database_path, self.identifier, self.language).do())
+                        GetMetadata(self.database_path, self.identifier, self.language).do())
                 result.append(occurrence)
         except sqlite3.Error as e:
             raise TopicStoreException(e)

@@ -1,22 +1,22 @@
 """
-SetPropCommand class. Part of the StoryTechnologies Builder project.
+SetProp class. Part of the StoryTechnologies Builder project.
 
 July 16, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 """
-from engine.store.commands.occurrence.setoccurrencedata import SetOccurrenceDataCommand
+from engine.store.commands.occurrence.setoccurrencedata import SetOccurrenceData
 from engine.store.models.topic import Topic
 from engine.store.models.occurrence import Occurrence
 from engine.store.models.metadatum import Metadatum
 from engine.store.models.association import Association
 from engine.core.coreexception import CoreException
-from engine.store.commands.topic.settopic import SetTopicCommand
-from engine.store.commands.occurrence.setoccurrence import SetOccurrenceCommand
-from engine.store.commands.association.setassociation import SetAssociationCommand
-from engine.store.commands.metadatum.setmetadata import SetMetadataCommand
+from engine.store.commands.topic.settopic import SetTopic
+from engine.store.commands.occurrence.setoccurrence import SetOccurrence
+from engine.store.commands.association.setassociation import SetAssociation
+from engine.store.commands.metadatum.setmetadata import SetMetadata
 
 
-class SetPropCommand:
+class SetProp:
 
     def __init__(self, database_path,
                  prop=None,
@@ -30,22 +30,22 @@ class SetPropCommand:
             raise CoreException("Missing 'scene identifier' or 'property' parameter")
 
         topic = Topic(self.prop.identifier, self.prop.instance_of, self.prop.name)
-        SetTopicCommand(self.database_path, topic).do()
+        SetTopic(self.database_path, topic).do()
 
         location_metadatum = Metadatum('location', self.prop.location, topic.identifier)
         rotation_metadatum = Metadatum('rotation', self.prop.rotation, topic.identifier)
         scale_metadatum = Metadatum('scale', self.prop.scale, topic.identifier)
 
-        SetMetadataCommand(self.database_path, [location_metadatum, rotation_metadatum, scale_metadatum]).do()
+        SetMetadata(self.database_path, [location_metadatum, rotation_metadatum, scale_metadatum]).do()
 
         for asset in self.prop.assets:
             occurrence = Occurrence(
                 instance_of=asset.instance_of,
                 topic_identifier=topic.identifier,
                 resource_ref=asset.reference)
-            SetOccurrenceCommand(self.database_path, occurrence).do()
+            SetOccurrence(self.database_path, occurrence).do()
             if asset.data is not None:
-                SetOccurrenceDataCommand(self.database_path, occurrence.identifier, asset.data).do()
+                SetOccurrenceData(self.database_path, occurrence.identifier, asset.data).do()
 
         association = Association(
             instance_of='prop',
@@ -53,4 +53,4 @@ class SetPropCommand:
             dest_topic_ref=self.scene_identifier,
             src_role_spec='included-in',
             dest_role_spec='includes')
-        SetAssociationCommand(self.database_path, association).do()
+        SetAssociation(self.database_path, association).do()

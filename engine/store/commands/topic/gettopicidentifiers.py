@@ -1,5 +1,5 @@
 """
-GetTopicIdentifiersCommand class. Part of the StoryTechnologies Builder project.
+GetTopicIdentifiers class. Part of the StoryTechnologies Builder project.
 
 August 03, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
@@ -7,13 +7,13 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 
 import sqlite3
 
-from engine.store.commands.topic.gettopic import GetTopicCommand
+from engine.store.commands.topic.gettopic import GetTopic
 from engine.store.topicstoreexception import TopicStoreException
 from engine.store.retrievaloption import RetrievalOption
 from engine.store.models.language import Language
 
 
-class GetTopicIdentifiersCommand:
+class GetTopicIdentifiers:
 
     def __init__(self, database_path,
                  query,

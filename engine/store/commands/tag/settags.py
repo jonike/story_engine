@@ -1,15 +1,15 @@
 """
-SetTagsCommand class. Part of the StoryTechnologies Builder project.
+SetTags class. Part of the StoryTechnologies Builder project.
 
 August 29, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 """
 
 from engine.store.topicstoreexception import TopicStoreException
-from engine.store.commands.tag.settag import SetTagCommand
+from engine.store.commands.tag.settag import SetTag
 
 
-class SetTagsCommand:
+class SetTags:
 
     def __init__(self, database_path, identifier='', tags=None):
         self.database_path = database_path
@@ -21,4 +21,4 @@ class SetTagsCommand:
             raise TopicStoreException("Missing 'tags' or 'identifier' parameter")
 
         for tag in self.tags:
-            SetTagCommand(self.database_path, self.identifier, tag).do()
+            SetTag(self.database_path, self.identifier, tag).do()

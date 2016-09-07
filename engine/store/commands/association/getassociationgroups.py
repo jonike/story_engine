@@ -1,5 +1,5 @@
 """
-GetAssociationGroupsCommand class. Part of the StoryTechnologies Builder project.
+GetAssociationGroups class. Part of the StoryTechnologies Builder project.
 
 July 13, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
@@ -8,10 +8,10 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 from engine.store.models.doublekeydict import DoubleKeyDict
 from engine.store.models.associationfield import AssociationField
 from engine.store.topicstoreexception import TopicStoreException
-from engine.store.commands.association.getassociations import GetAssociationsCommand
+from engine.store.commands.association.getassociations import GetAssociations
 
 
-class GetAssociationGroupsCommand:
+class GetAssociationGroups:
 
     def __init__(self,
                  database_path='',
@@ -31,7 +31,7 @@ class GetAssociationGroupsCommand:
 
         result = DoubleKeyDict()
         if not self.associations:
-            self.associations = GetAssociationsCommand(self.database_path, self.identifier).do()
+            self.associations = GetAssociations(self.database_path, self.identifier).do()
 
         for association in self.associations:
             resolved_topic_refs = self._resolve_topic_refs(association)
