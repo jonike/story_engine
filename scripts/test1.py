@@ -19,7 +19,6 @@ from engine.core.models.asset import Asset
 
 repo_path = '/home/brettk/Source/storytechnologies/story-engine/data/test1.sqlite'
 
-
 # Define and persist the first (robot) scene.
 asset1 = Asset('scene', 'scene-001.json')
 scene1 = Scene('scene-001', 'Scene One', 1)
