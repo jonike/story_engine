@@ -1,5 +1,5 @@
 """
-Scene API functions. Part of the StoryTechnologies Builder project.
+StoryTechnologies API functions. Part of the StoryTechnologies Builder project.
 
 July 09, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
