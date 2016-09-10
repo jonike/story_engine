@@ -5,19 +5,19 @@ September 04, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 """
 
-from engine.store.commands.attribute.setattribute import SetAttribute
-from engine.store.models.attribute import Attribute
-from engine.core.commands.scene.setcharacter import SetCharacter
-from engine.core.commands.scene.setprop import SetProp
-from engine.core.commands.scene.setscene import SetScene
-from engine.core.commands.scene.setnavigation import SetNavigation
-from engine.core.models.character import Character
-from engine.core.models.prop import Prop
-from engine.core.models.scene import Scene
-from engine.core.models.asset import Asset
+from storyengine.store.commands.attribute.setattribute import SetAttribute
+from storyengine.store.models.attribute import Attribute
+from storyengine.core.commands.scene.setcharacter import SetCharacter
+from storyengine.core.commands.scene.setprop import SetProp
+from storyengine.core.commands.scene.setscene import SetScene
+from storyengine.core.commands.scene.setnavigation import SetNavigation
+from storyengine.core.models.character import Character
+from storyengine.core.models.prop import Prop
+from storyengine.core.models.scene import Scene
+from storyengine.core.models.asset import Asset
 
 
-repo_path = '/home/brettk/Source/storytechnologies/story-engine/data/demo1.sqlite'
+repo_path = '/home/brettk/Source/storytechnologies/story-storyengine/data/demo1.sqlite'
 
 # Define and persist the first scene.
 asset1 = Asset('scene', 'scene-001.json')

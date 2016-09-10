@@ -7,9 +7,9 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 
 import unittest
 
-from engine.store.models.attribute import Attribute
-from engine.store.models.datatype import DataType
-from engine.store.models.language import Language
+from storyengine.store.models.attribute import Attribute
+from storyengine.store.models.datatype import DataType
+from storyengine.store.models.language import Language
 
 
 class AttributeTest(unittest.TestCase):

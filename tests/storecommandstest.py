@@ -7,25 +7,25 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 
 import unittest
 
-from engine.store.commands.topic.gettopics import GetTopics
-from engine.store.commands.topic.topicexists import TopicExists
-from engine.store.commands.occurrence.occurrenceexists import OccurrenceExists
-from engine.store.commands.topic.gettopic import GetTopic
-from engine.store.commands.attribute.getattribute import GetAttribute
-from engine.store.commands.attribute.setattribute import SetAttribute
-from engine.store.commands.occurrence.getoccurrence import GetOccurrence
-from engine.store.commands.topic.settopic import SetTopic
-from engine.store.retrievaloption import RetrievalOption
-from engine.store.models.language import Language
-from engine.store.models.datatype import DataType
-from engine.store.models.topic import Topic
-from engine.store.models.attribute import Attribute
+from storyengine.store.commands.topic.gettopics import GetTopics
+from storyengine.store.commands.topic.topicexists import TopicExists
+from storyengine.store.commands.occurrence.occurrenceexists import OccurrenceExists
+from storyengine.store.commands.topic.gettopic import GetTopic
+from storyengine.store.commands.attribute.getattribute import GetAttribute
+from storyengine.store.commands.attribute.setattribute import SetAttribute
+from storyengine.store.commands.occurrence.getoccurrence import GetOccurrence
+from storyengine.store.commands.topic.settopic import SetTopic
+from storyengine.store.retrievaloption import RetrievalOption
+from storyengine.store.models.language import Language
+from storyengine.store.models.datatype import DataType
+from storyengine.store.models.topic import Topic
+from storyengine.store.models.attribute import Attribute
 
 
 class StoresTest(unittest.TestCase):
 
     def setUp(self):
-        self.database_path = '/home/brettk/Source/storytechnologies/story-engine/data/test1.sqlite'
+        self.database_path = '/home/brettk/Source/storytechnologies/story-storyengine/data/test1.sqlite'
 
     def testTopicExists(self):
         topic_identifier = 'genesis'

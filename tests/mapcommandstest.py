@@ -8,15 +8,15 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 import unittest
 import os.path
 
-from engine.store.commands.map.createmap import CreateMap
-from engine.store.commands.map.initmap import InitMap
-from engine.store.commands.topic.topicexists import TopicExists
+from storyengine.store.commands.map.createmap import CreateMap
+from storyengine.store.commands.map.initmap import InitMap
+from storyengine.store.commands.topic.topicexists import TopicExists
 
 
 class MapsTest(unittest.TestCase):
 
     def setUp(self):
-        self.database_path = '/home/brettk/Source/storytechnologies/story-engine/data/test1.sqlite'
+        self.database_path = '/home/brettk/Source/storytechnologies/story-storyengine/data/test1.sqlite'
 
     def testMaps(self):
         if not os.path.isfile(self.database_path):

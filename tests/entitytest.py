@@ -7,7 +7,7 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 
 import unittest
 
-from engine.store.models.entity import Entity
+from storyengine.store.models.entity import Entity
 
 
 class EntityTest(unittest.TestCase):
