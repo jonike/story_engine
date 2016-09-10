@@ -48,7 +48,6 @@ def get_topic(identifier):
                 'identifier': attribute.identifier,
                 'name': attribute.name,
                 'value': attribute.value,
-                'entityIdentifier': attribute.entity_identifier,
                 'dataType': attribute.data_type.name,
                 'scope': attribute.scope,
                 'language': attribute.language.name
@@ -85,7 +84,6 @@ def get_topics(instance_of='topic', offset=0, limit=100):
                     'identifier': attribute.identifier,
                     'name': attribute.name,
                     'value': attribute.value,
-                    'entityIdentifier': attribute.entity_identifier,
                     'dataType': attribute.data_type.name,
                     'scope': attribute.scope,
                     'language': attribute.language.name
@@ -135,7 +133,6 @@ def get_occurrences(identifier,
                     'identifier': attribute.identifier,
                     'name': attribute.name,
                     'value': attribute.value,
-                    'entityIdentifier': attribute.entity_identifier,
                     'dataType': attribute.data_type.name,
                     'scope': attribute.scope,
                     'language': attribute.language.name
@@ -269,7 +266,6 @@ def get_scene(identifier):
                 'identifier': attribute.identifier,
                 'name': attribute.name,
                 'value': attribute.value,
-                'entityIdentifier': attribute.entity_identifier,
                 'dataType': attribute.data_type.name,
                 'scope': attribute.scope,
                 'language': attribute.language.name
@@ -310,7 +306,6 @@ def get_prop(identifier):
                 'identifier': attribute.identifier,
                 'name': attribute.name,
                 'value': attribute.value,
-                'entityIdentifier': attribute.entity_identifier,
                 'dataType': attribute.data_type.name,
                 'scope': attribute.scope,
                 'language': attribute.language.name
@@ -347,7 +342,6 @@ def get_character(identifier):
                 'identifier': attribute.identifier,
                 'name': attribute.name,
                 'value': attribute.value,
-                'entityIdentifier': attribute.entity_identifier,
                 'dataType': attribute.data_type.name,
                 'scope': attribute.scope,
                 'language': attribute.language.name
