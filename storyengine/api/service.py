@@ -360,3 +360,44 @@ def get_character(identifier):
         return result, 200
     else:
         return "Not found", 404
+
+
+# POST /scenes
+# POST /scenes/{identifier}/assets
+# POST /scenes/{identifier}/attributes
+# POST /paths
+# POST /characters
+# POST /characters/{identifier}/assets
+# POST /props
+# POST /props/{identifier}/assets
+
+def set_scene():
+    pass
+
+
+def set_scene_asset():
+    pass
+
+
+def set_scene_attribute():
+    pass
+
+
+def set_path():
+    pass
+
+
+def set_character():
+    pass
+
+
+def set_character_asset():
+    pass
+
+
+def set_prop():
+    pass
+
+
+def set_prop_asset():
+    pass
