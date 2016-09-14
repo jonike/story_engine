@@ -5,7 +5,12 @@ September 04, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 """
 
+import os.path
+
 from storyengine.store.commands.attribute.setattribute import SetAttribute
+from storyengine.store.commands.map.createmap import CreateMap
+from storyengine.store.commands.map.initmap import InitMap
+from storyengine.store.commands.topic.topicexists import TopicExists
 from storyengine.store.models.attribute import Attribute
 from storyengine.core.commands.scene.setcharacter import SetCharacter
 from storyengine.core.commands.scene.setprop import SetProp
@@ -17,7 +22,14 @@ from storyengine.core.models.scene import Scene
 from storyengine.core.models.asset import Asset
 
 
-repo_path = '/home/brettk/Source/storytechnologies/story-storyengine/data/demo1.sqlite'
+database_path = '/home/brettk/Source/storytechnologies/story-engine/data/demo1.sqlite'
+
+# Create and bootstrap topic map (ontology).
+if not os.path.isfile(database_path):
+    CreateMap(database_path).do()
+
+if not TopicExists(database_path, 'genesis').do():
+    InitMap(database_path).do()
 
 # Define and persist the first scene.
 asset1 = Asset('scene', 'scene-001.json')
@@ -27,6 +39,6 @@ scene1_text = """Scene One text
 """
 asset2 = Asset('text', data=scene1_text)
 scene1.add_asset(asset2)
-SetScene(repo_path, scene1).do()
+SetScene(database_path, scene1).do()
 attribute1 = Attribute('type', 'interior', 'scene-001')
-SetAttribute(repo_path, attribute1).do()
+SetAttribute(database_path, attribute1).do()

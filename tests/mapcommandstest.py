@@ -1,5 +1,5 @@
 """
-MapsTest class. Part of the StoryTechnologies Builder project.
+MapTest class. Part of the StoryTechnologies Builder project.
 
 July 03, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
@@ -13,7 +13,7 @@ from storyengine.store.commands.map.initmap import InitMap
 from storyengine.store.commands.topic.topicexists import TopicExists
 
 
-class MapsTest(unittest.TestCase):
+class MapTest(unittest.TestCase):
 
     def setUp(self):
         self.database_path = '/home/brettk/Source/storytechnologies/story-engine/data/test1.sqlite'

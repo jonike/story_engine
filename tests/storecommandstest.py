@@ -1,5 +1,5 @@
 """
-sTest class. Part of the StoryTechnologies Builder project.
+StoreTest class. Part of the StoryTechnologies Builder project.
 
 July 03, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
@@ -22,7 +22,7 @@ from storyengine.store.models.topic import Topic
 from storyengine.store.models.attribute import Attribute
 
 
-class StoresTest(unittest.TestCase):
+class StoreTest(unittest.TestCase):
 
     def setUp(self):
         self.database_path = '/home/brettk/Source/storytechnologies/story-engine/data/test1.sqlite'

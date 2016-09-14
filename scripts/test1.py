@@ -5,8 +5,13 @@ July 24, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 """
 
-from storyengine.store.commands.attribute.setattribute import SetAttribute
+import os.path
+
 from storyengine.store.models.attribute import Attribute
+from storyengine.store.commands.map.createmap import CreateMap
+from storyengine.store.commands.map.initmap import InitMap
+from storyengine.store.commands.topic.topicexists import TopicExists
+from storyengine.store.commands.attribute.setattribute import SetAttribute
 from storyengine.core.commands.scene.setcharacter import SetCharacter
 from storyengine.core.commands.scene.setprop import SetProp
 from storyengine.core.commands.scene.setscene import SetScene
@@ -18,6 +23,13 @@ from storyengine.core.models.asset import Asset
 
 
 database_path = '/home/brettk/Source/storytechnologies/story-engine/data/test1.sqlite'
+
+# Create and bootstrap topic map (ontology).
+if not os.path.isfile(database_path):
+    CreateMap(database_path).do()
+
+if not TopicExists(database_path, 'genesis').do():
+    InitMap(database_path).do()
 
 # Define and persist the first (robot) scene.
 asset1 = Asset('scene', 'scene-001.json')
