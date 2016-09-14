@@ -19,7 +19,7 @@ class Member:
             raise TopicStoreException("Empty 'role spec' parameter")
         self.__role_spec = slugify(str(role_spec))
         self.__topic_refs = [] if topic_ref == '' else [slugify(str(topic_ref))]
-        self.__identifier = (str(uuid.uuid1()) if identifier == '' else slugify(str(identifier)))
+        self.__identifier = (str(uuid.uuid4()) if identifier == '' else slugify(str(identifier)))
 
     @property
     def role_spec(self):

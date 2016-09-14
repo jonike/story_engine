@@ -26,7 +26,7 @@ class Occurrence(Entity):
                  language=Language.en):
         super().__init__(identifier, instance_of)
 
-        #self.__topic_identifier = (str(uuid.uuid1()) if topic_identifier == '' else slugify(str(topic_identifier)))
+        #self.__topic_identifier = (str(uuid.uuid4()) if topic_identifier == '' else slugify(str(topic_identifier)))
         if topic_identifier == '*':  # Universal Scope.
             self.__topic_identifier = '*'
         else:

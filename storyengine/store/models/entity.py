@@ -21,7 +21,7 @@ class Entity:
             raise TopicStoreException("Empty 'instance of' parameter")
 
         if identifier == '':
-            self.__identifier = str(uuid.uuid1())
+            self.__identifier = str(uuid.uuid4())
         elif identifier == '*':  # Universal Scope.
             self.__identifier = '*'
         else:

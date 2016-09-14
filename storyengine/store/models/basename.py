@@ -18,7 +18,7 @@ class BaseName:
                  name,
                  language=Language.en,
                  identifier=''):
-        self.__identifier = (str(uuid.uuid1()) if identifier == '' else slugify(str(identifier)))
+        self.__identifier = (str(uuid.uuid4()) if identifier == '' else slugify(str(identifier)))
 
         self.name = name
         self.language = language

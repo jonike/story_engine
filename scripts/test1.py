@@ -17,7 +17,7 @@ from storyengine.core.models.scene import Scene
 from storyengine.core.models.asset import Asset
 
 
-repo_path = '/home/brettk/Source/storytechnologies/story-engine/data/test1.sqlite'
+database_path = '/home/brettk/Source/storytechnologies/story-engine/data/test1.sqlite'
 
 # Define and persist the first (robot) scene.
 asset1 = Asset('scene', 'scene-001.json')
@@ -38,11 +38,11 @@ Problems look mighty small from 150 miles up.
 """
 asset2 = Asset('text', data=scene1_text)
 scene1.add_asset(asset2)
-SetScene(repo_path, scene1).do()
+SetScene(database_path, scene1).do()
 attribute_type1 = Attribute('type', 'interior', 'scene-001')
-SetAttribute(repo_path, attribute_type1).do()
+SetAttribute(database_path, attribute_type1).do()
 attribute_camera_clamp1 = Attribute('camera-clamp', 'true', 'scene-001')
-SetAttribute(repo_path, attribute_camera_clamp1).do()
+SetAttribute(database_path, attribute_camera_clamp1).do()
 
 # Define and persist the second (crates) scene.
 asset3 = Asset('scene', 'scene-002.json')
@@ -56,11 +56,11 @@ Where ignorance lurks, so too do the frontiers of discovery and imagination.
 """
 asset4 = Asset('text', data=scene2_text)
 scene2.add_asset(asset4)
-SetScene(repo_path, scene2).do()
+SetScene(database_path, scene2).do()
 attribute_type2 = Attribute('type', 'interior', 'scene-002')
-SetAttribute(repo_path, attribute_type2).do()
+SetAttribute(database_path, attribute_type2).do()
 attribute_camera_clamp2 = Attribute('camera-clamp', 'true', 'scene-002')
-SetAttribute(repo_path, attribute_camera_clamp2).do()
+SetAttribute(database_path, attribute_camera_clamp2).do()
 
 # Define and persist the third (empty) scene.
 asset5 = Asset('scene', 'scene-003.json')
@@ -77,11 +77,11 @@ explore ... We believe in what we're doing. Now it's time to go.
 """
 asset6 = Asset('text', data=scene3_text)
 scene3.add_asset(asset6)
-SetScene(repo_path, scene3).do()
+SetScene(database_path, scene3).do()
 attribute_type3 = Attribute('type', 'interior', 'scene-003')
-SetAttribute(repo_path, attribute_type3).do()
+SetAttribute(database_path, attribute_type3).do()
 attribute_camera_clamp3 = Attribute('camera-clamp', 'true', 'scene-003')
-SetAttribute(repo_path, attribute_camera_clamp3).do()
+SetAttribute(database_path, attribute_camera_clamp3).do()
 
 # Define and persist the fourth (outside windmill) scene.
 asset7 = Asset('scene', 'scene-004.json')
@@ -98,19 +98,19 @@ nature, Man must explore ... and this is exploration at its greatest.
 """
 asset8 = Asset('text', data=scene4_text)
 scene4.add_asset(asset8)
-SetScene(repo_path, scene4).do()
-#SetTags(repo_path, 'scene-004', ['exterior', 'sci-fi', 'afternoon', 'summer']).do()
+SetScene(database_path, scene4).do()
+#SetTags(database_path, 'scene-004', ['exterior', 'sci-fi', 'afternoon', 'summer']).do()
 attribute_type4 = Attribute('type', 'exterior', 'scene-004')
-SetAttribute(repo_path, attribute_type4).do()
+SetAttribute(database_path, attribute_type4).do()
 attribute_time1 = Attribute('time', '11.0', 'scene-004')  # 11:00
-SetAttribute(repo_path, attribute_time1).do()
+SetAttribute(database_path, attribute_time1).do()
 attribute_camera_clamp4 = Attribute('camera-clamp', 'false', 'scene-004')
-SetAttribute(repo_path, attribute_camera_clamp4).do()
+SetAttribute(database_path, attribute_camera_clamp4).do()
 
 # Define navigation paths between scenes.
-SetNavigation(repo_path, 'scene-001', 'scene-002', 'south', 'north').do()
-SetNavigation(repo_path, 'scene-001', 'scene-003', 'east', 'west').do()
-SetNavigation(repo_path, 'scene-003', 'scene-004', 'north', 'south').do()
+SetNavigation(database_path, 'scene-001', 'scene-002', 'south', 'north').do()
+SetNavigation(database_path, 'scene-001', 'scene-003', 'east', 'west').do()
+SetNavigation(database_path, 'scene-003', 'scene-004', 'north', 'south').do()
 
 # Define and persist a character.
 character1 = Character('robot-001', 'Robot One')
@@ -136,7 +136,7 @@ the field of bio-inspired robotics. These robots have also created a newer branc
 """
 asset10 = Asset('text', data=character1_text)
 character1.add_asset(asset10)
-SetCharacter(repo_path, character1, 'scene-001').do()
+SetCharacter(database_path, character1, 'scene-001').do()
 
 # Define and persist a prop.
 prop1 = Prop('prop-001', 'Crates One')
@@ -149,4 +149,4 @@ A **crate** is a large strong container, often made of wood or metal.
 """
 asset12 = Asset('text', data=prop1_text)
 prop1.add_asset(asset12)
-SetProp(repo_path, prop1, 'scene-002').do()
+SetProp(database_path, prop1, 'scene-002').do()

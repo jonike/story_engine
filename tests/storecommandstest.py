@@ -25,7 +25,7 @@ from storyengine.store.models.attribute import Attribute
 class StoresTest(unittest.TestCase):
 
     def setUp(self):
-        self.database_path = '/home/brettk/Source/storytechnologies/story-storyengine/data/test1.sqlite'
+        self.database_path = '/home/brettk/Source/storytechnologies/story-engine/data/test1.sqlite'
 
     def testTopicExists(self):
         topic_identifier = 'genesis'

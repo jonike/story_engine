@@ -26,7 +26,7 @@ class Attribute:
         else:
             self.__entity_identifier = slugify(str(entity_identifier))
 
-        self.__identifier = (str(uuid.uuid1()) if identifier == '' else slugify(str(identifier)))
+        self.__identifier = (str(uuid.uuid4()) if identifier == '' else slugify(str(identifier)))
         self.__scope = scope if scope == '*' else slugify(scope)
 
         self.name = name

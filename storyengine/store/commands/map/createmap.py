@@ -18,7 +18,7 @@ class CreateMap:
     def do(self):
 
         connection = sqlite3.connect(self.database_path)
-        definitions_file = open('/home/brettk/Source/storytechnologies/story-storyengine/topicmap-definition.sql')
+        definitions_file = open('/home/brettk/Source/storytechnologies/story-engine/topicmap-definition.sql')
         statements = definitions_file.read()
 
         try:
