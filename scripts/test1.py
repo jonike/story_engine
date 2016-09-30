@@ -126,7 +126,7 @@ SetNavigation(database_path, 'scene-003', 'scene-004', 'north', 'south').do()
 
 # Define and persist a character.
 character1 = Character('robot-001', 'Robot One')
-character1.location = '[3.0, 0.0, 0.0]'  # x ("width"), y ("height"), z ("depth")
+character1.location = '[3.0, 0.0, 0.0]'  # x ("width"), y ("depth"), z ("height")
 asset9 = Asset('scene', 'robot-001.json')
 character1.add_asset(asset9)
 character1_text = """## Robot
@@ -152,7 +152,7 @@ SetCharacter(database_path, character1, 'scene-001').do()
 
 # Define and persist a prop.
 prop1 = Prop('prop-001', 'Crates One')
-prop1.location = '[2.0, 0.0, 2.0]'  # x ("width"), y ("height"), z ("depth")
+prop1.location = '[2.0, 2.0, 0.0]'  # x ("width"), y ("depth"), z ("height")
 asset11 = Asset('scene', 'crates-001.json')
 prop1.add_asset(asset11)
 prop1_text = """## Crate
