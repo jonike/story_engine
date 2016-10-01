@@ -31,6 +31,7 @@ if not os.path.isfile(database_path):
 if not TopicExists(database_path, 'genesis').do():
     InitMap(database_path).do()
 
+
 # Define and persist the first (robot) scene.
 asset1 = Asset('scene', 'scene-001.json')
 scene1 = Scene('scene-001', 'Scene One', 1)
