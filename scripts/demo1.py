@@ -71,17 +71,19 @@ attribute31 = Attribute('type', 'exterior', 'weapon-factory')
 SetAttribute(database_path, attribute31).do()
 
 
-# Scene 4 - Training Room.
+# Scene 4 - Delivery Areas.
 asset41 = Asset('scene', 'scene-008.json')
-scene4 = Scene('training-room', 'Training Room', 4)
+scene4 = Scene('delivery-area', 'Delivery Area', 4)
 scene4.add_asset(asset41)
-scene4_text = """Training room text
+scene4_text = """Delivery area text
 """
 asset42 = Asset('text', data=scene4_text)
 scene4.add_asset(asset42)
 SetScene(database_path, scene4).do()
-attribute41 = Attribute('type', 'interior', 'training-room')
+attribute41 = Attribute('type', 'interior', 'delivery-area')
 SetAttribute(database_path, attribute41).do()
+attribute42 = Attribute('camera-clamp', 'true', 'delivery-area')
+SetAttribute(database_path, attribute42).do()
 
 
 # Scene 5 - Research Area.
@@ -95,6 +97,25 @@ scene5.add_asset(asset52)
 SetScene(database_path, scene5).do()
 attribute51 = Attribute('type', 'interior', 'research-area')
 SetAttribute(database_path, attribute51).do()
+attribute52 = Attribute('camera-clamp', 'true', 'research-area')
+SetAttribute(database_path, attribute52).do()
+
+# Define and persist a prop.
+prop51 = Prop('computer-001', 'Research System')
+prop51.location = '[0.0, 0.0, 0.0]'  # x ("width"), y ("depth"), z ("height")
+asset53 = Asset('scene', 'computer-001.json')
+prop51.add_asset(asset53)
+prop51_text = """## Computer Research System
+
+Computational techniques are now a major innovation catalyst for all aspects of human endeavour. Our research aims to
+develop tomorrow's information technology that supports innovative applications, from big data analytics to the
+_Internet of Things_. It covers all aspects of information technology, including energy efficient and robust hardware
+systems, _software defined networks_, secure _distributed systems_, _data science_, and _integrated circuits_ and power
+electronics.
+"""
+asset54 = Asset('text', data=prop51_text)
+prop51.add_asset(asset54)
+SetProp(database_path, prop51, 'research-area').do()
 
 
 # Scene 6 - Storage.
@@ -108,11 +129,13 @@ scene6.add_asset(asset62)
 SetScene(database_path, scene6).do()
 attribute61 = Attribute('type', 'interior', 'storage')
 SetAttribute(database_path, attribute61).do()
+attribute62 = Attribute('camera-clamp', 'true', 'storage')
+SetAttribute(database_path, attribute62).do()
 
 
 # Define navigation paths between scenes.
-SetNavigation(database_path, 'outpost', 'military-base', 'east', 'west').do()
-SetNavigation(database_path, 'military-base', 'weapon-factory', 'south', 'north').do()
-SetNavigation(database_path, 'weapon-factory', 'training-room', 'south', 'north').do()
-SetNavigation(database_path, 'training-room', 'research-area', 'south', 'north').do()
+SetNavigation(database_path, 'outpost', 'military-base', 'west', 'east').do()
+SetNavigation(database_path, 'military-base', 'weapon-factory', 'west', 'east').do()
+SetNavigation(database_path, 'weapon-factory', 'delivery-area', 'south', 'north').do()
+SetNavigation(database_path, 'delivery-area', 'research-area', 'south', 'north').do()
 SetNavigation(database_path, 'research-area', 'storage', 'south', 'north').do()
