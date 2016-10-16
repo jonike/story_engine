@@ -216,6 +216,7 @@ def get_scene(identifier):
         characters = []
         paths = []
         attributes = []
+        entities_tags = []
         for entity in scene.entities:
             if isinstance(entity, Prop):
                 prop_assets = []
@@ -270,6 +271,11 @@ def get_scene(identifier):
                 'scope': attribute.scope,
                 'language': attribute.language.name
             })
+        for tag, tagged_entities in scene.entities_tags.items():
+            entities_tags.append({
+                'tag': tag,
+                'entityIdentifiers': list(tagged_entities)
+            })
         result = {
             'scene': {
                 'identifier': scene.identifier,
@@ -282,7 +288,7 @@ def get_scene(identifier):
                 'entities': entities,
                 'paths': paths,
                 'attributes': attributes,
-                'tags': scene.tags
+                'tags': entities_tags
             }
         }
         return result, 200

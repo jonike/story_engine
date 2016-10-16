@@ -7,6 +7,7 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 
 from storyengine.core.commands.scene.getcharacter import GetCharacter
 from storyengine.core.commands.scene.getprop import GetProp
+from storyengine.core.commands.scene.gettags import GetEntitiesTags
 from storyengine.core.coreexception import CoreException
 from storyengine.core.models.asset import Asset
 from storyengine.core.models.path import Path
@@ -63,6 +64,7 @@ class GetScene:
                 attributes = [attribute for attribute in topic.attributes
                               if attribute.name not in ('location', 'rotation', 'scale')]
                 self.result.add_attributes(attributes)
+                self.result.entities_tags = GetEntitiesTags(self.database_path, self.identifier).do()
         except TopicStoreException as e:
             raise CoreException(e)
         return self.result

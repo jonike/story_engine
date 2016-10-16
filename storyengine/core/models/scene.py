@@ -16,6 +16,7 @@ class Scene(Entity):
         self.__associations = []
         self.__entities = []  # Characters and props.
 
+        self.entities_tags = {}  # The tags for the entities (characters and props) in the scene.
         self.ordinal = ordinal  # The ordinal indicates the scene's position in the scene line.
 
     @property

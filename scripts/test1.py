@@ -112,7 +112,7 @@ nature, Man must explore ... and this is exploration at its greatest.
 asset8 = Asset('text', data=scene4_text)
 scene4.add_asset(asset8)
 SetScene(database_path, scene4).do()
-#SetTags(database_path, 'scene-004', ['exterior', 'sci-fi', 'afternoon', 'summer']).do()
+# SetTags(database_path, 'scene-004', ['exterior', 'sci-fi', 'afternoon', 'summer']).do()
 attribute_type4 = Attribute('type', 'exterior', 'scene-004')
 SetAttribute(database_path, attribute_type4).do()
 attribute_time1 = Attribute('time', '11.0', 'scene-004')  # 11:00
