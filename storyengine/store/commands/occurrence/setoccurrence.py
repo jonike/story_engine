@@ -1,5 +1,5 @@
 """
-SetOccurrence class. Part of the StoryTechnologies Builder project.
+SetOccurrence class. Part of the StoryTechnologies project.
 
 July 12, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)

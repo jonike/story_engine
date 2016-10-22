@@ -1,5 +1,5 @@
 """
-GetTags class. Part of the StoryTechnologies Builder project.
+GetTags class. Part of the StoryTechnologies project.
 
 August 29, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)

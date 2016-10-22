@@ -1,5 +1,5 @@
 """
-Connexion script. Part of the StoryTechnologies Builder project.
+Connexion script. Part of the StoryTechnologies project.
 
 July 08, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)

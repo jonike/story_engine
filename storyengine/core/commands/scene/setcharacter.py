@@ -1,5 +1,5 @@
 """
-SetCharacter class. Part of the StoryTechnologies Builder project.
+SetCharacter class. Part of the StoryTechnologies project.
 
 July 16, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)

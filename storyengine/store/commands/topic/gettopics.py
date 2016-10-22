@@ -1,5 +1,5 @@
 """
-GetTopics class. Part of the StoryTechnologies Builder project.
+GetTopics class. Part of the StoryTechnologies project.
 
 July 31, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)

@@ -1,5 +1,5 @@
 """
-StoryTechnologies API functions. Part of the StoryTechnologies Builder project.
+StoryTechnologies API functions. Part of the StoryTechnologies project.
 
 July 09, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
@@ -8,6 +8,7 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 import base64
 import functools
 
+from storyengine.core.commands.scene.gettags import GetEntitiesTags
 from storyengine.core.models.character import Character
 from storyengine.core.models.prop import Prop
 from storyengine.store.commands.association.getassociation import GetAssociation
@@ -291,6 +292,21 @@ def get_scene(identifier):
                 'tags': entities_tags
             }
         }
+        return result, 200
+    else:
+        return "Not found", 404
+
+
+@functools.lru_cache(maxsize=64)
+def get_scene_tags(identifier):
+    entities_tags = GetEntitiesTags(database_path, identifier).do()
+    if entities_tags:
+        result = []
+        for tag, tagged_entities in entities_tags.items():
+            result.append({
+                'tag': tag,
+                'entityIdentifiers': list(tagged_entities)
+            })
         return result, 200
     else:
         return "Not found", 404

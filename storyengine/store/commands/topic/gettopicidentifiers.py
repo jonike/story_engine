@@ -1,5 +1,5 @@
 """
-GetTopicIdentifiers class. Part of the StoryTechnologies Builder project.
+GetTopicIdentifiers class. Part of the StoryTechnologies project.
 
 August 03, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)

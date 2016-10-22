@@ -1,5 +1,5 @@
 """
-Asset class. Part of the StoryTechnologies Builder project.
+Asset class. Part of the StoryTechnologies project.
 
 July 19, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)

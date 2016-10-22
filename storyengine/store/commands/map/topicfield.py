@@ -1,5 +1,5 @@
 """
-TopicField enumeration. Part of the StoryTechnologies Builder project.
+TopicField enumeration. Part of the StoryTechnologies project.
 
 July 16, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)

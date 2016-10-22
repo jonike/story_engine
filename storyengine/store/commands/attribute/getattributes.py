@@ -1,5 +1,5 @@
 """
-GetAttributes class. Part of the StoryTechnologies Builder project.
+GetAttributes class. Part of the StoryTechnologies project.
 
 July 04, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)

@@ -1,5 +1,5 @@
 """
-TopicStoreException class. Part of the StoryTechnologies Builder project.
+TopicStoreException class. Part of the StoryTechnologies project.
 
 June 15, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)

@@ -1,5 +1,5 @@
 """
-DeleteAttributes class. Part of the StoryTechnologies Builder project.
+DeleteAttributes class. Part of the StoryTechnologies project.
 
 July 13, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)

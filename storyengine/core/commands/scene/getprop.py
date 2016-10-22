@@ -1,5 +1,5 @@
 """
-GetProp class. Part of the StoryTechnologies Builder project.
+GetProp class. Part of the StoryTechnologies project.
 
 July 22, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)

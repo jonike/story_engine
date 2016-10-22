@@ -94,6 +94,17 @@ paths:
           description: Return scene
         404:
           description: Scene does not exist
+  '/scenes/{identifier}/tags':
+    get:
+      operationId: storyengine.api.service.get_scene_tags
+      summary: Get the tags for the scene's entities
+      parameters:
+        - $ref: '#/parameters/identifier'
+      responses:
+        200:
+          description: Return tags
+        404:
+          description: Scene does not have any tagged entities
   '/props/{identifier}':
     get:
       operationId: storyengine.api.service.get_prop

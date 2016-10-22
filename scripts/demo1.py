@@ -1,5 +1,5 @@
 """
-Demo 1 procedural definition script. Part of the StoryTechnologies Builder project.
+Demo 1 procedural definition script. Part of the StoryTechnologies project.
 
 September 04, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
@@ -103,7 +103,7 @@ SetAttribute(database_path, attribute31).do()
 attribute32 = Attribute('mist', '0.0', 'weapon-factory')
 SetAttribute(database_path, attribute32).do()
 
-# Scene 4 - Delivery Areas.
+# Scene 4 - Delivery Area.
 # asset41 = Asset('scene', 'scene-008.json')
 # scene4 = Scene('delivery-area', 'Delivery Area', 4)
 # scene4.add_asset(asset41)
@@ -167,39 +167,28 @@ SetProp(database_path, prop52, 'research-area').do()
 SetTags(database_path, 'desk', ['furniture']).do()
 
 # Prop - 'Chair'.
-# prop53 = Prop('chair', 'Chair')
-# prop53.location = '[-3.03917, 1.45503, 1.71397]'  # x ("width"), y ("depth"), z ("height")
-# asset57 = Asset('scene', 'chair-001.json')
-# prop53.add_asset(asset57)
-# prop53_text = """## Chair
-# """
-# asset58 = Asset('text', data=prop53_text)
-# prop53.add_asset(asset58)
-# SetProp(database_path, prop53, 'research-area').do()
-# SetTags(database_path, 'chair', ['furniture']).do()
+prop53 = Prop('chair', 'Chair')
+prop53.location = '[-3.03917, 1.45503, 1.71397]'  # x ("width"), y ("depth"), z ("height")
+asset57 = Asset('scene', 'chair-001.json')
+prop53.add_asset(asset57)
+prop53_text = """## Chair
+"""
+asset58 = Asset('text', data=prop53_text)
+prop53.add_asset(asset58)
+SetProp(database_path, prop53, 'research-area').do()
+SetTags(database_path, 'chair', ['furniture']).do()
 
 # Prop - 'Bookshelf'.
-# prop54 = Prop('bookshelf', 'Bookshelf')
-# prop54.location = '[-2.00528, 3.53678, 2.21712]'  # x ("width"), y ("depth"), z ("height")
-# asset59 = Asset('scene', 'bookshelf-001.json')
-# prop54.add_asset(asset59)
-# prop54_text = """## Bookshelf
-# """
-# asset510 = Asset('text', data=prop54_text)
-# prop54.add_asset(asset510)
-# SetProp(database_path, prop54, 'research-area').do()
-# SetTags(database_path, 'bookshelf', ['furniture']).do()
-
-# Prop - 'ammunition'.
-# prop55 = Prop('ammunition', 'Ammunition')
-# prop55.location = '[0.72077, 2.22904, 1.22327]'  # x ("width"), y ("depth"), z ("height")
-# asset511 = Asset('scene', 'ammunition-001.json')
-# prop55.add_asset(asset511)
-# prop55_text = """## Ammunition
-# """
-# asset512 = Asset('text', data=prop55_text)
-# prop55.add_asset(asset512)
-# SetProp(database_path, prop55, 'research-area').do()
+prop54 = Prop('bookshelf', 'Bookshelf')
+prop54.location = '[-2.00528, 3.53678, 2.21712]'  # x ("width"), y ("depth"), z ("height")
+asset59 = Asset('scene', 'bookshelf-001.json')
+prop54.add_asset(asset59)
+prop54_text = """## Bookshelf
+"""
+asset510 = Asset('text', data=prop54_text)
+prop54.add_asset(asset510)
+SetProp(database_path, prop54, 'research-area').do()
+SetTags(database_path, 'bookshelf', ['furniture']).do()
 
 
 # Scene 6 - Storage.

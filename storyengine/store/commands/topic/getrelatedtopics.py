@@ -1,5 +1,5 @@
 """
-GetRelatedTopics class. Part of the StoryTechnologies Builder project.
+GetRelatedTopics class. Part of the StoryTechnologies project.
 
 October 12, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)

@@ -1,5 +1,5 @@
 """
-GetAssociations class. Part of the StoryTechnologies Builder project.
+GetAssociations class. Part of the StoryTechnologies project.
 
 July 10, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
