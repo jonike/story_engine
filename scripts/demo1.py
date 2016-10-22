@@ -207,6 +207,32 @@ SetAttribute(database_path, attribute61).do()
 attribute62 = Attribute('camera-clamp', 'true', 'storage')
 SetAttribute(database_path, attribute62).do()
 
+# Define and persist a character.
+character61 = Character('robot', 'Robot')
+character61.location = '[2.05589, -0.00046, 1.91936]'  # x ("width"), y ("depth"), z ("height")
+asset63 = Asset('scene', 'robot-001.json')
+character61.add_asset(asset63)
+character61_text = """## Robot
+
+A **robot** is a mechanical or virtual artificial agent, usually an electromechanical machine that is guided by a
+computer program or electronic circuitry, and thus a type of an embedded system.
+
+Robots can be autonomous or semi-autonomous and range from humanoids such as Honda's *Advanced Step in Innovative
+Mobility* (ASIMO) and TOSY's *TOSY Ping Pong Playing Robot* (TOPIO) to industrial robots, medical operating robots,
+patent assist robots, dog therapy robots, collectively programmed swarm robots, UAV drones such as General Atomics MQ-1
+Predator, and even microscopic nano robots. By mimicking a lifelike appearance or automating movements, a robot may
+convey a sense of intelligence or thought of its own.
+
+The branch of technology that deals with the design, construction, operation, and application of robots, as well as
+computer systems for their control, sensory feedback, and information processing is robotics. These technologies deal
+with automated machines that can take the place of humans in dangerous environments or manufacturing processes, or
+resemble humans in appearance, behavior, and/or cognition. Many of today's robots are inspired by nature contributing to
+the field of bio-inspired robotics. These robots have also created a newer branch of robotics: soft robotics.
+"""
+asset64 = Asset('text', data=character61_text)
+character61.add_asset(asset64)
+SetCharacter(database_path, character61, 'storage').do()
+
 
 # Define navigation paths between scenes.
 # SetNavigation(database_path, 'outpost', 'military-base', 'west', 'east').do()
