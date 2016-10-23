@@ -22,6 +22,10 @@ from storyengine.core.models.prop import Prop
 from storyengine.core.models.scene import Scene
 from storyengine.core.models.asset import Asset
 
+from storyengine.store.models.occurrence import Occurrence
+from storyengine.store.commands.occurrence.setoccurrence import SetOccurrence
+from storyengine.store.commands.occurrence.setoccurrencedata import SetOccurrenceData
+
 
 database_path = '/home/brettk/Source/storytechnologies/story-engine/data/demo1.sqlite'
 
@@ -153,6 +157,16 @@ asset54 = Asset('text', data=prop51_text)
 prop51.add_asset(asset54)
 SetProp(database_path, prop51, 'research-area').do()
 SetTags(database_path, 'computer', ['electronics']).do()
+tag51_text = """Electronics is the science of controlling electrical energy electrically, in which the electrons have a
+fundamental role. Electronics deals with electrical circuits that involve active electrical components such as vacuum
+tubes, transistors, diodes, integrated circuits, associated passive electrical components, and interconnection
+technologies.
+
+Commonly, electronic devices contain circuitry consisting primarily or exclusively of active semiconductors supplemented
+with passive elements; such a circuit is described as an electronic circuit.
+"""
+tag_occurrence51 = Occurrence(topic_identifier='electronics', instance_of='text', resource_data=bytes(tag51_text, 'utf-8'))
+SetOccurrence(database_path, tag_occurrence51).do()
 
 # Prop - 'Desk'.
 prop52 = Prop('desk', 'Desk')
@@ -177,6 +191,17 @@ asset58 = Asset('text', data=prop53_text)
 prop53.add_asset(asset58)
 SetProp(database_path, prop53, 'research-area').do()
 SetTags(database_path, 'chair', ['furniture']).do()
+tag52_text = """Furniture is movable objects intended to support various human activities such as seating (e.g., chairs,
+stools, tables and sofas) and sleeping (e.g., beds). Furniture is also used to hold objects at a convenient height for
+work (as horizontal surfaces above the ground, such as tables and desks), or to store things (e.g., cupboards and
+shelves).
+
+Furniture can be a product of design and is considered a form of decorative art. In addition to furniture's functional
+role, it can serve a symbolic or religious purpose. It can be made from many materials, including metal, plastic, and
+wood. Furniture can be made using a variety of woodworking joints which often reflect the local culture.
+"""
+tag_occurrence52 = Occurrence(topic_identifier='furniture', instance_of='text', resource_data=bytes(tag52_text, 'utf-8'))
+SetOccurrence(database_path, tag_occurrence52).do()
 
 # Prop - 'Bookshelf'.
 prop54 = Prop('bookshelf', 'Bookshelf')
