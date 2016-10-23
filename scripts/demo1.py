@@ -209,7 +209,7 @@ SetAttribute(database_path, attribute62).do()
 
 # Define and persist a character.
 character61 = Character('robot', 'Robot')
-character61.location = '[2.05589, -0.00046, 1.91936]'  # x ("width"), y ("depth"), z ("height")
+character61.location = '[2.05589, -0.00046, 1.41936]'  # x ("width"), y ("depth"), z ("height")
 asset63 = Asset('scene', 'robot-001.json')
 character61.add_asset(asset63)
 character61_text = """## Robot
