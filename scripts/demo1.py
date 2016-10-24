@@ -24,7 +24,6 @@ from storyengine.core.models.asset import Asset
 
 from storyengine.store.models.occurrence import Occurrence
 from storyengine.store.commands.occurrence.setoccurrence import SetOccurrence
-from storyengine.store.commands.occurrence.setoccurrencedata import SetOccurrenceData
 
 
 database_path = '/home/brettk/Source/storytechnologies/story-engine/data/demo1.sqlite'
