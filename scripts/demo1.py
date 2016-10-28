@@ -103,7 +103,7 @@ scene3.add_asset(asset32)
 SetScene(database_path, scene3).do()
 attribute31 = Attribute('type', 'exterior', 'weapon-factory')
 SetAttribute(database_path, attribute31).do()
-attribute32 = Attribute('mist', '0.0', 'weapon-factory')
+attribute32 = Attribute('mist-depth', '25', 'weapon-factory')
 SetAttribute(database_path, attribute32).do()
 
 # Scene 4 - Delivery Area.
