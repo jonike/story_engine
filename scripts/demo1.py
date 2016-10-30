@@ -103,7 +103,7 @@ scene3.add_asset(asset32)
 SetScene(database_path, scene3).do()
 attribute31 = Attribute('type', 'exterior', 'weapon-factory')
 SetAttribute(database_path, attribute31).do()
-attribute32 = Attribute('mist-depth', '25', 'weapon-factory')
+attribute32 = Attribute('mist-depth', '35', 'weapon-factory')
 SetAttribute(database_path, attribute32).do()
 
 # Scene 4 - Delivery Area.
@@ -156,7 +156,7 @@ asset54 = Asset('text', data=prop51_text)
 prop51.add_asset(asset54)
 SetProp(database_path, prop51, 'research-area').do()
 SetTags(database_path, 'computer', ['electronics']).do()
-tag51_text = """Electronics is the science of controlling electrical energy electrically, in which the electrons have a
+tag51_text = """__Electronics__ is the science of controlling electrical energy electrically, in which the electrons have a
 fundamental role. Electronics deals with electrical circuits that involve active electrical components such as vacuum
 tubes, transistors, diodes, integrated circuits, associated passive electrical components, and interconnection
 technologies.
@@ -173,6 +173,11 @@ prop52.location = '[-3.96111, 0.97235, 1.88772]'  # x ("width"), y ("depth"), z 
 asset55 = Asset('scene', 'desk-001.json')
 prop52.add_asset(asset55)
 prop52_text = """## Desk
+
+A __desk__ or __bureau__ is a piece of furniture used in a school, office, home or the like for academic, professional
+or domestic activities such as reading, writing, or using equipment such as a computer. Desks often have one or more
+drawers, compartments, or pigeonholes to store items such as office supplies and papers. Desks are usually made of wood
+or metal, although materials such as tempered glass are sometimes seen.
 """
 asset56 = Asset('text', data=prop52_text)
 prop52.add_asset(asset56)
@@ -185,6 +190,12 @@ prop53.location = '[-3.03917, 1.45503, 1.71397]'  # x ("width"), y ("depth"), z 
 asset57 = Asset('scene', 'chair-001.json')
 prop53.add_asset(asset57)
 prop53_text = """## Chair
+
+A __chair__ is a piece of furniture with a raised surface, commonly used to seat a single person. Chairs are supported
+most often by four legs and have a back; however, a chair can have three legs or can have a different shape. Chairs are
+made of a wide variety of materials, ranging from wood to metal to synthetic material (e.g., plastic), and they may be
+padded or upholstered in various colors and fabrics, either just on the seat (as with some dining room chairs) or on
+the entire chair.
 """
 asset58 = Asset('text', data=prop53_text)
 prop53.add_asset(asset58)
@@ -208,6 +219,11 @@ prop54.location = '[-2.00528, 3.53678, 2.21712]'  # x ("width"), y ("depth"), z 
 asset59 = Asset('scene', 'bookshelf-001.json')
 prop54.add_asset(asset59)
 prop54_text = """## Bookshelf
+
+A __bookcase__, or __bookshelf__, is a piece of furniture, almost always with horizontal shelves, used to store books.
+Bookcases are used in private homes, public and university libraries, offices and bookstores. A bookcase may be fitted
+with glass doors. A bookcase consists of a unit including two or more shelves which may not all be used to contain books
+or other printed materials.
 """
 asset510 = Asset('text', data=prop54_text)
 prop54.add_asset(asset510)
@@ -217,7 +233,7 @@ SetTags(database_path, 'bookshelf', ['furniture']).do()
 
 # Scene 6 - Storage.
 asset61 = Asset('scene', 'scene-010.json')
-scene6 = Scene('storage', 'Storage', 6)
+scene6 = Scene('storage-area', 'Storage Area', 6)
 scene6.add_asset(asset61)
 scene6_text = """A warehouse is a commercial building for storage of goods. Warehouses are used by manufacturers,
 importers, exporters, wholesalers, transport businesses, customs, etc. They are usually large plain buildings in
@@ -226,9 +242,9 @@ industrial areas of cities, towns and villages.
 asset62 = Asset('text', data=scene6_text)
 scene6.add_asset(asset62)
 SetScene(database_path, scene6).do()
-attribute61 = Attribute('type', 'interior', 'storage')
+attribute61 = Attribute('type', 'interior', 'storage-area')
 SetAttribute(database_path, attribute61).do()
-attribute62 = Attribute('camera-clamp', 'true', 'storage')
+attribute62 = Attribute('camera-clamp', 'true', 'storage-area')
 SetAttribute(database_path, attribute62).do()
 
 # Define and persist a character.
@@ -255,7 +271,7 @@ the field of bio-inspired robotics. These robots have also created a newer branc
 """
 asset64 = Asset('text', data=character61_text)
 character61.add_asset(asset64)
-SetCharacter(database_path, character61, 'storage').do()
+SetCharacter(database_path, character61, 'storage-area').do()
 
 
 # Define navigation paths between scenes.
@@ -267,6 +283,6 @@ SetCharacter(database_path, character61, 'storage').do()
 
 SetNavigation(database_path, 'outpost', 'weapon-factory', 'west', 'east').do()
 SetNavigation(database_path, 'weapon-factory', 'research-area', 'south', 'north').do()
-SetNavigation(database_path, 'research-area', 'storage', 'south', 'north').do()
+SetNavigation(database_path, 'research-area', 'storage-area', 'south', 'north').do()
 
 
