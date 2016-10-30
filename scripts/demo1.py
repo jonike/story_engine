@@ -26,7 +26,8 @@ from storyengine.store.models.occurrence import Occurrence
 from storyengine.store.commands.occurrence.setoccurrence import SetOccurrence
 
 
-database_path = '/home/brettk/Source/storytechnologies/story-engine/data/demo1.sqlite'
+database_path = '/home/brettk/Source/storytechnologies/story-engine/data/storytech.sqlite'
+map_identifier = 1
 
 # Create and bootstrap topic map (ontology).
 if not os.path.isfile(database_path):
@@ -105,6 +106,8 @@ attribute31 = Attribute('type', 'exterior', 'weapon-factory')
 SetAttribute(database_path, attribute31).do()
 attribute32 = Attribute('mist-depth', '35', 'weapon-factory')
 SetAttribute(database_path, attribute32).do()
+attribute33 = Attribute('camera-rotation', '0.30', 'weapon-factory')  # Camera rotation multiplier.
+SetAttribute(database_path, attribute33).do()
 
 # Scene 4 - Delivery Area.
 # asset41 = Asset('scene', 'scene-008.json')
