@@ -105,6 +105,31 @@ attribute31 = Attribute('type', 'exterior', 'weapon-factory')
 SetAttribute(database_path, attribute31).do()
 attribute32 = Attribute('mist-depth', '35', 'weapon-factory')
 SetAttribute(database_path, attribute32).do()
+attribute33 = Attribute('camera-rotation', '0.30', 'weapon-factory')  # Camera rotation multiplier.
+SetAttribute(database_path, attribute33).do()
+
+# Prop - 'Telecommunications Facility".
+prop31 = Prop('telecommunications-facility', 'Telecommunications Facility')
+prop31.location = '[4.09054, 6.29359, 6.07536]'  # x ("width"), y ("depth"), z ("height")
+asset33 = Asset('scene', 'telecommunications-facility-001.json')
+prop31.add_asset(asset33)
+prop31_text = """## Telecommunications Facility
+
+In telecommunications, a facility is defined as:
+
+1. A fixed, mobile, or transportable structure, including (a) all installed electrical and electronic wiring, cabling,
+and equipment and (b) all supporting structures, such as utility, ground network, and electrical supporting structures.
+2. A network-provided service to users or the network operating administration.
+3. A transmission pathway and associated equipment.
+4. In a protocol applicable to a data unit, such as a block or frame, an additional item of information or a constraint
+encoded within the protocol to provide the required control.
+5. A real property entity consisting of one or more of the following: a building, a structure, a utility system,
+pavement, and underlying land.
+"""
+asset34 = Asset('text', data=prop31_text)
+prop31.add_asset(asset34)
+SetProp(database_path, prop31, 'weapon-factory').do()
+
 
 # Scene 4 - Delivery Area.
 # asset41 = Asset('scene', 'scene-008.json')
