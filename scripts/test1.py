@@ -22,7 +22,7 @@ from storyengine.core.models.scene import Scene
 from storyengine.core.models.asset import Asset
 
 
-database_path = '/home/brettk/Source/storytechnologies/story-engine/data/test1.sqlite'
+database_path = '/home/brettk/Source/storytechnologies/story_engine/data/test1.sqlite'
 
 # Create and bootstrap topic map (ontology).
 if not os.path.isfile(database_path):
