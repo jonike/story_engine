@@ -130,6 +130,24 @@ asset34 = Asset('text', data=prop31_text)
 prop31.add_asset(asset34)
 SetProp(database_path, prop31, 'weapon-factory').do()
 
+# Define and persist a character.
+character31 = Character('robot', 'Military Robot')
+character31.location = '[1.37942, -3.62861, 0.63]'  # x ("width"), y ("depth"), z ("height")
+asset35 = Asset('scene', 'robot-001.json')
+character31.add_asset(asset35)
+character31_text = """## Military Robot
+
+__Military robots__ are autonomous robots or remote-controlled mobile robots designed for military applications, from
+transport to search and rescue and attack. Some such systems are currently in use, and many are under development.
+
+Broadly defined, military robots date back to World War II and the Cold War in the form of the German Goliath tracked
+mines and the Soviet _teletanks_. The MQB-1 Predator drone was when CIA officers began to see the first practical returns
+on their decade-old fantasy of using aerial robots to collect intelligence.
+"""
+asset36 = Asset('text', data=character31_text)
+character31.add_asset(asset36)
+SetCharacter(database_path, character31, 'weapon-factory').do()
+
 
 # Scene 4 - Delivery Area.
 # asset41 = Asset('scene', 'scene-008.json')
@@ -255,29 +273,12 @@ prop54.add_asset(asset510)
 SetProp(database_path, prop54, 'research-area').do()
 SetTags(database_path, 'bookshelf', ['furniture']).do()
 
-
-# Scene 6 - Storage.
-asset61 = Asset('scene', 'scene-010.json')
-scene6 = Scene('storage-area', 'Storage Area', 6)
-scene6.add_asset(asset61)
-scene6_text = """A warehouse is a commercial building for storage of goods. Warehouses are used by manufacturers,
-importers, exporters, wholesalers, transport businesses, customs, etc. They are usually large plain buildings in
-industrial areas of cities, towns and villages.
-"""
-asset62 = Asset('text', data=scene6_text)
-scene6.add_asset(asset62)
-SetScene(database_path, scene6).do()
-attribute61 = Attribute('type', 'interior', 'storage-area')
-SetAttribute(database_path, attribute61).do()
-attribute62 = Attribute('camera-clamp', 'true', 'storage-area')
-SetAttribute(database_path, attribute62).do()
-
 # Define and persist a character.
-character61 = Character('robot', 'Robot')
-character61.location = '[2.05589, -0.00046, 1.41936]'  # x ("width"), y ("depth"), z ("height")
-asset63 = Asset('scene', 'robot-001.json')
-character61.add_asset(asset63)
-character61_text = """## Robot
+character51 = Character('utility-robot', 'Utility Robot')
+character51.location = '[4.07017, -0.00034, 1.42042]'  # x ("width"), y ("depth"), z ("height")
+asset511 = Asset('scene', 'utility-robot-001.json')
+character51.add_asset(asset511)
+character51_text = """## Robot
 
 A **robot** is a mechanical or virtual artificial agent, usually an electromechanical machine that is guided by a
 computer program or electronic circuitry, and thus a type of an embedded system.
@@ -294,9 +295,26 @@ with automated machines that can take the place of humans in dangerous environme
 resemble humans in appearance, behavior, and/or cognition. Many of today's robots are inspired by nature contributing to
 the field of bio-inspired robotics. These robots have also created a newer branch of robotics: soft robotics.
 """
-asset64 = Asset('text', data=character61_text)
-character61.add_asset(asset64)
-SetCharacter(database_path, character61, 'storage-area').do()
+asset512 = Asset('text', data=character51_text)
+character51.add_asset(asset512)
+SetCharacter(database_path, character51, 'research-area').do()
+
+
+# Scene 6 - Storage.
+asset61 = Asset('scene', 'scene-010.json')
+scene6 = Scene('storage-area', 'Storage Area', 6)
+scene6.add_asset(asset61)
+scene6_text = """A warehouse is a commercial building for storage of goods. Warehouses are used by manufacturers,
+importers, exporters, wholesalers, transport businesses, customs, etc. They are usually large plain buildings in
+industrial areas of cities, towns and villages.
+"""
+asset62 = Asset('text', data=scene6_text)
+scene6.add_asset(asset62)
+SetScene(database_path, scene6).do()
+attribute61 = Attribute('type', 'interior', 'storage-area')
+SetAttribute(database_path, attribute61).do()
+attribute62 = Attribute('camera-clamp', 'true', 'storage-area')
+SetAttribute(database_path, attribute62).do()
 
 
 # Define navigation paths between scenes.
