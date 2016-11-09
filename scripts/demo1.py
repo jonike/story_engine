@@ -299,6 +299,8 @@ asset512 = Asset('text', data=character51_text)
 character51.add_asset(asset512)
 SetCharacter(database_path, character51, 'research-area').do()
 
+SetTags(database_path, 'utility-robot', ['electronics']).do()
+
 
 # Scene 6 - Storage.
 asset61 = Asset('scene', 'scene-010.json')
