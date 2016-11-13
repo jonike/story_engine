@@ -25,16 +25,17 @@ from storyengine.store.models.attribute import Attribute
 class StoreTest(unittest.TestCase):
 
     def setUp(self):
-        self.database_path = '/home/brettk/Source/storytechnologies/story_engine/data/test1.sqlite'
+        self.database_path = '/home/brettk/Source/storytechnologies/story_engine/data/storytech.sqlite'
+        self.map_identifier = 1
 
     def testTopicExists(self):
         topic_identifier = 'genesis'
-        topic_exists = TopicExists(self.database_path, topic_identifier).do()
+        topic_exists = TopicExists(self.database_path, self.map_identifier, topic_identifier).do()
         if not topic_exists:
             topic1 = Topic(topic_identifier, 'topic', 'Genesis')
-            SetTopic(self.database_path, topic1).do()
+            SetTopic(self.database_path, self.map_identifier, topic1).do()
 
-        topic_exists_command = TopicExists(self.database_path)
+        topic_exists_command = TopicExists(self.database_path, self.map_identifier)
 
         topic_exists_command.identifier = 'genesis'
         existing_topic = topic_exists_command.do()
@@ -47,12 +48,12 @@ class StoreTest(unittest.TestCase):
 
     def testGetTopic(self):
         topic_identifier = 'genesis'
-        topic_exists = TopicExists(self.database_path, topic_identifier).do()
+        topic_exists = TopicExists(self.database_path, self.map_identifier, topic_identifier).do()
         if not topic_exists:
             topic1 = Topic(topic_identifier, 'topic', 'Genesis')
-            SetTopic(self.database_path, topic1).do()
+            SetTopic(self.database_path, self.map_identifier, topic1).do()
 
-        get_topic_command = GetTopic(self.database_path, 'genesis', RetrievalOption.resolve_attributes)
+        get_topic_command = GetTopic(self.database_path, self.map_identifier, 'genesis', RetrievalOption.resolve_attributes)
 
         topic1 = get_topic_command.do()
 
@@ -61,11 +62,6 @@ class StoreTest(unittest.TestCase):
         self.assertEqual('topic', topic1.instance_of)
 
         self.assertLess(0, len(topic1.attributes))
-
-    def testGetTopics(self):
-        topics = GetTopics(self.database_path).do()
-
-        self.assertEqual(40, len(topics))
 
     def testSetOccurrence(self):
         pass

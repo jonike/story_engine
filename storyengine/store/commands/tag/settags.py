@@ -11,8 +11,11 @@ from storyengine.store.commands.tag.settag import SetTag
 
 class SetTags:
 
-    def __init__(self, database_path, identifier='', tags=None):
+    def __init__(self, database_path, map_identifier,
+                 identifier='',
+                 tags=None):
         self.database_path = database_path
+        self.map_identifier = map_identifier
         self.identifier = identifier
         self.tags = tags
 
@@ -21,4 +24,4 @@ class SetTags:
             raise TopicStoreException("Missing 'tags' or 'identifier' parameter")
 
         for tag in self.tags:
-            SetTag(self.database_path, self.identifier, tag).do()
+            SetTag(self.database_path, self.map_identifier, self.identifier, tag).do()

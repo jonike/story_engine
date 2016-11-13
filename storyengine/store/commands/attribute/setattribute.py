@@ -12,8 +12,10 @@ from storyengine.store.topicstoreexception import TopicStoreException
 
 class SetAttribute:
 
-    def __init__(self, database_path, attribute=None):
+    def __init__(self, database_path, map_identifier,
+                 attribute=None):
         self.database_path = database_path
+        self.map_identifier = map_identifier
         self.attribute = attribute
 
     def do(self):
@@ -26,8 +28,9 @@ class SetAttribute:
 
         try: 
             with connection:  # https://docs.python.org/3/library/sqlite3.html#using-the-connection-as-a-context-manager
-                connection.execute("INSERT INTO attribute (identifier, parent_identifier_fk, name, value, data_type, scope, language) VALUES (?, ?, ?, ?, ?, ?, ?)",
-                                   (self.attribute.identifier,
+                connection.execute("INSERT INTO attribute (topicmap_identifier, identifier, parent_identifier_fk, name, value, data_type, scope, language) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+                                   (self.map_identifier,
+                                    self.attribute.identifier,
                                     self.attribute.entity_identifier,
                                     self.attribute.name,
                                     self.attribute.value,

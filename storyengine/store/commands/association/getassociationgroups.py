@@ -15,9 +15,11 @@ class GetAssociationGroups:
 
     def __init__(self,
                  database_path='',
+                 map_identifier=None,
                  identifier='',
                  associations=None):
         self.database_path = database_path
+        self.map_identifier = map_identifier
         self.identifier = identifier
         self.associations = associations
 
@@ -26,12 +28,12 @@ class GetAssociationGroups:
         if self.identifier == '' and self.associations is None:
             raise TopicStoreException("At least one of the 'identifier' or 'associations' parameters is required")
 
-        if self.associations is None and self.database_path == '':
-            raise TopicStoreException("Missing 'database path' parameter")
+        if self.associations is None and (self.database_path == '' or self.map_identifier is None):
+            raise TopicStoreException("Missing 'database path' or 'map identifier' parameters")
 
         result = DoubleKeyDict()
         if not self.associations:
-            self.associations = GetAssociations(self.database_path, self.identifier).do()
+            self.associations = GetAssociations(self.database_path, self.map_identifier, self.identifier).do()
 
         for association in self.associations:
             resolved_topic_refs = self._resolve_topic_refs(association)

@@ -17,12 +17,13 @@ from storyengine.store.models.language import Language
 
 class GetOccurrence:
 
-    def __init__(self, database_path,
+    def __init__(self, database_path, map_identifier,
                  identifier='',
                  inline_resource_data=RetrievalOption.dont_inline_resource_data,
                  resolve_attributes=RetrievalOption.dont_resolve_attributes,
                  language=Language.en):
         self.database_path = database_path
+        self.map_identifier = map_identifier
         self.identifier = identifier
         self.inline_resource_data = inline_resource_data
         self.resolve_attributes = resolve_attributes
@@ -38,7 +39,7 @@ class GetOccurrence:
 
         cursor = connection.cursor()
         try:
-            cursor.execute("SELECT identifier, instance_of, scope, resource_ref, topic_identifier_fk, language FROM occurrence WHERE identifier = ?", (self.identifier,))
+            cursor.execute("SELECT identifier, instance_of, scope, resource_ref, topic_identifier_fk, language FROM occurrence WHERE topicmap_identifier = ? AND identifier = ?", (self.map_identifier, self.identifier))
             record = cursor.fetchone()
             if record:
                 resource_data = None
@@ -54,7 +55,7 @@ class GetOccurrence:
                         Language[record['language']])
                 if self.resolve_attributes is RetrievalOption.resolve_attributes:
                     # TODO: Optimize.
-                    result.add_attributes(GetAttributes(self.database_path, self.identifier, self.language).do())
+                    result.add_attributes(GetAttributes(self.database_path, self.map_identifier, self.identifier, self.language).do())
         except sqlite3.Error as e:
             raise TopicStoreException(e)
         finally:

@@ -18,8 +18,9 @@ from storyengine.store.commands.attribute.setattributes import SetAttributes
 
 class SetAssociation:
 
-    def __init__(self, database_path, association=None):
+    def __init__(self, database_path, map_identifier, association=None):
         self.database_path = database_path
+        self.map_identifier = map_identifier
         self.association = association
 
     def do(self):
@@ -30,17 +31,18 @@ class SetAssociation:
 
         try:
             with connection:  # https://docs.python.org/3/library/sqlite3.html#using-the-connection-as-a-context-manager
-                connection.execute("INSERT INTO topic (identifier, instance_of, scope) VALUES (?, ?, ?)", (self.association.identifier, self.association.instance_of, self.association.scope))
+                connection.execute("INSERT INTO topic (topicmap_identifier, identifier, instance_of, scope) VALUES (?, ?, ?, ?)", (self.map_identifier, self.association.identifier, self.association.instance_of, self.association.scope))
                 for base_name in self.association.base_names:
-                    connection.execute("INSERT INTO basename (identifier, name, topic_identifier_fk, language) VALUES (?, ?, ?, ?)",
-                                       (base_name.identifier,
+                    connection.execute("INSERT INTO basename (topicmap_identifier, identifier, name, topic_identifier_fk, language) VALUES (?, ?, ?, ?, ?)",
+                                       (self.map_identifier,
+                                        base_name.identifier,
                                         base_name.name,
                                         self.association.identifier,
                                         base_name.language.name))
                 for member in self.association.members:
-                    connection.execute("INSERT INTO member (identifier, role_spec, association_identifier_fk) VALUES (?, ?, ?)", (member.identifier, member.role_spec, self.association.identifier))
+                    connection.execute("INSERT INTO member (topicmap_identifier, identifier, role_spec, association_identifier_fk) VALUES (?, ?, ?, ?)", (self.map_identifier, member.identifier, member.role_spec, self.association.identifier))
                     for topic_ref in member.topic_refs:
-                        connection.execute("INSERT INTO topicref (topic_ref, member_identifier_fk) VALUES (?, ?)", (topic_ref, member.identifier))
+                        connection.execute("INSERT INTO topicref (topicmap_identifier, topic_ref, member_identifier_fk) VALUES (?, ?, ?)", (self.map_identifier, topic_ref, member.identifier))
 
             if not self.association.get_attribute_by_name('creation-timestamp'):
                 timestamp = str(datetime.now())
@@ -49,7 +51,7 @@ class SetAssociation:
                                                 scope='*',
                                                 language=Language.en)
                 self.association.add_attribute(timestamp_attribute)
-            SetAttributes(self.database_path, self.association.attributes).do()
+            SetAttributes(self.database_path, self.map_identifier, self.association.attributes).do()
         except sqlite3.Error as e:
             raise TopicStoreException(e)
         finally:

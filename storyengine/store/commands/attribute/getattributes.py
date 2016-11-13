@@ -15,8 +15,9 @@ from storyengine.store.topicstoreexception import TopicStoreException
 
 class GetAttributes:
 
-    def __init__(self, database_path, entity_identifier='', language=Language.en):
+    def __init__(self, database_path, map_identifier, entity_identifier='', language=Language.en):
         self.database_path = database_path
+        self.map_identifier = map_identifier
         self.entity_identifier = entity_identifier
         self.language = language
 
@@ -30,8 +31,8 @@ class GetAttributes:
 
         cursor = connection.cursor()
         try:
-            cursor.execute("SELECT * FROM attribute WHERE parent_identifier_fk = ? AND language = ?",
-                           (self.entity_identifier, self.language.name))
+            cursor.execute("SELECT * FROM attribute WHERE topicmap_identifier = ? AND parent_identifier_fk = ? AND language = ?",
+                           (self.map_identifier, self.entity_identifier, self.language.name))
             records = cursor.fetchall()
             for record in records:
                 attribute = Attribute(
