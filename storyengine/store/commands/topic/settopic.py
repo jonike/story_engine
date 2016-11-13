@@ -18,8 +18,11 @@ from storyengine.store.commands.attribute.setattributes import SetAttributes
 
 class SetTopic:
 
-    def __init__(self, database_path, topic=None, language=Language.en):
+    def __init__(self, database_path, map_identifier,
+                 topic=None,
+                 language=Language.en):
         self.database_path = database_path
+        self.map_identifier = map_identifier
         self.topic = topic
         self.language = language
 
@@ -31,10 +34,14 @@ class SetTopic:
 
         try:
             with connection:  # https://docs.python.org/3/library/sqlite3.html#using-the-connection-as-a-context-manager
-                connection.execute("INSERT INTO topic (identifier, instance_of) VALUES (?, ?)", (self.topic.identifier, self.topic.instance_of))
+                connection.execute("INSERT INTO topic (topicmap_identifier, identifier, instance_of) VALUES (?, ?, ?)",
+                                   (self.map_identifier,
+                                    self.topic.identifier,
+                                    self.topic.instance_of))
                 for base_name in self.topic.base_names:
-                    connection.execute("INSERT INTO basename (identifier, name, topic_identifier_fk, language) VALUES (?, ?, ?, ?)",
-                                       (base_name.identifier,
+                    connection.execute("INSERT INTO basename (topicmap_identifier, identifier, name, topic_identifier_fk, language) VALUES (?, ?, ?, ?, ?)",
+                                       (self.map_identifier,
+                                        base_name.identifier,
                                         base_name.name,
                                         self.topic.identifier,
                                         base_name.language.name))
@@ -45,7 +52,7 @@ class SetTopic:
                                                 scope='*',
                                                 language=Language.en)
                 self.topic.add_attribute(timestamp_attribute)
-            SetAttributes(self.database_path, self.topic.attributes).do()
+            SetAttributes(self.database_path, self.map_identifier, self.topic.attributes).do()
         except sqlite3.Error as e:
             raise TopicStoreException(e)
         finally:

@@ -18,8 +18,9 @@ from storyengine.store.topicstoreexception import TopicStoreException
 
 class SetOccurrence:
 
-    def __init__(self, database_path, occurrence=None):
+    def __init__(self, database_path, map_identifier, occurrence=None):
         self.database_path = database_path
+        self.map_identifier = map_identifier
         self.occurrence = occurrence
 
     def do(self):
@@ -32,8 +33,9 @@ class SetOccurrence:
 
         try:
             with connection:  # https://docs.python.org/3/library/sqlite3.html#using-the-connection-as-a-context-manager
-                connection.execute("INSERT INTO occurrence (identifier, instance_of, scope, resource_ref, resource_data, topic_identifier_fk, language) VALUES (?, ?, ?, ?, ?, ?, ?)",
-                                   (self.occurrence.identifier,
+                connection.execute("INSERT INTO occurrence (topicmap_identifier, identifier, instance_of, scope, resource_ref, resource_data, topic_identifier_fk, language) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+                                   (self.map_identifier,
+                                    self.occurrence.identifier,
                                     self.occurrence.instance_of,
                                     self.occurrence.scope,
                                     self.occurrence.resource_ref,
@@ -47,7 +49,7 @@ class SetOccurrence:
                                                 scope='*',
                                                 language=Language.en)
                 self.occurrence.add_attribute(timestamp_attribute)
-            SetAttributes(self.database_path, self.occurrence.attributes).do()
+            SetAttributes(self.database_path, self.map_identifier, self.occurrence.attributes).do()
         except sqlite3.Error as e:
             raise TopicStoreException(e)
         finally:

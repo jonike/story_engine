@@ -12,8 +12,9 @@ from storyengine.store.topicstoreexception import TopicStoreException
 
 class DeleteAttribute:
 
-    def __init__(self, database_path, identifier=''):
+    def __init__(self, database_path, map_identifier, identifier=''):
         self.database_path = database_path
+        self.map_identifier = map_identifier
         self.identifier = identifier
 
     def do(self):
@@ -24,7 +25,7 @@ class DeleteAttribute:
 
         try:
             with connection:  # https://docs.python.org/3/library/sqlite3.html#using-the-connection-as-a-context-manager
-                connection.execute("DELETE FROM attribute WHERE identifier = ?", (self.identifier,))
+                connection.execute("DELETE FROM attribute WHERE topicmap_identifier = ? AND identifier = ?", (self.map_identifier, self.identifier))
         except sqlite3.Error as e:
             raise TopicStoreException(e)
         finally:

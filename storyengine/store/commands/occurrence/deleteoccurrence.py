@@ -13,8 +13,9 @@ from storyengine.store.commands.attribute.deleteattributes import DeleteAttribut
 
 class DeleteOccurrence:
 
-    def __init__(self, database_path, identifier=''):
+    def __init__(self, database_path, map_identifier, identifier=''):
         self.database_path = database_path
+        self.map_identifier = map_identifier
         self.identifier = identifier
 
     def do(self):
@@ -25,8 +26,8 @@ class DeleteOccurrence:
 
         try:
             with connection:  # https://docs.python.org/3/library/sqlite3.html#using-the-connection-as-a-context-manager
-                connection.execute("DELETE FROM occurrence WHERE identifier = ?", (self.identifier,))
-            DeleteAttributes(self.database_path, self.identifier).do()  # Delete the occurrence's attributes
+                connection.execute("DELETE FROM occurrence WHERE topicmap_identifier = ? AND identifier = ?", (self.map_identifier, self.identifier))
+            DeleteAttributes(self.database_path, self.map_identifier, self.identifier).do()  # Delete the occurrence's attributes
         except sqlite3.Error as e:
             raise TopicStoreException(e)
         finally:

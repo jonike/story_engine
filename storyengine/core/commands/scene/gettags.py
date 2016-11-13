@@ -12,8 +12,9 @@ from storyengine.store.topicstoreexception import TopicStoreException
 
 class GetEntitiesTags:
 
-    def __init__(self, database_path, identifier=''):
+    def __init__(self, database_path, map_identifier, identifier=''):
         self.database_path = database_path
+        self.map_identifier = map_identifier
         self.identifier = identifier
 
     def do(self):
@@ -39,7 +40,7 @@ class GetEntitiesTags:
         # tag8 -> topic5
 
         topic_tags = {}
-        groups = GetAssociationGroups(self.database_path, self.identifier).do()
+        groups = GetAssociationGroups(self.database_path, self.map_identifier, self.identifier).do()
         for instance_of in groups.dict:
             for role in groups.dict[instance_of]:
                 for topic_ref in groups[instance_of, role]:

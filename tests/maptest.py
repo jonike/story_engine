@@ -16,7 +16,8 @@ from storyengine.store.commands.topic.topicexists import TopicExists
 class MapTest(unittest.TestCase):
 
     def setUp(self):
-        self.database_path = '/home/brettk/Source/storytechnologies/story_engine/data/test1.sqlite'
+        self.database_path = '/home/brettk/Source/storytechnologies/story_engine/data/storytech.sqlite'
+        self.map_identifier = 1
 
     def testMaps(self):
         if not os.path.isfile(self.database_path):
@@ -25,10 +26,10 @@ class MapTest(unittest.TestCase):
 
         self.assertEqual(True, os.path.isfile(self.database_path))
 
-        if not TopicExists(self.database_path, 'genesis').do():
-            InitMap(self.database_path).do()
+        if not TopicExists(self.database_path, self.map_identifier, 'genesis').do():
+            InitMap(self.database_path, self.map_identifier).do()
 
-        self.assertEqual(True, TopicExists(self.database_path, 'genesis').do())
+        self.assertEqual(True, TopicExists(self.database_path, self.map_identifier, 'genesis').do())
 
     def tearDown(self):
         pass

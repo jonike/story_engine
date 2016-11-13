@@ -15,8 +15,11 @@ from storyengine.store.models.topic import Topic
 
 class SetTag:
 
-    def __init__(self, database_path, identifier='', tag=''):
+    def __init__(self, database_path, map_identifier,
+                 identifier='',
+                 tag=''):
         self.database_path = database_path
+        self.map_identifier = map_identifier
         self.identifier = identifier
         self.tag = tag
 
@@ -24,13 +27,13 @@ class SetTag:
         if self.tag == '' or self.identifier == '':
             raise TopicStoreException("Missing 'tag' or 'identifier' parameter")
 
-        if not TopicExists(self.database_path, self.identifier).do():
+        if not TopicExists(self.database_path, self.map_identifier, self.identifier).do():
             identifier_topic = Topic(identifier=self.identifier, base_name=self.identifier.capitalize())
-            SetTopic(self.database_path, identifier_topic).do()
+            SetTopic(self.database_path, self.map_identifier, identifier_topic).do()
 
-        if not TopicExists(self.database_path, self.tag).do():
+        if not TopicExists(self.database_path, self.map_identifier, self.tag).do():
             tag_topic = Topic(identifier=self.tag, base_name=self.tag.capitalize())
-            SetTopic(self.database_path, tag_topic).do()
+            SetTopic(self.database_path, self.map_identifier, tag_topic).do()
 
         tag_association1 = Association(
             instance_of='categorization',
@@ -44,5 +47,5 @@ class SetTag:
             dest_topic_ref=self.tag,
             src_role_spec='broader',
             dest_role_spec='narrower')
-        SetAssociation(self.database_path, tag_association1).do()
-        SetAssociation(self.database_path, tag_association2).do()
+        SetAssociation(self.database_path, self.map_identifier, tag_association1).do()
+        SetAssociation(self.database_path, self.map_identifier, tag_association2).do()

@@ -26,14 +26,15 @@ from storyengine.store.models.occurrence import Occurrence
 from storyengine.store.commands.occurrence.setoccurrence import SetOccurrence
 
 
-database_path = '/home/brettk/Source/storytechnologies/story_engine/data/demo2.sqlite'
+database_path = '/home/brettk/Source/storytechnologies/story_engine/data/storytech.sqlite'
+map_identifier = 2
 
 # Create and bootstrap topic map (ontology).
 if not os.path.isfile(database_path):
     CreateMap(database_path).do()
 
-if not TopicExists(database_path, 'genesis').do():
-    InitMap(database_path).do()
+if not TopicExists(database_path, map_identifier, 'genesis').do():
+    InitMap(database_path, map_identifier).do()
 
 
 # Scene 01 - Cafeteria.
@@ -44,9 +45,9 @@ scene1_text = """
 """
 asset12 = Asset('text', data=scene1_text)
 scene1.add_asset(asset12)
-SetScene(database_path, scene1).do()
+SetScene(database_path, map_identifier, scene1).do()
 attribute11 = Attribute('type', 'exterior', 'outpost')
-SetAttribute(database_path, attribute11).do()
+SetAttribute(database_path, map_identifier, attribute11).do()
 
 
 # Scene 02 - House.

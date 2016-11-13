@@ -11,20 +11,23 @@ from storyengine.store.topicstoreexception import TopicStoreException
 
 
 class SetOccurrenceData:
-    def __init__(self, database_path, identifier='', resource_data=None):
+    def __init__(self, database_path, map_identifier,
+                 identifier='',
+                 resource_data=None):
         self.database_path = database_path
+        self.map_identifier = map_identifier
         self.identifier = identifier
         self.resource_data = bytes(resource_data, 'utf-8')
 
     def do(self):
         if self.identifier == '' or self.resource_data is None:
-            raise TopicStoreException("Missing 'identifier' and/or 'resource data' parameters")
+            raise TopicStoreException("Missing either or both 'identifier' and 'resource data' parameters")
 
         connection = sqlite3.connect(self.database_path)
 
         try:
             with connection:
-                connection.execute("UPDATE occurrence SET resource_data = ? WHERE identifier = ?", (self.resource_data, self.identifier))
+                connection.execute("UPDATE occurrence SET resource_data = ? WHERE topicmap_identifier = ? AND identifier = ?", (self.resource_data, self.map_identifier, self.identifier))
         except sqlite3.Error as e:
             raise TopicStoreException(e)
         finally:

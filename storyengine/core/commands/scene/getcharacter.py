@@ -15,8 +15,9 @@ from storyengine.store.retrievaloption import RetrievalOption
 
 
 class GetCharacter:
-    def __init__(self, database_path, identifier=''):
+    def __init__(self, database_path, map_identifier, identifier=''):
         self.database_path = database_path
+        self.map_identifier = map_identifier
         self.identifier = identifier
 
     def do(self):
@@ -24,14 +25,14 @@ class GetCharacter:
             raise CoreException("Missing 'identifier' parameter")
         result = None
         try:
-            topic = GetTopic(self.database_path, self.identifier, RetrievalOption.resolve_attributes).do()
+            topic = GetTopic(self.database_path, self.map_identifier, self.identifier, RetrievalOption.resolve_attributes).do()
             if topic:
                 result = Character(topic.identifier, topic.first_base_name.name)
                 result.location = topic.get_attribute_by_name('location').value
                 result.rotation = topic.get_attribute_by_name('rotation').value
                 result.scale = topic.get_attribute_by_name('scale').value
 
-                occurrences = GetOccurrences(self.database_path, self.identifier).do()
+                occurrences = GetOccurrences(self.database_path, self.map_identifier, self.identifier).do()
                 for occurrence in occurrences:
                     result.add_asset(Asset(occurrence.instance_of, occurrence.resource_ref))
 

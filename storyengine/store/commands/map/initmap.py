@@ -12,8 +12,10 @@ from storyengine.store.commands.map.topicfield import TopicField
 
 class InitMap:
 
-    def __init__(self, database_path):
+    def __init__(self, database_path, map_identifier):
         self.database_path = database_path
+        self.map_identifier = map_identifier
+
         self.items = {
             ('entity', 'Entity'),
             ('topic', 'Topic'),
@@ -60,7 +62,7 @@ class InitMap:
 
     def do(self):
 
-        set_topic_command = SetTopic(self.database_path)
+        set_topic_command = SetTopic(self.database_path, self.map_identifier)
         for item in self.items:
             topic = Topic(identifier=item[TopicField.identifier.value], base_name=item[TopicField.base_name.value])
             set_topic_command.topic = topic

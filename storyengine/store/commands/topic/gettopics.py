@@ -15,13 +15,14 @@ from storyengine.store.models.language import Language
 
 class GetTopics:
 
-    def __init__(self, database_path,
+    def __init__(self, database_path, map_identifier,
                  instance_of='',
                  resolve_attributes=RetrievalOption.dont_resolve_attributes,
                  language=Language.en,
                  offset=0,
                  limit=100):
         self.database_path = database_path
+        self.map_identifier = map_identifier
         self.instance_of = instance_of
         self.resolve_attributes = resolve_attributes
         self.language = language
@@ -37,16 +38,16 @@ class GetTopics:
         cursor = connection.cursor()
         try:
             if self.instance_of == '':
-                sql = "SELECT identifier FROM topic WHERE scope IS NULL ORDER BY identifier LIMIT ? OFFSET ?"
-                bind_variables = (self.limit, self.offset)
+                sql = "SELECT identifier FROM topic WHERE topicmap_identifier = ? AND scope IS NULL ORDER BY identifier LIMIT ? OFFSET ?"
+                bind_variables = (self.map_identifier, self.limit, self.offset)
             else:
-                sql = "SELECT identifier FROM topic WHERE instance_of = ? AND scope IS NULL ORDER BY identifier LIMIT ? OFFSET ?"
-                bind_variables = (self.instance_of, self.limit, self.offset)
+                sql = "SELECT identifier FROM topic WHERE topicmap_identifier = ? AND instance_of = ? AND scope IS NULL ORDER BY identifier LIMIT ? OFFSET ?"
+                bind_variables = (self.map_identifier, self.instance_of, self.limit, self.offset)
 
             cursor.execute(sql, bind_variables)
             records = cursor.fetchall()
             for record in records:
-                result.append(GetTopic(self.database_path, record['identifier'], self.resolve_attributes, self.language).do())
+                result.append(GetTopic(self.database_path, self.map_identifier, record['identifier'], self.resolve_attributes, self.language).do())
         except sqlite3.Error as e:
             raise TopicStoreException(e)
         finally:

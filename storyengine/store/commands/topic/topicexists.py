@@ -12,8 +12,9 @@ from storyengine.store.topicstoreexception import TopicStoreException
 
 class TopicExists:
 
-    def __init__(self, database_path, identifier=''):
+    def __init__(self, database_path, map_identifier, identifier=''):
         self.database_path = database_path
+        self.map_identifier = map_identifier
         self.identifier = identifier
 
     def do(self):
@@ -26,7 +27,7 @@ class TopicExists:
 
         cursor = connection.cursor()
         try:
-            cursor.execute("SELECT identifier FROM topic WHERE identifier = ?", (self.identifier,))
+            cursor.execute("SELECT identifier FROM topic WHERE topicmap_identifier = ? AND identifier = ?", (self.map_identifier, self.identifier))
             record = cursor.fetchone()
             if record:
                 result = True

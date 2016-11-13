@@ -12,8 +12,9 @@ from storyengine.store.commands.association.getassociationgroups import GetAssoc
 
 class GetTags:
 
-    def __init__(self, database_path, identifier=''):
+    def __init__(self, database_path, map_identifier, identifier=''):
         self.database_path = database_path
+        self.map_identifier = map_identifier
         self.identifier = identifier
 
     def do(self):
@@ -21,7 +22,7 @@ class GetTags:
             raise TopicStoreException("Missing 'identifier' parameter")
         result = []
 
-        associations = GetAssociations(self.database_path, self.identifier).do()
+        associations = GetAssociations(self.database_path, self.map_identifier, self.identifier).do()
         if associations:
             groups = GetAssociationGroups(associations=associations).do()
             for instance_of in groups.dict:
