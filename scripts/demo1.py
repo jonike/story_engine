@@ -33,7 +33,7 @@ map_identifier = 1
 if not os.path.isfile(database_path):
     CreateMap(database_path).do()
 
-if not TopicExists(database_path, 'genesis').do():
+if not TopicExists(database_path, 'genesis', map_identifier).do():
     InitMap(database_path, map_identifier).do()
 
 

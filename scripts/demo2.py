@@ -46,7 +46,7 @@ scene1_text = """
 asset12 = Asset('text', data=scene1_text)
 scene1.add_asset(asset12)
 SetScene(database_path, map_identifier, scene1).do()
-attribute11 = Attribute('type', 'exterior', 'outpost')
+attribute11 = Attribute('type', 'exterior', 'cafeteria')
 SetAttribute(database_path, map_identifier, attribute11).do()
 
 

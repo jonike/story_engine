@@ -52,9 +52,9 @@ class GetScene:
                                     path = Path(role, topic_ref)
                                     self.result.add_path(path)
                                 elif instance_of == 'prop':
-                                    self.result.add_entity(GetProp(self.database_path, topic_ref).do())
+                                    self.result.add_entity(GetProp(self.database_path, self.map_identifier, topic_ref).do())
                                 elif instance_of == 'character':
-                                    self.result.add_entity(GetCharacter(self.database_path, topic_ref).do())
+                                    self.result.add_entity(GetCharacter(self.database_path, self.map_identifier, topic_ref).do())
                                 elif instance_of == 'categorization':  # Tags.
                                     self.result.add_tag(topic_ref)
 

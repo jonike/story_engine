@@ -8,7 +8,7 @@ produces:
   - application/json
 basePath: /1.0
 paths:
-  '/identifiers':
+  '/maps/{map_identifier}/identifiers':
     get:
       operationId: storyengine.api.service.get_topic_identifiers
       summary: Get topic identifiers
@@ -27,7 +27,7 @@ paths:
           description: Return topic identifiers
         404:
           description: No topics exist
-  '/topics':
+  '/maps/{map_identifier}/topics':
     get:
       operationId: storyengine.api.service.get_topics
       summary: Get topics
@@ -41,7 +41,7 @@ paths:
           description: Return topics
         404:
           description: No topics exist
-  '/topics/{identifier}':
+  '/maps/{map_identifier}/topics/{identifier}':
     get:
       operationId: storyengine.api.service.get_topic
       summary: Get a single topic
@@ -53,7 +53,7 @@ paths:
           description: Return topic
         404:
           description: Topic does not exist
-  '/topics/{identifier}/occurrences':
+  '/maps/{map_identifier}/topics/{identifier}/occurrences':
     get:
       operationId: storyengine.api.service.get_occurrences
       summary: Get the occurrences for a given topic
@@ -76,7 +76,7 @@ paths:
           description: Return occurrences
         404:
           description: Topic does not have occurrences
-  '/topics/{identifier}/associations':
+  '/maps/{map_identifier}/topics/{identifier}/associations':
     get:
       operationId: storyengine.api.service.get_associations
       summary: Get the associations for a given topic
@@ -88,7 +88,7 @@ paths:
           description: Return associations
         404:
           description: Topic does not have associations
-  '/scenes/{identifier}':
+  '/maps/{map_identifier}/scenes/{identifier}':
     get:
       operationId: storyengine.api.service.get_scene
       summary: Get a single scene
@@ -100,7 +100,7 @@ paths:
           description: Return scene
         404:
           description: Scene does not exist
-  '/scenes/{identifier}/tags':
+  '/maps/{map_identifier}/scenes/{identifier}/tags':
     get:
       operationId: storyengine.api.service.get_scene_tags
       summary: Get the tags for the scene's entities
@@ -112,7 +112,7 @@ paths:
           description: Return tags
         404:
           description: Scene does not have any tagged entities
-  '/props/{identifier}':
+  '/maps/{map_identifier}/props/{identifier}':
     get:
       operationId: storyengine.api.service.get_prop
       summary: Get a single prop
@@ -124,7 +124,7 @@ paths:
           description: Return prop
         404:
           description: Prop does not exist
-  '/characters/{identifier}':
+  '/maps/{map_identifier}/characters/{identifier}':
     get:
       operationId: storyengine.api.service.get_character
       summary: Get a single character

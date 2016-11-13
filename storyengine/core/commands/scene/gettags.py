@@ -47,7 +47,7 @@ class GetEntitiesTags:
                     if topic_ref == self.identifier:
                         continue
                     if instance_of == 'prop' or instance_of == 'character':
-                        topic_tags[topic_ref] = GetTags(self.database_path, topic_ref).do()
+                        topic_tags[topic_ref] = GetTags(self.database_path, self.map_identifier, topic_ref).do()
 
         for topic, tags in topic_tags.items():
             for tag in tags:

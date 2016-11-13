@@ -25,7 +25,7 @@ class GetProp:
             raise CoreException("Missing 'identifier' parameter")
         result = None
         try:
-            topic = GetTopic(self.database_path, self.identifier, self.map_identifier, RetrievalOption.resolve_attributes).do()
+            topic = GetTopic(self.database_path, self.map_identifier, self.identifier, RetrievalOption.resolve_attributes).do()
             if topic:
                 result = Prop(topic.identifier, topic.first_base_name.name)
                 result.location = topic.get_attribute_by_name('location').value
