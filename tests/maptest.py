@@ -16,7 +16,7 @@ from storyengine.store.commands.topic.topicexists import TopicExists
 class MapTest(unittest.TestCase):
 
     def setUp(self):
-        self.database_path = '/home/brettk/Source/storytechnologies/story-engine/data/test1.sqlite'
+        self.database_path = '/home/brettk/Source/storytechnologies/story_engine/data/test1.sqlite'
 
     def testMaps(self):
         if not os.path.isfile(self.database_path):
