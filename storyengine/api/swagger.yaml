@@ -139,7 +139,7 @@ paths:
 
 parameters:
   map_identifier:
-    name: identifier
+    name: map_identifier
     description: Unique (topic) map identifier
     in: path
     type: string
