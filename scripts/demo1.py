@@ -41,10 +41,10 @@ if not TopicExists(database_path, 'genesis', map_identifier).do():
 asset11 = Asset('scene', 'scene-005.json')
 scene1 = Scene('outpost', 'Outpost Alpha', 1)
 scene1.add_asset(asset11)
-scene1_text = """A military __outpost__ is a detachment of troops stationed at a distance from the main force or formation,
-usually at a station in a remote or sparsely populated location, positioned to stand guard against unauthorized
-intrusions and surprise attacks; and the station occupied by such troops, usually a small military base or settlement in
-an outlying frontier, limit, political boundary or in another country.
+scene1_text = """A military __outpost__ is a detachment of troops stationed at a distance from the main force or
+formation, usually at a station in a remote or sparsely populated location, positioned to stand guard against
+unauthorized intrusions and surprise attacks; and the station occupied by such troops, usually a small military base or
+settlement in an outlying frontier, limit, political boundary or in another country.
 """
 asset12 = Asset('text', data=scene1_text)
 scene1.add_asset(asset12)
@@ -129,8 +129,8 @@ __Military robots__ are autonomous robots or remote-controlled mobile robots des
 transport to search and rescue and attack. Some such systems are currently in use, and many are under development.
 
 Broadly defined, military robots date back to World War II and the Cold War in the form of the German Goliath tracked
-mines and the Soviet _teletanks_. The MQB-1 Predator drone was when CIA officers began to see the first practical returns
-on their decade-old fantasy of using aerial robots to collect intelligence.
+mines and the Soviet _teletanks_. The MQB-1 Predator drone was when CIA officers began to see the first practical
+returns on their decade-old fantasy of using aerial robots to collect intelligence.
 """
 asset36 = Asset('text', data=prop32_text)
 prop32.add_asset(asset36)
