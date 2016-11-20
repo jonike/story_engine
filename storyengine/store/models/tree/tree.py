@@ -37,7 +37,7 @@ class Tree:
 
         depth += 1
         for child in children:
-            self.display(child, depth)  # Recursive call-
+            self.display(child, depth)  # Recursive call.
 
     def traverse(self, identifier, mode=TreeConstant.depth):
         # Python generator. Loosely based on an algorithm from 'Essential LISP' by John R. Anderson, Albert T. Corbett,
