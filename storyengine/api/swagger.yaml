@@ -136,6 +136,18 @@ paths:
           description: Return character
         404:
           description: Character does not exist
+  '/maps/{map_identifier}/hierarchies/{identifier}':
+    get:
+      operationId: storyengine.api.service.get_topics_hierarchy
+      summary: Pending
+      parameters:
+        - $ref: '#/parameters/map_identifier'
+        - $ref: '#/parameters/identifier'
+      responses:
+        200:
+          description: Return topics hierarchy
+        404:
+          description: Topics hierarchy is not available
 
 parameters:
   map_identifier:

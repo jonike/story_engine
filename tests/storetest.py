@@ -8,6 +8,7 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 import unittest
 
 from storyengine.store.commands.topic.gettopics import GetTopics
+from storyengine.store.commands.topic.gettopicshierarchy import GetTopicsHierarchy
 from storyengine.store.commands.topic.topicexists import TopicExists
 from storyengine.store.commands.occurrence.occurrenceexists import OccurrenceExists
 from storyengine.store.commands.topic.gettopic import GetTopic
@@ -62,6 +63,10 @@ class StoreTest(unittest.TestCase):
         self.assertEqual('topic', topic1.instance_of)
 
         self.assertLess(0, len(topic1.attributes))
+
+    def testGetTopicsHierarchy(self):
+        tree = GetTopicsHierarchy(self.database_path, self.map_identifier, 'research-area').do()
+        tree.display('research-area')
 
     def testSetOccurrence(self):
         pass

@@ -20,6 +20,7 @@ from storyengine.store.commands.occurrence.getoccurrences import GetOccurrences
 from storyengine.store.commands.topic.gettopic import GetTopic
 from storyengine.store.commands.topic.gettopicidentifiers import GetTopicIdentifiers
 from storyengine.store.commands.topic.gettopics import GetTopics
+from storyengine.store.commands.topic.gettopicshierarchy import GetTopicsHierarchy
 from storyengine.store.retrievaloption import RetrievalOption
 from storyengine.core.commands.scene.getscene import GetScene
 from storyengine.core.commands.scene.getprop import GetProp
@@ -108,6 +109,39 @@ def get_topics(map_identifier, instance_of='topic', offset=0, limit=100):
         return result, 200
     else:
         return "Not found", 404
+
+
+def get_topics_hierarchy(map_identifier, identifier):
+
+    def build_topics_hierarchy(inner_identifier):
+        parent_identifier = tree[inner_identifier].parent
+        base_name = tree[inner_identifier].topic.first_base_name.name
+        children = tree[inner_identifier].children
+
+        node = {
+            'id': inner_identifier,
+            'name': base_name,
+            'children': []
+        }
+        result[inner_identifier] = node
+
+        if parent_identifier is not None:
+            parent = result[parent_identifier]
+            parent_children = parent['children']
+            parent_children.append(node)
+            parent['children'] = parent_children
+
+        for child in children:
+            build_topics_hierarchy(child)
+
+    tree = GetTopicsHierarchy(database_path, map_identifier, identifier).do()
+    if len(tree):
+        result = {}
+        build_topics_hierarchy(identifier)
+        return result, 200
+    else:
+        return "Not found", 404
+
 
     
 @functools.lru_cache(maxsize=64)
