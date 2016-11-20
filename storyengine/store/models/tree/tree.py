@@ -6,7 +6,7 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 """
 
 from storyengine.store.models.tree.node import Node
-from storyengine.store.models.tree.TreeConstant import TreeConstant
+from storyengine.store.models.tree.treeconstant import TreeConstant
 
 
 class Tree:
