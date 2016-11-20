@@ -30,14 +30,14 @@ class Tree:
 
     def display(self, identifier, depth=0):
         children = self[identifier].children
-        if depth == TreeConstant.root:
+        if depth is TreeConstant.root:
             print("{0}".format(identifier))
         else:
             print("\t"*depth, "{0}".format(identifier))
 
         depth += 1
         for child in children:
-            self.display(child, depth)  # recursive call
+            self.display(child, depth)  # Recursive call.
 
     def traverse(self, identifier, mode=TreeConstant.depth):
         # Python generator. Loosely based on an algorithm from 'Essential LISP' by John R. Anderson, Albert T. Corbett,
@@ -48,10 +48,10 @@ class Tree:
         while queue:
             yield queue[0]
             expansion = self[queue[0]].children
-            if mode == TreeConstant.depth:
-                queue = expansion + queue[1:]  # depth-first
-            elif mode == TreeConstant.breadth:
-                queue = queue[1:] + expansion  # width-first
+            if mode is TreeConstant.depth:
+                queue = expansion + queue[1:]  # Depth-first traversal.
+            elif mode is TreeConstant.breadth:
+                queue = queue[1:] + expansion  # Width-first traversal.
 
     def __getitem__(self, key):
         return self.__nodes[key]
