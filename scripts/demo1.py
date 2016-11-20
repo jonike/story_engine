@@ -41,10 +41,10 @@ if not TopicExists(database_path, 'genesis', map_identifier).do():
 asset11 = Asset('scene', 'scene-005.json')
 scene1 = Scene('outpost', 'Outpost Alpha', 1)
 scene1.add_asset(asset11)
-scene1_text = """A military __outpost__ is a detachment of troops stationed at a distance from the main force or formation,
-usually at a station in a remote or sparsely populated location, positioned to stand guard against unauthorized
-intrusions and surprise attacks; and the station occupied by such troops, usually a small military base or settlement in
-an outlying frontier, limit, political boundary or in another country.
+scene1_text = """A military __outpost__ is a detachment of troops stationed at a distance from the main force or
+formation, usually at a station in a remote or sparsely populated location, positioned to stand guard against
+unauthorized intrusions and surprise attacks; and the station occupied by such troops, usually a small military base or
+settlement in an outlying frontier, limit, political boundary or in another country.
 """
 asset12 = Asset('text', data=scene1_text)
 scene1.add_asset(asset12)
@@ -75,19 +75,6 @@ conventional munitions, and terminally precision-guided munition.
 asset14 = Asset('text', data=prop11_text)
 prop11.add_asset(asset14)
 SetProp(database_path, map_identifier, prop11, 'outpost').do()
-
-
-# Scene 2 - Military Base.
-# asset21 = Asset('scene', 'scene-006.json')
-# scene2 = Scene('military-base', 'Military Base', 2)
-# scene2.add_asset(asset21)
-# scene2_text = """Military base text
-# """
-# asset22 = Asset('text', data=scene2_text)
-# scene2.add_asset(asset22)
-# SetScene(database_path, map_identifier, scene2).do()
-# attribute21 = Attribute('type', 'exterior', 'military-base')
-# SetAttribute(database_path, map_identifier, attribute21).do()
 
 
 # Scene 3 - Weapon Factory.
@@ -131,48 +118,33 @@ asset34 = Asset('text', data=prop31_text)
 prop31.add_asset(asset34)
 SetProp(database_path, map_identifier, prop31, 'weapon-factory').do()
 
-# Define and persist a character.
-character31 = Character('robot', 'Military Robot')
-character31.location = '[1.37942, -3.62861, 0.63]'  # x ("width"), y ("depth"), z ("height")
+# Prop - 'Military Robot.
+prop32 = Character('robot', 'Military Robot')
+prop32.location = '[1.37942, -3.62861, 0.63]'  # x ("width"), y ("depth"), z ("height")
 asset35 = Asset('scene', 'robot-001.json')
-character31.add_asset(asset35)
-character31_text = """## Military Robot
+prop32.add_asset(asset35)
+prop32_text = """## Military Robot
 
 __Military robots__ are autonomous robots or remote-controlled mobile robots designed for military applications, from
 transport to search and rescue and attack. Some such systems are currently in use, and many are under development.
 
 Broadly defined, military robots date back to World War II and the Cold War in the form of the German Goliath tracked
-mines and the Soviet _teletanks_. The MQB-1 Predator drone was when CIA officers began to see the first practical returns
-on their decade-old fantasy of using aerial robots to collect intelligence.
+mines and the Soviet _teletanks_. The MQB-1 Predator drone was when CIA officers began to see the first practical
+returns on their decade-old fantasy of using aerial robots to collect intelligence.
 """
-asset36 = Asset('text', data=character31_text)
-character31.add_asset(asset36)
-SetCharacter(database_path, map_identifier, character31, 'weapon-factory').do()
-
-
-# Scene 4 - Delivery Area.
-# asset41 = Asset('scene', 'scene-008.json')
-# scene4 = Scene('delivery-area', 'Delivery Area', 4)
-# scene4.add_asset(asset41)
-# scene4_text = """Delivery area text
-# """
-# asset42 = Asset('text', data=scene4_text)
-# scene4.add_asset(asset42)
-# SetScene(database_path, map_identifier, scene4).do()
-# attribute41 = Attribute('type', 'interior', 'delivery-area')
-# SetAttribute(database_path, map_identifier, attribute41).do()
-# attribute42 = Attribute('camera-clamp', 'true', 'delivery-area')
-# SetAttribute(database_path, map_identifier, attribute42).do()
+asset36 = Asset('text', data=prop32_text)
+prop32.add_asset(asset36)
+SetProp(database_path, map_identifier, prop32, 'weapon-factory').do()
 
 
 # Scene 5 - Research Area.
 asset51 = Asset('scene', 'scene-009.json')
 scene5 = Scene('research-area', 'Research Area', 5)
 scene5.add_asset(asset51)
-scene5_text = """The __Defense Advanced Research Projects Agency (DARPA)__ is an agency of the U.S. Department of Defense
-responsible for the development of emerging technologies for use by the military. DARPA was created in February 1958 as
-the __Advanced Research Projects Agency (ARPA)__ by President Dwight D. Eisenhower. Its purpose was to formulate and
-execute research and development projects to expand the frontiers of technology and science, with the aim to reach
+scene5_text = """The __Defense Advanced Research Projects Agency (DARPA)__ is an agency of the U.S. Department of
+Defense responsible for the development of emerging technologies for use by the military. DARPA was created in February
+1958 as the __Advanced Research Projects Agency (ARPA)__ by President Dwight D. Eisenhower. Its purpose was to formulate
+and execute research and development projects to expand the frontiers of technology and science, with the aim to reach
 beyond immediate military requirements.
 """
 asset52 = Asset('text', data=scene5_text)
@@ -200,9 +172,9 @@ asset54 = Asset('text', data=prop51_text)
 prop51.add_asset(asset54)
 SetProp(database_path, map_identifier, prop51, 'research-area').do()
 SetTags(database_path, map_identifier, 'computer', ['electronics']).do()
-tag51_text = """__Electronics__ is the science of controlling electrical energy electrically, in which the electrons have a
-fundamental role. Electronics deals with electrical circuits that involve active electrical components such as vacuum
-tubes, transistors, diodes, integrated circuits, associated passive electrical components, and interconnection
+tag51_text = """__Electronics__ is the science of controlling electrical energy electrically, in which the electrons
+have a fundamental role. Electronics deals with electrical circuits that involve active electrical components such as
+vacuum tubes, transistors, diodes, integrated circuits, associated passive electrical components, and interconnection
 technologies.
 
 Commonly, electronic devices contain circuitry consisting primarily or exclusively of active semiconductors supplemented
@@ -274,12 +246,12 @@ prop54.add_asset(asset510)
 SetProp(database_path, map_identifier, prop54, 'research-area').do()
 SetTags(database_path, map_identifier, 'bookshelf', ['furniture']).do()
 
-# Define and persist a character.
-character51 = Character('utility-robot', 'Utility Robot')
-character51.location = '[4.07017, -0.00034, 1.42042]'  # x ("width"), y ("depth"), z ("height")
+# Prop - 'Utility Robot.
+prop55 = Character('utility-robot', 'Utility Robot')
+prop55.location = '[4.07017, -0.00034, 1.42042]'  # x ("width"), y ("depth"), z ("height")
 asset511 = Asset('scene', 'utility-robot-001.json')
-character51.add_asset(asset511)
-character51_text = """## Robot
+prop55.add_asset(asset511)
+prop55_text = """## Robot
 
 A **robot** is a mechanical or virtual artificial agent, usually an electromechanical machine that is guided by a
 computer program or electronic circuitry, and thus a type of an embedded system.
@@ -296,11 +268,25 @@ with automated machines that can take the place of humans in dangerous environme
 resemble humans in appearance, behavior, and/or cognition. Many of today's robots are inspired by nature contributing to
 the field of bio-inspired robotics. These robots have also created a newer branch of robotics: soft robotics.
 """
+asset512 = Asset('text', data=prop55_text)
+prop55.add_asset(asset512)
+SetProp(database_path, map_identifier, prop55, 'research-area').do()
+
+SetTags(database_path, map_identifier, 'utility-robot', ['electronics']).do()
+
+# Define and persist a character.
+character51 = Character('researcher', 'Researcher')
+character51.location = '[-2.5, -0.8, 1.22042]'  # x ("width"), y ("depth"), z ("height")
+asset511 = Asset('scene', 'character-001.json')
+character51.add_asset(asset511)
+character51_text = """## Researcher
+
+A researcher is someone who conducts research, i.e., an organized and systematic investigation into something.
+Scientists are often described as researchers.
+"""
 asset512 = Asset('text', data=character51_text)
 character51.add_asset(asset512)
 SetCharacter(database_path, map_identifier, character51, 'research-area').do()
-
-SetTags(database_path, map_identifier, 'utility-robot', ['electronics']).do()
 
 
 # Scene 6 - Storage.
@@ -319,13 +305,6 @@ SetAttribute(database_path, map_identifier, attribute61).do()
 attribute62 = Attribute('camera-clamp', 'true', 'storage-area')
 SetAttribute(database_path, map_identifier, attribute62).do()
 
-
-# Define navigation paths between scenes.
-# SetNavigation(database_path, map_identifier, 'outpost', 'military-base', 'west', 'east').do()
-# SetNavigation(database_path, map_identifier, 'military-base', 'weapon-factory', 'west', 'east').do()
-# SetNavigation(database_path, map_identifier, 'weapon-factory', 'delivery-area', 'south', 'north').do()
-# SetNavigation(database_path, map_identifier, 'delivery-area', 'research-area', 'south', 'north').do()
-# SetNavigation(database_path, map_identifier, 'research-area', 'storage', 'south', 'north').do()
 
 SetNavigation(database_path, map_identifier, 'outpost', 'weapon-factory', 'west', 'east').do()
 SetNavigation(database_path, map_identifier, 'weapon-factory', 'research-area', 'south', 'north').do()
