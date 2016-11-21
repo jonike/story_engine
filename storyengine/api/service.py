@@ -116,11 +116,13 @@ def get_topics_hierarchy(map_identifier, identifier):
     def build_topics_hierarchy(inner_identifier):
         parent_identifier = tree[inner_identifier].parent
         base_name = tree[inner_identifier].topic.first_base_name.name
+        instance_of = tree[inner_identifier].topic.instance_of
         children = tree[inner_identifier].children
 
         node = {
             'id': inner_identifier,
             'name': base_name,
+            'instanceOf': instance_of,
             'children': []
         }
         result[inner_identifier] = node
@@ -138,7 +140,7 @@ def get_topics_hierarchy(map_identifier, identifier):
     if len(tree):
         result = {}
         build_topics_hierarchy(identifier)
-        return result, 200
+        return result[identifier], 200
     else:
         return "Not found", 404
 
