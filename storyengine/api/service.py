@@ -137,7 +137,7 @@ def get_topics_hierarchy(map_identifier, identifier):
             build_topics_hierarchy(child)
 
     tree = GetTopicsHierarchy(database_path, map_identifier, identifier).do()
-    if len(tree):
+    if len(tree) > 1:
         result = {}
         build_topics_hierarchy(identifier)
         return result[identifier], 200
