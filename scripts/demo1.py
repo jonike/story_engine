@@ -119,7 +119,7 @@ prop31.add_asset(asset34)
 SetProp(database_path, map_identifier, prop31, 'weapon-factory').do()
 
 # Prop - 'Military Robot.
-prop32 = Character('robot', 'Military Robot')
+prop32 = Prop('robot', 'Military Robot')
 prop32.location = '[1.37942, -3.62861, 0.63]'  # x ("width"), y ("depth"), z ("height")
 asset35 = Asset('scene', 'robot-001.json')
 prop32.add_asset(asset35)
@@ -247,7 +247,7 @@ SetProp(database_path, map_identifier, prop54, 'research-area').do()
 SetTags(database_path, map_identifier, 'bookshelf', ['furniture']).do()
 
 # Prop - 'Utility Robot.
-prop55 = Character('utility-robot', 'Utility Robot')
+prop55 = Prop('utility-robot', 'Utility Robot')
 prop55.location = '[4.07017, -0.00034, 1.42042]'  # x ("width"), y ("depth"), z ("height")
 asset511 = Asset('scene', 'utility-robot-001.json')
 prop55.add_asset(asset511)
