@@ -114,15 +114,36 @@ def get_topics(map_identifier, instance_of='topic', offset=0, limit=100):
 def get_topics_hierarchy(map_identifier, identifier):
 
     def build_topics_hierarchy(inner_identifier):
+        # JSON data structure suitable for the RGraph visualization from the
+        # JavaScript InfoViz Toolkit (https://philogb.github.io/jit/)
+
         parent_identifier = tree[inner_identifier].parent
         base_name = tree[inner_identifier].topic.first_base_name.name
         instance_of = tree[inner_identifier].topic.instance_of
         children = tree[inner_identifier].children
 
+        if instance_of == 'scene':
+            node_data = {
+                '$color': '#00ff00'
+            }
+        elif instance_of == 'character':
+            node_data = {
+                '$color': '#ff0000'
+            }
+        elif instance_of == 'prop':
+            node_data = {
+                '$color': '#0000ff'
+            }
+        else:
+            node_data = {
+                '$color': '#a6a6a6'
+            }
+
         node = {
             'id': inner_identifier,
             'name': base_name,
             'instanceOf': instance_of,
+            'data': node_data,
             'children': []
         }
         result[inner_identifier] = node
