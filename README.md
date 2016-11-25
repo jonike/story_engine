@@ -1,6 +1,6 @@
 # StoryTechnologies
 
-StoryTechnologies is a set of software tools for content creators to enable the development and publishing of engaging visual stories on the web, mobile, and desktop.
+[StoryTechnologies](http://www.storytechnologies.com/) is a set of software tools for content creators to enable the development and publishing of engaging visual stories on the web, mobile, and desktop.
 
 StoryTechnologies’ core application provides for a unique storytelling experience by combining the following elements:
 
