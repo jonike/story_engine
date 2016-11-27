@@ -148,15 +148,40 @@ paths:
           description: Return topics hierarchy
         404:
           description: Topics hierarchy is not available
+  '/stories':
+    get:
+      operationId: storyengine.api.service.get_stories
+      summary: Get stories
+      responses:
+        200:
+          description: Return stories
+        404:
+          description: No stories exist
+  '/stories/{story_identifier}':
+    get:
+      operationId: storyengine.api.service.get_story
+      summary: Get a single story
+      parameters:
+        - $ref: '#/parameters/story_identifier'
+      responses:
+        200:
+          description: Return story
+        404:
+          description: Story does not exist
 
 parameters:
+  story_identifier:
+    name: story_identifier
+    description: Unique story identifier
+    in: path
+    type: integer
+    required: true
   map_identifier:
     name: map_identifier
     description: Unique (topic) map identifier
     in: path
-    type: string
+    type: integer
     required: true
-    pattern: "^\\*|[a-zA-Z0-9-]+$"
   identifier:
     name: identifier
     description: Unique identifier

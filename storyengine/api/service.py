@@ -9,6 +9,8 @@ import base64
 import functools
 
 from storyengine.core.commands.scene.gettags import GetEntitiesTags
+from storyengine.core.commands.story.getstories import GetStories
+from storyengine.core.commands.story.getstory import GetStory
 from storyengine.core.models.character import Character
 from storyengine.core.models.prop import Prop
 from storyengine.store.commands.association.getassociation import GetAssociation
@@ -96,7 +98,7 @@ def get_topics(map_identifier, instance_of='topic', offset=0, limit=100):
                     'name': base_name.name,
                     'language': base_name.language.name
                 })
-            topic = {
+            topic_json = {
                 'topic': {
                     'identifier': topic.identifier,
                     'firstBaseName': topic.first_base_name.name,
@@ -105,7 +107,7 @@ def get_topics(map_identifier, instance_of='topic', offset=0, limit=100):
                     'attributes': attributes
                 }
             }
-            result.append(topic)
+            result.append(topic_json)
         return result, 200
     else:
         return "Not found", 404
@@ -165,7 +167,6 @@ def get_topics_hierarchy(map_identifier, identifier):
     else:
         return "Not found", 404
 
-
     
 @functools.lru_cache(maxsize=64)
 def get_occurrence(map_identifier, identifier, inline_resource_data=RetrievalOption.dont_inline_resource_data):
@@ -199,7 +200,7 @@ def get_occurrences(map_identifier, identifier,
                 resource_data = None
             else:
                 resource_data = base64.b64encode(occurrence.resource_data).decode('utf-8')
-            occurrence = {
+            occurrence_json = {
                 'occurrence': {
                     'identifier': occurrence.identifier,
                     'instanceOf': occurrence.instance_of,
@@ -210,7 +211,7 @@ def get_occurrences(map_identifier, identifier,
                     'attributes': attributes
                 }
             }
-            result.append(occurrence)
+            result.append(occurrence_json)
         return result, 200
     else:
         return "Not found", 404
@@ -436,6 +437,44 @@ def get_character(map_identifier, identifier):
                 'attributes': attributes
             }
         }
+        return result, 200
+    else:
+        return "Not found", 404
+
+
+@functools.lru_cache(maxsize=64)
+def get_story(story_identifier):
+    story = GetStory(database_path, story_identifier).do()
+    if story:
+        result = {
+            'story': {
+                'identifier': story.identifier,
+                'title': story.title,
+                'topicMapIdentifier': story.topic_map_identifier,
+                'startSceneIdentifier': story.start_scene_identifier,
+                'description': story.description
+            }
+        }
+        return result, 200
+    else:
+        return "Not found", 404
+
+
+def get_stories():
+    stories = GetStories(database_path).do()
+    if stories:
+        result = []
+        for story in stories:
+            story_json = {
+                'story': {
+                    'identifier': story.identifier,
+                    'title': story.title,
+                    'topicMapIdentifier': story.topic_map_identifier,
+                    'startSceneIdentifier': story.start_scene_identifier,
+                    'description': story.description
+                }
+            }
+            result.append(story_json)
         return result, 200
     else:
         return "Not found", 404
