@@ -69,3 +69,13 @@ CREATE TABLE IF NOT EXISTS basename (
 CREATE INDEX IF NOT EXISTS basename_1_index ON basename (topicmap_identifier, topic_identifier_fk);
 CREATE INDEX IF NOT EXISTS basename_2_index ON basename (topicmap_identifier, language, name);
 CREATE INDEX IF NOT EXISTS basename_3_index ON basename (topicmap_identifier, topic_identifier_fk, language);
+
+CREATE TABLE IF NOT EXISTS story (
+    identifier INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT,
+    description TEXT,
+    topicmap_identifier_fk INTEGER,
+    scene_identifier_fk TEXT /* Start scene (topic) identifier. */
+);
+CREATE INDEX IF NOT EXISTS story_1_index ON story (identifier, topicmap_identifier_fk);
+CREATE INDEX IF NOT EXISTS story_2_index ON story (identifier, topicmap_identifier_fk, scene_identifier_fk);

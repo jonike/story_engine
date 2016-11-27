@@ -7,6 +7,8 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 
 import os.path
 
+from storyengine.core.commands.story.setstory import SetStory
+from storyengine.core.models.story import Story
 from storyengine.store.commands.attribute.setattribute import SetAttribute
 from storyengine.store.commands.map.createmap import CreateMap
 from storyengine.store.commands.map.initmap import InitMap
@@ -36,6 +38,9 @@ if not os.path.isfile(database_path):
 if not TopicExists(database_path, map_identifier, 'genesis').do():
     InitMap(database_path, map_identifier).do()
 
+# Story.
+story = Story("The Meeting", map_identifier, "cafeteria")
+SetStory(database_path, story).do()
 
 # Scene 01 - Cafeteria.
 asset11 = Asset('scene', 'scene-012.json')
