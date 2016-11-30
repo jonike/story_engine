@@ -10,6 +10,6 @@ from storyengine.core.models.entity import Entity
 
 class Character(Entity):
 
-    def __init__(self, identifier: str, name: str) -> object:
+    def __init__(self, identifier: str, name: str):
         super().__init__(identifier, 'character', name)
 
