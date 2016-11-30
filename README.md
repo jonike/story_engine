@@ -15,6 +15,16 @@ StoryTechnologies is built with the following technologies:
 * [Python 3](https://www.python.org/), a high-level dynamic programming language
 * [Vue.js](https://vuejs.org/), a progressive JavaScript framework for building user interfaces 
 
+---
+The scene browser is the first component to use the story engine. Click on the image below to see the scene browser in action.
+
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=RF1-VGqixnM
+" target="_blank"><img src="http://www.storytechnologies.com/wp-content/uploads/2016/11/desert1-small.png" 
+alt="StoryTechnologies Scene Browser" width="640" border="10" /></a>
+
+If you're interested in knowing more about the scene browser take a look at this article: [Interactive Scene Browser for Stories](http://www.storytechnologies.com/2016/10/interactive-scene-browser-for-stories/).
+
+---
 > Create And Share Beautiful Stories
 
 StoryTechnologies was founded in 2015 by [Brett Kromkamp](https://twitter.com/brettkromkamp) in Bodø, Norway.
