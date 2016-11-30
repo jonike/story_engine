@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS member (
     association_identifier_fk TEXT,
     PRIMARY KEY (topicmap_identifier, identifier)
 );
-CREATE INDEX IF NOT EXISTS member_1_index ON member (association_identifier_fk);
+CREATE INDEX IF NOT EXISTS member_1_index ON member (topicmap_identifier, association_identifier_fk);
 
 CREATE TABLE IF NOT EXISTS attribute (
     topicmap_identifier INTEGER,
