@@ -39,7 +39,7 @@ if not TopicExists(database_path, 'genesis', map_identifier).do():
     InitMap(database_path, map_identifier).do()
 
 # Story.
-story = Story("The Plans", map_identifier, "outpost", "A soldier has to steal the plans for a secret weapon.")
+story = Story("The Doomsday Plans", map_identifier, "outpost", "A soldier has to steal the plans for a secret weapon.")
 SetStory(database_path, story).do()
 
 # Scene 01 - Outpost Alpha.
