@@ -22,7 +22,7 @@ The scene browser is the first component to use the story engine. Click on the i
 " target="_blank"><img src="http://www.storytechnologies.com/wp-content/uploads/2016/11/desert1-small.png" 
 alt="StoryTechnologies Scene Browser" width="640" border="10" /></a>
 
-If you're interested in knowing more about the scene browser take a look at this article: [Interactive Scene Browser for Stories](http://www.storytechnologies.com/2016/10/interactive-scene-browser-for-stories/).
+If you're interested in knowing more about the scene browser take a look at this article: [Interactive Scene Browser for Stories](http://www.storytechnologies.com/2016/10/interactive-scene-browser-for-stories/). You can also checkout the [StoryTechnologies YouTube channel](https://www.youtube.com/channel/UCd1QRCmYP9AVxno-AjZvAyg) for more information. 
 
 ---
 > Create And Share Beautiful Stories
