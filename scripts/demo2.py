@@ -13,6 +13,7 @@ from storyengine.store.commands.attribute.setattribute import SetAttribute
 from storyengine.store.commands.map.createmap import CreateMap
 from storyengine.store.commands.map.initmap import InitMap
 from storyengine.store.commands.tag.settags import SetTags
+from storyengine.store.commands.topic.settopic import SetTopic
 from storyengine.store.commands.topic.topicexists import TopicExists
 from storyengine.store.models.attribute import Attribute
 from storyengine.core.commands.scene.setcharacter import SetCharacter
@@ -26,7 +27,7 @@ from storyengine.core.models.asset import Asset
 
 from storyengine.store.models.occurrence import Occurrence
 from storyengine.store.commands.occurrence.setoccurrence import SetOccurrence
-
+from storyengine.store.models.topic import Topic
 
 database_path = '/home/brettk/Source/storytechnologies/story_engine/data/storytech.sqlite'
 map_identifier = 2
@@ -65,3 +66,18 @@ SetAttribute(database_path, map_identifier, attribute11).do()
 
 
 # Scene 01 - Bedroom.
+
+
+# Annotations
+annotation1 = Topic('palm-tree', 'annotation', 'Palm Tree')
+SetTopic(database_path, map_identifier, annotation1).do()
+
+annotation2 = Topic('street-lamp', 'annotation', 'Street Lamp')
+SetTopic(database_path, map_identifier, annotation2).do()
+
+annotation3 = Topic('trash-cans', 'annotation', 'Trash Cans')
+SetTopic(database_path, map_identifier, annotation3).do()
+
+annotation4 = Topic('chimney', 'annotation', 'Chimney')
+SetTopic(database_path, map_identifier, annotation4).do()
+

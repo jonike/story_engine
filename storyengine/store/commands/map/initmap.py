@@ -47,6 +47,7 @@ class InitMap:
             ('video', 'Video'),
             ('text', 'Text'),
             ('html', 'HTML'),
+            ('annotation', 'Annotation'),
             ('dialogue', 'Dialogue'),
             ('up', 'Up'),
             ('down', 'Down'),
