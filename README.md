@@ -1,6 +1,6 @@
 # StoryTechnologies
 
-[StoryTechnologies](http://www.storytechnologies.com/) is a set of software tools for content creators to enable the development and publishing of engaging visual stories on the web, mobile, and desktop.
+[StoryTechnologies](http://www.storytechnologies.com/) is a set of software tools for content creators to enable the development and publishing of compelling interactive visual stories on the web, mobile, and desktop.
 
 StoryTechnologies’ core application provides for a unique storytelling experience by combining the following elements:
 
@@ -13,7 +13,6 @@ StoryTechnologies is built with the following technologies:
 * [Blend4Web](https://www.blend4web.com/), a tool for interactive 3D visualization for the web
 * [Blender](https://www.blender.org/), a free and open source 3D creation suite
 * [Python 3](https://www.python.org/), a high-level dynamic programming language
-* [Vue.js](https://vuejs.org/), a progressive JavaScript framework for building user interfaces 
 
 ---
 The scene browser is the first component to use the story engine. Click on the image below to see the scene browser in action.
