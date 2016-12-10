@@ -11,7 +11,7 @@ from storyengine.store.commands.association.getassociationgroups import GetAssoc
 
 class Scene(Entity):
 
-    def __init__(self, identifier: str, name: str, ordinal: int = -1) -> object:
+    def __init__(self, identifier: str, name: str, ordinal: int=-1) -> object:
         super().__init__(identifier, 'scene', name)
         self.__associations = []
         self.__entities = []  # Characters and props.

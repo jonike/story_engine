@@ -8,6 +8,6 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 
 class Path:
 
-    def __init__(self, direction, to):
+    def __init__(self, direction, destination):
         self.direction = direction
-        self.to = to
+        self.to = destination

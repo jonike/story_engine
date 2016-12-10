@@ -7,10 +7,8 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 
 import sqlite3
 
-from storyengine.store.commands.topic.gettopic import GetTopic
 from storyengine.store.topicstoreerror import TopicStoreError
 from storyengine.store.retrievaloption import RetrievalOption
-from storyengine.store.models.language import Language
 
 
 class GetTopicIdentifiers:
