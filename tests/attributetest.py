@@ -23,7 +23,7 @@ class AttributeTest(unittest.TestCase):
         self.assertEqual('identifier-1', self.attribute1.entity_identifier)
         self.assertEqual(DataType.string, self.attribute1.data_type)
         self.assertEqual('*', self.attribute1.scope)
-        self.assertEqual(Language.en, self.attribute1.language)
+        self.assertEqual(Language.eng, self.attribute1.language)
 
     def tearDown(self):
         pass

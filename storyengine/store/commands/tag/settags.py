@@ -5,7 +5,7 @@ August 29, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 """
 
-from storyengine.store.topicstoreexception import TopicStoreException
+from storyengine.store.topicstoreerror import TopicStoreError
 from storyengine.store.commands.tag.settag import SetTag
 
 
@@ -19,9 +19,9 @@ class SetTags:
         self.identifier = identifier
         self.tags = tags
 
-    def do(self):
+    def execute(self):
         if self.tags is None or self.identifier == '':
-            raise TopicStoreException("Missing 'tags' or 'identifier' parameter")
+            raise TopicStoreError("Missing 'tags' or 'identifier' parameter")
 
         for tag in self.tags:
-            SetTag(self.database_path, self.map_identifier, self.identifier, tag).do()
+            SetTag(self.database_path, self.map_identifier, self.identifier, tag).execute()

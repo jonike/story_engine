@@ -4,11 +4,12 @@ SetScene class. Part of the StoryTechnologies project.
 July 16, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 """
+
 from storyengine.store.commands.occurrence.setoccurrencedata import SetOccurrenceData
 from storyengine.store.models.topic import Topic
 from storyengine.store.models.occurrence import Occurrence
 from storyengine.store.models.attribute import Attribute
-from storyengine.core.coreexception import CoreException
+from storyengine.core.coreerror import CoreError
 from storyengine.store.commands.topic.settopic import SetTopic
 from storyengine.store.commands.occurrence.setoccurrence import SetOccurrence
 from storyengine.store.commands.attribute.setattributes import SetAttributes
@@ -20,11 +21,11 @@ class SetScene:
         self.map_identifier = map_identifier
         self.scene = scene
 
-    def do(self):
+    def execute(self):
         if self.scene is None:
-            raise CoreException("Missing 'scene' parameter")
+            raise CoreError("Missing 'scene' parameter")
         topic = Topic(self.scene.identifier, self.scene.instance_of, self.scene.name)
-        SetTopic(self.database_path, self.map_identifier, topic).do()
+        SetTopic(self.database_path, self.map_identifier, topic).execute()
 
         location_attribute = Attribute('location', self.scene.location, topic.identifier)
         rotation_attribute = Attribute('rotation', self.scene.rotation, topic.identifier)
@@ -35,13 +36,13 @@ class SetScene:
                       [location_attribute,
                        rotation_attribute,
                        scale_attribute,
-                       ordinal_attribute]).do()
+                       ordinal_attribute]).execute()
 
         for asset in self.scene.assets:
             occurrence = Occurrence(
                 instance_of=asset.instance_of,
                 topic_identifier=topic.identifier,
                 resource_ref=asset.reference)
-            SetOccurrence(self.database_path, self.map_identifier, occurrence).do()
+            SetOccurrence(self.database_path, self.map_identifier, occurrence).execute()
             if asset.data is not None:
-                SetOccurrenceData(self.database_path, self.map_identifier, occurrence.identifier, asset.data).do()
+                SetOccurrenceData(self.database_path, self.map_identifier, occurrence.identifier, asset.data).execute()

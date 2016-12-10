@@ -16,7 +16,7 @@ class BaseName:
 
     def __init__(self,
                  name,
-                 language=Language.en,
+                 language=Language.eng,
                  identifier=''):
         self.__identifier = (str(uuid.uuid4()) if identifier == '' else slugify(str(identifier)))
 

@@ -29,19 +29,19 @@ from storyengine.store.models.occurrence import Occurrence
 from storyengine.store.commands.occurrence.setoccurrence import SetOccurrence
 from storyengine.store.models.topic import Topic
 
-database_path = '/home/brettk/Source/storytechnologies/story_engine/data/storytech.sqlite'
-map_identifier = 2
+DATABASE_PATH = '/home/brettk/Source/storytechnologies/story_engine/data/storytech.sqlite'
+MAP_IDENTIFIER = 2
 
 # Create and bootstrap topic map (ontology).
-if not os.path.isfile(database_path):
-    CreateMap(database_path).do()
+if not os.path.isfile(DATABASE_PATH):
+    CreateMap(DATABASE_PATH).execute()
 
-if not TopicExists(database_path, map_identifier, 'genesis').do():
-    InitMap(database_path, map_identifier).do()
+if not TopicExists(DATABASE_PATH, MAP_IDENTIFIER, 'genesis').execute():
+    InitMap(DATABASE_PATH, MAP_IDENTIFIER).execute()
 
 # Story.
-story = Story("An Unexpected Meeting", map_identifier, "cafeteria")
-SetStory(database_path, story).do()
+story = Story("An Unexpected Meeting", MAP_IDENTIFIER, "cafeteria")
+SetStory(DATABASE_PATH, story).execute()
 
 # Scene 01 - Cafeteria.
 asset11 = Asset('scene', 'scene-012.json')
@@ -54,9 +54,9 @@ coffeehouses, despite being the Spanish translation of the English term.
 """
 asset12 = Asset('text', data=scene1_text)
 scene1.add_asset(asset12)
-SetScene(database_path, map_identifier, scene1).do()
+SetScene(DATABASE_PATH, MAP_IDENTIFIER, scene1).execute()
 attribute11 = Attribute('type', 'exterior', 'cafeteria')
-SetAttribute(database_path, map_identifier, attribute11).do()
+SetAttribute(DATABASE_PATH, MAP_IDENTIFIER, attribute11).execute()
 
 
 # Scene 02 - House.
@@ -70,14 +70,14 @@ SetAttribute(database_path, map_identifier, attribute11).do()
 
 # Annotations
 annotation1 = Topic('palm-tree', 'annotation', 'Palm Tree')
-SetTopic(database_path, map_identifier, annotation1).do()
+SetTopic(DATABASE_PATH, MAP_IDENTIFIER, annotation1).execute()
 
 annotation2 = Topic('street-lamp', 'annotation', 'Street Lamp')
-SetTopic(database_path, map_identifier, annotation2).do()
+SetTopic(DATABASE_PATH, MAP_IDENTIFIER, annotation2).execute()
 
 annotation3 = Topic('trash-cans', 'annotation', 'Trash Cans')
-SetTopic(database_path, map_identifier, annotation3).do()
+SetTopic(DATABASE_PATH, MAP_IDENTIFIER, annotation3).execute()
 
 annotation4 = Topic('chimney', 'annotation', 'Chimney')
-SetTopic(database_path, map_identifier, annotation4).do()
+SetTopic(DATABASE_PATH, MAP_IDENTIFIER, annotation4).execute()
 

@@ -7,7 +7,7 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 
 import sqlite3
 
-from storyengine.store.topicstoreexception import TopicStoreException
+from storyengine.store.topicstoreerror import TopicStoreError
 from storyengine.store.models.language import Language
 from storyengine.store.retrievaloption import RetrievalOption
 from storyengine.store.commands.association.getassociation import GetAssociation
@@ -19,7 +19,7 @@ class GetAssociations:
                  identifier='',
                  resolve_attributes=RetrievalOption.dont_resolve_attributes,
                  resolve_occurrences=RetrievalOption.dont_resolve_occurrences,
-                 language=Language.en):
+                 language=Language.eng):
         self.database_path = database_path
         self.map_identifier = map_identifier
         self.identifier = identifier
@@ -27,9 +27,9 @@ class GetAssociations:
         self.resolve_occurrences = resolve_occurrences
         self.language = language
 
-    def do(self):
+    def execute(self):
         if self.identifier == '':
-            raise TopicStoreException("Missing 'topic identifier' parameter")
+            raise TopicStoreError("Missing 'topic identifier' parameter")
         result = []
 
         connection = sqlite3.connect(self.database_path)
@@ -46,11 +46,11 @@ class GetAssociations:
                     if member_records:
                         for member_record in member_records:
                             # TODO: Optimize.
-                            association = GetAssociation(self.database_path, self.map_identifier, member_record['association_identifier_fk'], self.resolve_attributes, self.resolve_occurrences, self.language).do()
+                            association = GetAssociation(self.database_path, self.map_identifier, member_record['association_identifier_fk'], self.resolve_attributes, self.resolve_occurrences, self.language).execute()
                             if association:
                                 result.append(association)
-        except sqlite3.Error as e:
-            raise TopicStoreException(e)
+        except sqlite3.Error as error:
+            raise TopicStoreError(error)
         finally:
             if cursor:
                 cursor.close()

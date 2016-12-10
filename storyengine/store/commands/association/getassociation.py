@@ -7,7 +7,7 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 
 import sqlite3
 
-from storyengine.store.topicstoreexception import TopicStoreException
+from storyengine.store.topicstoreerror import TopicStoreError
 from storyengine.store.models.basename import BaseName
 from storyengine.store.models.association import Association
 from storyengine.store.models.language import Language
@@ -23,7 +23,7 @@ class GetAssociation:
                  identifier='',
                  resolve_attributes=RetrievalOption.dont_resolve_attributes,
                  resolve_occurrences=RetrievalOption.dont_resolve_occurrences,
-                 language=Language.en):
+                 language=Language.eng):
         self.database_path = database_path
         self.map_identifier = map_identifier
         self.identifier = identifier
@@ -31,9 +31,9 @@ class GetAssociation:
         self.resolve_occurrences = resolve_occurrences
         self.language = language
 
-    def do(self):
+    def execute(self):
         if self.identifier == '':
-            raise TopicStoreException("Missing 'identifier' parameter")
+            raise TopicStoreError("Missing 'identifier' parameter")
         result = None
 
         connection = sqlite3.connect(self.database_path)
@@ -73,11 +73,11 @@ class GetAssociation:
                                 member.add_topic_ref(topic_ref_record['topic_ref'])
                             result.add_member(member)
                 if self.resolve_attributes is RetrievalOption.resolve_attributes:
-                    result.add_attributes(GetAttributes(self.database_path, self.identifier, self.language).do())
+                    result.add_attributes(GetAttributes(self.database_path, self.identifier, self.language).execute())
                 if self.resolve_occurrences is RetrievalOption.resolve_occurrences:
-                    result.add_occurrences(GetOccurrences(self.database_path, self.identifier).do())
-        except sqlite3.Error as e:
-            raise TopicStoreException(e)
+                    result.add_occurrences(GetOccurrences(self.database_path, self.identifier).execute())
+        except sqlite3.Error as error:
+            raise TopicStoreError(error)
         finally:
             if cursor:
                 cursor.close()

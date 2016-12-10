@@ -7,7 +7,7 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 
 import sqlite3
 
-from storyengine.store.topicstoreexception import TopicStoreException
+from storyengine.store.topicstoreerror import TopicStoreError
 
 
 class CreateMap:
@@ -15,8 +15,7 @@ class CreateMap:
     def __init__(self, database_path):
         self.database_path = database_path
 
-    def do(self):
-
+    def execute(self):
         connection = sqlite3.connect(self.database_path)
         definitions_file = open('/home/brettk/Source/storytechnologies/story_engine/topicmap-definition.sql')
         statements = definitions_file.read()
@@ -26,8 +25,8 @@ class CreateMap:
                 for statement in statements.split(';'):
                     print(statement)  # For debugging purposes.
                     connection.execute(statement)
-        except sqlite3.Error as e:
-            raise TopicStoreException(e)
+        except sqlite3.Error as error:
+            raise TopicStoreError(error)
         finally:
             if connection:
                 connection.close()

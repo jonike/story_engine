@@ -10,7 +10,7 @@ from slugify import slugify
 from storyengine.store.models.topic import Topic
 from storyengine.store.models.member import Member
 from storyengine.store.models.language import Language
-from storyengine.store.topicstoreexception import TopicStoreException
+from storyengine.store.topicstoreerror import TopicStoreError
 
 
 class Association(Topic):
@@ -19,7 +19,7 @@ class Association(Topic):
                  identifier='',
                  instance_of='association',
                  base_name='Undefined',
-                 language=Language.en,
+                 language=Language.eng,
                  scope='*',
                  src_topic_ref='',
                  dest_topic_ref='',
@@ -43,9 +43,9 @@ class Association(Topic):
     @scope.setter
     def scope(self, value):
         if value == '':
-            raise TopicStoreException("Empty 'scope' parameter")
+            raise TopicStoreError("Empty 'scope' parameter")
         self.__scope = value if value == '*' else slugify(str(value))
-        
+
     @property
     def members(self):
         return self.__members

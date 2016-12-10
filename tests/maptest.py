@@ -22,14 +22,14 @@ class MapTest(unittest.TestCase):
     def testMaps(self):
         if not os.path.isfile(self.database_path):
             create_map_command = CreateMap(self.database_path)
-            create_map_command.do()
+            create_map_command.execute()
 
         self.assertEqual(True, os.path.isfile(self.database_path))
 
-        if not TopicExists(self.database_path, self.map_identifier, 'genesis').do():
-            InitMap(self.database_path, self.map_identifier).do()
+        if not TopicExists(self.database_path, self.map_identifier, 'genesis').execute():
+            InitMap(self.database_path, self.map_identifier).execute()
 
-        self.assertEqual(True, TopicExists(self.database_path, self.map_identifier, 'genesis').do())
+        self.assertEqual(True, TopicExists(self.database_path, self.map_identifier, 'genesis').execute())
 
     def tearDown(self):
         pass

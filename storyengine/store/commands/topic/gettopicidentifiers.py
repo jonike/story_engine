@@ -8,7 +8,7 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 import sqlite3
 
 from storyengine.store.commands.topic.gettopic import GetTopic
-from storyengine.store.topicstoreexception import TopicStoreException
+from storyengine.store.topicstoreerror import TopicStoreError
 from storyengine.store.retrievaloption import RetrievalOption
 from storyengine.store.models.language import Language
 
@@ -27,7 +27,7 @@ class GetTopicIdentifiers:
         self.offset = offset
         self.limit = limit
 
-    def do(self):
+    def execute(self):
         result = []
 
         query_string = "{0}%".format(self.query)
@@ -45,8 +45,8 @@ class GetTopicIdentifiers:
             records = cursor.fetchall()
             for record in records:
                 result.append(record['identifier'])
-        except sqlite3.Error as e:
-            raise TopicStoreException(e)
+        except sqlite3.Error as error:
+            raise TopicStoreError(error)
         finally:
             if cursor:
                 cursor.close()

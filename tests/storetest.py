@@ -31,32 +31,32 @@ class StoreTest(unittest.TestCase):
 
     def testTopicExists(self):
         topic_identifier = 'genesis'
-        topic_exists = TopicExists(self.database_path, self.map_identifier, topic_identifier).do()
+        topic_exists = TopicExists(self.database_path, self.map_identifier, topic_identifier).execute()
         if not topic_exists:
             topic1 = Topic(topic_identifier, 'topic', 'Genesis')
-            SetTopic(self.database_path, self.map_identifier, topic1).do()
+            SetTopic(self.database_path, self.map_identifier, topic1).execute()
 
         topic_exists_command = TopicExists(self.database_path, self.map_identifier)
 
         topic_exists_command.identifier = 'genesis'
-        existing_topic = topic_exists_command.do()
+        existing_topic = topic_exists_command.execute()
 
         topic_exists_command.identifier = 'non-existing-topic'
-        non_existing_topic = topic_exists_command.do()
+        non_existing_topic = topic_exists_command.execute()
 
         self.assertEqual(True, existing_topic)
         self.assertEqual(False, non_existing_topic)
 
     def testGetTopic(self):
         topic_identifier = 'genesis'
-        topic_exists = TopicExists(self.database_path, self.map_identifier, topic_identifier).do()
+        topic_exists = TopicExists(self.database_path, self.map_identifier, topic_identifier).execute()
         if not topic_exists:
             topic1 = Topic(topic_identifier, 'topic', 'Genesis')
-            SetTopic(self.database_path, self.map_identifier, topic1).do()
+            SetTopic(self.database_path, self.map_identifier, topic1).execute()
 
         get_topic_command = GetTopic(self.database_path, self.map_identifier, 'genesis', RetrievalOption.resolve_attributes)
 
-        topic1 = get_topic_command.do()
+        topic1 = get_topic_command.execute()
 
         self.assertEqual('Genesis', topic1.first_base_name.name)
         self.assertEqual('genesis', topic1.identifier)
@@ -65,7 +65,7 @@ class StoreTest(unittest.TestCase):
         self.assertLess(0, len(topic1.attributes))
 
     def testGetTopicsHierarchy(self):
-        tree = GetTopicsHierarchy(self.database_path, self.map_identifier, 'research-area').do()
+        tree = GetTopicsHierarchy(self.database_path, self.map_identifier, 'research-area').execute()
         tree.display('research-area')
 
     def testSetOccurrence(self):

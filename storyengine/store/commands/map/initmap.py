@@ -61,10 +61,9 @@ class InitMap:
             ('north-west', 'Northwest')
         }
 
-    def do(self):
-
+    def execute(self):
         set_topic_command = SetTopic(self.database_path, self.map_identifier)
         for item in self.items:
             topic = Topic(identifier=item[TopicField.identifier.value], base_name=item[TopicField.base_name.value])
             set_topic_command.topic = topic
-            set_topic_command.do()
+            set_topic_command.execute()

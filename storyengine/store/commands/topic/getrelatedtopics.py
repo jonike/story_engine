@@ -6,7 +6,7 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 """
 
 from storyengine.store.commands.topic.gettopic import GetTopic
-from storyengine.store.topicstoreexception import TopicStoreException
+from storyengine.store.topicstoreerror import TopicStoreError
 from storyengine.store.commands.association.getassociations import GetAssociations
 from storyengine.store.commands.association.getassociationgroups import GetAssociationGroups
 
@@ -18,18 +18,18 @@ class GetRelatedTopics:
         self.map_identifier = map_identifier
         self.identifier = identifier
 
-    def do(self):
+    def execute(self):
         if self.identifier == '':
-            raise TopicStoreException("Missing 'identifier' parameter")
+            raise TopicStoreError("Missing 'identifier' parameter")
         result = []
 
-        associations = GetAssociations(self.database_path, self.map_identifier, self.identifier).do()
+        associations = GetAssociations(self.database_path, self.map_identifier, self.identifier).execute()
         if associations:
-            groups = GetAssociationGroups(associations=associations).do()
+            groups = GetAssociationGroups(associations=associations).execute()
             for instance_of in groups.dict:
                 for role in groups.dict[instance_of]:
                     for topic_ref in groups[instance_of, role]:
                         if topic_ref == self.identifier:
                             continue
-                        result.append(GetTopic(self.database_path, topic_ref).do())
+                        result.append(GetTopic(self.database_path, topic_ref).execute())
         return result

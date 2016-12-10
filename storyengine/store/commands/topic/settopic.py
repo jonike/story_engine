@@ -12,7 +12,7 @@ from datetime import datetime
 from storyengine.store.models.language import Language
 from storyengine.store.models.datatype import DataType
 from storyengine.store.models.attribute import Attribute
-from storyengine.store.topicstoreexception import TopicStoreException
+from storyengine.store.topicstoreerror import TopicStoreError
 from storyengine.store.commands.attribute.setattributes import SetAttributes
 
 
@@ -20,15 +20,15 @@ class SetTopic:
 
     def __init__(self, database_path, map_identifier,
                  topic=None,
-                 language=Language.en):
+                 language=Language.eng):
         self.database_path = database_path
         self.map_identifier = map_identifier
         self.topic = topic
         self.language = language
 
-    def do(self):
+    def execute(self):
         if self.topic is None:
-            raise TopicStoreException("Missing 'topic' parameter")
+            raise TopicStoreError("Missing 'topic' parameter")
 
         connection = sqlite3.connect(self.database_path)
 
@@ -50,11 +50,11 @@ class SetTopic:
                 timestamp_attribute = Attribute('creation-timestamp', timestamp, self.topic.identifier,
                                                 data_type=DataType.timestamp,
                                                 scope='*',
-                                                language=Language.en)
+                                                language=Language.eng)
                 self.topic.add_attribute(timestamp_attribute)
-            SetAttributes(self.database_path, self.map_identifier, self.topic.attributes).do()
-        except sqlite3.Error as e:
-            raise TopicStoreException(e)
+            SetAttributes(self.database_path, self.map_identifier, self.topic.attributes).execute()
+        except sqlite3.Error as error:
+            raise TopicStoreError(error)
         finally:
             if connection:
                 connection.close()

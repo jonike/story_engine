@@ -10,7 +10,7 @@ import sqlite3
 from storyengine.store.models.language import Language
 from storyengine.store.models.datatype import DataType
 from storyengine.store.models.attribute import Attribute
-from storyengine.store.topicstoreexception import TopicStoreException
+from storyengine.store.topicstoreerror import TopicStoreError
 
 
 class GetAttribute:
@@ -20,9 +20,9 @@ class GetAttribute:
         self.map_identifier = map_identifier
         self.identifier = identifier
 
-    def do(self):
+    def execute(self):
         if self.identifier == '':
-            raise TopicStoreException("Missing 'identifier' parameter")
+            raise TopicStoreError("Missing 'identifier' parameter")
         result = None
 
         connection = sqlite3.connect(self.database_path)
@@ -41,8 +41,8 @@ class GetAttribute:
                     DataType[record['data_type']],
                     record['scope'],
                     Language[record['language']])
-        except sqlite3.Error as e:
-            raise TopicStoreException(e)
+        except sqlite3.Error as error:
+            raise TopicStoreError(error)
         finally:
             if cursor:
                 cursor.close()

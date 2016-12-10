@@ -12,7 +12,7 @@ from datetime import datetime
 from storyengine.store.models.language import Language
 from storyengine.store.models.datatype import DataType
 from storyengine.store.models.attribute import Attribute
-from storyengine.store.topicstoreexception import TopicStoreException
+from storyengine.store.topicstoreerror import TopicStoreError
 from storyengine.store.commands.attribute.setattributes import SetAttributes
 
 
@@ -23,9 +23,9 @@ class SetAssociation:
         self.map_identifier = map_identifier
         self.association = association
 
-    def do(self):
+    def execute(self):
         if self.association is None:
-            raise TopicStoreException("Missing 'association' parameter")
+            raise TopicStoreError("Missing 'association' parameter")
 
         connection = sqlite3.connect(self.database_path)
 
@@ -49,11 +49,11 @@ class SetAssociation:
                 timestamp_attribute = Attribute('creation-timestamp', timestamp, self.association.identifier,
                                                 data_type=DataType.timestamp,
                                                 scope='*',
-                                                language=Language.en)
+                                                language=Language.eng)
                 self.association.add_attribute(timestamp_attribute)
-            SetAttributes(self.database_path, self.map_identifier, self.association.attributes).do()
-        except sqlite3.Error as e:
-            raise TopicStoreException(e)
+            SetAttributes(self.database_path, self.map_identifier, self.association.attributes).execute()
+        except sqlite3.Error as error:
+            raise TopicStoreError(error)
         finally:
             if connection:
                 connection.close()

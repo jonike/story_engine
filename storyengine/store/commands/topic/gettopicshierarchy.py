@@ -6,7 +6,7 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 """
 
 from storyengine.store.commands.topic.gettopic import GetTopic
-from storyengine.store.topicstoreexception import TopicStoreException
+from storyengine.store.topicstoreerror import TopicStoreError
 from storyengine.store.commands.association.getassociations import GetAssociations
 from storyengine.store.commands.association.getassociationgroups import GetAssociationGroups
 from storyengine.store.models.tree.tree import Tree
@@ -29,12 +29,12 @@ class GetTopicsHierarchy:
 
         self.maximum_distance = 10
 
-    def do(self):
+    def execute(self):
         if self.identifier == '':
-            raise TopicStoreException("Missing 'identifier' parameter")
+            raise TopicStoreError("Missing 'identifier' parameter")
         if self.accumulative_tree is None:
             tree = Tree()
-            root_topic = GetTopic(self.database_path, self.map_identifier, self.identifier).do()
+            root_topic = GetTopic(self.database_path, self.map_identifier, self.identifier).execute()
             tree.add_node(self.identifier, parent=None, topic=root_topic)
         else:
             tree = self.accumulative_tree
@@ -45,13 +45,13 @@ class GetTopicsHierarchy:
             nodes = self.accumulative_nodes
 
         if self.cumulative_distance <= self.maximum_distance:  # Exit case.
-            associations = GetAssociations(self.database_path, self.map_identifier, self.identifier).do()
+            associations = GetAssociations(self.database_path, self.map_identifier, self.identifier).execute()
             for association in associations:
                 resolved_topic_refs = GetAssociationGroups._resolve_topic_refs(association)
                 for resolved_topic_ref in resolved_topic_refs:
                     topic_ref = resolved_topic_ref[AssociationField.topic_ref.value]
                     if topic_ref != self.identifier and topic_ref not in nodes:
-                        topic = GetTopic(self.database_path, self.map_identifier, topic_ref).do()
+                        topic = GetTopic(self.database_path, self.map_identifier, topic_ref).execute()
                         tree.add_node(topic_ref, parent=self.identifier, topic=topic)
                     if topic_ref not in nodes:
                         nodes.append(topic_ref)
@@ -61,5 +61,5 @@ class GetTopicsHierarchy:
                 self.identifier = child
                 self.accumulative_tree = tree
                 self.accumulative_nodes = nodes
-                self.do()  # Recursive call.
+                self.execute()  # Recursive call.
         return tree

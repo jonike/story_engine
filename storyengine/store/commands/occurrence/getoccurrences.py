@@ -7,7 +7,7 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 
 import sqlite3
 
-from storyengine.store.topicstoreexception import TopicStoreException
+from storyengine.store.topicstoreerror import TopicStoreError
 from storyengine.store.retrievaloption import RetrievalOption
 from storyengine.store.commands.occurrence.getoccurrencedata import GetOccurrenceData
 from storyengine.store.commands.attribute.getattributes import GetAttributes
@@ -23,7 +23,7 @@ class GetOccurrences:
                  resolve_attributes=RetrievalOption.dont_resolve_attributes,
                  instance_of='',
                  scope='*',
-                 language=Language.en):
+                 language=Language.eng):
         self.database_path = database_path
         self.map_identifier = map_identifier
         self.topic_identifier = topic_identifier
@@ -33,9 +33,9 @@ class GetOccurrences:
         self.scope = scope
         self.language = language
 
-    def do(self):
+    def execute(self):
         if self.topic_identifier == '':
-            raise TopicStoreException("Missing 'topic identifier' parameter")
+            raise TopicStoreError("Missing 'topic identifier' parameter")
         result = []
 
         connection = sqlite3.connect(self.database_path)
@@ -56,7 +56,7 @@ class GetOccurrences:
                 resource_data = None
                 if self.inline_resource_data:
                     # TODO: Optimize.
-                    resource_data = GetOccurrenceData(self.database_path, self.map_identifier, record['identifier']).do()
+                    resource_data = GetOccurrenceData(self.database_path, self.map_identifier, record['identifier']).execute()
                 occurrence = Occurrence(
                     record['identifier'],
                     record['instance_of'],
@@ -68,10 +68,10 @@ class GetOccurrences:
                 if self.resolve_attributes is RetrievalOption.resolve_attributes:
                     # TODO: Optimize.
                     occurrence.add_attributes(
-                        GetAttributes(self.database_path, self.map_identifier, self.identifier, self.language).do())
+                        GetAttributes(self.database_path, self.map_identifier, occurrence.identifier, self.language).execute())
                 result.append(occurrence)
-        except sqlite3.Error as e:
-            raise TopicStoreException(e)
+        except sqlite3.Error as error:
+            raise TopicStoreError(error)
         finally:
             if cursor:
                 cursor.close()

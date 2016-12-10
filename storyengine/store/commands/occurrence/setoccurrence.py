@@ -13,7 +13,7 @@ from storyengine.store.models.language import Language
 from storyengine.store.models.datatype import DataType
 from storyengine.store.models.attribute import Attribute
 from storyengine.store.commands.attribute.setattributes import SetAttributes
-from storyengine.store.topicstoreexception import TopicStoreException
+from storyengine.store.topicstoreerror import TopicStoreError
 
 
 class SetOccurrence:
@@ -23,11 +23,11 @@ class SetOccurrence:
         self.map_identifier = map_identifier
         self.occurrence = occurrence
 
-    def do(self):
+    def execute(self):
         if self.occurrence is None:
-            raise TopicStoreException("Missing 'occurrence' parameter")
+            raise TopicStoreError("Missing 'occurrence' parameter")
         elif self.occurrence.topic_identifier == '':
-            raise TopicStoreException("Occurrence has an empty 'topic identifier' property")
+            raise TopicStoreError("Occurrence has an empty 'topic identifier' property")
 
         connection = sqlite3.connect(self.database_path)
 
@@ -47,11 +47,11 @@ class SetOccurrence:
                 timestamp_attribute = Attribute('creation-timestamp', timestamp, self.occurrence.identifier,
                                                 data_type=DataType.timestamp,
                                                 scope='*',
-                                                language=Language.en)
+                                                language=Language.eng)
                 self.occurrence.add_attribute(timestamp_attribute)
-            SetAttributes(self.database_path, self.map_identifier, self.occurrence.attributes).do()
-        except sqlite3.Error as e:
-            raise TopicStoreException(e)
+            SetAttributes(self.database_path, self.map_identifier, self.occurrence.attributes).execute()
+        except sqlite3.Error as error:
+            raise TopicStoreError(error)
         finally:
             if connection:
                 connection.close()

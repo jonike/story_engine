@@ -7,7 +7,7 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 
 from storyengine.store.models.doublekeydict import DoubleKeyDict
 from storyengine.store.models.associationfield import AssociationField
-from storyengine.store.topicstoreexception import TopicStoreException
+from storyengine.store.topicstoreerror import TopicStoreError
 from storyengine.store.commands.association.getassociations import GetAssociations
 
 
@@ -23,17 +23,17 @@ class GetAssociationGroups:
         self.identifier = identifier
         self.associations = associations
 
-    def do(self):
+    def execute(self):
         # TODO: Review logic for lines 26-34.
         if self.identifier == '' and self.associations is None:
-            raise TopicStoreException("At least one of the 'identifier' or 'associations' parameters is required")
+            raise TopicStoreError("At least one of the 'identifier' or 'associations' parameters is required")
 
         if self.associations is None and (self.database_path == '' or self.map_identifier is None):
-            raise TopicStoreException("Missing 'database path' or 'map identifier' parameters")
+            raise TopicStoreError("Missing 'database path' or 'map identifier' parameters")
 
         result = DoubleKeyDict()
         if not self.associations:
-            self.associations = GetAssociations(self.database_path, self.map_identifier, self.identifier).do()
+            self.associations = GetAssociations(self.database_path, self.map_identifier, self.identifier).execute()
 
         for association in self.associations:
             resolved_topic_refs = self._resolve_topic_refs(association)

@@ -7,7 +7,7 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 
 from storyengine.store.commands.association.getassociationgroups import GetAssociationGroups
 from storyengine.store.commands.tag.gettags import GetTags
-from storyengine.store.topicstoreexception import TopicStoreException
+from storyengine.store.topicstoreerror import TopicStoreError
 
 
 class GetEntitiesTags:
@@ -17,9 +17,9 @@ class GetEntitiesTags:
         self.map_identifier = map_identifier
         self.identifier = identifier
 
-    def do(self):
+    def execute(self):
         if self.identifier == '':
-            raise TopicStoreException("Missing 'identifier' parameter")
+            raise TopicStoreError("Missing 'identifier' parameter")
         result = {}
 
         # Map from topics with tags to tags with topics. For example, the below topic -> tags mappings:
@@ -40,14 +40,14 @@ class GetEntitiesTags:
         # tag8 -> topic5
 
         topic_tags = {}
-        groups = GetAssociationGroups(self.database_path, self.map_identifier, self.identifier).do()
+        groups = GetAssociationGroups(self.database_path, self.map_identifier, self.identifier).execute()
         for instance_of in groups.dict:
             for role in groups.dict[instance_of]:
                 for topic_ref in groups[instance_of, role]:
                     if topic_ref == self.identifier:
                         continue
                     if instance_of == 'prop' or instance_of == 'character':
-                        topic_tags[topic_ref] = GetTags(self.database_path, self.map_identifier, topic_ref).do()
+                        topic_tags[topic_ref] = GetTags(self.database_path, self.map_identifier, topic_ref).execute()
 
         for topic, tags in topic_tags.items():
             for tag in tags:

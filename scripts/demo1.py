@@ -28,19 +28,19 @@ from storyengine.store.models.occurrence import Occurrence
 from storyengine.store.commands.occurrence.setoccurrence import SetOccurrence
 
 
-database_path = '/home/brettk/Source/storytechnologies/story_engine/data/storytech.sqlite'
-map_identifier = 1
+DATABASE_PATH = '/home/brettk/Source/storytechnologies/story_engine/data/storytech.sqlite'
+MAP_IDENTIFIER = 1
 
 # Create and bootstrap topic map (ontology).
-if not os.path.isfile(database_path):
-    CreateMap(database_path).do()
+if not os.path.isfile(DATABASE_PATH):
+    CreateMap(DATABASE_PATH).execute()
 
-if not TopicExists(database_path, 'genesis', map_identifier).do():
-    InitMap(database_path, map_identifier).do()
+if not TopicExists(DATABASE_PATH, 'genesis', MAP_IDENTIFIER).execute():
+    InitMap(DATABASE_PATH, MAP_IDENTIFIER).execute()
 
 # Story.
-story = Story("The Doomsday Plans", map_identifier, "outpost", "A soldier has to steal the plans for a secret weapon.")
-SetStory(database_path, story).do()
+story = Story("The Doomsday Plans", MAP_IDENTIFIER, "outpost", "A soldier has to steal the plans for a secret weapon.")
+SetStory(DATABASE_PATH, story).execute()
 
 # Scene 01 - Outpost Alpha.
 asset11 = Asset('scene', 'scene-005.json')
@@ -53,9 +53,9 @@ settlement in an outlying frontier, limit, political boundary or in another coun
 """
 asset12 = Asset('text', data=scene1_text)
 scene1.add_asset(asset12)
-SetScene(database_path, map_identifier, scene1).do()
+SetScene(DATABASE_PATH, MAP_IDENTIFIER, scene1).execute()
 attribute11 = Attribute('type', 'exterior', 'outpost')
-SetAttribute(database_path, map_identifier, attribute11).do()
+SetAttribute(DATABASE_PATH, MAP_IDENTIFIER, attribute11).execute()
 
 # Prop - 'ammunition'.
 prop11 = Prop('ammunition', 'Ammunition')
@@ -79,7 +79,7 @@ conventional munitions, and terminally precision-guided munition.
 """
 asset14 = Asset('text', data=prop11_text)
 prop11.add_asset(asset14)
-SetProp(database_path, map_identifier, prop11, 'outpost').do()
+SetProp(DATABASE_PATH, MAP_IDENTIFIER, prop11, 'outpost').execute()
 
 
 # Scene 3 - Weapon Factory.
@@ -93,13 +93,13 @@ material, equipment, and facilities.
 """
 asset32 = Asset('text', data=scene3_text)
 scene3.add_asset(asset32)
-SetScene(database_path, map_identifier, scene3).do()
+SetScene(DATABASE_PATH, MAP_IDENTIFIER, scene3).execute()
 attribute31 = Attribute('type', 'exterior', 'weapon-factory')
-SetAttribute(database_path, map_identifier, attribute31).do()
+SetAttribute(DATABASE_PATH, MAP_IDENTIFIER, attribute31).execute()
 attribute32 = Attribute('mist-depth', '35', 'weapon-factory')
-SetAttribute(database_path, map_identifier, attribute32).do()
+SetAttribute(DATABASE_PATH, MAP_IDENTIFIER, attribute32).execute()
 attribute33 = Attribute('camera-rotation', '0.30', 'weapon-factory')  # Camera rotation multiplier.
-SetAttribute(database_path, map_identifier, attribute33).do()
+SetAttribute(DATABASE_PATH, MAP_IDENTIFIER, attribute33).execute()
 
 # Prop - 'Telecommunications Facility".
 prop31 = Prop('telecommunications-facility', 'Telecommunications Facility')
@@ -121,7 +121,7 @@ pavement, and underlying land.
 """
 asset34 = Asset('text', data=prop31_text)
 prop31.add_asset(asset34)
-SetProp(database_path, map_identifier, prop31, 'weapon-factory').do()
+SetProp(DATABASE_PATH, MAP_IDENTIFIER, prop31, 'weapon-factory').execute()
 
 # Prop - 'Military Robot.
 prop32 = Prop('robot', 'Military Robot')
@@ -139,7 +139,7 @@ returns on their decade-old fantasy of using aerial robots to collect intelligen
 """
 asset36 = Asset('text', data=prop32_text)
 prop32.add_asset(asset36)
-SetProp(database_path, map_identifier, prop32, 'weapon-factory').do()
+SetProp(DATABASE_PATH, MAP_IDENTIFIER, prop32, 'weapon-factory').execute()
 
 
 # Scene 5 - Research Area.
@@ -154,11 +154,11 @@ beyond immediate military requirements.
 """
 asset52 = Asset('text', data=scene5_text)
 scene5.add_asset(asset52)
-SetScene(database_path, map_identifier, scene5).do()
+SetScene(DATABASE_PATH, MAP_IDENTIFIER, scene5).execute()
 attribute51 = Attribute('type', 'interior', 'research-area')
-SetAttribute(database_path, map_identifier, attribute51).do()
+SetAttribute(DATABASE_PATH, MAP_IDENTIFIER, attribute51).execute()
 attribute52 = Attribute('camera-clamp', 'true', 'research-area')
-SetAttribute(database_path, map_identifier, attribute52).do()
+SetAttribute(DATABASE_PATH, MAP_IDENTIFIER, attribute52).execute()
 
 # Prop - 'Computer research system'.
 prop51 = Prop('computer', 'Research System')
@@ -175,8 +175,8 @@ electronics.
 """
 asset54 = Asset('text', data=prop51_text)
 prop51.add_asset(asset54)
-SetProp(database_path, map_identifier, prop51, 'research-area').do()
-SetTags(database_path, map_identifier, 'computer', ['electronics']).do()
+SetProp(DATABASE_PATH, MAP_IDENTIFIER, prop51, 'research-area').execute()
+SetTags(DATABASE_PATH, MAP_IDENTIFIER, 'computer', ['electronics']).execute()
 tag51_text = """__Electronics__ is the science of controlling electrical energy electrically, in which the electrons
 have a fundamental role. Electronics deals with electrical circuits that involve active electrical components such as
 vacuum tubes, transistors, diodes, integrated circuits, associated passive electrical components, and interconnection
@@ -186,7 +186,7 @@ Commonly, electronic devices contain circuitry consisting primarily or exclusive
 with passive elements; such a circuit is described as an electronic circuit.
 """
 tag_occurrence51 = Occurrence(topic_identifier='electronics', instance_of='text', resource_data=bytes(tag51_text, 'utf-8'))
-SetOccurrence(database_path, map_identifier, tag_occurrence51).do()
+SetOccurrence(DATABASE_PATH, MAP_IDENTIFIER, tag_occurrence51).execute()
 
 # Prop - 'Desk'.
 prop52 = Prop('desk', 'Desk')
@@ -202,8 +202,8 @@ or metal, although materials such as tempered glass are sometimes seen.
 """
 asset56 = Asset('text', data=prop52_text)
 prop52.add_asset(asset56)
-SetProp(database_path, map_identifier, prop52, 'research-area').do()
-SetTags(database_path, map_identifier, 'desk', ['furniture']).do()
+SetProp(DATABASE_PATH, MAP_IDENTIFIER, prop52, 'research-area').execute()
+SetTags(DATABASE_PATH, MAP_IDENTIFIER, 'desk', ['furniture']).execute()
 
 # Prop - 'Chair'.
 prop53 = Prop('chair', 'Chair')
@@ -220,19 +220,19 @@ the entire chair.
 """
 asset58 = Asset('text', data=prop53_text)
 prop53.add_asset(asset58)
-SetProp(database_path, map_identifier, prop53, 'research-area').do()
-SetTags(database_path, map_identifier, 'chair', ['furniture']).do()
+SetProp(DATABASE_PATH, MAP_IDENTIFIER, prop53, 'research-area').execute()
+SetTags(DATABASE_PATH, MAP_IDENTIFIER, 'chair', ['furniture']).execute()
 tag52_text = """Furniture is movable objects intended to support various human activities such as seating (e.g., chairs,
 stools, tables and sofas) and sleeping (e.g., beds). Furniture is also used to hold objects at a convenient height for
 work (as horizontal surfaces above the ground, such as tables and desks), or to store things (e.g., cupboards and
 shelves).
 
 Furniture can be a product of design and is considered a form of decorative art. In addition to furniture's functional
-role, it can serve a symbolic or religious purpose. It can be made from many materials, including metal, plastic, and
+role, ita can serve a symbolic or religious purpose. It can be made from many materials, including metal, plastic, and
 wood. Furniture can be made using a variety of woodworking joints which often reflect the local culture.
 """
 tag_occurrence52 = Occurrence(topic_identifier='furniture', instance_of='text', resource_data=bytes(tag52_text, 'utf-8'))
-SetOccurrence(database_path, map_identifier, tag_occurrence52).do()
+SetOccurrence(DATABASE_PATH, MAP_IDENTIFIER, tag_occurrence52).execute()
 
 # Prop - 'Bookshelf'.
 prop54 = Prop('bookshelf', 'Bookshelf')
@@ -248,8 +248,8 @@ or other printed materials.
 """
 asset510 = Asset('text', data=prop54_text)
 prop54.add_asset(asset510)
-SetProp(database_path, map_identifier, prop54, 'research-area').do()
-SetTags(database_path, map_identifier, 'bookshelf', ['furniture']).do()
+SetProp(DATABASE_PATH, MAP_IDENTIFIER, prop54, 'research-area').execute()
+SetTags(DATABASE_PATH, MAP_IDENTIFIER, 'bookshelf', ['furniture']).execute()
 
 # Prop - 'Utility Robot.
 prop55 = Prop('utility-robot', 'Utility Robot')
@@ -275,9 +275,9 @@ the field of bio-inspired robotics. These robots have also created a newer branc
 """
 asset512 = Asset('text', data=prop55_text)
 prop55.add_asset(asset512)
-SetProp(database_path, map_identifier, prop55, 'research-area').do()
+SetProp(DATABASE_PATH, MAP_IDENTIFIER, prop55, 'research-area').execute()
 
-SetTags(database_path, map_identifier, 'utility-robot', ['electronics']).do()
+SetTags(DATABASE_PATH, MAP_IDENTIFIER, 'utility-robot', ['electronics']).execute()
 
 # Define and persist a character.
 character51 = Character('researcher', 'Researcher')
@@ -291,7 +291,7 @@ Scientists are often described as researchers.
 """
 asset512 = Asset('text', data=character51_text)
 character51.add_asset(asset512)
-SetCharacter(database_path, map_identifier, character51, 'research-area').do()
+SetCharacter(DATABASE_PATH, MAP_IDENTIFIER, character51, 'research-area').execute()
 
 
 # Scene 6 - Storage.
@@ -304,15 +304,15 @@ industrial areas of cities, towns and villages.
 """
 asset62 = Asset('text', data=scene6_text)
 scene6.add_asset(asset62)
-SetScene(database_path, map_identifier, scene6).do()
+SetScene(DATABASE_PATH, MAP_IDENTIFIER, scene6).execute()
 attribute61 = Attribute('type', 'interior', 'storage-area')
-SetAttribute(database_path, map_identifier, attribute61).do()
+SetAttribute(DATABASE_PATH, MAP_IDENTIFIER, attribute61).execute()
 attribute62 = Attribute('camera-clamp', 'true', 'storage-area')
-SetAttribute(database_path, map_identifier, attribute62).do()
+SetAttribute(DATABASE_PATH, MAP_IDENTIFIER, attribute62).execute()
 
 
-SetNavigation(database_path, map_identifier, 'outpost', 'weapon-factory', 'west', 'east').do()
-SetNavigation(database_path, map_identifier, 'weapon-factory', 'research-area', 'south', 'north').do()
-SetNavigation(database_path, map_identifier, 'research-area', 'storage-area', 'south', 'north').do()
+SetNavigation(DATABASE_PATH, MAP_IDENTIFIER, 'outpost', 'weapon-factory', 'west', 'east').execute()
+SetNavigation(DATABASE_PATH, MAP_IDENTIFIER, 'weapon-factory', 'research-area', 'south', 'north').execute()
+SetNavigation(DATABASE_PATH, MAP_IDENTIFIER, 'research-area', 'storage-area', 'south', 'north').execute()
 
 

@@ -6,7 +6,7 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 """
 
 
-class CoreException(Exception):
+class CoreError(Exception):
     def __init__(self, value):
         self.value = value
 

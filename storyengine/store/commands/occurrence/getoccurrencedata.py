@@ -7,7 +7,7 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 
 import sqlite3
 
-from storyengine.store.topicstoreexception import TopicStoreException
+from storyengine.store.topicstoreerror import TopicStoreError
 
 
 class GetOccurrenceData:
@@ -17,9 +17,9 @@ class GetOccurrenceData:
         self.map_identifier = map_identifier
         self.identifier = identifier
 
-    def do(self):
+    def execute(self):
         if self.identifier == '':
-            raise TopicStoreException("Missing 'identifier' parameter")
+            raise TopicStoreError("Missing 'identifier' parameter")
         result = None
 
         connection = sqlite3.connect(self.database_path)
@@ -31,8 +31,8 @@ class GetOccurrenceData:
             record = cursor.fetchone()
             if record:
                 result = record['resource_data']
-        except sqlite3.Error as e:
-            raise TopicStoreException(e)
+        except sqlite3.Error as error:
+            raise TopicStoreError(error)
         finally:
             if cursor:
                 cursor.close()

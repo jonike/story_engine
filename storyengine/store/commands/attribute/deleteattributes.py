@@ -7,7 +7,7 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 
 import sqlite3
 
-from storyengine.store.topicstoreexception import TopicStoreException
+from storyengine.store.topicstoreerror import TopicStoreError
 
 
 class DeleteAttributes:
@@ -17,17 +17,17 @@ class DeleteAttributes:
         self.map_identifier = map_identifier
         self.entity_identifier = entity_identifier
 
-    def do(self):
+    def execute(self):
         if self.entity_identifier == '':
-            raise TopicStoreException("Missing 'entity identifier' parameter")
+            raise TopicStoreError("Missing 'entity identifier' parameter")
 
         connection = sqlite3.connect(self.database_path)
 
         try:
             with connection:  # https://docs.python.org/3/library/sqlite3.html#using-the-connection-as-a-context-manager
                 connection.execute("DELETE FROM attribute WHERE topicmap_identifier = ? AND parent_identifier_fk = ?", (self.map_identifier, self.entity_identifier))
-        except sqlite3.Error as e:
-            raise TopicStoreException(e)
+        except sqlite3.Error as error:
+            raise TopicStoreError(error)
         finally:
             if connection:
                 connection.close()

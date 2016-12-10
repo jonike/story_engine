@@ -5,13 +5,11 @@ June 12, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 """
 
-import uuid
-
 from slugify import slugify
 
 from storyengine.store.models.entity import Entity
 from storyengine.store.models.language import Language
-from storyengine.store.topicstoreexception import TopicStoreException
+from storyengine.store.topicstoreerror import TopicStoreError
 
 
 class Occurrence(Entity):
@@ -23,10 +21,9 @@ class Occurrence(Entity):
                  scope='*',  # Universal scope
                  resource_ref='',
                  resource_data=None,
-                 language=Language.en):
+                 language=Language.eng):
         super().__init__(identifier, instance_of)
 
-        #self.__topic_identifier = (str(uuid.uuid4()) if topic_identifier == '' else slugify(str(topic_identifier)))
         if topic_identifier == '*':  # Universal Scope.
             self.__topic_identifier = '*'
         else:
@@ -45,7 +42,7 @@ class Occurrence(Entity):
     @scope.setter
     def scope(self, value):
         if value == '':
-            raise TopicStoreException("Empty 'value' parameter")
+            raise TopicStoreError("Empty 'value' parameter")
         self.__scope = value if value == '*' else slugify(str(value))
 
     @property
@@ -55,7 +52,7 @@ class Occurrence(Entity):
     @topic_identifier.setter
     def topic_identifier(self, value):
         if value == '':
-            raise TopicStoreException("Empty 'value' parameter")
+            raise TopicStoreError("Empty 'value' parameter")
         elif value == '*':  # Universal Scope.
             self.__topic_identifier = '*'
         else:

@@ -9,10 +9,14 @@ from enum import Enum
 
 
 class Language(Enum):
-    en = 1  # English
-    es = 2  # Spanish
-    de = 3  # German
-    it = 4  # Italian
-    fr = 5  # French
-    nl = 6  # Dutch
-    nb = 7  # Norwegian (Bokmål)
+
+    # https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
+    # https://en.wikipedia.org/wiki/ISO_639-2
+
+    eng = 1  # English
+    spa = 2  # Spanish
+    deu = 3  # German
+    ita = 4  # Italian
+    fra = 5  # French
+    nld = 6  # Dutch
+    nob = 7  # Norwegian (Bokmål)

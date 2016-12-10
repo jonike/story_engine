@@ -7,7 +7,7 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 
 import sqlite3
 
-from storyengine.store.topicstoreexception import TopicStoreException
+from storyengine.store.topicstoreerror import TopicStoreError
 from storyengine.store.commands.attribute.deleteattributes import DeleteAttributes
 
 
@@ -18,18 +18,18 @@ class DeleteOccurrence:
         self.map_identifier = map_identifier
         self.identifier = identifier
 
-    def do(self):
+    def execute(self):
         if self.identifier == '':
-            raise TopicStoreException("Missing 'identifier' parameter")
+            raise TopicStoreError("Missing 'identifier' parameter")
 
         connection = sqlite3.connect(self.database_path)
 
         try:
             with connection:  # https://docs.python.org/3/library/sqlite3.html#using-the-connection-as-a-context-manager
                 connection.execute("DELETE FROM occurrence WHERE topicmap_identifier = ? AND identifier = ?", (self.map_identifier, self.identifier))
-            DeleteAttributes(self.database_path, self.map_identifier, self.identifier).do()  # Delete the occurrence's attributes
-        except sqlite3.Error as e:
-            raise TopicStoreException(e)
+            DeleteAttributes(self.database_path, self.map_identifier, self.identifier).execute()
+        except sqlite3.Error as error:
+            raise TopicStoreError(error)
         finally:
             if connection:
                 connection.close()

@@ -8,7 +8,7 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 import sqlite3
 
 from storyengine.store.commands.topic.gettopic import GetTopic
-from storyengine.store.topicstoreexception import TopicStoreException
+from storyengine.store.topicstoreerror import TopicStoreError
 from storyengine.store.retrievaloption import RetrievalOption
 from storyengine.store.models.language import Language
 
@@ -18,7 +18,7 @@ class GetTopics:
     def __init__(self, database_path, map_identifier,
                  instance_of='',
                  resolve_attributes=RetrievalOption.dont_resolve_attributes,
-                 language=Language.en,
+                 language=Language.eng,
                  offset=0,
                  limit=100):
         self.database_path = database_path
@@ -29,7 +29,7 @@ class GetTopics:
         self.offset = offset
         self.limit = limit
 
-    def do(self):
+    def execute(self):
         result = []
 
         connection = sqlite3.connect(self.database_path)
@@ -47,9 +47,9 @@ class GetTopics:
             cursor.execute(sql, bind_variables)
             records = cursor.fetchall()
             for record in records:
-                result.append(GetTopic(self.database_path, self.map_identifier, record['identifier'], self.resolve_attributes, self.language).do())
-        except sqlite3.Error as e:
-            raise TopicStoreException(e)
+                result.append(GetTopic(self.database_path, self.map_identifier, record['identifier'], self.resolve_attributes, self.language).execute())
+        except sqlite3.Error as error:
+            raise TopicStoreError(error)
         finally:
             if cursor:
                 cursor.close()

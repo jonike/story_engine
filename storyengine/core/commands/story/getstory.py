@@ -7,7 +7,7 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 
 import sqlite3
 
-from storyengine.core.coreexception import CoreException
+from storyengine.core.coreerror import CoreError
 from storyengine.core.models.story import Story
 
 
@@ -17,9 +17,9 @@ class GetStory:
         self.database_path = database_path
         self.identifier = identifier
 
-    def do(self):
+    def execute(self):
         if self.identifier == '':
-            raise CoreException("Missing 'identifier' parameter")
+            raise CoreError("Missing 'identifier' parameter")
         result = None
 
         connection = sqlite3.connect(self.database_path)
@@ -36,6 +36,6 @@ class GetStory:
                     record['scene_identifier_fk'],
                     record['description'])
                 result.identifier = record['identifier']
-        except CoreException as e:
-            raise CoreException(e)
+        except CoreError as error:
+            raise CoreError(error)
         return result

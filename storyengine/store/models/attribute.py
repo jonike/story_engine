@@ -11,7 +11,7 @@ from slugify import slugify
 
 from storyengine.store.models.datatype import DataType
 from storyengine.store.models.language import Language
-from storyengine.store.topicstoreexception import TopicStoreException
+from storyengine.store.topicstoreerror import TopicStoreError
 
 
 class Attribute:
@@ -20,7 +20,7 @@ class Attribute:
                  identifier='',
                  data_type=DataType.string,
                  scope='*',
-                 language=Language.en):
+                 language=Language.eng):
         if entity_identifier == '*':  # Universal Scope.
             self.__entity_identifier = '*'
         else:
@@ -51,7 +51,7 @@ class Attribute:
     @entity_identifier.setter
     def entity_identifier(self, value):
         if value == '':
-            raise TopicStoreException("Empty 'value' parameter")
+            raise TopicStoreError("Empty 'value' parameter")
         elif value == '*':  # Universal Scope.
             self.__entity_identifier = '*'
         else:
@@ -68,5 +68,5 @@ class Attribute:
     @scope.setter
     def scope(self, value):
         if value == '':
-            raise TopicStoreException("Empty 'value' parameter")
+            raise TopicStoreError("Empty 'value' parameter")
         self.__scope = value if value == '*' else slugify(str(value))

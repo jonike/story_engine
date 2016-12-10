@@ -7,7 +7,7 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 
 import sqlite3
 
-from storyengine.core.coreexception import CoreException
+from storyengine.core.coreerror import CoreError
 
 
 class SetStory:
@@ -16,9 +16,9 @@ class SetStory:
         self.database_path = database_path
         self.story = story
 
-    def do(self):
+    def execute(self):
         if self.story is None:
-            raise CoreException("Missing 'story' parameter")
+            raise CoreError("Missing 'story' parameter")
 
         connection = sqlite3.connect(self.database_path)
 
@@ -30,8 +30,8 @@ class SetStory:
                      self.story.description,
                      self.story.topic_map_identifier,
                      self.story.start_scene_identifier))
-        except sqlite3.Error as e:
-            raise CoreException(e)
+        except sqlite3.Error as error:
+            raise CoreError(error)
         finally:
             if connection:
                 connection.close()

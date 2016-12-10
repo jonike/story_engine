@@ -7,7 +7,7 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 
 import sqlite3
 
-from storyengine.store.topicstoreexception import TopicStoreException
+from storyengine.store.topicstoreerror import TopicStoreError
 from storyengine.store.retrievaloption import RetrievalOption
 from storyengine.store.commands.occurrence.getoccurrencedata import GetOccurrenceData
 from storyengine.store.commands.attribute.getattributes import GetAttributes
@@ -21,7 +21,7 @@ class GetOccurrence:
                  identifier='',
                  inline_resource_data=RetrievalOption.dont_inline_resource_data,
                  resolve_attributes=RetrievalOption.dont_resolve_attributes,
-                 language=Language.en):
+                 language=Language.eng):
         self.database_path = database_path
         self.map_identifier = map_identifier
         self.identifier = identifier
@@ -29,9 +29,9 @@ class GetOccurrence:
         self.resolve_attributes = resolve_attributes
         self.language = language
 
-    def do(self):
+    def execute(self):
         if self.identifier == '':
-            raise TopicStoreException("Missing 'identifier' parameter")
+            raise TopicStoreError("Missing 'identifier' parameter")
         result = None
 
         connection = sqlite3.connect(self.database_path)
@@ -44,20 +44,20 @@ class GetOccurrence:
             if record:
                 resource_data = None
                 if self.inline_resource_data:
-                    resource_data = GetOccurrenceData(self.database_path, self.identifier).do()
+                    resource_data = GetOccurrenceData(self.database_path, self.identifier).execute()
                 result = Occurrence(
-                        record['identifier'],
-                        record['instance_of'],
-                        record['topic_identifier_fk'],
-                        record['scope'],
-                        record['resource_ref'],
-                        resource_data,
-                        Language[record['language']])
+                    record['identifier'],
+                    record['instance_of'],
+                    record['topic_identifier_fk'],
+                    record['scope'],
+                    record['resource_ref'],
+                    resource_data,
+                    Language[record['language']])
                 if self.resolve_attributes is RetrievalOption.resolve_attributes:
                     # TODO: Optimize.
-                    result.add_attributes(GetAttributes(self.database_path, self.map_identifier, self.identifier, self.language).do())
-        except sqlite3.Error as e:
-            raise TopicStoreException(e)
+                    result.add_attributes(GetAttributes(self.database_path, self.map_identifier, self.identifier, self.language).execute())
+        except sqlite3.Error as error:
+            raise TopicStoreError(error)
         finally:
             if cursor:
                 cursor.close()

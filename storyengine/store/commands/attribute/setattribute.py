@@ -7,7 +7,7 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 
 import sqlite3
 
-from storyengine.store.topicstoreexception import TopicStoreException
+from storyengine.store.topicstoreerror import TopicStoreError
 
 
 class SetAttribute:
@@ -18,15 +18,15 @@ class SetAttribute:
         self.map_identifier = map_identifier
         self.attribute = attribute
 
-    def do(self):
+    def execute(self):
         if self.attribute is None:
-            raise TopicStoreException("Missing 'attribute' parameter")
+            raise TopicStoreError("Missing 'attribute' parameter")
         elif self.attribute.entity_identifier == '':
-            raise TopicStoreException("Attribute has an empty 'entity identifier' property")
+            raise TopicStoreError("Attribute has an empty 'entity identifier' property")
 
         connection = sqlite3.connect(self.database_path)
 
-        try: 
+        try:
             with connection:  # https://docs.python.org/3/library/sqlite3.html#using-the-connection-as-a-context-manager
                 connection.execute("INSERT INTO attribute (topicmap_identifier, identifier, parent_identifier_fk, name, value, data_type, scope, language) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
                                    (self.map_identifier,
@@ -37,8 +37,8 @@ class SetAttribute:
                                     self.attribute.data_type.name,
                                     self.attribute.scope,
                                     self.attribute.language.name))
-        except sqlite3.Error as e:
-            raise TopicStoreException(e)
+        except sqlite3.Error as error:
+            raise TopicStoreError(error)
         finally:
             if connection:
                 connection.close()

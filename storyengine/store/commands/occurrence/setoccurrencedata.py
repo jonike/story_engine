@@ -7,7 +7,7 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 
 import sqlite3
 
-from storyengine.store.topicstoreexception import TopicStoreException
+from storyengine.store.topicstoreerror import TopicStoreError
 
 
 class SetOccurrenceData:
@@ -19,17 +19,17 @@ class SetOccurrenceData:
         self.identifier = identifier
         self.resource_data = bytes(resource_data, 'utf-8')
 
-    def do(self):
+    def execute(self):
         if self.identifier == '' or self.resource_data is None:
-            raise TopicStoreException("Missing either or both 'identifier' and 'resource data' parameters")
+            raise TopicStoreError("Missing either or both 'identifier' and 'resource data' parameters")
 
         connection = sqlite3.connect(self.database_path)
 
         try:
             with connection:
                 connection.execute("UPDATE occurrence SET resource_data = ? WHERE topicmap_identifier = ? AND identifier = ?", (self.resource_data, self.map_identifier, self.identifier))
-        except sqlite3.Error as e:
-            raise TopicStoreException(e)
+        except sqlite3.Error as error:
+            raise TopicStoreError(error)
         finally:
             if connection:
                 connection.close()

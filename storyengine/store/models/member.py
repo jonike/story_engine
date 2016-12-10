@@ -9,14 +9,14 @@ import uuid
 
 from slugify import slugify
 
-from storyengine.store.topicstoreexception import TopicStoreException
+from storyengine.store.topicstoreerror import TopicStoreError
 
 
 class Member:
 
     def __init__(self, topic_ref='', role_spec='related', identifier=''):
         if role_spec == '':
-            raise TopicStoreException("Empty 'role spec' parameter")
+            raise TopicStoreError("Empty 'role spec' parameter")
         self.__role_spec = slugify(str(role_spec))
         self.__topic_refs = [] if topic_ref == '' else [slugify(str(topic_ref))]
         self.__identifier = (str(uuid.uuid4()) if identifier == '' else slugify(str(identifier)))
@@ -28,20 +28,20 @@ class Member:
     @role_spec.setter
     def role_spec(self, value):
         if value == '':
-            raise TopicStoreException("Empty 'value' parameter")
+            raise TopicStoreError("Empty 'value' parameter")
         self.__role_spec = slugify(str(value))
 
     @property
     def identifier(self):
         return self.__identifier
-        
+
     @property
     def topic_refs(self):
         return self.__topic_refs
 
     def add_topic_ref(self, topic_ref):
         if topic_ref == '':
-            raise TopicStoreException("Empty 'topic ref' parameter")
+            raise TopicStoreError("Empty 'topic ref' parameter")
         self.__topic_refs.append(slugify(str(topic_ref)))
 
     def remove_topic_ref(self, topic_ref):

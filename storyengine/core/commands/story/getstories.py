@@ -7,7 +7,7 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 
 import sqlite3
 
-from storyengine.core.coreexception import CoreException
+from storyengine.core.coreerror import CoreError
 from storyengine.core.models.story import Story
 
 
@@ -16,7 +16,7 @@ class GetStories:
     def __init__(self, database_path):
         self.database_path = database_path
 
-    def do(self):
+    def execute(self):
         result = []
 
         connection = sqlite3.connect(self.database_path)
@@ -34,8 +34,8 @@ class GetStories:
                     record['description'])
                 story.identifier = record['identifier']
                 result.append(story)
-        except sqlite3.Error as e:
-            raise CoreException(e)
+        except sqlite3.Error as error:
+            raise CoreError(error)
         finally:
             if cursor:
                 cursor.close()

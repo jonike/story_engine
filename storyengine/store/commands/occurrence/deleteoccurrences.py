@@ -7,7 +7,7 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 
 import sqlite3
 
-from storyengine.store.topicstoreexception import TopicStoreException
+from storyengine.store.topicstoreerror import TopicStoreError
 from storyengine.store.commands.occurrence.deleteoccurrence import DeleteOccurrence
 
 
@@ -18,9 +18,9 @@ class DeleteOccurrences:
         self.map_identifier = map_identifier
         self.topic_identifier = topic_identifier
 
-    def do(self):
+    def execute(self):
         if self.topic_identifier == '':
-            raise TopicStoreException("Missing 'topic identifier' parameter")
+            raise TopicStoreError("Missing 'topic identifier' parameter")
 
         connection = sqlite3.connect(self.database_path)
         connection.row_factory = sqlite3.Row
@@ -31,9 +31,9 @@ class DeleteOccurrences:
             records = cursor.fetchall()
             for record in records:
                 # TODO: Optimize.
-                DeleteOccurrence(self.database_path, self.map_identifier, record['identifier']).do()
-        except sqlite3.Error as e:
-            raise TopicStoreException(e)
+                DeleteOccurrence(self.database_path, self.map_identifier, record['identifier']).execute()
+        except sqlite3.Error as error:
+            raise TopicStoreError(error)
         finally:
             if connection:
                 connection.close()
