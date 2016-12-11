@@ -10,4 +10,4 @@ class Path:
 
     def __init__(self, direction, destination):
         self.direction = direction
-        self.to = destination
+        self.destination = destination

@@ -319,7 +319,7 @@ def get_scene(map_identifier, identifier):
         for path in scene.paths:
             paths.append({
                 'direction': path.direction,
-                'to': path.to
+                'destination': path.destination
             })
         for attribute in scene.attributes:
             attributes.append({
