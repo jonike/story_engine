@@ -29,7 +29,7 @@ from storyengine.core.commands.scene.getprop import GetProp
 from storyengine.core.commands.scene.getcharacter import GetCharacter
 
 
-DATABASE_PATH = '/home/brettk/Source/storytechnologies/story_engine/data/storytech.sqlite'
+DATABASE_PATH = '/home/brettk/Source/storytechnologies/story_engine/data/storytech.db'
 
 
 def get_topic_identifiers(map_identifier, query, offset=0, limit=100, filter_entities=RetrievalOption.filter_entities):

@@ -28,7 +28,7 @@ from storyengine.store.models.occurrence import Occurrence
 from storyengine.store.commands.occurrence.setoccurrence import SetOccurrence
 
 
-DATABASE_PATH = '/home/brettk/Source/storytechnologies/story_engine/data/storytech.sqlite'
+DATABASE_PATH = '/home/brettk/Source/storytechnologies/story_engine/data/storytech.db'
 MAP_IDENTIFIER = 1
 
 # Create and bootstrap topic map (ontology).
