@@ -5,7 +5,7 @@ September 04, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 """
 
-import os.path
+import os
 
 from storyengine.core.commands.story.setstory import SetStory
 from storyengine.core.models.story import Story
@@ -28,7 +28,7 @@ from topicmapengine.core.models.occurrence import Occurrence
 from topicmapengine.core.commands.occurrence.setoccurrence import SetOccurrence
 
 
-DATABASE_PATH = '/home/brettk/Source/storytechnologies/story_engine/data/storytech.db'
+DATABASE_PATH = os.path.join(os.path.dirname(__file__), '../data/stories.db')
 MAP_IDENTIFIER = 1
 
 # Create and bootstrap topic map (ontology).

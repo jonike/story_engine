@@ -5,6 +5,7 @@ July 09, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 """
 
+import os
 import base64
 import functools
 
@@ -29,7 +30,7 @@ from storyengine.core.commands.scene.getprop import GetProp
 from storyengine.core.commands.scene.getcharacter import GetCharacter
 
 
-DATABASE_PATH = '/home/brettk/Source/storytechnologies/story_engine/data/storytech.db'
+DATABASE_PATH = os.path.join(os.path.dirname(__file__), '../../data/stories.db')
 
 
 def get_topic_identifiers(map_identifier, query, offset=0, limit=100, filter_entities=RetrievalOption.filter_entities):
