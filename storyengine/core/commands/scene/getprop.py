@@ -7,10 +7,10 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 
 from storyengine.core.coreerror import CoreError
 from storyengine.core.models.asset import Asset
-from storyengine.store.commands.occurrence.getoccurrences import GetOccurrences
-from storyengine.store.topicstoreerror import TopicStoreError
-from storyengine.store.commands.topic.gettopic import GetTopic
-from storyengine.store.retrievaloption import RetrievalOption
+from topicmapengine.core.commands.occurrence.getoccurrences import GetOccurrences
+from topicmapengine.core.topicstoreerror import TopicStoreError
+from topicmapengine.core.commands.topic.gettopic import GetTopic
+from topicmapengine.core.retrievaloption import RetrievalOption
 from storyengine.core.models.prop import Prop
 
 

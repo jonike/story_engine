@@ -6,7 +6,7 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 """
 
 from storyengine.core.models.entity import Entity
-from storyengine.store.commands.association.getassociationgroups import GetAssociationGroups
+from topicmapengine.core.commands.association.getassociationgroups import GetAssociationGroups
 
 
 class Scene(Entity):

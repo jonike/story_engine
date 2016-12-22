@@ -5,9 +5,9 @@ July 16, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 """
 
-from storyengine.store.models.association import Association
+from topicmapengine.core.models.association import Association
 from storyengine.core.coreerror import CoreError
-from storyengine.store.commands.association.setassociation import SetAssociation
+from topicmapengine.core.commands.association.setassociation import SetAssociation
 
 
 class SetNavigation:

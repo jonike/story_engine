@@ -9,12 +9,12 @@ import os.path
 
 from storyengine.core.commands.story.setstory import SetStory
 from storyengine.core.models.story import Story
-from storyengine.store.commands.attribute.setattribute import SetAttribute
-from storyengine.store.commands.map.createmap import CreateMap
-from storyengine.store.commands.map.initmap import InitMap
-from storyengine.store.commands.tag.settags import SetTags
-from storyengine.store.commands.topic.topicexists import TopicExists
-from storyengine.store.models.attribute import Attribute
+from topicmapengine.core.commands.attribute.setattribute import SetAttribute
+from topicmapengine.core.commands.map.createmap import CreateMap
+from topicmapengine.core.commands.map.initmap import InitMap
+from topicmapengine.core.commands.tag.settags import SetTags
+from topicmapengine.core.commands.topic.topicexists import TopicExists
+from topicmapengine.core.models.attribute import Attribute
 from storyengine.core.commands.scene.setcharacter import SetCharacter
 from storyengine.core.commands.scene.setprop import SetProp
 from storyengine.core.commands.scene.setscene import SetScene
@@ -24,8 +24,8 @@ from storyengine.core.models.prop import Prop
 from storyengine.core.models.scene import Scene
 from storyengine.core.models.asset import Asset
 
-from storyengine.store.models.occurrence import Occurrence
-from storyengine.store.commands.occurrence.setoccurrence import SetOccurrence
+from topicmapengine.core.models.occurrence import Occurrence
+from topicmapengine.core.commands.occurrence.setoccurrence import SetOccurrence
 
 
 DATABASE_PATH = '/home/brettk/Source/storytechnologies/story_engine/data/storytech.db'

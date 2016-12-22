@@ -5,16 +5,16 @@ July 16, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 """
 
-from storyengine.store.commands.occurrence.setoccurrencedata import SetOccurrenceData
-from storyengine.store.models.topic import Topic
-from storyengine.store.models.occurrence import Occurrence
-from storyengine.store.models.association import Association
-from storyengine.store.models.attribute import Attribute
+from topicmapengine.core.commands.occurrence.setoccurrencedata import SetOccurrenceData
+from topicmapengine.core.models.topic import Topic
+from topicmapengine.core.models.occurrence import Occurrence
+from topicmapengine.core.models.association import Association
+from topicmapengine.core.models.attribute import Attribute
 from storyengine.core.coreerror import CoreError
-from storyengine.store.commands.topic.settopic import SetTopic
-from storyengine.store.commands.occurrence.setoccurrence import SetOccurrence
-from storyengine.store.commands.association.setassociation import SetAssociation
-from storyengine.store.commands.attribute.setattributes import SetAttributes
+from topicmapengine.core.commands.topic.settopic import SetTopic
+from topicmapengine.core.commands.occurrence.setoccurrence import SetOccurrence
+from topicmapengine.core.commands.association.setassociation import SetAssociation
+from topicmapengine.core.commands.attribute.setattributes import SetAttributes
 
 
 class SetCharacter:
