@@ -4,7 +4,7 @@
 
 StoryTechnologies’ core application provides for a unique storytelling experience by combining the following elements:
 
-* A high-level semantic description of 3D environments using a bespoke [topic maps-based graph database](https://github.com/brettkromkamp/topicmaps_engine)
+* A high-level semantic description of 3D environments using a bespoke [topic maps-based graph database](https://github.com/brettkromkamp/topic_db)
 * WebGL-based interactive scene browser
 * An opinionated [architecture of stories](http://www.storytechnologies.com/2016/05/minimum-viable-story/)
 
