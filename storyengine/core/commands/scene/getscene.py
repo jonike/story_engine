@@ -11,11 +11,11 @@ from storyengine.core.commands.scene.gettags import GetEntitiesTags
 from storyengine.core.coreerror import CoreError
 from storyengine.core.models.asset import Asset
 from storyengine.core.models.path import Path
-from topicmapengine.core.commands.occurrence.getoccurrences import GetOccurrences
-from topicmapengine.core.topicstoreerror import TopicStoreError
-from topicmapengine.core.commands.topic.gettopic import GetTopic
-from topicmapengine.core.commands.association.getassociations import GetAssociations
-from topicmapengine.core.retrievaloption import RetrievalOption
+from topicdb.core.commands.occurrence.getoccurrences import GetOccurrences
+from topicdb.core.topicstoreerror import TopicStoreError
+from topicdb.core.commands.topic.gettopic import GetTopic
+from topicdb.core.commands.association.getassociations import GetAssociations
+from topicdb.core.retrievaloption import RetrievalOption
 from storyengine.core.models.scene import Scene
 
 

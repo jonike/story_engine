@@ -5,9 +5,9 @@ October 12, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 """
 
-from topicmapengine.core.commands.association.getassociationgroups import GetAssociationGroups
-from topicmapengine.core.commands.tag.gettags import GetTags
-from topicmapengine.core.topicstoreerror import TopicStoreError
+from topicdb.core.commands.association.getassociationgroups import GetAssociationGroups
+from topicdb.core.commands.tag.gettags import GetTags
+from topicdb.core.topicstoreerror import TopicStoreError
 
 
 class GetEntitiesTags:

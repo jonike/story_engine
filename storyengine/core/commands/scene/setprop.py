@@ -5,16 +5,16 @@ July 16, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 """
 
-from topicmapengine.core.commands.occurrence.setoccurrencedata import SetOccurrenceData
-from topicmapengine.core.models.topic import Topic
-from topicmapengine.core.models.occurrence import Occurrence
-from topicmapengine.core.models.attribute import Attribute
-from topicmapengine.core.models.association import Association
+from topicdb.core.commands.occurrence.setoccurrencedata import SetOccurrenceData
+from topicdb.core.models.topic import Topic
+from topicdb.core.models.occurrence import Occurrence
+from topicdb.core.models.attribute import Attribute
+from topicdb.core.models.association import Association
 from storyengine.core.coreerror import CoreError
-from topicmapengine.core.commands.topic.settopic import SetTopic
-from topicmapengine.core.commands.occurrence.setoccurrence import SetOccurrence
-from topicmapengine.core.commands.association.setassociation import SetAssociation
-from topicmapengine.core.commands.attribute.setattributes import SetAttributes
+from topicdb.core.commands.topic.settopic import SetTopic
+from topicdb.core.commands.occurrence.setoccurrence import SetOccurrence
+from topicdb.core.commands.association.setassociation import SetAssociation
+from topicdb.core.commands.attribute.setattributes import SetAttributes
 
 
 class SetProp:

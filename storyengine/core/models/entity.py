@@ -9,7 +9,7 @@ from slugify import slugify
 
 from storyengine.core.models.asset import Asset
 from storyengine.core.models.path import Path
-from topicmapengine.core.models.attribute import Attribute
+from topicdb.core.models.attribute import Attribute
 
 
 class Entity:
