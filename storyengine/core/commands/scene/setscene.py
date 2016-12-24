@@ -6,13 +6,14 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 """
 
 from topicdb.core.commands.occurrence.setoccurrencedata import SetOccurrenceData
-from topicdb.core.models.topic import Topic
-from topicdb.core.models.occurrence import Occurrence
-from topicdb.core.models.attribute import Attribute
-from storyengine.core.coreerror import CoreError
 from topicdb.core.commands.topic.settopic import SetTopic
 from topicdb.core.commands.occurrence.setoccurrence import SetOccurrence
 from topicdb.core.commands.attribute.setattributes import SetAttributes
+from topicdb.core.models.topic import Topic
+from topicdb.core.models.occurrence import Occurrence
+from topicdb.core.models.attribute import Attribute
+
+from storyengine.core.coreerror import CoreError
 
 
 class SetScene:

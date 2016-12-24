@@ -5,8 +5,9 @@ July 19, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 """
 
-from storyengine.core.models.entity import Entity
 from topicdb.core.commands.association.getassociationgroups import GetAssociationGroups
+
+from storyengine.core.models.entity import Entity
 
 
 class Scene(Entity):

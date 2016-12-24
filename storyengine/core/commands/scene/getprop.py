@@ -5,12 +5,13 @@ July 22, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 """
 
-from storyengine.core.coreerror import CoreError
-from storyengine.core.models.asset import Asset
 from topicdb.core.commands.occurrence.getoccurrences import GetOccurrences
 from topicdb.core.topicstoreerror import TopicStoreError
 from topicdb.core.commands.topic.gettopic import GetTopic
 from topicdb.core.retrievaloption import RetrievalOption
+
+from storyengine.core.coreerror import CoreError
+from storyengine.core.models.asset import Asset
 from storyengine.core.models.prop import Prop
 
 

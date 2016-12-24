@@ -7,25 +7,25 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 
 import os
 
-from storyengine.core.commands.story.setstory import SetStory
-from storyengine.core.models.story import Story
 from topicdb.core.commands.attribute.setattribute import SetAttribute
 from topicdb.core.commands.map.createmap import CreateMap
 from topicdb.core.commands.map.initmap import InitMap
 from topicdb.core.commands.tag.settags import SetTags
 from topicdb.core.commands.topic.topicexists import TopicExists
+from topicdb.core.commands.occurrence.setoccurrence import SetOccurrence
 from topicdb.core.models.attribute import Attribute
+from topicdb.core.models.occurrence import Occurrence
+
+from storyengine.core.commands.story.setstory import SetStory
 from storyengine.core.commands.scene.setcharacter import SetCharacter
 from storyengine.core.commands.scene.setprop import SetProp
 from storyengine.core.commands.scene.setscene import SetScene
 from storyengine.core.commands.scene.setnavigation import SetNavigation
+from storyengine.core.models.story import Story
 from storyengine.core.models.character import Character
 from storyengine.core.models.prop import Prop
 from storyengine.core.models.scene import Scene
 from storyengine.core.models.asset import Asset
-
-from topicdb.core.models.occurrence import Occurrence
-from topicdb.core.commands.occurrence.setoccurrence import SetOccurrence
 
 
 DATABASE_PATH = os.path.join(os.path.dirname(__file__), '../data/stories.db')

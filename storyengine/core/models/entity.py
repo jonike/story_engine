@@ -7,9 +7,10 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 
 from slugify import slugify
 
+from topicdb.core.models.attribute import Attribute
+
 from storyengine.core.models.asset import Asset
 from storyengine.core.models.path import Path
-from topicdb.core.models.attribute import Attribute
 
 
 class Entity:

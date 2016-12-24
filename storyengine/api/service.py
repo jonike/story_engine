@@ -9,11 +9,6 @@ import os
 import base64
 import functools
 
-from storyengine.core.commands.scene.gettags import GetEntitiesTags
-from storyengine.core.commands.story.getstories import GetStories
-from storyengine.core.commands.story.getstory import GetStory
-from storyengine.core.models.character import Character
-from storyengine.core.models.prop import Prop
 from topicdb.core.commands.association.getassociation import GetAssociation
 from topicdb.core.commands.association.getassociationgroups import GetAssociationGroups
 from topicdb.core.commands.attribute.getattributes import GetAttributes
@@ -25,9 +20,15 @@ from topicdb.core.commands.topic.gettopicidentifiers import GetTopicIdentifiers
 from topicdb.core.commands.topic.gettopics import GetTopics
 from topicdb.core.commands.topic.gettopicshierarchy import GetTopicsHierarchy
 from topicdb.core.retrievaloption import RetrievalOption
+
+from storyengine.core.commands.scene.gettags import GetEntitiesTags
+from storyengine.core.commands.story.getstories import GetStories
+from storyengine.core.commands.story.getstory import GetStory
 from storyengine.core.commands.scene.getscene import GetScene
 from storyengine.core.commands.scene.getprop import GetProp
 from storyengine.core.commands.scene.getcharacter import GetCharacter
+from storyengine.core.models.character import Character
+from storyengine.core.models.prop import Prop
 
 
 DATABASE_PATH = os.path.join(os.path.dirname(__file__), '../../data/stories.db')
