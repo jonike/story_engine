@@ -9,7 +9,7 @@ from setuptools import setup, find_packages
 
 setup(name='story_engine',
       version='0.1.0',
-      description='A high-level semantic description of stories -including 3D environments- using a bespoke topic map-based property graph database',
+      description='A high-level semantic description of stories -including 3D environments- using a bespoke topic map-based graph database',
       classifiers=[
         'Development Status :: 3 - Alpha',
         'License :: OSI Approved :: MIT License',
@@ -23,7 +23,7 @@ setup(name='story_engine',
       license='MIT',
       packages=find_packages(),
       install_requires=[
-            'connexion', 'flask-cors', 'gevent'
+            'connexion', 'flask-cors', 'gevent', 'topic-db'
       ],
       include_package_data=True,
       zip_safe=False)
