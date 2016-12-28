@@ -19,7 +19,7 @@ from topicdb.core.commands.topic.gettopic import GetTopic
 from topicdb.core.commands.topic.gettopicidentifiers import GetTopicIdentifiers
 from topicdb.core.commands.topic.gettopics import GetTopics
 from topicdb.core.commands.topic.gettopicshierarchy import GetTopicsHierarchy
-from topicdb.core.retrievaloption import RetrievalOption
+from topicdb.core.commands.retrievaloption import RetrievalOption
 
 from storyengine.core.commands.scene.gettags import GetEntitiesTags
 from storyengine.core.commands.story.getstories import GetStories
@@ -34,9 +34,9 @@ from storyengine.core.models.prop import Prop
 DATABASE_PATH = os.path.join(os.path.dirname(__file__), '../../data/stories.db')
 
 
-def get_topic_identifiers(map_identifier, query, offset=0, limit=100, filter_entities=RetrievalOption.filter_entities):
-    # TODO: Implement 'filter entities' switch.
-    result = GetTopicIdentifiers(DATABASE_PATH, map_identifier, query, filter_entities, offset, limit).execute()
+def get_topic_identifiers(map_identifier, query, offset=0, limit=100):
+    result = GetTopicIdentifiers(DATABASE_PATH, map_identifier, query, offset, limit).execute()
+    # TODO: Filter out anything that is not either a prop, character, or scene.
     if result:
         return result, 200
     else:
