@@ -3,6 +3,8 @@ Story Engine from StoryTechnologies
 
 `StoryTechnologies`_ is a set of software tools for content creators to enable the development and publishing of compelling interactive visual stories on the web, mobile, and desktop.
 
+.. image:: http://www.storytechnologies.com/wp-content/uploads/2016/12/story-engine-logo.png
+
 The StoryTechnologies core application provides for a unique storytelling experience by combining the following elements:
 
 -  A high-level semantic description of 3D environments using a bespoke `topic maps-based graph database`_
