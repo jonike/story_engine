@@ -16,6 +16,18 @@ Technologies
 -  `Blender`_, a free and open source 3D creation suite
 -  `Python 3`_, a high-level dynamic programming language
 
+Use Case
+--------
+
+The scene browser is the first component to use the story engine. Click on the image below to see the scene browser in action.
+
+.. image:: http://www.storytechnologies.com/wp-content/uploads/2016/11/desert1-small.png
+    :target: http://www.youtube.com/watch?feature=player_embedded&v=RF1-VGqixnM
+    :width: 640
+    :border: 10
+
+If you're interested in knowing more about the scene browser take a look at this article: `Interactive Scene Browser for Stories`_. You can also checkout the `StoryTechnologies YouTube channel`_ for more information.
+
 How to Contribute
 -----------------
 
@@ -39,3 +51,5 @@ Norway.
 .. _Brett Kromkamp: https://twitter.com/brettkromkamp
 .. _the repository: https://github.com/brettkromkamp/story_engine
 .. _AUTHORS: https://github.com/brettkromkamp/story_engine/blob/master/AUTHORS.rst
+.. _Interactive Scene Browser for Stories: http://www.storytechnologies.com/2016/10/interactive-scene-browser-for-stories/
+.. _StoryTechnologies YouTube channel: https://www.youtube.com/channel/UCd1QRCmYP9AVxno-AjZvAyg
