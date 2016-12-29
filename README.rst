@@ -23,7 +23,6 @@ The scene browser is the first component to use the story engine. Click on the i
 
 .. image:: http://www.storytechnologies.com/wp-content/uploads/2016/11/desert1-small.png
     :target: http://www.youtube.com/watch?feature=player_embedded&v=RF1-VGqixnM
-    :width: 640
 
 If you're interested in knowing more about the scene browser take a look at this article: `Interactive Scene Browser for Stories`_. You can also checkout the `StoryTechnologies YouTube channel`_ for more information.
 
