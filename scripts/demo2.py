@@ -8,33 +8,23 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 import os
 
 from topicdb.core.commands.attribute.setattribute import SetAttribute
-from topicdb.core.commands.map.createmap import CreateMap
-from topicdb.core.commands.map.initmap import InitMap
 from topicdb.core.commands.topic.settopic import SetTopic
-from topicdb.core.commands.topic.topicexists import TopicExists
+from topicdb.core.commands.topicmap.settopicmap import SetTopicMap
 from topicdb.core.models.attribute import Attribute
 from topicdb.core.models.topic import Topic
 
-from storyengine.core.commands.story.setstory import SetStory
-from storyengine.core.models.story import Story
 from storyengine.core.commands.scene.setscene import SetScene
 from storyengine.core.models.scene import Scene
 from storyengine.core.models.asset import Asset
 
 
 DATABASE_PATH = os.path.join(os.path.dirname(__file__), '../data/stories.db')
-MAP_IDENTIFIER = 2
-
-# Create and bootstrap topic map (ontology).
-if not os.path.isfile(DATABASE_PATH):
-    CreateMap(DATABASE_PATH).execute()
-
-if not TopicExists(DATABASE_PATH, MAP_IDENTIFIER, 'genesis').execute():
-    InitMap(DATABASE_PATH, MAP_IDENTIFIER).execute()
+TOPIC_MAP_IDENTIFIER = 2
 
 # Story.
-story = Story("An Unexpected Meeting", MAP_IDENTIFIER, "cafeteria")
-SetStory(DATABASE_PATH, story).execute()
+TITLE = 'An Unexpected Meeting'
+
+SetTopicMap(DATABASE_PATH, TOPIC_MAP_IDENTIFIER, TITLE, entry_topic='cafeteria').execute()
 
 # Scene 01 - Cafeteria.
 asset11 = Asset('scene', 'scene-012.json')
@@ -47,9 +37,9 @@ coffeehouses, despite being the Spanish translation of the English term.
 """
 asset12 = Asset('text', data=scene1_text)
 scene1.add_asset(asset12)
-SetScene(DATABASE_PATH, MAP_IDENTIFIER, scene1).execute()
+SetScene(DATABASE_PATH, TOPIC_MAP_IDENTIFIER, scene1).execute()
 attribute11 = Attribute('type', 'exterior', 'cafeteria')
-SetAttribute(DATABASE_PATH, MAP_IDENTIFIER, attribute11).execute()
+SetAttribute(DATABASE_PATH, TOPIC_MAP_IDENTIFIER, attribute11).execute()
 
 
 # Scene 02 - House.
@@ -63,14 +53,14 @@ SetAttribute(DATABASE_PATH, MAP_IDENTIFIER, attribute11).execute()
 
 # Annotations
 annotation1 = Topic('palm-tree', 'annotation', 'Palm Tree')
-SetTopic(DATABASE_PATH, MAP_IDENTIFIER, annotation1).execute()
+SetTopic(DATABASE_PATH, TOPIC_MAP_IDENTIFIER, annotation1).execute()
 
 annotation2 = Topic('street-lamp', 'annotation', 'Street Lamp')
-SetTopic(DATABASE_PATH, MAP_IDENTIFIER, annotation2).execute()
+SetTopic(DATABASE_PATH, TOPIC_MAP_IDENTIFIER, annotation2).execute()
 
 annotation3 = Topic('trash-cans', 'annotation', 'Trash Cans')
-SetTopic(DATABASE_PATH, MAP_IDENTIFIER, annotation3).execute()
+SetTopic(DATABASE_PATH, TOPIC_MAP_IDENTIFIER, annotation3).execute()
 
 annotation4 = Topic('chimney', 'annotation', 'Chimney')
-SetTopic(DATABASE_PATH, MAP_IDENTIFIER, annotation4).execute()
+SetTopic(DATABASE_PATH, TOPIC_MAP_IDENTIFIER, annotation4).execute()
 
