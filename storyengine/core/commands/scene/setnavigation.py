@@ -13,13 +13,13 @@ from storyengine.core.coreerror import CoreError
 
 class SetNavigation:
 
-    def __init__(self, database_path, map_identifier,
+    def __init__(self, database_path, topic_map_identifier,
                  src_scene_identifier='',
                  dest_scene_identifier='',
                  src_scene_role='previous',
                  dest_scene_role='next'):
         self.database_path = database_path
-        self.map_identifier = map_identifier
+        self.topic_map_identifier = topic_map_identifier
         self.src_scene_identifier = src_scene_identifier
         self.dest_scene_identifier = dest_scene_identifier
         self.src_scene_role = src_scene_role
@@ -34,4 +34,4 @@ class SetNavigation:
             dest_topic_ref=self.dest_scene_identifier,
             src_role_spec=self.src_scene_role,
             dest_role_spec=self.dest_scene_role)
-        SetAssociation(self.database_path, self.map_identifier, association).execute()
+        SetAssociation(self.database_path, self.topic_map_identifier, association).execute()

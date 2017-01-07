@@ -20,10 +20,10 @@ from topicdb.core.commands.topic.gettopicidentifiers import GetTopicIdentifiers
 from topicdb.core.commands.topic.gettopics import GetTopics
 from topicdb.core.commands.topic.gettopicshierarchy import GetTopicsHierarchy
 from topicdb.core.commands.retrievaloption import RetrievalOption
+from topicdb.core.commands.topicmap.gettopicmap import GetTopicMap
+from topicdb.core.commands.topicmap.gettopicmaps import GetTopicMaps
 
 from storyengine.core.commands.scene.gettags import GetEntitiesTags
-from storyengine.core.commands.story.getstories import GetStories
-from storyengine.core.commands.story.getstory import GetStory
 from storyengine.core.commands.scene.getscene import GetScene
 from storyengine.core.commands.scene.getprop import GetProp
 from storyengine.core.commands.scene.getcharacter import GetCharacter
@@ -34,8 +34,8 @@ from storyengine.core.models.prop import Prop
 DATABASE_PATH = os.path.join(os.path.dirname(__file__), '../../data/stories.db')
 
 
-def get_topic_identifiers(map_identifier, query, offset=0, limit=100):
-    result = GetTopicIdentifiers(DATABASE_PATH, map_identifier, query, offset, limit).execute()
+def get_topic_identifiers(topic_map_identifier, query, offset=0, limit=100):
+    result = GetTopicIdentifiers(DATABASE_PATH, topic_map_identifier, query, offset, limit).execute()
     # TODO: Filter out anything that is not either a prop, character, or scene.
     if result:
         return result, 200
@@ -44,8 +44,8 @@ def get_topic_identifiers(map_identifier, query, offset=0, limit=100):
 
 
 @functools.lru_cache(maxsize=64)
-def get_topic(map_identifier, identifier):
-    topic = GetTopic(DATABASE_PATH, map_identifier, identifier, RetrievalOption.resolve_attributes).execute()
+def get_topic(topic_map_identifier, identifier):
+    topic = GetTopic(DATABASE_PATH, topic_map_identifier, identifier, RetrievalOption.resolve_attributes).execute()
     if topic:
         attributes = []
         base_names = []
@@ -78,8 +78,8 @@ def get_topic(map_identifier, identifier):
         return "Not found", 404
 
 
-def get_topics(map_identifier, instance_of='topic', offset=0, limit=100):
-    topics = GetTopics(DATABASE_PATH, map_identifier, instance_of=instance_of, offset=offset, limit=limit).execute()
+def get_topics(topic_map_identifier, instance_of='topic', offset=0, limit=100):
+    topics = GetTopics(DATABASE_PATH, topic_map_identifier, instance_of=instance_of, offset=offset, limit=limit).execute()
     if topics:
         result = []
         for topic in topics:
@@ -115,7 +115,7 @@ def get_topics(map_identifier, instance_of='topic', offset=0, limit=100):
         return "Not found", 404
 
 
-def get_topics_hierarchy(map_identifier, identifier):
+def get_topics_hierarchy(topic_map_identifier, identifier):
 
     def build_topics_hierarchy(inner_identifier):
         # JSON data structure suitable for the RGraph visualization from the
@@ -161,7 +161,7 @@ def get_topics_hierarchy(map_identifier, identifier):
         for child in children:
             build_topics_hierarchy(child)
 
-    tree = GetTopicsHierarchy(DATABASE_PATH, map_identifier, identifier).execute()
+    tree = GetTopicsHierarchy(DATABASE_PATH, topic_map_identifier, identifier).execute()
     if len(tree) > 1:
         result = {}
         build_topics_hierarchy(identifier)
@@ -171,8 +171,8 @@ def get_topics_hierarchy(map_identifier, identifier):
 
 
 @functools.lru_cache(maxsize=64)
-def get_occurrence(map_identifier, identifier, inline_resource_data=RetrievalOption.dont_inline_resource_data):
-    occurrence = GetOccurrence(DATABASE_PATH, map_identifier, identifier, inline_resource_data).execute()
+def get_occurrence(topic_map_identifier, identifier, inline_resource_data=RetrievalOption.dont_inline_resource_data):
+    occurrence = GetOccurrence(DATABASE_PATH, topic_map_identifier, identifier, inline_resource_data).execute()
     if occurrence:
         # TODO: Implementation.
         return "Occurrence found", 200
@@ -180,11 +180,11 @@ def get_occurrence(map_identifier, identifier, inline_resource_data=RetrievalOpt
         return "Not found", 404
 
 
-def get_occurrences(map_identifier, identifier,
+def get_occurrences(topic_map_identifier, identifier,
                     inline_resource_data=RetrievalOption.dont_inline_resource_data,
                     resolve_attributes=RetrievalOption.dont_resolve_attributes,
                     instance_of=''):
-    occurrences = GetOccurrences(DATABASE_PATH, map_identifier, identifier, inline_resource_data, resolve_attributes, instance_of).execute()
+    occurrences = GetOccurrences(DATABASE_PATH, topic_map_identifier, identifier, inline_resource_data, resolve_attributes, instance_of).execute()
     if occurrences:
         result = []
         for occurrence in occurrences:
@@ -220,8 +220,8 @@ def get_occurrences(map_identifier, identifier,
 
 
 @functools.lru_cache(maxsize=64)
-def get_association(map_identifier, identifier):
-    association = GetAssociation(DATABASE_PATH, map_identifier, identifier).execute()
+def get_association(topic_map_identifier, identifier):
+    association = GetAssociation(DATABASE_PATH, topic_map_identifier, identifier).execute()
     if association:
         # TODO: Implementation.
         return "Association found", 200
@@ -229,8 +229,8 @@ def get_association(map_identifier, identifier):
         return "Not found", 404
 
 
-def get_associations(map_identifier, identifier):
-    associations = GetAssociationGroups(DATABASE_PATH, map_identifier, identifier).execute()
+def get_associations(topic_map_identifier, identifier):
+    associations = GetAssociationGroups(DATABASE_PATH, topic_map_identifier, identifier).execute()
     if len(associations):
         level1 = []
         for instance_of in associations.dict:
@@ -238,11 +238,11 @@ def get_associations(map_identifier, identifier):
             for role in associations.dict[instance_of]:
                 level3 = []
                 for topic_ref in associations[instance_of, role]:
-                    topic3 = GetTopic(DATABASE_PATH, map_identifier, topic_ref).execute()
+                    topic3 = GetTopic(DATABASE_PATH, topic_map_identifier, topic_ref).execute()
                     level3.append({'text': topic3.first_base_name.name, 'href': topic_ref, 'instanceOf': instance_of})
-                topic2 = GetTopic(DATABASE_PATH, map_identifier, role).execute()
+                topic2 = GetTopic(DATABASE_PATH, topic_map_identifier, role).execute()
                 level2.append({'text': topic2.first_base_name.name, 'nodes': level3})
-            topic1 = GetTopic(DATABASE_PATH, map_identifier, instance_of).execute()
+            topic1 = GetTopic(DATABASE_PATH, topic_map_identifier, instance_of).execute()
             level1.append({'text': topic1.first_base_name.name, 'nodes': level2})
         return level1, 200
     else:
@@ -250,8 +250,8 @@ def get_associations(map_identifier, identifier):
 
 
 @functools.lru_cache(maxsize=64)
-def get_attribute(map_identifier, identifier):
-    attribute = GetAttribute(DATABASE_PATH, map_identifier, identifier).execute()
+def get_attribute(topic_map_identifier, identifier):
+    attribute = GetAttribute(DATABASE_PATH, topic_map_identifier, identifier).execute()
     if attribute:
         # TODO: Implementation.
         return "Attribute found", 200
@@ -259,8 +259,8 @@ def get_attribute(map_identifier, identifier):
         return "Not found", 404
 
 
-def get_attributes(map_identifier, identifier):
-    attributes = GetAttributes(DATABASE_PATH, map_identifier, identifier).execute()
+def get_attributes(topic_map_identifier, identifier):
+    attributes = GetAttributes(DATABASE_PATH, topic_map_identifier, identifier).execute()
     if attributes:
         # TODO: Implementation.
         return "Attributes found", 200
@@ -269,8 +269,8 @@ def get_attributes(map_identifier, identifier):
 
 
 @functools.lru_cache(maxsize=64)
-def get_scene(map_identifier, identifier):
-    scene = GetScene(DATABASE_PATH, map_identifier, identifier).execute()
+def get_scene(topic_map_identifier, identifier):
+    scene = GetScene(DATABASE_PATH, topic_map_identifier, identifier).execute()
     if scene:
         assets = []
         props = []
@@ -358,8 +358,8 @@ def get_scene(map_identifier, identifier):
 
 
 @functools.lru_cache(maxsize=64)
-def get_scene_tags(map_identifier, identifier):
-    entities_tags = GetEntitiesTags(DATABASE_PATH, map_identifier, identifier).execute()
+def get_scene_tags(topic_map_identifier, identifier):
+    entities_tags = GetEntitiesTags(DATABASE_PATH, topic_map_identifier, identifier).execute()
     if entities_tags:
         result = []
         for tag, tagged_entities in entities_tags.items():
@@ -373,8 +373,8 @@ def get_scene_tags(map_identifier, identifier):
 
 
 @functools.lru_cache(maxsize=64)
-def get_prop(map_identifier, identifier):
-    prop = GetProp(DATABASE_PATH, map_identifier, identifier).execute()
+def get_prop(topic_map_identifier, identifier):
+    prop = GetProp(DATABASE_PATH, topic_map_identifier, identifier).execute()
     if prop:
         assets = []
         attributes = []
@@ -409,8 +409,8 @@ def get_prop(map_identifier, identifier):
 
 
 @functools.lru_cache(maxsize=64)
-def get_character(map_identifier, identifier):
-    character = GetCharacter(DATABASE_PATH, map_identifier, identifier).execute()
+def get_character(topic_map_identifier, identifier):
+    character = GetCharacter(DATABASE_PATH, topic_map_identifier, identifier).execute()
     if character:
         assets = []
         attributes = []
@@ -446,14 +446,14 @@ def get_character(map_identifier, identifier):
 
 @functools.lru_cache(maxsize=64)
 def get_story(story_identifier):
-    story = GetStory(DATABASE_PATH, story_identifier).execute()
+    story = GetTopicMap(DATABASE_PATH, story_identifier).execute()
     if story:
         result = {
             'story': {
                 'identifier': story.identifier,
                 'title': story.title,
                 'topicMapIdentifier': story.topic_map_identifier,
-                'startSceneIdentifier': story.start_scene_identifier,
+                'startSceneIdentifier': story.entry_topic_identifier,
                 'description': story.description
             }
         }
@@ -463,7 +463,7 @@ def get_story(story_identifier):
 
 
 def get_stories():
-    stories = GetStories(DATABASE_PATH).execute()
+    stories = GetTopicMaps(DATABASE_PATH).execute()
     if stories:
         result = []
         for story in stories:
@@ -472,7 +472,7 @@ def get_stories():
                     'identifier': story.identifier,
                     'title': story.title,
                     'topicMapIdentifier': story.topic_map_identifier,
-                    'startSceneIdentifier': story.start_scene_identifier,
+                    'startSceneIdentifier': story.entry_topic_identifier,
                     'description': story.description
                 }
             }

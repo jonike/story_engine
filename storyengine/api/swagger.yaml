@@ -8,12 +8,12 @@ produces:
   - application/json
 basePath: /1.0
 paths:
-  '/maps/{map_identifier}/identifiers':
+  '/maps/{topic_map_identifier}/identifiers':
     get:
       operationId: storyengine.api.service.get_topic_identifiers
       summary: Get topic identifiers
       parameters:
-        - $ref: '#/parameters/map_identifier'
+        - $ref: '#/parameters/topic_map_identifier'
         - name: query
           description: Query string
           in: query
@@ -27,12 +27,12 @@ paths:
           description: Return topic identifiers
         404:
           description: No topics exist
-  '/maps/{map_identifier}/topics':
+  '/maps/{topic_map_identifier}/topics':
     get:
       operationId: storyengine.api.service.get_topics
       summary: Get topics
       parameters:
-        - $ref: '#/parameters/map_identifier'
+        - $ref: '#/parameters/topic_map_identifier'
         - $ref: '#/parameters/instance_of'
         - $ref: '#/parameters/offset'
         - $ref: '#/parameters/limit'
@@ -41,24 +41,24 @@ paths:
           description: Return topics
         404:
           description: No topics exist
-  '/maps/{map_identifier}/topics/{identifier}':
+  '/maps/{topic_map_identifier}/topics/{identifier}':
     get:
       operationId: storyengine.api.service.get_topic
       summary: Get a single topic
       parameters:
-        - $ref: '#/parameters/map_identifier'
+        - $ref: '#/parameters/topic_map_identifier'
         - $ref: '#/parameters/identifier'
       responses:
         200:
           description: Return topic
         404:
           description: Topic does not exist
-  '/maps/{map_identifier}/topics/{identifier}/occurrences':
+  '/maps/{topic_map_identifier}/topics/{identifier}/occurrences':
     get:
       operationId: storyengine.api.service.get_occurrences
       summary: Get the occurrences for a given topic
       parameters:
-        - $ref: '#/parameters/map_identifier'
+        - $ref: '#/parameters/topic_map_identifier'
         - $ref: '#/parameters/identifier'
         - name: inline_resource_data
           description: Retrieve (and inline) the occurrence's data
@@ -76,72 +76,72 @@ paths:
           description: Return occurrences
         404:
           description: Topic does not have occurrences
-  '/maps/{map_identifier}/topics/{identifier}/associations':
+  '/maps/{topic_map_identifier}/topics/{identifier}/associations':
     get:
       operationId: storyengine.api.service.get_associations
       summary: Get the associations for a given topic
       parameters:
-        - $ref: '#/parameters/map_identifier'
+        - $ref: '#/parameters/topic_map_identifier'
         - $ref: '#/parameters/identifier'
       responses:
         200:
           description: Return associations
         404:
           description: Topic does not have associations
-  '/maps/{map_identifier}/scenes/{identifier}':
+  '/maps/{topic_map_identifier}/scenes/{identifier}':
     get:
       operationId: storyengine.api.service.get_scene
       summary: Get a single scene
       parameters:
-        - $ref: '#/parameters/map_identifier'
+        - $ref: '#/parameters/topic_map_identifier'
         - $ref: '#/parameters/identifier'
       responses:
         200:
           description: Return scene
         404:
           description: Scene does not exist
-  '/maps/{map_identifier}/scenes/{identifier}/tags':
+  '/maps/{topic_map_identifier}/scenes/{identifier}/tags':
     get:
       operationId: storyengine.api.service.get_scene_tags
       summary: Get the tags for the scene's entities
       parameters:
-        - $ref: '#/parameters/map_identifier'
+        - $ref: '#/parameters/topic_map_identifier'
         - $ref: '#/parameters/identifier'
       responses:
         200:
           description: Return tags
         404:
           description: Scene does not have any tagged entities
-  '/maps/{map_identifier}/props/{identifier}':
+  '/maps/{topic_map_identifier}/props/{identifier}':
     get:
       operationId: storyengine.api.service.get_prop
       summary: Get a single prop
       parameters:
-        - $ref: '#/parameters/map_identifier'
+        - $ref: '#/parameters/topic_map_identifier'
         - $ref: '#/parameters/identifier'
       responses:
         200:
           description: Return prop
         404:
           description: Prop does not exist
-  '/maps/{map_identifier}/characters/{identifier}':
+  '/maps/{topic_map_identifier}/characters/{identifier}':
     get:
       operationId: storyengine.api.service.get_character
       summary: Get a single character
       parameters:
-        - $ref: '#/parameters/map_identifier'
+        - $ref: '#/parameters/topic_map_identifier'
         - $ref: '#/parameters/identifier'
       responses:
         200:
           description: Return character
         404:
           description: Character does not exist
-  '/maps/{map_identifier}/hierarchies/{identifier}':
+  '/maps/{topic_map_identifier}/hierarchies/{identifier}':
     get:
       operationId: storyengine.api.service.get_topics_hierarchy
       summary: Pending
       parameters:
-        - $ref: '#/parameters/map_identifier'
+        - $ref: '#/parameters/topic_map_identifier'
         - $ref: '#/parameters/identifier'
       responses:
         200:
@@ -176,8 +176,8 @@ parameters:
     in: path
     type: integer
     required: true
-  map_identifier:
-    name: map_identifier
+  topic_map_identifier:
+    name: topic_map_identifier
     description: Unique (topic) map identifier
     in: path
     type: integer

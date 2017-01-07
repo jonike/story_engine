@@ -12,9 +12,9 @@ from topicdb.core.topicstoreerror import TopicStoreError
 
 class GetEntitiesTags:
 
-    def __init__(self, database_path, map_identifier, identifier=''):
+    def __init__(self, database_path, topic_map_identifier, identifier=''):
         self.database_path = database_path
-        self.map_identifier = map_identifier
+        self.topic_map_identifier = topic_map_identifier
         self.identifier = identifier
 
     def execute(self):
@@ -40,14 +40,14 @@ class GetEntitiesTags:
         # tag8 -> topic5
 
         topic_tags = {}
-        groups = GetAssociationGroups(self.database_path, self.map_identifier, self.identifier).execute()
+        groups = GetAssociationGroups(self.database_path, self.topic_map_identifier, self.identifier).execute()
         for instance_of in groups.dict:
             for role in groups.dict[instance_of]:
                 for topic_ref in groups[instance_of, role]:
                     if topic_ref == self.identifier:
                         continue
                     if instance_of == 'prop' or instance_of == 'character':
-                        topic_tags[topic_ref] = GetTags(self.database_path, self.map_identifier, topic_ref).execute()
+                        topic_tags[topic_ref] = GetTags(self.database_path, self.topic_map_identifier, topic_ref).execute()
 
         for topic, tags in topic_tags.items():
             for tag in tags:

@@ -20,11 +20,11 @@ from storyengine.core.coreerror import CoreError
 
 class SetProp:
 
-    def __init__(self, database_path, map_identifier,
+    def __init__(self, database_path, topic_map_identifier,
                  prop=None,
                  scene_identifier=''):
         self.database_path = database_path
-        self.map_identifier = map_identifier
+        self.topic_map_identifier = topic_map_identifier
         self.scene_identifier = scene_identifier
         self.prop = prop
 
@@ -33,22 +33,22 @@ class SetProp:
             raise CoreError("Missing 'scene identifier' or 'property' parameter")
 
         topic = Topic(self.prop.identifier, self.prop.instance_of, self.prop.name)
-        SetTopic(self.database_path, self.map_identifier, topic).execute()
+        SetTopic(self.database_path, self.topic_map_identifier, topic).execute()
 
         location_attribute = Attribute('location', self.prop.location, topic.identifier)
         rotation_attribute = Attribute('rotation', self.prop.rotation, topic.identifier)
         scale_attribute = Attribute('scale', self.prop.scale, topic.identifier)
 
-        SetAttributes(self.database_path, self.map_identifier, [location_attribute, rotation_attribute, scale_attribute]).execute()
+        SetAttributes(self.database_path, self.topic_map_identifier, [location_attribute, rotation_attribute, scale_attribute]).execute()
 
         for asset in self.prop.assets:
             occurrence = Occurrence(
                 instance_of=asset.instance_of,
                 topic_identifier=topic.identifier,
                 resource_ref=asset.reference)
-            SetOccurrence(self.database_path, self.map_identifier, occurrence).execute()
+            SetOccurrence(self.database_path, self.topic_map_identifier, occurrence).execute()
             if asset.data is not None:
-                SetOccurrenceData(self.database_path, self.map_identifier, occurrence.identifier, asset.data).execute()
+                SetOccurrenceData(self.database_path, self.topic_map_identifier, occurrence.identifier, asset.data).execute()
 
         association = Association(
             instance_of='prop',
@@ -56,4 +56,4 @@ class SetProp:
             dest_topic_ref=self.scene_identifier,
             src_role_spec='included-in',
             dest_role_spec='includes')
-        SetAssociation(self.database_path, self.map_identifier, association).execute()
+        SetAssociation(self.database_path, self.topic_map_identifier, association).execute()

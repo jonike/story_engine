@@ -8,20 +8,16 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 import os
 
 from topicdb.core.commands.attribute.setattribute import SetAttribute
-from topicdb.core.commands.map.createmap import CreateMap
-from topicdb.core.commands.map.initmap import InitMap
+from topicdb.core.commands.topicmap.settopicmap import SetTopicMap
 from topicdb.core.commands.tag.settags import SetTags
-from topicdb.core.commands.topic.topicexists import TopicExists
 from topicdb.core.commands.occurrence.setoccurrence import SetOccurrence
 from topicdb.core.models.attribute import Attribute
 from topicdb.core.models.occurrence import Occurrence
 
-from storyengine.core.commands.story.setstory import SetStory
 from storyengine.core.commands.scene.setcharacter import SetCharacter
 from storyengine.core.commands.scene.setprop import SetProp
 from storyengine.core.commands.scene.setscene import SetScene
 from storyengine.core.commands.scene.setnavigation import SetNavigation
-from storyengine.core.models.story import Story
 from storyengine.core.models.character import Character
 from storyengine.core.models.prop import Prop
 from storyengine.core.models.scene import Scene
@@ -29,18 +25,13 @@ from storyengine.core.models.asset import Asset
 
 
 DATABASE_PATH = os.path.join(os.path.dirname(__file__), '../data/stories.db')
-MAP_IDENTIFIER = 1
-
-# Create and bootstrap topic map (ontology).
-if not os.path.isfile(DATABASE_PATH):
-    CreateMap(DATABASE_PATH).execute()
-
-if not TopicExists(DATABASE_PATH, 'genesis', MAP_IDENTIFIER).execute():
-    InitMap(DATABASE_PATH, MAP_IDENTIFIER).execute()
+TOPIC_MAP_IDENTIFIER = 1
 
 # Story.
-story = Story("The Doomsday Plans", MAP_IDENTIFIER, "outpost", "A soldier has to steal the plans for a secret weapon.")
-SetStory(DATABASE_PATH, story).execute()
+TITLE = 'The Doomsday Plans'
+DESCRIPTION = 'A soldier has to steal the plans for a secret weapon.'
+
+SetTopicMap(DATABASE_PATH, TOPIC_MAP_IDENTIFIER, TITLE, DESCRIPTION, entry_topic='outpost').execute()
 
 # Scene 01 - Outpost Alpha.
 asset11 = Asset('scene', 'scene-005.json')
@@ -53,9 +44,9 @@ settlement in an outlying frontier, limit, political boundary or in another coun
 """
 asset12 = Asset('text', data=scene1_text)
 scene1.add_asset(asset12)
-SetScene(DATABASE_PATH, MAP_IDENTIFIER, scene1).execute()
+SetScene(DATABASE_PATH, TOPIC_MAP_IDENTIFIER, scene1).execute()
 attribute11 = Attribute('type', 'exterior', 'outpost')
-SetAttribute(DATABASE_PATH, MAP_IDENTIFIER, attribute11).execute()
+SetAttribute(DATABASE_PATH, TOPIC_MAP_IDENTIFIER, attribute11).execute()
 
 # Prop - 'ammunition'.
 prop11 = Prop('ammunition', 'Ammunition')
@@ -79,7 +70,7 @@ conventional munitions, and terminally precision-guided munition.
 """
 asset14 = Asset('text', data=prop11_text)
 prop11.add_asset(asset14)
-SetProp(DATABASE_PATH, MAP_IDENTIFIER, prop11, 'outpost').execute()
+SetProp(DATABASE_PATH, TOPIC_MAP_IDENTIFIER, prop11, 'outpost').execute()
 
 
 # Scene 3 - Weapon Factory.
@@ -93,13 +84,13 @@ material, equipment, and facilities.
 """
 asset32 = Asset('text', data=scene3_text)
 scene3.add_asset(asset32)
-SetScene(DATABASE_PATH, MAP_IDENTIFIER, scene3).execute()
+SetScene(DATABASE_PATH, TOPIC_MAP_IDENTIFIER, scene3).execute()
 attribute31 = Attribute('type', 'exterior', 'weapon-factory')
-SetAttribute(DATABASE_PATH, MAP_IDENTIFIER, attribute31).execute()
+SetAttribute(DATABASE_PATH, TOPIC_MAP_IDENTIFIER, attribute31).execute()
 attribute32 = Attribute('mist-depth', '35', 'weapon-factory')
-SetAttribute(DATABASE_PATH, MAP_IDENTIFIER, attribute32).execute()
+SetAttribute(DATABASE_PATH, TOPIC_MAP_IDENTIFIER, attribute32).execute()
 attribute33 = Attribute('camera-rotation', '0.30', 'weapon-factory')  # Camera rotation multiplier.
-SetAttribute(DATABASE_PATH, MAP_IDENTIFIER, attribute33).execute()
+SetAttribute(DATABASE_PATH, TOPIC_MAP_IDENTIFIER, attribute33).execute()
 
 # Prop - 'Telecommunications Facility".
 prop31 = Prop('telecommunications-facility', 'Telecommunications Facility')
@@ -121,7 +112,7 @@ pavement, and underlying land.
 """
 asset34 = Asset('text', data=prop31_text)
 prop31.add_asset(asset34)
-SetProp(DATABASE_PATH, MAP_IDENTIFIER, prop31, 'weapon-factory').execute()
+SetProp(DATABASE_PATH, TOPIC_MAP_IDENTIFIER, prop31, 'weapon-factory').execute()
 
 # Prop - 'Military Robot.
 prop32 = Prop('robot', 'Military Robot')
@@ -139,7 +130,7 @@ returns on their decade-old fantasy of using aerial robots to collect intelligen
 """
 asset36 = Asset('text', data=prop32_text)
 prop32.add_asset(asset36)
-SetProp(DATABASE_PATH, MAP_IDENTIFIER, prop32, 'weapon-factory').execute()
+SetProp(DATABASE_PATH, TOPIC_MAP_IDENTIFIER, prop32, 'weapon-factory').execute()
 
 
 # Scene 5 - Research Area.
@@ -154,11 +145,11 @@ beyond immediate military requirements.
 """
 asset52 = Asset('text', data=scene5_text)
 scene5.add_asset(asset52)
-SetScene(DATABASE_PATH, MAP_IDENTIFIER, scene5).execute()
+SetScene(DATABASE_PATH, TOPIC_MAP_IDENTIFIER, scene5).execute()
 attribute51 = Attribute('type', 'interior', 'research-area')
-SetAttribute(DATABASE_PATH, MAP_IDENTIFIER, attribute51).execute()
+SetAttribute(DATABASE_PATH, TOPIC_MAP_IDENTIFIER, attribute51).execute()
 attribute52 = Attribute('camera-clamp', 'true', 'research-area')
-SetAttribute(DATABASE_PATH, MAP_IDENTIFIER, attribute52).execute()
+SetAttribute(DATABASE_PATH, TOPIC_MAP_IDENTIFIER, attribute52).execute()
 
 # Prop - 'Computer research system'.
 prop51 = Prop('computer', 'Research System')
@@ -175,8 +166,8 @@ electronics.
 """
 asset54 = Asset('text', data=prop51_text)
 prop51.add_asset(asset54)
-SetProp(DATABASE_PATH, MAP_IDENTIFIER, prop51, 'research-area').execute()
-SetTags(DATABASE_PATH, MAP_IDENTIFIER, 'computer', ['electronics']).execute()
+SetProp(DATABASE_PATH, TOPIC_MAP_IDENTIFIER, prop51, 'research-area').execute()
+SetTags(DATABASE_PATH, TOPIC_MAP_IDENTIFIER, 'computer', ['electronics']).execute()
 tag51_text = """__Electronics__ is the science of controlling electrical energy electrically, in which the electrons
 have a fundamental role. Electronics deals with electrical circuits that involve active electrical components such as
 vacuum tubes, transistors, diodes, integrated circuits, associated passive electrical components, and interconnection
@@ -186,7 +177,7 @@ Commonly, electronic devices contain circuitry consisting primarily or exclusive
 with passive elements; such a circuit is described as an electronic circuit.
 """
 tag_occurrence51 = Occurrence(topic_identifier='electronics', instance_of='text', resource_data=bytes(tag51_text, 'utf-8'))
-SetOccurrence(DATABASE_PATH, MAP_IDENTIFIER, tag_occurrence51).execute()
+SetOccurrence(DATABASE_PATH, TOPIC_MAP_IDENTIFIER, tag_occurrence51).execute()
 
 # Prop - 'Desk'.
 prop52 = Prop('desk', 'Desk')
@@ -202,8 +193,8 @@ or metal, although materials such as tempered glass are sometimes seen.
 """
 asset56 = Asset('text', data=prop52_text)
 prop52.add_asset(asset56)
-SetProp(DATABASE_PATH, MAP_IDENTIFIER, prop52, 'research-area').execute()
-SetTags(DATABASE_PATH, MAP_IDENTIFIER, 'desk', ['furniture']).execute()
+SetProp(DATABASE_PATH, TOPIC_MAP_IDENTIFIER, prop52, 'research-area').execute()
+SetTags(DATABASE_PATH, TOPIC_MAP_IDENTIFIER, 'desk', ['furniture']).execute()
 
 # Prop - 'Chair'.
 prop53 = Prop('chair', 'Chair')
@@ -220,8 +211,8 @@ the entire chair.
 """
 asset58 = Asset('text', data=prop53_text)
 prop53.add_asset(asset58)
-SetProp(DATABASE_PATH, MAP_IDENTIFIER, prop53, 'research-area').execute()
-SetTags(DATABASE_PATH, MAP_IDENTIFIER, 'chair', ['furniture']).execute()
+SetProp(DATABASE_PATH, TOPIC_MAP_IDENTIFIER, prop53, 'research-area').execute()
+SetTags(DATABASE_PATH, TOPIC_MAP_IDENTIFIER, 'chair', ['furniture']).execute()
 tag52_text = """Furniture is movable objects intended to support various human activities such as seating (e.g., chairs,
 stools, tables and sofas) and sleeping (e.g., beds). Furniture is also used to hold objects at a convenient height for
 work (as horizontal surfaces above the ground, such as tables and desks), or to store things (e.g., cupboards and
@@ -232,7 +223,7 @@ role, ita can serve a symbolic or religious purpose. It can be made from many ma
 wood. Furniture can be made using a variety of woodworking joints which often reflect the local culture.
 """
 tag_occurrence52 = Occurrence(topic_identifier='furniture', instance_of='text', resource_data=bytes(tag52_text, 'utf-8'))
-SetOccurrence(DATABASE_PATH, MAP_IDENTIFIER, tag_occurrence52).execute()
+SetOccurrence(DATABASE_PATH, TOPIC_MAP_IDENTIFIER, tag_occurrence52).execute()
 
 # Prop - 'Bookshelf'.
 prop54 = Prop('bookshelf', 'Bookshelf')
@@ -248,8 +239,8 @@ or other printed materials.
 """
 asset510 = Asset('text', data=prop54_text)
 prop54.add_asset(asset510)
-SetProp(DATABASE_PATH, MAP_IDENTIFIER, prop54, 'research-area').execute()
-SetTags(DATABASE_PATH, MAP_IDENTIFIER, 'bookshelf', ['furniture']).execute()
+SetProp(DATABASE_PATH, TOPIC_MAP_IDENTIFIER, prop54, 'research-area').execute()
+SetTags(DATABASE_PATH, TOPIC_MAP_IDENTIFIER, 'bookshelf', ['furniture']).execute()
 
 # Prop - 'Utility Robot.
 prop55 = Prop('utility-robot', 'Utility Robot')
@@ -275,9 +266,9 @@ the field of bio-inspired robotics. These robots have also created a newer branc
 """
 asset512 = Asset('text', data=prop55_text)
 prop55.add_asset(asset512)
-SetProp(DATABASE_PATH, MAP_IDENTIFIER, prop55, 'research-area').execute()
+SetProp(DATABASE_PATH, TOPIC_MAP_IDENTIFIER, prop55, 'research-area').execute()
 
-SetTags(DATABASE_PATH, MAP_IDENTIFIER, 'utility-robot', ['electronics']).execute()
+SetTags(DATABASE_PATH, TOPIC_MAP_IDENTIFIER, 'utility-robot', ['electronics']).execute()
 
 # Define and persist a character.
 character51 = Character('researcher', 'Researcher')
@@ -291,7 +282,7 @@ Scientists are often described as researchers.
 """
 asset512 = Asset('text', data=character51_text)
 character51.add_asset(asset512)
-SetCharacter(DATABASE_PATH, MAP_IDENTIFIER, character51, 'research-area').execute()
+SetCharacter(DATABASE_PATH, TOPIC_MAP_IDENTIFIER, character51, 'research-area').execute()
 
 
 # Scene 6 - Storage.
@@ -304,15 +295,15 @@ industrial areas of cities, towns and villages.
 """
 asset62 = Asset('text', data=scene6_text)
 scene6.add_asset(asset62)
-SetScene(DATABASE_PATH, MAP_IDENTIFIER, scene6).execute()
+SetScene(DATABASE_PATH, TOPIC_MAP_IDENTIFIER, scene6).execute()
 attribute61 = Attribute('type', 'interior', 'storage-area')
-SetAttribute(DATABASE_PATH, MAP_IDENTIFIER, attribute61).execute()
+SetAttribute(DATABASE_PATH, TOPIC_MAP_IDENTIFIER, attribute61).execute()
 attribute62 = Attribute('camera-clamp', 'true', 'storage-area')
-SetAttribute(DATABASE_PATH, MAP_IDENTIFIER, attribute62).execute()
+SetAttribute(DATABASE_PATH, TOPIC_MAP_IDENTIFIER, attribute62).execute()
 
 
-SetNavigation(DATABASE_PATH, MAP_IDENTIFIER, 'outpost', 'weapon-factory', 'west', 'east').execute()
-SetNavigation(DATABASE_PATH, MAP_IDENTIFIER, 'weapon-factory', 'research-area', 'south', 'north').execute()
-SetNavigation(DATABASE_PATH, MAP_IDENTIFIER, 'research-area', 'storage-area', 'south', 'north').execute()
+SetNavigation(DATABASE_PATH, TOPIC_MAP_IDENTIFIER, 'outpost', 'weapon-factory', 'west', 'east').execute()
+SetNavigation(DATABASE_PATH, TOPIC_MAP_IDENTIFIER, 'weapon-factory', 'research-area', 'south', 'north').execute()
+SetNavigation(DATABASE_PATH, TOPIC_MAP_IDENTIFIER, 'research-area', 'storage-area', 'south', 'north').execute()
 
 
