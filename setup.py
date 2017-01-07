@@ -8,7 +8,7 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 from setuptools import setup, find_packages
 
 setup(name='story-engine',
-      version='0.1.0',
+      version='0.2.0',
       description='A high-level semantic description of stories -including 3D environments- using a bespoke topic map-based graph database',
       classifiers=[
         'Development Status :: 3 - Alpha',
