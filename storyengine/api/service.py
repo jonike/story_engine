@@ -180,7 +180,7 @@ def get_occurrence(topic_map_identifier, identifier, inline_resource_data=Retrie
         return "Not found", 404
 
 
-def get_occurrences(topic_map_identifier, identifier,
+def get_topic_occurrences(topic_map_identifier, identifier,
                     inline_resource_data=RetrievalOption.dont_inline_resource_data,
                     resolve_attributes=RetrievalOption.dont_resolve_attributes,
                     instance_of=''):

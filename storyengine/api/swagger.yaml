@@ -55,7 +55,7 @@ paths:
           description: Topic does not exist
   '/maps/{topic_map_identifier}/topics/{identifier}/occurrences':
     get:
-      operationId: storyengine.api.service.get_occurrences
+      operationId: storyengine.api.service.get_topic_occurrences
       summary: Get the occurrences for a given topic
       parameters:
         - $ref: '#/parameters/topic_map_identifier'
