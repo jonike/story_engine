@@ -14,7 +14,7 @@ from topicdb.core.commands.association.getassociationgroups import GetAssociatio
 from topicdb.core.commands.attribute.getattributes import GetAttributes
 from topicdb.core.commands.attribute.getattribute import GetAttribute
 from topicdb.core.commands.occurrence.getoccurrence import GetOccurrence
-from topicdb.core.commands.occurrence.getoccurrences import GetOccurrences
+from topicdb.core.commands.topic.gettopicoccurrences import GetTopicOccurrences
 from topicdb.core.commands.topic.gettopic import GetTopic
 from topicdb.core.commands.topic.gettopicidentifiers import GetTopicIdentifiers
 from topicdb.core.commands.topic.gettopics import GetTopics
@@ -184,7 +184,7 @@ def get_occurrences(topic_map_identifier, identifier,
                     inline_resource_data=RetrievalOption.dont_inline_resource_data,
                     resolve_attributes=RetrievalOption.dont_resolve_attributes,
                     instance_of=''):
-    occurrences = GetOccurrences(DATABASE_PATH, topic_map_identifier, identifier, inline_resource_data, resolve_attributes, instance_of).execute()
+    occurrences = GetTopicOccurrences(DATABASE_PATH, topic_map_identifier, identifier, inline_resource_data, resolve_attributes, instance_of).execute()
     if occurrences:
         result = []
         for occurrence in occurrences:

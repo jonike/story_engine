@@ -5,7 +5,7 @@ July 22, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 """
 
-from topicdb.core.commands.occurrence.getoccurrences import GetOccurrences
+from topicdb.core.commands.topic.gettopicoccurrences import GetTopicOccurrences
 from topicdb.core.topicstoreerror import TopicStoreError
 from topicdb.core.commands.topic.gettopic import GetTopic
 from topicdb.core.commands.retrievaloption import RetrievalOption
@@ -26,14 +26,16 @@ class GetProp:
             raise CoreError("Missing 'identifier' parameter")
         result = None
         try:
-            topic = GetTopic(self.database_path, self.topic_map_identifier, self.identifier, RetrievalOption.resolve_attributes).execute()
+            topic = GetTopic(self.database_path, self.topic_map_identifier, self.identifier,
+                             RetrievalOption.resolve_attributes).execute()
             if topic:
                 result = Prop(topic.identifier, topic.first_base_name.name)
                 result.location = topic.get_attribute_by_name('location').value
                 result.rotation = topic.get_attribute_by_name('rotation').value
                 result.scale = topic.get_attribute_by_name('scale').value
 
-                occurrences = GetOccurrences(self.database_path, self.topic_map_identifier, self.identifier).execute()
+                occurrences = GetTopicOccurrences(self.database_path, self.topic_map_identifier,
+                                                  self.identifier).execute()
                 for occurrence in occurrences:
                     result.add_asset(Asset(occurrence.instance_of, occurrence.resource_ref))
 
