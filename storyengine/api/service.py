@@ -45,7 +45,8 @@ def get_topic_identifiers(topic_map_identifier, query, offset=0, limit=100):
 
 @functools.lru_cache(maxsize=64)
 def get_topic(topic_map_identifier, identifier):
-    topic = GetTopic(DATABASE_PATH, topic_map_identifier, identifier, RetrievalOption.resolve_attributes).execute()
+    topic = GetTopic(DATABASE_PATH, topic_map_identifier, identifier,
+                     RetrievalOption.RESOLVE_ATTRIBUTES).execute()
     if topic:
         attributes = []
         base_names = []
@@ -171,8 +172,10 @@ def get_topics_hierarchy(topic_map_identifier, identifier):
 
 
 @functools.lru_cache(maxsize=64)
-def get_occurrence(topic_map_identifier, identifier, inline_resource_data=RetrievalOption.dont_inline_resource_data):
-    occurrence = GetOccurrence(DATABASE_PATH, topic_map_identifier, identifier, inline_resource_data).execute()
+def get_occurrence(topic_map_identifier, identifier,
+                   inline_resource_data=RetrievalOption.DONT_INLINE_RESOURCE_DATA):
+    occurrence = GetOccurrence(DATABASE_PATH, topic_map_identifier, identifier,
+                               inline_resource_data).execute()
     if occurrence:
         # TODO: Implementation.
         return "Occurrence found", 200
@@ -181,10 +184,13 @@ def get_occurrence(topic_map_identifier, identifier, inline_resource_data=Retrie
 
 
 def get_topic_occurrences(topic_map_identifier, identifier,
-                    inline_resource_data=RetrievalOption.dont_inline_resource_data,
-                    resolve_attributes=RetrievalOption.dont_resolve_attributes,
-                    instance_of=''):
-    occurrences = GetTopicOccurrences(DATABASE_PATH, topic_map_identifier, identifier, inline_resource_data, resolve_attributes, instance_of).execute()
+                          inline_resource_data=RetrievalOption.DONT_INLINE_RESOURCE_DATA,
+                          resolve_attributes=RetrievalOption.DONT_RESOLVE_ATTRIBUTES,
+                          instance_of=''):
+    occurrences = GetTopicOccurrences(DATABASE_PATH, topic_map_identifier, identifier,
+                                      inline_resource_data,
+                                      resolve_attributes,
+                                      instance_of).execute()
     if occurrences:
         result = []
         for occurrence in occurrences:

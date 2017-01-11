@@ -27,7 +27,7 @@ class GetCharacter:
         result = None
         try:
             topic = GetTopic(self.database_path, self.topic_map_identifier, self.identifier,
-                             RetrievalOption.resolve_attributes).execute()
+                             RetrievalOption.RESOLVE_ATTRIBUTES).execute()
             if topic:
                 result = Character(topic.identifier, topic.first_base_name.name)
                 result.location = topic.get_attribute_by_name('location').value
