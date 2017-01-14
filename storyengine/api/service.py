@@ -184,15 +184,11 @@ def get_occurrence(topic_map_identifier, identifier,
 
 
 def get_topic_occurrences(topic_map_identifier, identifier,
-                          instance_of='',
+                          instance_of=None,
                           inline_resource_data=RetrievalOption.DONT_INLINE_RESOURCE_DATA,
                           resolve_attributes=RetrievalOption.DONT_RESOLVE_ATTRIBUTES):
-    if instance_of == '':
-        instance_of_parameter = None
-    else:
-        instance_of_parameter = instance_of
     occurrences = GetTopicOccurrences(DATABASE_PATH, topic_map_identifier, identifier,
-                                      instance_of=instance_of_parameter,
+                                      instance_of=instance_of,
                                       inline_resource_data=inline_resource_data,
                                       resolve_attributes=resolve_attributes).execute()
     if occurrences:
