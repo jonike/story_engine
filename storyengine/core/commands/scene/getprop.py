@@ -6,7 +6,7 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 """
 
 from topicdb.core.commands.topic.gettopicoccurrences import GetTopicOccurrences
-from topicdb.core.topicstoreerror import TopicStoreError
+from topicdb.core.commands.topicstoreerror import TopicStoreError
 from topicdb.core.commands.topic.gettopic import GetTopic
 from topicdb.core.commands.retrievaloption import RetrievalOption
 
