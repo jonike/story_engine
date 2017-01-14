@@ -32,7 +32,7 @@ class GetScene:
             raise CoreError("Missing 'scene identifier' parameter")
         try:
             topic = GetTopic(self.database_path, self.topic_map_identifier, self.identifier,
-                             RetrievalOption.RESOLVE_ATTRIBUTES).execute()
+                             resolve_attributes=RetrievalOption.RESOLVE_ATTRIBUTES).execute()
             if topic:
                 self.result = Scene(topic.identifier, topic.first_base_name.name,
                                     topic.get_attribute_by_name('ordinal').value)

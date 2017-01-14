@@ -27,7 +27,7 @@ class GetProp:
         result = None
         try:
             topic = GetTopic(self.database_path, self.topic_map_identifier, self.identifier,
-                             RetrievalOption.RESOLVE_ATTRIBUTES).execute()
+                             resolve_attributes=RetrievalOption.RESOLVE_ATTRIBUTES).execute()
             if topic:
                 result = Prop(topic.identifier, topic.first_base_name.name)
                 result.location = topic.get_attribute_by_name('location').value
