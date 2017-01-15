@@ -14,7 +14,7 @@ from topicdb.core.commands.association.getassociationgroups import GetAssociatio
 from topicdb.core.commands.attribute.getattributes import GetAttributes
 from topicdb.core.commands.attribute.getattribute import GetAttribute
 from topicdb.core.commands.occurrence.getoccurrence import GetOccurrence
-from topicdb.core.commands.occurrence.getoccurrences import GetOccurrences
+from topicdb.core.commands.topic.gettopicoccurrences import GetTopicOccurrences
 from topicdb.core.commands.topic.gettopic import GetTopic
 from topicdb.core.commands.topic.gettopicidentifiers import GetTopicIdentifiers
 from topicdb.core.commands.topic.gettopics import GetTopics
@@ -45,7 +45,8 @@ def get_topic_identifiers(topic_map_identifier, query, offset=0, limit=100):
 
 @functools.lru_cache(maxsize=64)
 def get_topic(topic_map_identifier, identifier):
-    topic = GetTopic(DATABASE_PATH, topic_map_identifier, identifier, RetrievalOption.resolve_attributes).execute()
+    topic = GetTopic(DATABASE_PATH, topic_map_identifier, identifier,
+                     resolve_attributes=RetrievalOption.RESOLVE_ATTRIBUTES).execute()
     if topic:
         attributes = []
         base_names = []
@@ -171,8 +172,10 @@ def get_topics_hierarchy(topic_map_identifier, identifier):
 
 
 @functools.lru_cache(maxsize=64)
-def get_occurrence(topic_map_identifier, identifier, inline_resource_data=RetrievalOption.dont_inline_resource_data):
-    occurrence = GetOccurrence(DATABASE_PATH, topic_map_identifier, identifier, inline_resource_data).execute()
+def get_occurrence(topic_map_identifier, identifier,
+                   inline_resource_data=RetrievalOption.DONT_INLINE_RESOURCE_DATA):
+    occurrence = GetOccurrence(DATABASE_PATH, topic_map_identifier, identifier,
+                               inline_resource_data).execute()
     if occurrence:
         # TODO: Implementation.
         return "Occurrence found", 200
@@ -180,11 +183,14 @@ def get_occurrence(topic_map_identifier, identifier, inline_resource_data=Retrie
         return "Not found", 404
 
 
-def get_occurrences(topic_map_identifier, identifier,
-                    inline_resource_data=RetrievalOption.dont_inline_resource_data,
-                    resolve_attributes=RetrievalOption.dont_resolve_attributes,
-                    instance_of=''):
-    occurrences = GetOccurrences(DATABASE_PATH, topic_map_identifier, identifier, inline_resource_data, resolve_attributes, instance_of).execute()
+def get_topic_occurrences(topic_map_identifier, identifier,
+                          instance_of=None,
+                          inline_resource_data=RetrievalOption.DONT_INLINE_RESOURCE_DATA,
+                          resolve_attributes=RetrievalOption.DONT_RESOLVE_ATTRIBUTES):
+    occurrences = GetTopicOccurrences(DATABASE_PATH, topic_map_identifier, identifier,
+                                      instance_of=instance_of,
+                                      inline_resource_data=inline_resource_data,
+                                      resolve_attributes=resolve_attributes).execute()
     if occurrences:
         result = []
         for occurrence in occurrences:
