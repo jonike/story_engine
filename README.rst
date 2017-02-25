@@ -7,7 +7,7 @@ Story Engine from StoryTechnologies
 
 The StoryTechnologies core application provides for a unique storytelling experience by combining the following elements:
 
--  A high-level semantic description of 3D environments using a bespoke `topic maps-based graph database`_
+-  A high-level semantic description of 3D environments using a bespoke `topic map-based graph library`_
 -  WebGL-based interactive scene browser
 -  An opinionated `architecture of stories`_
 
@@ -43,7 +43,7 @@ StoryTechnologies was founded in 2015 by `Brett Kromkamp`_ in Bodø,
 Norway.
 
 .. _StoryTechnologies: http://www.storytechnologies.com/
-.. _topic maps-based graph database: https://github.com/brettkromkamp/topic_db
+.. _topic map-based graph library: https://github.com/brettkromkamp/topic_db
 .. _architecture of stories: http://www.storytechnologies.com/2016/05/minimum-viable-story/
 .. _Blend4Web: https://www.blend4web.com/
 .. _Blender: https://www.blender.org/
