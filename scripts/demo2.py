@@ -13,7 +13,7 @@ from topicdb.core.commands.topicmap.settopicmap import SetTopicMap
 from topicdb.core.models.attribute import Attribute
 from topicdb.core.models.topic import Topic
 
-from storyengine.core.commands.scene.setscene import SetScene
+from storyengine.core.store.scene.setscene import SetScene
 from storyengine.core.models.scene import Scene
 from storyengine.core.models.asset import Asset
 

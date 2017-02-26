@@ -14,10 +14,10 @@ from topicdb.core.commands.occurrence.setoccurrence import SetOccurrence
 from topicdb.core.models.attribute import Attribute
 from topicdb.core.models.occurrence import Occurrence
 
-from storyengine.core.commands.scene.setcharacter import SetCharacter
-from storyengine.core.commands.scene.setprop import SetProp
-from storyengine.core.commands.scene.setscene import SetScene
-from storyengine.core.commands.scene.setnavigation import SetNavigation
+from storyengine.core.store.scene.setcharacter import SetCharacter
+from storyengine.core.store.scene.setprop import SetProp
+from storyengine.core.store.scene.setscene import SetScene
+from storyengine.core.store.scene.setnavigation import SetNavigation
 from storyengine.core.models.character import Character
 from storyengine.core.models.prop import Prop
 from storyengine.core.models.scene import Scene
