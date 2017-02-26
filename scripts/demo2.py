@@ -5,26 +5,21 @@ November 11, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 """
 
-import os
-
-from topicdb.core.commands.attribute.setattribute import SetAttribute
-from topicdb.core.commands.topic.settopic import SetTopic
-from topicdb.core.commands.topicmap.settopicmap import SetTopicMap
 from topicdb.core.models.attribute import Attribute
 from topicdb.core.models.topic import Topic
 
-from storyengine.core.store.scene.setscene import SetScene
+from storyengine.core.store.scenestore import SceneStore
 from storyengine.core.models.scene import Scene
 from storyengine.core.models.asset import Asset
 
 
-DATABASE_PATH = os.path.join(os.path.dirname(__file__), '../data/stories.db')
 TOPIC_MAP_IDENTIFIER = 2
+
+scene_store = SceneStore("localhost", "5t0ryt3ch!")
+scene_store.open()
 
 # Story.
 TITLE = 'An Unexpected Meeting'
-
-SetTopicMap(DATABASE_PATH, TOPIC_MAP_IDENTIFIER, TITLE, entry_topic='cafeteria').execute()
 
 # Scene 01 - Cafeteria.
 asset11 = Asset('scene', 'scene-012.json')
@@ -37,9 +32,9 @@ coffeehouses, despite being the Spanish translation of the English term.
 """
 asset12 = Asset('text', data=scene1_text)
 scene1.add_asset(asset12)
-SetScene(DATABASE_PATH, TOPIC_MAP_IDENTIFIER, scene1).execute()
+scene_store.set_scene(TOPIC_MAP_IDENTIFIER, scene1)
 attribute11 = Attribute('type', 'exterior', 'cafeteria')
-SetAttribute(DATABASE_PATH, TOPIC_MAP_IDENTIFIER, attribute11).execute()
+scene_store.set_attribute(TOPIC_MAP_IDENTIFIER, attribute11)
 
 
 # Scene 02 - House.
@@ -53,14 +48,15 @@ SetAttribute(DATABASE_PATH, TOPIC_MAP_IDENTIFIER, attribute11).execute()
 
 # Annotations
 annotation1 = Topic('palm-tree', 'annotation', 'Palm Tree')
-SetTopic(DATABASE_PATH, TOPIC_MAP_IDENTIFIER, annotation1).execute()
+scene_store.set_topic(TOPIC_MAP_IDENTIFIER, annotation1)
 
 annotation2 = Topic('street-lamp', 'annotation', 'Street Lamp')
-SetTopic(DATABASE_PATH, TOPIC_MAP_IDENTIFIER, annotation2).execute()
+scene_store.set_topic(TOPIC_MAP_IDENTIFIER, annotation2)
 
 annotation3 = Topic('trash-cans', 'annotation', 'Trash Cans')
-SetTopic(DATABASE_PATH, TOPIC_MAP_IDENTIFIER, annotation3).execute()
+scene_store.set_topic(TOPIC_MAP_IDENTIFIER, annotation3)
 
 annotation4 = Topic('chimney', 'annotation', 'Chimney')
-SetTopic(DATABASE_PATH, TOPIC_MAP_IDENTIFIER, annotation4).execute()
+scene_store.set_topic(TOPIC_MAP_IDENTIFIER, annotation4)
 
+scene_store.close()

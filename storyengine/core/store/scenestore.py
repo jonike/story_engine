@@ -9,6 +9,7 @@ from topicdb.core.models.association import Association
 from topicdb.core.models.attribute import Attribute
 from topicdb.core.models.occurrence import Occurrence
 from topicdb.core.models.topic import Topic
+from topicdb.core.store.ontologymode import OntologyMode
 from topicdb.core.store.retrievaloption import RetrievalOption
 from topicdb.core.store.topicstore import TopicStore
 from storyengine.core.models.asset import Asset
@@ -293,3 +294,15 @@ class SceneStore:
 
     def get_topic_maps(self):
         return self.topic_store.get_topic_maps()
+
+    def set_attribute(self, topic_map_identifier, attribute, ontology_mode=OntologyMode.LENIENT):
+        self.topic_store.set_attribute(topic_map_identifier, attribute, ontology_mode)
+
+    def set_tags(self, topic_map_identifier, identifier, tags):
+        self.topic_store.set_tag(topic_map_identifier, identifier, tags)
+
+    def set_occurrence(self, topic_map_identifier, occurrence, ontology_mode=OntologyMode.STRICT):
+        self.topic_store.set_occurrence(topic_map_identifier, occurrence, ontology_mode)
+
+    def set_topic(self, topic_map_identifier, topic, ontology_mode=OntologyMode.STRICT):
+        self.topic_store.set_topic(topic_map_identifier, topic, ontology_mode)
