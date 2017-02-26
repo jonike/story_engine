@@ -86,7 +86,7 @@ class SceneStore:
 
             # Add scene's entities (props and characters).
             if result.associations:
-                groups = result.association_groups
+                groups = self.topic_store.get_association_groups(topic_map_identifier, identifier)
                 for instance_of in groups.dict:
                     for role in groups.dict[instance_of]:
                         for topic_ref in groups[instance_of, role]:
@@ -299,7 +299,7 @@ class SceneStore:
         self.topic_store.set_attribute(topic_map_identifier, attribute, ontology_mode)
 
     def set_tags(self, topic_map_identifier, identifier, tags):
-        self.topic_store.set_tag(topic_map_identifier, identifier, tags)
+        self.topic_store.set_tags(topic_map_identifier, identifier, tags)
 
     def set_occurrence(self, topic_map_identifier, occurrence, ontology_mode=OntologyMode.STRICT):
         self.topic_store.set_occurrence(topic_map_identifier, occurrence, ontology_mode)

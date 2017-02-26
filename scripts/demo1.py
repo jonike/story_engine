@@ -17,12 +17,10 @@ from storyengine.core.models.asset import Asset
 
 TOPIC_MAP_IDENTIFIER = 1
 
+# Instantiate and open the scene store.
 scene_store = SceneStore("localhost", "5t0ryt3ch!")
 scene_store.open()
 
-# Story.
-TITLE = 'The Doomsday Plans'
-DESCRIPTION = 'A soldier has to steal the plans for a secret weapon.'
 
 # Scene 01 - Outpost Alpha.
 asset11 = Asset('scene', 'scene-005.json')
@@ -292,9 +290,11 @@ scene_store.set_attribute(TOPIC_MAP_IDENTIFIER, attribute61)
 attribute62 = Attribute('camera-clamp', 'true', 'storage-area')
 scene_store.set_attribute(TOPIC_MAP_IDENTIFIER, attribute62)
 
-
+# Set up navigation.
 scene_store.set_navigation(TOPIC_MAP_IDENTIFIER, 'outpost', 'weapon-factory', 'west', 'east')
 scene_store.set_navigation(TOPIC_MAP_IDENTIFIER, 'weapon-factory', 'research-area', 'south', 'north')
 scene_store.set_navigation(TOPIC_MAP_IDENTIFIER, 'research-area', 'storage-area', 'south', 'north')
 
+
+# Clean-up.
 scene_store.close()

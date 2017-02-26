@@ -15,11 +15,10 @@ from storyengine.core.models.asset import Asset
 
 TOPIC_MAP_IDENTIFIER = 2
 
+# Instantiate and open the scene store.
 scene_store = SceneStore("localhost", "5t0ryt3ch!")
 scene_store.open()
 
-# Story.
-TITLE = 'An Unexpected Meeting'
 
 # Scene 01 - Cafeteria.
 asset11 = Asset('scene', 'scene-012.json')
@@ -59,4 +58,6 @@ scene_store.set_topic(TOPIC_MAP_IDENTIFIER, annotation3)
 annotation4 = Topic('chimney', 'annotation', 'Chimney')
 scene_store.set_topic(TOPIC_MAP_IDENTIFIER, annotation4)
 
+
+# Clean-up.
 scene_store.close()
