@@ -21,12 +21,13 @@ from storyengine.core.models.scene import Scene
 
 class SceneStore:
 
-    def __init__(self, host, password, port=5432):
-        self.host = host
-        self.password = password
-        self.port = port
+    def __init__(self, host, username, password, port=5432):
+        host = host
+        username = username
+        password = password
+        port = port
 
-        self.topic_store = TopicStore(host, password)
+        self.topic_store = TopicStore(host, username, password, port)
 
     def open(self):
         self.topic_store.open()
@@ -164,10 +165,11 @@ class SceneStore:
             occurrence = Occurrence(
                 instance_of=asset.instance_of,
                 topic_identifier=topic.identifier,
-                resource_ref=asset.reference)
+                resource_ref=asset.reference,
+                resource_data=asset.data)
             self.topic_store.set_occurrence(topic_map_identifier, occurrence)
-            if asset.data is not None:
-                self.topic_store.set_occurrence_data(topic_map_identifier, occurrence.identifier, asset.data)
+            # if asset.data is not None:
+            #     self.topic_store.set_occurrence_data(topic_map_identifier, occurrence.identifier, asset.data)
 
         association = Association(
             instance_of='character',
@@ -202,10 +204,11 @@ class SceneStore:
             occurrence = Occurrence(
                 instance_of=asset.instance_of,
                 topic_identifier=topic.identifier,
-                resource_ref=asset.reference)
+                resource_ref=asset.reference,
+                resource_data=asset.data)
             self.topic_store.set_occurrence(topic_map_identifier, occurrence)
-            if asset.data is not None:
-                self.topic_store.set_occurrence_data(topic_map_identifier, occurrence.identifier, asset.data)
+            # if asset.data is not None:
+            #     self.topic_store.set_occurrence_data(topic_map_identifier, occurrence.identifier, asset.data)
 
         association = Association(
             instance_of='prop',
@@ -230,10 +233,11 @@ class SceneStore:
             occurrence = Occurrence(
                 instance_of=asset.instance_of,
                 topic_identifier=topic.identifier,
-                resource_ref=asset.reference)
+                resource_ref=asset.reference,
+                resource_data=asset.data)
             self.topic_store.set_occurrence(topic_map_identifier, occurrence)
-            if asset.data is not None:
-                self.topic_store.set_occurrence_data(topic_map_identifier, occurrence.identifier, asset.data)
+            # if asset.data is not None:
+            #     self.topic_store.set_occurrence_data(topic_map_identifier, occurrence.identifier, asset.data)
 
     # ========== TOPIC STORE PROXY METHODS ==========
 

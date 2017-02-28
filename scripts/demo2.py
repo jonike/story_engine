@@ -16,7 +16,7 @@ from storyengine.core.models.asset import Asset
 TOPIC_MAP_IDENTIFIER = 2
 
 # Instantiate and open the scene store.
-scene_store = SceneStore("localhost", "5t0ryt3ch!")
+scene_store = SceneStore("localhost", "storytech", "5t0ryt3ch!")
 scene_store.open()
 
 

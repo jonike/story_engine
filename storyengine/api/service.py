@@ -15,7 +15,7 @@ from storyengine.core.models.character import Character
 from storyengine.core.models.prop import Prop
 
 
-scene_store = SceneStore("localhost", "5t0ryt3ch!")
+scene_store = SceneStore("localhost", "storytech", "5t0ryt3ch!")
 scene_store.open()
 
 
@@ -156,10 +156,9 @@ def get_topics_hierarchy(topic_map_identifier, identifier):
 
 
 @functools.lru_cache(maxsize=64)
-def get_occurrence(topic_map_identifier, identifier,
-                   inline_resource_data=RetrievalOption.DONT_INLINE_RESOURCE_DATA):
+def get_occurrence(topic_map_identifier, identifier):
     occurrence = scene_store.get_occurrence(topic_map_identifier, identifier,
-                                            inline_resource_data=inline_resource_data)
+                                            inline_resource_data=RetrievalOption.DONT_INLINE_RESOURCE_DATA)
     if occurrence:
         # TODO: Implementation.
         return "Occurrence found", 200
@@ -167,14 +166,12 @@ def get_occurrence(topic_map_identifier, identifier,
         return "Not found", 404
 
 
-def get_topic_occurrences(topic_map_identifier, identifier,
-                          instance_of=None,
-                          inline_resource_data=RetrievalOption.DONT_INLINE_RESOURCE_DATA,
-                          resolve_attributes=RetrievalOption.DONT_RESOLVE_ATTRIBUTES):
+# ========== FIX ME ==========
+def get_topic_occurrences(topic_map_identifier, identifier, instance_of=None):
     occurrences = scene_store.get_topic_occurrences(topic_map_identifier, identifier,
                                                     instance_of=instance_of,
-                                                    inline_resource_data=inline_resource_data,
-                                                    resolve_attributes=resolve_attributes)
+                                                    inline_resource_data=RetrievalOption.INLINE_RESOURCE_DATA,
+                                                    resolve_attributes=RetrievalOption.DONT_RESOLVE_ATTRIBUTES)
     if occurrences:
         result = []
         for occurrence in occurrences:
@@ -188,17 +185,13 @@ def get_topic_occurrences(topic_map_identifier, identifier,
                     'scope': attribute.scope,
                     'language': attribute.language.name
                 })
-            if occurrence.resource_data is None:
-                resource_data = None
-            else:
-                resource_data = base64.b64encode(occurrence.resource_data).decode('utf-8')
             occurrence_json = {
                 'occurrence': {
                     'identifier': occurrence.identifier,
                     'instanceOf': occurrence.instance_of,
                     'scope': occurrence.scope,
                     'resourceRef': occurrence.resource_ref,
-                    'resourceData': resource_data,
+                    'resourceData': occurrence.resource_data.decode("utf-8"),
                     'language': occurrence.language.name,
                     'attributes': attributes
                 }
@@ -207,6 +200,7 @@ def get_topic_occurrences(topic_map_identifier, identifier,
         return result, 200
     else:
         return "Not found", 404
+# ========== FIX ME ==========
 
 
 @functools.lru_cache(maxsize=64)
