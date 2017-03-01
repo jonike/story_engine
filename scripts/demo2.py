@@ -5,6 +5,9 @@ November 11, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 """
 
+import os
+import configparser
+
 from topicdb.core.models.attribute import Attribute
 from topicdb.core.models.topic import Topic
 
@@ -14,10 +17,17 @@ from storyengine.core.models.asset import Asset
 
 
 TOPIC_MAP_IDENTIFIER = 2
+SETTINGS_FILE_PATH = os.path.join(os.path.dirname(__file__), '../settings.ini')
+
+config = configparser.ConfigParser()
+config.read(SETTINGS_FILE_PATH)
+
+username = config['DATABASE']['Username']
+password = config['DATABASE']['Password']
 
 # Instantiate and open the scene store.
-scene_store = SceneStore("localhost", "storytech", "5t0ryt3ch!")
-scene_store.open()
+store = SceneStore("localhost", username, password)
+store.open()
 
 
 # Scene 01 - Cafeteria.
@@ -31,9 +41,9 @@ coffeehouses, despite being the Spanish translation of the English term.
 """
 asset12 = Asset('text', data=scene1_text)
 scene1.add_asset(asset12)
-scene_store.set_scene(TOPIC_MAP_IDENTIFIER, scene1)
+store.set_scene(TOPIC_MAP_IDENTIFIER, scene1)
 attribute11 = Attribute('type', 'exterior', 'cafeteria')
-scene_store.set_attribute(TOPIC_MAP_IDENTIFIER, attribute11)
+store.set_attribute(TOPIC_MAP_IDENTIFIER, attribute11)
 
 
 # Scene 02 - House.
@@ -47,17 +57,17 @@ scene_store.set_attribute(TOPIC_MAP_IDENTIFIER, attribute11)
 
 # Annotations
 annotation1 = Topic('palm-tree', 'annotation', 'Palm Tree')
-scene_store.set_topic(TOPIC_MAP_IDENTIFIER, annotation1)
+store.set_topic(TOPIC_MAP_IDENTIFIER, annotation1)
 
 annotation2 = Topic('street-lamp', 'annotation', 'Street Lamp')
-scene_store.set_topic(TOPIC_MAP_IDENTIFIER, annotation2)
+store.set_topic(TOPIC_MAP_IDENTIFIER, annotation2)
 
 annotation3 = Topic('trash-cans', 'annotation', 'Trash Cans')
-scene_store.set_topic(TOPIC_MAP_IDENTIFIER, annotation3)
+store.set_topic(TOPIC_MAP_IDENTIFIER, annotation3)
 
 annotation4 = Topic('chimney', 'annotation', 'Chimney')
-scene_store.set_topic(TOPIC_MAP_IDENTIFIER, annotation4)
+store.set_topic(TOPIC_MAP_IDENTIFIER, annotation4)
 
 
 # Clean-up.
-scene_store.close()
+store.close()
