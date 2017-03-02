@@ -39,7 +39,8 @@ def get_topic_identifiers(topic_map_identifier, query, offset=0, limit=100):
 
 @functools.lru_cache(maxsize=64)
 def get_topic(topic_map_identifier, identifier):
-    topic = store.get_topic(topic_map_identifier, identifier, resolve_attributes=RetrievalOption.RESOLVE_ATTRIBUTES)
+    topic = store.get_topic(topic_map_identifier, identifier,
+                            resolve_attributes=RetrievalOption.RESOLVE_ATTRIBUTES)
     if topic:
         attributes = []
         base_names = []
@@ -73,7 +74,10 @@ def get_topic(topic_map_identifier, identifier):
 
 
 def get_topics(topic_map_identifier, instance_of='topic', offset=0, limit=100):
-    topics = store.get_topics(topic_map_identifier, instance_of=instance_of, offset=offset, limit=limit)
+    topics = store.get_topics(topic_map_identifier,
+                              instance_of=instance_of,
+                              offset=offset,
+                              limit=limit)
     if topics:
         result = []
         for topic in topics:
@@ -167,7 +171,7 @@ def get_topics_hierarchy(topic_map_identifier, identifier):
 @functools.lru_cache(maxsize=64)
 def get_occurrence(topic_map_identifier, identifier):
     occurrence = store.get_occurrence(topic_map_identifier, identifier,
-                                            inline_resource_data=RetrievalOption.DONT_INLINE_RESOURCE_DATA)
+                                      inline_resource_data=RetrievalOption.DONT_INLINE_RESOURCE_DATA)
     if occurrence:
         # TODO: Implementation.
         return "Occurrence found", 200
@@ -178,9 +182,9 @@ def get_occurrence(topic_map_identifier, identifier):
 # ========== FIX ME ==========
 def get_topic_occurrences(topic_map_identifier, identifier, instance_of=None):
     occurrences = store.get_topic_occurrences(topic_map_identifier, identifier,
-                                                    instance_of=instance_of,
-                                                    inline_resource_data=RetrievalOption.INLINE_RESOURCE_DATA,
-                                                    resolve_attributes=RetrievalOption.DONT_RESOLVE_ATTRIBUTES)
+                                              instance_of=instance_of,
+                                              inline_resource_data=RetrievalOption.INLINE_RESOURCE_DATA,
+                                              resolve_attributes=RetrievalOption.DONT_RESOLVE_ATTRIBUTES)
     if occurrences:
         result = []
         for occurrence in occurrences:
@@ -194,13 +198,14 @@ def get_topic_occurrences(topic_map_identifier, identifier, instance_of=None):
                     'scope': attribute.scope,
                     'language': attribute.language.name
                 })
+            resource_data = occurrence.resource_data.decode("utf-8") if occurrence.resource_data is not None else None
             occurrence_json = {
                 'occurrence': {
                     'identifier': occurrence.identifier,
                     'instanceOf': occurrence.instance_of,
                     'scope': occurrence.scope,
                     'resourceRef': occurrence.resource_ref,
-                    'resourceData': occurrence.resource_data.decode("utf-8"),
+                    'resourceData': resource_data,
                     'language': occurrence.language.name,
                     'attributes': attributes
                 }
