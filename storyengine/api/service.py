@@ -179,7 +179,6 @@ def get_occurrence(topic_map_identifier, identifier):
         return "Not found", 404
 
 
-# ========== FIX ME ==========
 def get_topic_occurrences(topic_map_identifier, identifier, instance_of=None):
     occurrences = store.get_topic_occurrences(topic_map_identifier, identifier,
                                               instance_of=instance_of,
@@ -198,7 +197,7 @@ def get_topic_occurrences(topic_map_identifier, identifier, instance_of=None):
                     'scope': attribute.scope,
                     'language': attribute.language.name
                 })
-            resource_data = occurrence.resource_data.decode("utf-8") if occurrence.resource_data is not None else None
+            resource_data = occurrence.resource_data.decode("utf-8") if occurrence.resource_data else None
             occurrence_json = {
                 'occurrence': {
                     'identifier': occurrence.identifier,
@@ -214,7 +213,6 @@ def get_topic_occurrences(topic_map_identifier, identifier, instance_of=None):
         return result, 200
     else:
         return "Not found", 404
-# ========== FIX ME ==========
 
 
 @functools.lru_cache(maxsize=64)
