@@ -61,16 +61,6 @@ paths:
         - $ref: '#/parameters/topic_map_identifier'
         - $ref: '#/parameters/identifier'
         - $ref: '#/parameters/instance_of'
-        - name: inline_resource_data
-          description: Retrieve (and inline) the occurrence's data
-          in: query
-          type: boolean
-          required: false
-        - name: resolve_attributes
-          description: Retrieve the occurrence's attributes
-          in: query
-          type: boolean
-          required: false
       responses:
         200:
           description: Return occurrences

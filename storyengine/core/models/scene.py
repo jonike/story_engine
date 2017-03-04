@@ -5,8 +5,6 @@ July 19, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 """
 
-from topicdb.core.commands.association.getassociationgroups import GetAssociationGroups
-
 from storyengine.core.models.entity import Entity
 
 
@@ -23,11 +21,6 @@ class Scene(Entity):
     @property
     def associations(self):
         return self.__associations
-
-    @property
-    def association_groups(self):
-        # TODO: Review. Should a model class rely on command-level functionality?
-        return GetAssociationGroups(associations=self.__associations).execute()
 
     @property
     def entities(self):

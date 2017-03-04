@@ -5,9 +5,6 @@ July 19, 2016
 Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 """
 
-from storyengine.core.coreerror import CoreError
-
-
 class Asset:
     """
     An asset is either a character or a prop to be placed within a scene.
