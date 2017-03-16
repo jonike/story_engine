@@ -24,7 +24,7 @@ config.read(SETTINGS_FILE_PATH)
 username = config['DATABASE']['Username']
 password = config['DATABASE']['Password']
 
-store = SceneStore("localhost", username, password)
+store = SceneStore(username, password)
 store.open()
 
 

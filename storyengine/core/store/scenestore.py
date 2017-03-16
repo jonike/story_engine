@@ -21,7 +21,7 @@ from storyengine.core.models.scene import Scene
 
 class SceneStore:
 
-    def __init__(self, host, username, password, port=5432):
+    def __init__(self, username, password, host='localhost', port=5432):
         host = host
         username = username
         password = password

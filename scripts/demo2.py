@@ -12,6 +12,7 @@ from topicdb.core.models.attribute import Attribute
 from topicdb.core.models.topic import Topic
 
 from storyengine.core.store.scenestore import SceneStore
+from storyengine.core.models.prop import Prop
 from storyengine.core.models.scene import Scene
 from storyengine.core.models.asset import Asset
 
@@ -44,6 +45,24 @@ scene1.add_asset(asset12)
 store.set_scene(TOPIC_MAP_IDENTIFIER, scene1)
 attribute11 = Attribute('type', 'exterior', 'cafeteria')
 store.set_attribute(TOPIC_MAP_IDENTIFIER, attribute11)
+
+# Prop - 'power-up'.
+prop11 = Prop('power-up', 'Power-Up')
+prop11.location = '[0.0, -6.0, 2.0]'  # x ("width"), y ("depth"), z ("height")
+asset13 = Asset('scene', 'power-up-001.json')
+prop11.add_asset(asset13)
+prop11_text = """## Power-Up
+
+In video games, __power-ups__ are objects that instantly benefit or add extra abilities to the game character as a game
+mechanic. This is in contrast to an item, which may or may not have a benefit and can be used at a time chosen by
+the player. Although often collected directly through touch, power-ups can sometimes only be gained by collecting
+several related items, such as the floating letters of the word 'EXTEND' in _Bubble Bobble_. Well known examples of
+power-ups that have entered popular culture include the power pellets from _Pac-Man_ (regarded as the first power-up)
+and the Super Mushroom from _Super Mario Bros_., which ranked first in UGO Networks' Top 11 Video Game Powerups.
+"""
+asset14 = Asset('text', data=prop11_text)
+prop11.add_asset(asset14)
+store.set_prop(TOPIC_MAP_IDENTIFIER, prop11, 'cafeteria')
 
 
 # Scene 02 - House.
