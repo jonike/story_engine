@@ -22,12 +22,7 @@ from storyengine.core.models.scene import Scene
 class SceneStore:
 
     def __init__(self, username, password, host='localhost', port=5432):
-        host = host
-        username = username
-        password = password
-        port = port
-
-        self.topic_store = TopicStore(host, username, password, port)
+        self.topic_store = TopicStore(username, password, host, port)
 
     def open(self):
         self.topic_store.open()
