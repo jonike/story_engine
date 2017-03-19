@@ -71,6 +71,22 @@ asset14 = Asset('text', data=prop11_text)
 prop11.add_asset(asset14)
 store.set_prop(TOPIC_MAP_IDENTIFIER, prop11, 'outpost')
 
+# Prop - 'windmill'.
+prop12 = Prop('windmill', 'Windmill')
+prop12.location = '[7.22397, 7.44645, 5.5]'  # x ("width"), y ("depth"), z ("height")
+asset15 = Asset('scene', 'windmill-001.json')
+prop12.add_asset(asset15)
+prop12_text = """## Windmill
+
+A __windmill__ is a mill that converts the energy of wind into rotational energy by means of vanes called sails or
+blades. Centuries ago, windmills usually were used to mill grain, pump water, or both. Thus they often were
+gristmills, windpumps, or both. The majority of modern windmills take the form of wind turbines used to
+generate electricity, or windpumps used to pump water, either for land drainage or to extract groundwater.
+"""
+asset16 = Asset('text', data=prop12_text)
+prop12.add_asset(asset16)
+store.set_prop(TOPIC_MAP_IDENTIFIER, prop12, 'outpost')
+
 
 # Scene 3 - Weapon Factory.
 asset31 = Asset('scene', 'scene-007.json')

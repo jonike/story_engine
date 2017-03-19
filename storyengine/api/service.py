@@ -150,7 +150,7 @@ def get_topics_hierarchy(topic_map_identifier, identifier):
         }
         result[inner_identifier] = node
 
-        if parent_identifier is not None:
+        if parent_identifier:
             parent = result[parent_identifier]
             parent_children = parent['children']
             parent_children.append(node)
