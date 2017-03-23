@@ -285,6 +285,7 @@ def get_scene(topic_map_identifier, identifier):
                 props.append({
                     'identifier': entity.identifier,
                     'name': entity.name,
+                    'description': entity.description,
                     'location': entity.location,
                     'rotation': entity.rotation,
                     'scale': entity.scale,
@@ -300,6 +301,7 @@ def get_scene(topic_map_identifier, identifier):
                 characters.append({
                     'identifier': entity.identifier,
                     'name': entity.name,
+                    'description': entity.description,
                     'location': entity.location,
                     'rotation': entity.rotation,
                     'scale': entity.scale,
@@ -337,6 +339,7 @@ def get_scene(topic_map_identifier, identifier):
             'scene': {
                 'identifier': scene.identifier,
                 'name': scene.name,
+                'description': scene.description,
                 'location': scene.location,
                 'rotation': scene.rotation,
                 'scale': scene.scale,
@@ -392,6 +395,7 @@ def get_prop(topic_map_identifier, identifier):
             'prop': {
                 'identifier': prop.identifier,
                 'name': prop.name,
+                'description': prop.description,
                 'location': prop.location,
                 'rotation': prop.rotation,
                 'scale': prop.scale,
@@ -428,6 +432,7 @@ def get_character(topic_map_identifier, identifier):
             'character': {
                 'identifier': character.identifier,
                 'name': character.name,
+                'description': character.description,
                 'location': character.location,
                 'rotation': character.rotation,
                 'scale': character.scale,

@@ -34,7 +34,9 @@ store.open()
 
 # Scene 01 - Outpost Alpha.
 asset11 = Asset('scene', 'scene-005.json')
-scene1 = Scene('outpost', 'Outpost Alpha', 1)
+scene1 = Scene('outpost', 'Outpost Alpha',
+               description='A station established at a distance from the main body of an army to protect it from surprise attack.',
+               ordinal=1)
 scene1.add_asset(asset11)
 scene1_text = """A military __outpost__ is a detachment of troops stationed at a distance from the main force or
 formation, usually at a station in a remote or sparsely populated location, positioned to stand guard against
@@ -90,7 +92,7 @@ store.set_prop(TOPIC_MAP_IDENTIFIER, prop12, 'outpost')
 
 # Scene 3 - Weapon Factory.
 asset31 = Asset('scene', 'scene-007.json')
-scene3 = Scene('weapon-factory', 'Weapon Factory', 3)
+scene3 = Scene('weapon-factory', 'Weapon Factory', ordinal=3)
 scene3.add_asset(asset31)
 scene3_text = """The arms industry, also known as the defense industry or the arms trade, is a global business
 responsible for the manufacturing and sales of weapons and military technology and equipment. It consists of a
@@ -150,7 +152,9 @@ store.set_prop(TOPIC_MAP_IDENTIFIER, prop32, 'weapon-factory')
 
 # Scene 5 - Research Area.
 asset51 = Asset('scene', 'scene-009.json')
-scene5 = Scene('research-area', 'Research Area', 5)
+scene5 = Scene('research-area', 'Research Area',
+               description='Diligent and systematic inquiry or investigation into a subject in order to discover or revise facts, theories, applications, etc.',
+               ordinal=5)
 scene5.add_asset(asset51)
 scene5_text = """The __Defense Advanced Research Projects Agency (DARPA)__ is an agency of the U.S. Department of
 Defense responsible for the development of emerging technologies for use by the military. DARPA was created in February
@@ -302,7 +306,7 @@ store.set_character(TOPIC_MAP_IDENTIFIER, character51, 'research-area')
 
 # Scene 6 - Storage.
 asset61 = Asset('scene', 'scene-010.json')
-scene6 = Scene('storage-area', 'Storage Area', 6)
+scene6 = Scene('storage-area', 'Storage Area', ordinal=6)
 scene6.add_asset(asset61)
 scene6_text = """A warehouse is a commercial building for storage of goods. Warehouses are used by manufacturers,
 importers, exporters, wholesalers, transport businesses, customs, etc. They are usually large plain buildings in

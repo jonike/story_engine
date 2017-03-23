@@ -33,7 +33,7 @@ store.open()
 
 # Scene 01 - Cafeteria.
 asset11 = Asset('scene', 'scene-012.json')
-scene1 = Scene('cafeteria', 'Cafeteria', 1)
+scene1 = Scene('cafeteria', 'Cafeteria', ordinal=1)
 scene1.add_asset(asset11)
 scene1_text = """A cafeteria is a type of food service location in which there is little or no waiting staff table
 service, whether a restaurant or within an institution such as a large office building or school; a school dining

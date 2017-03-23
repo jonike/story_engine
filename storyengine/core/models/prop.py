@@ -10,6 +10,6 @@ from storyengine.core.models.entity import Entity
 
 class Prop(Entity):
 
-    def __init__(self, identifier: str, name: str):
-        super().__init__(identifier, 'prop', name)
+    def __init__(self, identifier, name='Undefined', description=None):
+        super().__init__(identifier, 'prop', name, description)
 

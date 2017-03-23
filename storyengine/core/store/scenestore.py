@@ -36,6 +36,7 @@ class SceneStore:
                                            resolve_attributes=RetrievalOption.RESOLVE_ATTRIBUTES)
         if topic:
             result = Character(topic.identifier, topic.first_base_name.name)
+            result.description = topic.get_attribute_by_name('description').value if topic.get_attribute_by_name('description') else None
             result.location = topic.get_attribute_by_name('location').value
             result.rotation = topic.get_attribute_by_name('rotation').value
             result.scale = topic.get_attribute_by_name('scale').value
@@ -45,7 +46,7 @@ class SceneStore:
                 result.add_asset(Asset(occurrence.instance_of, occurrence.resource_ref))
 
             attributes = [attribute for attribute in topic.attributes if
-                          attribute.name not in ('location', 'rotation', 'scale')]
+                          attribute.name not in ('description', 'location', 'rotation', 'scale')]
             result.add_attributes(attributes)
         return result
 
@@ -55,6 +56,7 @@ class SceneStore:
                                            resolve_attributes=RetrievalOption.RESOLVE_ATTRIBUTES)
         if topic:
             result = Prop(topic.identifier, topic.first_base_name.name)
+            result.description = topic.get_attribute_by_name('description').value if topic.get_attribute_by_name('description') else None
             result.location = topic.get_attribute_by_name('location').value
             result.rotation = topic.get_attribute_by_name('rotation').value
             result.scale = topic.get_attribute_by_name('scale').value
@@ -64,7 +66,7 @@ class SceneStore:
                 result.add_asset(Asset(occurrence.instance_of, occurrence.resource_ref))
 
             attributes = [attribute for attribute in topic.attributes if
-                          attribute.name not in ('location', 'rotation', 'scale')]
+                          attribute.name not in ('description', 'location', 'rotation', 'scale')]
             result.add_attributes(attributes)
         return result
 
@@ -74,9 +76,11 @@ class SceneStore:
                                            resolve_attributes=RetrievalOption.RESOLVE_ATTRIBUTES)
         if topic:
             result = Scene(topic.identifier, topic.first_base_name.name, topic.get_attribute_by_name('ordinal').value)
+            result.description = topic.get_attribute_by_name('description').value if topic.get_attribute_by_name('description') else None
             result.location = topic.get_attribute_by_name('location').value
             result.rotation = topic.get_attribute_by_name('rotation').value
             result.scale = topic.get_attribute_by_name('scale').value
+            result.ordinal = topic.get_attribute_by_name('ordinal').value if topic.get_attribute_by_name('ordinal') else None
 
             result.add_associations(self.topic_store.get_topic_associations(topic_map_identifier, identifier))
 
@@ -103,10 +107,98 @@ class SceneStore:
                 result.add_asset(Asset(occurrence.instance_of, occurrence.resource_ref))
 
             attributes = [attribute for attribute in topic.attributes
-                          if attribute.name not in ('location', 'rotation', 'scale')]
+                          if attribute.name not in ('description', 'location', 'rotation', 'scale', 'ordinal')]
             result.add_attributes(attributes)
             result.entities_tags = self.get_entities_tags(topic_map_identifier, identifier)
         return result
+
+    def set_character(self, topic_map_identifier, character, scene_identifier):
+        topic = Topic(character.identifier, character.instance_of, character.name)
+        self.topic_store.set_topic(topic_map_identifier, topic)
+
+        description_attribute = Attribute('description', character.description, topic.identifier) if character.description else None
+        location_attribute = Attribute('location', character.location, topic.identifier)
+        rotation_attribute = Attribute('rotation', character.rotation, topic.identifier)
+        scale_attribute = Attribute('scale', character.scale, topic.identifier)
+
+        attributes = [x for x in [description_attribute, location_attribute, rotation_attribute, scale_attribute] if x is not None]
+        self.topic_store.set_attributes(topic_map_identifier, attributes)
+
+        for asset in character.assets:
+            occurrence = Occurrence(
+                instance_of=asset.instance_of,
+                topic_identifier=topic.identifier,
+                resource_ref=asset.reference,
+                resource_data=asset.data)
+            self.topic_store.set_occurrence(topic_map_identifier, occurrence)
+
+        association = Association(
+            instance_of='character',
+            src_topic_ref=topic.identifier,  # The character's reference.
+            dest_topic_ref=scene_identifier,
+            src_role_spec='included-in',
+            dest_role_spec='includes')
+        self.topic_store.set_association(topic_map_identifier, association)
+
+    def set_prop(self, topic_map_identifier, prop, scene_identifier):
+        topic = Topic(prop.identifier, prop.instance_of, prop.name)
+        self.topic_store.set_topic(topic_map_identifier, topic)
+
+        description_attribute = Attribute('description', prop.description, topic.identifier) if prop.description else None
+        location_attribute = Attribute('location', prop.location, topic.identifier)
+        rotation_attribute = Attribute('rotation', prop.rotation, topic.identifier)
+        scale_attribute = Attribute('scale', prop.scale, topic.identifier)
+
+        attributes = [x for x in [description_attribute, location_attribute, rotation_attribute, scale_attribute] if x is not None]
+        self.topic_store.set_attributes(topic_map_identifier, attributes)
+
+        for asset in prop.assets:
+            occurrence = Occurrence(
+                instance_of=asset.instance_of,
+                topic_identifier=topic.identifier,
+                resource_ref=asset.reference,
+                resource_data=asset.data)
+            self.topic_store.set_occurrence(topic_map_identifier, occurrence)
+
+        association = Association(
+            instance_of='prop',
+            src_topic_ref=topic.identifier,  # The prop's reference.
+            dest_topic_ref=scene_identifier,
+            src_role_spec='included-in',
+            dest_role_spec='includes')
+        self.topic_store.set_association(topic_map_identifier, association)
+
+    def set_scene(self, topic_map_identifier, scene):
+        topic = Topic(scene.identifier, scene.instance_of, scene.name)
+        self.topic_store.set_topic(topic_map_identifier, topic)
+
+        description_attribute = Attribute('description', scene.description, topic.identifier) if scene.description else None
+        location_attribute = Attribute('location', scene.location, topic.identifier)
+        rotation_attribute = Attribute('rotation', scene.rotation, topic.identifier)
+        scale_attribute = Attribute('scale', scene.scale, topic.identifier)
+        ordinal_attribute = Attribute('ordinal', scene.ordinal, topic.identifier) if scene.ordinal else None
+
+        attributes = [x for x in [description_attribute, location_attribute, rotation_attribute, scale_attribute, ordinal_attribute] if x is not None]
+        self.topic_store.set_attributes(topic_map_identifier, attributes)
+
+        for asset in scene.assets:
+            occurrence = Occurrence(
+                instance_of=asset.instance_of,
+                topic_identifier=topic.identifier,
+                resource_ref=asset.reference,
+                resource_data=asset.data)
+            self.topic_store.set_occurrence(topic_map_identifier, occurrence)
+
+    def set_navigation(self, topic_map_identifier, src_scene_identifier, dest_scene_identifier,
+                       src_scene_role='previous',
+                       dest_scene_role='next'):
+        association = Association(
+            instance_of='navigation',
+            src_topic_ref=src_scene_identifier,
+            dest_topic_ref=dest_scene_identifier,
+            src_role_spec=src_scene_role,
+            dest_role_spec=dest_scene_role)
+        self.topic_store.set_association(topic_map_identifier, association)
 
     def get_entities_tags(self, topic_map_identifier, identifier):
         result = {}
@@ -145,94 +237,6 @@ class SceneStore:
                 else:
                     result[tag].add(topic)
         return result
-
-    def set_character(self, topic_map_identifier, character, scene_identifier):
-        topic = Topic(character.identifier, character.instance_of, character.name)
-        self.topic_store.set_topic(topic_map_identifier, topic)
-
-        location_attribute = Attribute('location', character.location, topic.identifier)
-        rotation_attribute = Attribute('rotation', character.rotation, topic.identifier)
-        scale_attribute = Attribute('scale', character.scale, topic.identifier)
-
-        self.topic_store.set_attributes(topic_map_identifier, [location_attribute, rotation_attribute, scale_attribute])
-
-        for asset in character.assets:
-            occurrence = Occurrence(
-                instance_of=asset.instance_of,
-                topic_identifier=topic.identifier,
-                resource_ref=asset.reference,
-                resource_data=asset.data)
-            self.topic_store.set_occurrence(topic_map_identifier, occurrence)
-            # if asset.data is not None:
-            #     self.topic_store.set_occurrence_data(topic_map_identifier, occurrence.identifier, asset.data)
-
-        association = Association(
-            instance_of='character',
-            src_topic_ref=topic.identifier,  # The character's reference.
-            dest_topic_ref=scene_identifier,
-            src_role_spec='included-in',
-            dest_role_spec='includes')
-        self.topic_store.set_association(topic_map_identifier, association)
-
-    def set_navigation(self, topic_map_identifier, src_scene_identifier, dest_scene_identifier,
-                       src_scene_role='previous',
-                       dest_scene_role='next'):
-        association = Association(
-            instance_of='navigation',
-            src_topic_ref=src_scene_identifier,
-            dest_topic_ref=dest_scene_identifier,
-            src_role_spec=src_scene_role,
-            dest_role_spec=dest_scene_role)
-        self.topic_store.set_association(topic_map_identifier, association)
-
-    def set_prop(self, topic_map_identifier, prop, scene_identifier):
-        topic = Topic(prop.identifier, prop.instance_of, prop.name)
-        self.topic_store.set_topic(topic_map_identifier, topic)
-
-        location_attribute = Attribute('location', prop.location, topic.identifier)
-        rotation_attribute = Attribute('rotation', prop.rotation, topic.identifier)
-        scale_attribute = Attribute('scale', prop.scale, topic.identifier)
-
-        self.topic_store.set_attributes(topic_map_identifier, [location_attribute, rotation_attribute, scale_attribute])
-
-        for asset in prop.assets:
-            occurrence = Occurrence(
-                instance_of=asset.instance_of,
-                topic_identifier=topic.identifier,
-                resource_ref=asset.reference,
-                resource_data=asset.data)
-            self.topic_store.set_occurrence(topic_map_identifier, occurrence)
-            # if asset.data is not None:
-            #     self.topic_store.set_occurrence_data(topic_map_identifier, occurrence.identifier, asset.data)
-
-        association = Association(
-            instance_of='prop',
-            src_topic_ref=topic.identifier,  # The prop's reference.
-            dest_topic_ref=scene_identifier,
-            src_role_spec='included-in',
-            dest_role_spec='includes')
-        self.topic_store.set_association(topic_map_identifier, association)
-
-    def set_scene(self, topic_map_identifier, scene):
-        topic = Topic(scene.identifier, scene.instance_of, scene.name)
-        self.topic_store.set_topic(topic_map_identifier, topic)
-
-        location_attribute = Attribute('location', scene.location, topic.identifier)
-        rotation_attribute = Attribute('rotation', scene.rotation, topic.identifier)
-        scale_attribute = Attribute('scale', scene.scale, topic.identifier)
-        ordinal_attribute = Attribute('ordinal', scene.ordinal, topic.identifier)
-
-        self.topic_store.set_attributes(topic_map_identifier, [location_attribute, rotation_attribute, scale_attribute, ordinal_attribute])
-
-        for asset in scene.assets:
-            occurrence = Occurrence(
-                instance_of=asset.instance_of,
-                topic_identifier=topic.identifier,
-                resource_ref=asset.reference,
-                resource_data=asset.data)
-            self.topic_store.set_occurrence(topic_map_identifier, occurrence)
-            # if asset.data is not None:
-            #     self.topic_store.set_occurrence_data(topic_map_identifier, occurrence.identifier, asset.data)
 
     # ========== TOPIC STORE PROXY METHODS ==========
 

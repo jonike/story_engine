@@ -17,12 +17,14 @@ class Entity:
 
     def __init__(self, identifier, instance_of,
                  name='Undefined',
+                 description=None,
                  location='[0.0, 0.0, 0.0]',  # The x ("width"), y ("height"), z ("depth") coordinates.
                  rotation='[0.0, 0.0, 0.0, 0.0]',  # The x, y, z, and w coordinates.
                  scale='1.0'):
         self.__identifier = slugify(str(identifier))
         self.__instance_of = slugify(str(instance_of))
         self.name = name
+        self.description = description
         self.location = location
         self.rotation = rotation
         self.scale = scale
