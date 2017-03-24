@@ -75,7 +75,7 @@ class SceneStore:
         topic = self.topic_store.get_topic(topic_map_identifier, identifier,
                                            resolve_attributes=RetrievalOption.RESOLVE_ATTRIBUTES)
         if topic:
-            result = Scene(topic.identifier, topic.first_base_name.name, topic.get_attribute_by_name('ordinal').value)
+            result = Scene(topic.identifier, topic.first_base_name.name)
             result.description = topic.get_attribute_by_name('description').value if topic.get_attribute_by_name('description') else None
             result.location = topic.get_attribute_by_name('location').value
             result.rotation = topic.get_attribute_by_name('rotation').value
