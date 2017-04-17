@@ -138,6 +138,18 @@ paths:
           description: Return topics hierarchy
         404:
           description: Topics hierarchy is not available
+  '/maps/{topic_map_identifier}/networks/{identifier}':
+    get:
+      operationId: storyengine.api.service.get_network
+      summary: Pending
+      parameters:
+        - $ref: '#/parameters/topic_map_identifier'
+        - $ref: '#/parameters/identifier'
+      responses:
+        200:
+          description: Return network data structure
+        404:
+          description: Network data structure is not available
   '/stories':
     get:
       operationId: storyengine.api.service.get_stories

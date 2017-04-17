@@ -131,12 +131,30 @@ asset34 = Asset('text', data=prop31_text)
 prop31.add_asset(asset34)
 store.set_prop(TOPIC_MAP_IDENTIFIER, prop31, 'weapon-factory')
 
-# Prop - 'Military Robot.
-prop32 = Prop('robot', 'Military Robot')
-prop32.location = '[1.37942, -3.62861, 0.63]'  # x ("width"), y ("depth"), z ("height")
+# # Prop - 'Military Robot.
+# prop32 = Prop('robot', 'Military Robot')
+# prop32.location = '[1.37942, -3.62861, 0.63]'  # x ("width"), y ("depth"), z ("height")
+# asset35 = Asset('scene', 'robot-001.json')
+# prop32.add_asset(asset35)
+# prop32_text = """## Military Robot
+#
+# __Military robots__ are autonomous robots or remote-controlled mobile robots designed for military applications, from
+# transport to search and rescue and attack. Some such systems are currently in use, and many are under development.
+#
+# Broadly defined, military robots date back to World War II and the Cold War in the form of the German Goliath tracked
+# mines and the Soviet _teletanks_. The MQB-1 Predator drone was when CIA officers began to see the first practical
+# returns on their decade-old fantasy of using aerial robots to collect intelligence.
+# """
+# asset36 = Asset('text', data=prop32_text)
+# prop32.add_asset(asset36)
+# store.set_prop(TOPIC_MAP_IDENTIFIER, prop32, 'weapon-factory')
+
+# Character - 'Military Robot.
+character31 = Character('robot', 'Military Robot')
+character31.location = '[1.37942, -3.62861, 0.63]'  # x ("width"), y ("depth"), z ("height")
 asset35 = Asset('scene', 'robot-001.json')
-prop32.add_asset(asset35)
-prop32_text = """## Military Robot
+character31.add_asset(asset35)
+character31_text = """## Military Robot
 
 __Military robots__ are autonomous robots or remote-controlled mobile robots designed for military applications, from
 transport to search and rescue and attack. Some such systems are currently in use, and many are under development.
@@ -145,9 +163,9 @@ Broadly defined, military robots date back to World War II and the Cold War in t
 mines and the Soviet _teletanks_. The MQB-1 Predator drone was when CIA officers began to see the first practical
 returns on their decade-old fantasy of using aerial robots to collect intelligence.
 """
-asset36 = Asset('text', data=prop32_text)
-prop32.add_asset(asset36)
-store.set_prop(TOPIC_MAP_IDENTIFIER, prop32, 'weapon-factory')
+asset36 = Asset('text', data=character31_text)
+character31.add_asset(asset36)
+store.set_character(TOPIC_MAP_IDENTIFIER, character31, 'weapon-factory')
 
 
 # Scene 5 - Research Area.
@@ -261,12 +279,40 @@ prop54.add_asset(asset510)
 store.set_prop(TOPIC_MAP_IDENTIFIER, prop54, 'research-area')
 store.set_tags(TOPIC_MAP_IDENTIFIER, 'bookshelf', ['furniture'])
 
-# Prop - 'Utility Robot.
-prop55 = Prop('utility-robot', 'Utility Robot')
-prop55.location = '[4.07017, -0.00034, 1.42042]'  # x ("width"), y ("depth"), z ("height")
+# # Prop - 'Utility Robot.
+# prop55 = Prop('utility-robot', 'Utility Robot')
+# prop55.location = '[4.07017, -0.00034, 1.42042]'  # x ("width"), y ("depth"), z ("height")
+# asset511 = Asset('scene', 'utility-robot-001.json')
+# prop55.add_asset(asset511)
+# prop55_text = """## Robot
+#
+# A **robot** is a mechanical or virtual artificial agent, usually an electromechanical machine that is guided by a
+# computer program or electronic circuitry, and thus a type of an embedded system.
+#
+# Robots can be autonomous or semi-autonomous and range from humanoids such as Honda's *Advanced Step in Innovative
+# Mobility* (ASIMO) and TOSY's *TOSY Ping Pong Playing Robot* (TOPIO) to industrial robots, medical operating robots,
+# patent assist robots, dog therapy robots, collectively programmed swarm robots, UAV drones such as General Atomics MQ-1
+# Predator, and even microscopic nano robots. By mimicking a lifelike appearance or automating movements, a robot may
+# convey a sense of intelligence or thought of its own.
+#
+# The branch of technology that deals with the design, construction, operation, and application of robots, as well as
+# computer systems for their control, sensory feedback, and information processing is robotics. These technologies deal
+# with automated machines that can take the place of humans in dangerous environments or manufacturing processes, or
+# resemble humans in appearance, behavior, and/or cognition. Many of today's robots are inspired by nature contributing to
+# the field of bio-inspired robotics. These robots have also created a newer branch of robotics: soft robotics.
+# """
+# asset512 = Asset('text', data=prop55_text)
+# prop55.add_asset(asset512)
+# store.set_prop(TOPIC_MAP_IDENTIFIER, prop55, 'research-area')
+#
+# store.set_tags(TOPIC_MAP_IDENTIFIER, 'utility-robot', ['electronics'])
+
+# Character - 'Utility Robot.
+character51 = Character('utility-robot', 'Utility Robot')
+character51.location = '[4.07017, -0.00034, 1.42042]'  # x ("width"), y ("depth"), z ("height")
 asset511 = Asset('scene', 'utility-robot-001.json')
-prop55.add_asset(asset511)
-prop55_text = """## Robot
+character51.add_asset(asset511)
+character51_text = """## Robot
 
 A **robot** is a mechanical or virtual artificial agent, usually an electromechanical machine that is guided by a
 computer program or electronic circuitry, and thus a type of an embedded system.
@@ -282,22 +328,6 @@ computer systems for their control, sensory feedback, and information processing
 with automated machines that can take the place of humans in dangerous environments or manufacturing processes, or
 resemble humans in appearance, behavior, and/or cognition. Many of today's robots are inspired by nature contributing to
 the field of bio-inspired robotics. These robots have also created a newer branch of robotics: soft robotics.
-"""
-asset512 = Asset('text', data=prop55_text)
-prop55.add_asset(asset512)
-store.set_prop(TOPIC_MAP_IDENTIFIER, prop55, 'research-area')
-
-store.set_tags(TOPIC_MAP_IDENTIFIER, 'utility-robot', ['electronics'])
-
-# Define and persist a character.
-character51 = Character('researcher', 'Researcher')
-character51.location = '[-2.5, -0.8, 1.22042]'  # x ("width"), y ("depth"), z ("height")
-asset511 = Asset('scene', 'character-001.json')
-character51.add_asset(asset511)
-character51_text = """## Researcher
-
-A researcher is someone who conducts research, i.e., an organized and systematic investigation into something.
-Scientists are often described as researchers.
 """
 asset512 = Asset('text', data=character51_text)
 character51.add_asset(asset512)

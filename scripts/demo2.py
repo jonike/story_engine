@@ -33,12 +33,14 @@ store.open()
 
 # Scene 01 - Cafeteria.
 asset11 = Asset('scene', 'scene-012.json')
-scene1 = Scene('cafeteria', 'Cafeteria', ordinal=1)
+scene1 = Scene('cafeteria', 'Cafeteria',
+               description='A lunchroom or dining hall, as in a factory, office, or school, where food is served from counters or dispensed from vending machines or where food brought from home may be eaten.',
+               ordinal=1)
 scene1.add_asset(asset11)
-scene1_text = """A cafeteria is a type of food service location in which there is little or no waiting staff table
-service, whether a restaurant or within an institution such as a large office building or school; a school dining
-location is also referred to as a dining hall or canteen (in British English). Cafeterias are different from
-coffeehouses, despite being the Spanish translation of the English term.
+scene1_text = """A cafeteria is a type of __food service location__ in which there is little or no waiting staff table
+service, whether a restaurant or within an institution such as a large office building or school; a __school dining
+location__ is also referred to as a dining hall or canteen (in British English). Cafeterias are different from
+__coffeehouses__, despite being the Spanish translation of the English term.
 """
 asset12 = Asset('text', data=scene1_text)
 scene1.add_asset(asset12)
@@ -46,23 +48,23 @@ store.set_scene(TOPIC_MAP_IDENTIFIER, scene1)
 attribute11 = Attribute('type', 'exterior', 'cafeteria')
 store.set_attribute(TOPIC_MAP_IDENTIFIER, attribute11)
 
-# Prop - 'power-up'.
-prop11 = Prop('power-up', 'Power-Up')
-prop11.location = '[0.0, -6.0, 2.0]'  # x ("width"), y ("depth"), z ("height")
-asset13 = Asset('scene', 'power-up-001.json')
-prop11.add_asset(asset13)
-prop11_text = """## Power-Up
-
-In video games, __power-ups__ are objects that instantly benefit or add extra abilities to the game character as a game
-mechanic. This is in contrast to an item, which may or may not have a benefit and can be used at a time chosen by
-the player. Although often collected directly through touch, power-ups can sometimes only be gained by collecting
-several related items, such as the floating letters of the word 'EXTEND' in _Bubble Bobble_. Well known examples of
-power-ups that have entered popular culture include the power pellets from _Pac-Man_ (regarded as the first power-up)
-and the Super Mushroom from _Super Mario Bros_., which ranked first in UGO Networks' Top 11 Video Game Powerups.
-"""
-asset14 = Asset('text', data=prop11_text)
-prop11.add_asset(asset14)
-store.set_prop(TOPIC_MAP_IDENTIFIER, prop11, 'cafeteria')
+# # Prop - 'power-up'.
+# prop11 = Prop('power-up', 'Power-Up')
+# prop11.location = '[0.0, -6.0, 2.0]'  # x ("width"), y ("depth"), z ("height")
+# asset13 = Asset('scene', 'power-up-001.json')
+# prop11.add_asset(asset13)
+# prop11_text = """## Power-Up
+#
+# In video games, __power-ups__ are objects that instantly benefit or add extra abilities to the game character as a game
+# mechanic. This is in contrast to an item, which may or may not have a benefit and can be used at a time chosen by
+# the player. Although often collected directly through touch, power-ups can sometimes only be gained by collecting
+# several related items, such as the floating letters of the word 'EXTEND' in _Bubble Bobble_. Well known examples of
+# power-ups that have entered popular culture include the power pellets from _Pac-Man_ (regarded as the first power-up)
+# and the Super Mushroom from _Super Mario Bros_., which ranked first in UGO Networks' Top 11 Video Game Powerups.
+# """
+# asset14 = Asset('text', data=prop11_text)
+# prop11.add_asset(asset14)
+# store.set_prop(TOPIC_MAP_IDENTIFIER, prop11, 'cafeteria')
 
 
 # Scene 02 - House.
