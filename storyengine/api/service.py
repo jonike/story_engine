@@ -474,7 +474,6 @@ def get_story(story_identifier):
                 'identifier': story.identifier,
                 'title': story.title,
                 'topicMapIdentifier': story.topic_map_identifier,
-                'startSceneIdentifier': story.entry_topic_identifier,
                 'description': story.description
             }
         }
@@ -493,7 +492,6 @@ def get_stories():
                     'identifier': story.identifier,
                     'title': story.title,
                     'topicMapIdentifier': story.topic_map_identifier,
-                    'startSceneIdentifier': story.entry_topic_identifier,
                     'description': story.description
                 }
             }

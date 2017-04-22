@@ -32,6 +32,26 @@ store = SceneStore(username, password)
 store.open()
 
 
+# Genesis topic.
+attribute01 = Attribute('entry-scene', 'outpost', 'genesis')
+store.set_attribute(TOPIC_MAP_IDENTIFIER, attribute01)
+
+story_text = """The US is at an ever growing risk of a cyber attacks, with energy infrastructure likely to be hackers' 
+prime target.
+
+This was the stark warning made by General Keith Alexander, the retired general and former chief of the __National 
+Security Agency__, earlier this year.
+
+Now, the Pentagon says it has a plan to do something about the threat. Its research division, __Darpa__, has launched a 
+new program to target security threats that have the potential to wipe out all of America's power systems. 
+"""
+story_text_occurrence = Occurrence(topic_identifier='genesis', instance_of='text', resource_data=bytes(story_text, 'utf-8'))
+store.set_occurrence(TOPIC_MAP_IDENTIFIER, story_text_occurrence)
+
+story_image_occurrence = Occurrence(topic_identifier='genesis', instance_of='image', resource_ref='desert.png')
+store.set_occurrence(TOPIC_MAP_IDENTIFIER, story_image_occurrence)
+
+
 # Scene 01 - Outpost Alpha.
 asset11 = Asset('scene', 'scene-005.json')
 scene1 = Scene('outpost', 'Outpost Alpha',
@@ -166,6 +186,8 @@ returns on their decade-old fantasy of using aerial robots to collect intelligen
 asset36 = Asset('text', data=character31_text)
 character31.add_asset(asset36)
 store.set_character(TOPIC_MAP_IDENTIFIER, character31, 'weapon-factory')
+
+store.set_tags(TOPIC_MAP_IDENTIFIER, 'robot', ['electronics'])
 
 
 # Scene 5 - Research Area.
@@ -332,6 +354,8 @@ the field of bio-inspired robotics. These robots have also created a newer branc
 asset512 = Asset('text', data=character51_text)
 character51.add_asset(asset512)
 store.set_character(TOPIC_MAP_IDENTIFIER, character51, 'research-area')
+
+store.set_tags(TOPIC_MAP_IDENTIFIER, 'utility-robot', ['electronics'])
 
 
 # Scene 6 - Storage.

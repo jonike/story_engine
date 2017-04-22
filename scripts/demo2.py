@@ -9,10 +9,10 @@ import os
 import configparser
 
 from topicdb.core.models.attribute import Attribute
+from topicdb.core.models.occurrence import Occurrence
 from topicdb.core.models.topic import Topic
 
 from storyengine.core.store.scenestore import SceneStore
-from storyengine.core.models.prop import Prop
 from storyengine.core.models.scene import Scene
 from storyengine.core.models.asset import Asset
 
@@ -29,6 +29,25 @@ password = config['DATABASE']['Password']
 # Instantiate and open the scene store.
 store = SceneStore(username, password)
 store.open()
+
+
+# Genesis topic.
+attribute01 = Attribute('entry-scene', 'cafeteria', 'genesis')
+store.set_attribute(TOPIC_MAP_IDENTIFIER, attribute01)
+
+story_text = """An unexpected or casual meeting with someone or something. She felt totally unnerved by the encounter.
+
+I told them of my encounter with the __cardinal__. What do we know about the people we encounter in our daily lives?
+
+Unexpectedly be faced with or experience (something hostile or difficult). The guides will help if you encounter any 
+problems.
+"""
+story_text_occurrence = Occurrence(topic_identifier='genesis', instance_of='text', resource_data=bytes(story_text, 'utf-8'))
+store.set_occurrence(TOPIC_MAP_IDENTIFIER, story_text_occurrence)
+
+story_image_occurrence = Occurrence(topic_identifier='genesis', instance_of='image', resource_ref='cafeteria.png')
+store.set_occurrence(TOPIC_MAP_IDENTIFIER, story_image_occurrence)
+
 
 
 # Scene 01 - Cafeteria.
