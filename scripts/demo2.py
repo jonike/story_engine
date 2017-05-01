@@ -27,13 +27,13 @@ username = config['DATABASE']['Username']
 password = config['DATABASE']['Password']
 
 # Instantiate and open the scene store.
-store = SceneStore(username, password)
-store.open()
+scene_store = SceneStore(username, password)
+scene_store.open()
 
 
 # Genesis topic.
 attribute01 = Attribute('entry-scene', 'cafeteria', 'genesis')
-store.set_attribute(TOPIC_MAP_IDENTIFIER, attribute01)
+scene_store.set_attribute(TOPIC_MAP_IDENTIFIER, attribute01)
 
 story_text = """An unexpected or casual meeting with someone or something. She felt totally unnerved by the encounter.
 
@@ -43,10 +43,10 @@ Unexpectedly be faced with or experience (something hostile or difficult). The g
 problems.
 """
 story_text_occurrence = Occurrence(topic_identifier='genesis', instance_of='text', resource_data=bytes(story_text, 'utf-8'))
-store.set_occurrence(TOPIC_MAP_IDENTIFIER, story_text_occurrence)
+scene_store.set_occurrence(TOPIC_MAP_IDENTIFIER, story_text_occurrence)
 
-story_image_occurrence = Occurrence(topic_identifier='genesis', instance_of='image', resource_ref='cafeteria.png')
-store.set_occurrence(TOPIC_MAP_IDENTIFIER, story_image_occurrence)
+story_image_occurrence = Occurrence(topic_identifier='genesis', instance_of='image', resource_ref='town.png')
+scene_store.set_occurrence(TOPIC_MAP_IDENTIFIER, story_image_occurrence)
 
 
 
@@ -63,9 +63,9 @@ __coffeehouses__, despite being the Spanish translation of the English term.
 """
 asset12 = Asset('text', data=scene1_text)
 scene1.add_asset(asset12)
-store.set_scene(TOPIC_MAP_IDENTIFIER, scene1)
+scene_store.set_scene(TOPIC_MAP_IDENTIFIER, scene1)
 attribute11 = Attribute('type', 'exterior', 'cafeteria')
-store.set_attribute(TOPIC_MAP_IDENTIFIER, attribute11)
+scene_store.set_attribute(TOPIC_MAP_IDENTIFIER, attribute11)
 
 # # Prop - 'power-up'.
 # prop11 = Prop('power-up', 'Power-Up')
@@ -97,17 +97,17 @@ store.set_attribute(TOPIC_MAP_IDENTIFIER, attribute11)
 
 # Annotations
 annotation1 = Topic('palm-tree', 'annotation', 'Palm Tree')
-store.set_topic(TOPIC_MAP_IDENTIFIER, annotation1)
+scene_store.set_topic(TOPIC_MAP_IDENTIFIER, annotation1)
 
 annotation2 = Topic('street-lamp', 'annotation', 'Street Lamp')
-store.set_topic(TOPIC_MAP_IDENTIFIER, annotation2)
+scene_store.set_topic(TOPIC_MAP_IDENTIFIER, annotation2)
 
 annotation3 = Topic('trash-cans', 'annotation', 'Trash Cans')
-store.set_topic(TOPIC_MAP_IDENTIFIER, annotation3)
+scene_store.set_topic(TOPIC_MAP_IDENTIFIER, annotation3)
 
 annotation4 = Topic('chimney', 'annotation', 'Chimney')
-store.set_topic(TOPIC_MAP_IDENTIFIER, annotation4)
+scene_store.set_topic(TOPIC_MAP_IDENTIFIER, annotation4)
 
 
 # Clean-up.
-store.close()
+scene_store.close()

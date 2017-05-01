@@ -28,28 +28,26 @@ username = config['DATABASE']['Username']
 password = config['DATABASE']['Password']
 
 # Instantiate and open the scene store.
-store = SceneStore(username, password)
-store.open()
+scene_store = SceneStore(username, password)
+scene_store.open()
 
 
 # Genesis topic.
 attribute01 = Attribute('entry-scene', 'outpost', 'genesis')
-store.set_attribute(TOPIC_MAP_IDENTIFIER, attribute01)
+scene_store.set_attribute(TOPIC_MAP_IDENTIFIER, attribute01)
 
-story_text = """The US is at an ever growing risk of a cyber attacks, with energy infrastructure likely to be hackers' 
-prime target.
-
-This was the stark warning made by General Keith Alexander, the retired general and former chief of the __National 
+story_text = """The US is at an ever growing risk of cyber attacks, with energy infrastructure likely to be hackers' 
+prime target. This was the stark warning made by General Keith Alexander, the retired general and former chief of the __National 
 Security Agency__, earlier this year.
 
-Now, the Pentagon says it has a plan to do something about the threat. Its research division, __Darpa__, has launched a 
+Now, the Pentagon says it has a plan to do something about the threat. Its research division, __DARPA__, has launched a 
 new program to target security threats that have the potential to wipe out all of America's power systems. 
 """
 story_text_occurrence = Occurrence(topic_identifier='genesis', instance_of='text', resource_data=bytes(story_text, 'utf-8'))
-store.set_occurrence(TOPIC_MAP_IDENTIFIER, story_text_occurrence)
+scene_store.set_occurrence(TOPIC_MAP_IDENTIFIER, story_text_occurrence)
 
-story_image_occurrence = Occurrence(topic_identifier='genesis', instance_of='image', resource_ref='desert.png')
-store.set_occurrence(TOPIC_MAP_IDENTIFIER, story_image_occurrence)
+story_image_occurrence = Occurrence(topic_identifier='genesis', instance_of='image', resource_ref='outpost.png')
+scene_store.set_occurrence(TOPIC_MAP_IDENTIFIER, story_image_occurrence)
 
 
 # Scene 01 - Outpost Alpha.
@@ -65,9 +63,9 @@ settlement in an outlying frontier, limit, political boundary or in another coun
 """
 asset12 = Asset('text', data=scene1_text)
 scene1.add_asset(asset12)
-store.set_scene(TOPIC_MAP_IDENTIFIER, scene1)
+scene_store.set_scene(TOPIC_MAP_IDENTIFIER, scene1)
 attribute11 = Attribute('type', 'exterior', 'outpost')
-store.set_attribute(TOPIC_MAP_IDENTIFIER, attribute11)
+scene_store.set_attribute(TOPIC_MAP_IDENTIFIER, attribute11)
 
 # Prop - 'ammunition'.
 prop11 = Prop('ammunition', 'Ammunition')
@@ -91,7 +89,7 @@ conventional munitions, and terminally precision-guided munition.
 """
 asset14 = Asset('text', data=prop11_text)
 prop11.add_asset(asset14)
-store.set_prop(TOPIC_MAP_IDENTIFIER, prop11, 'outpost')
+scene_store.set_prop(TOPIC_MAP_IDENTIFIER, prop11, 'outpost')
 
 # Prop - 'windmill'.
 prop12 = Prop('windmill', 'Windmill')
@@ -107,7 +105,7 @@ generate electricity, or windpumps used to pump water, either for land drainage 
 """
 asset16 = Asset('text', data=prop12_text)
 prop12.add_asset(asset16)
-store.set_prop(TOPIC_MAP_IDENTIFIER, prop12, 'outpost')
+scene_store.set_prop(TOPIC_MAP_IDENTIFIER, prop12, 'outpost')
 
 
 # Scene 3 - Weapon Factory.
@@ -121,13 +119,13 @@ material, equipment, and facilities.
 """
 asset32 = Asset('text', data=scene3_text)
 scene3.add_asset(asset32)
-store.set_scene(TOPIC_MAP_IDENTIFIER, scene3)
+scene_store.set_scene(TOPIC_MAP_IDENTIFIER, scene3)
 attribute31 = Attribute('type', 'exterior', 'weapon-factory')
-store.set_attribute(TOPIC_MAP_IDENTIFIER, attribute31)
+scene_store.set_attribute(TOPIC_MAP_IDENTIFIER, attribute31)
 attribute32 = Attribute('mist-depth', '35', 'weapon-factory')
-store.set_attribute(TOPIC_MAP_IDENTIFIER, attribute32)
+scene_store.set_attribute(TOPIC_MAP_IDENTIFIER, attribute32)
 attribute33 = Attribute('camera-rotation', '0.30', 'weapon-factory')  # Camera rotation multiplier.
-store.set_attribute(TOPIC_MAP_IDENTIFIER, attribute33)
+scene_store.set_attribute(TOPIC_MAP_IDENTIFIER, attribute33)
 
 # Prop - 'Telecommunications Facility".
 prop31 = Prop('telecommunications-facility', 'Telecommunications Facility')
@@ -149,7 +147,7 @@ pavement, and underlying land.
 """
 asset34 = Asset('text', data=prop31_text)
 prop31.add_asset(asset34)
-store.set_prop(TOPIC_MAP_IDENTIFIER, prop31, 'weapon-factory')
+scene_store.set_prop(TOPIC_MAP_IDENTIFIER, prop31, 'weapon-factory')
 
 # # Prop - 'Military Robot.
 # prop32 = Prop('robot', 'Military Robot')
@@ -185,9 +183,9 @@ returns on their decade-old fantasy of using aerial robots to collect intelligen
 """
 asset36 = Asset('text', data=character31_text)
 character31.add_asset(asset36)
-store.set_character(TOPIC_MAP_IDENTIFIER, character31, 'weapon-factory')
+scene_store.set_character(TOPIC_MAP_IDENTIFIER, character31, 'weapon-factory')
 
-store.set_tags(TOPIC_MAP_IDENTIFIER, 'robot', ['electronics'])
+scene_store.set_tags(TOPIC_MAP_IDENTIFIER, 'robot', ['electronics'])
 
 
 # Scene 5 - Research Area.
@@ -204,11 +202,11 @@ beyond immediate military requirements.
 """
 asset52 = Asset('text', data=scene5_text)
 scene5.add_asset(asset52)
-store.set_scene(TOPIC_MAP_IDENTIFIER, scene5)
+scene_store.set_scene(TOPIC_MAP_IDENTIFIER, scene5)
 attribute51 = Attribute('type', 'interior', 'research-area')
-store.set_attribute(TOPIC_MAP_IDENTIFIER, attribute51)
+scene_store.set_attribute(TOPIC_MAP_IDENTIFIER, attribute51)
 attribute52 = Attribute('camera-clamp', 'true', 'research-area')
-store.set_attribute(TOPIC_MAP_IDENTIFIER, attribute52)
+scene_store.set_attribute(TOPIC_MAP_IDENTIFIER, attribute52)
 
 # Prop - 'Computer research system'.
 prop51 = Prop('computer', 'Research System')
@@ -225,8 +223,8 @@ electronics.
 """
 asset54 = Asset('text', data=prop51_text)
 prop51.add_asset(asset54)
-store.set_prop(TOPIC_MAP_IDENTIFIER, prop51, 'research-area')
-store.set_tags(TOPIC_MAP_IDENTIFIER, 'computer', ['electronics'])
+scene_store.set_prop(TOPIC_MAP_IDENTIFIER, prop51, 'research-area')
+scene_store.set_tags(TOPIC_MAP_IDENTIFIER, 'computer', ['electronics'])
 tag51_text = """__Electronics__ is the science of controlling electrical energy electrically, in which the electrons
 have a fundamental role. Electronics deals with electrical circuits that involve active electrical components such as
 vacuum tubes, transistors, diodes, integrated circuits, associated passive electrical components, and interconnection
@@ -236,7 +234,7 @@ Commonly, electronic devices contain circuitry consisting primarily or exclusive
 with passive elements; such a circuit is described as an electronic circuit.
 """
 tag_occurrence51 = Occurrence(topic_identifier='electronics', instance_of='text', resource_data=bytes(tag51_text, 'utf-8'))
-store.set_occurrence(TOPIC_MAP_IDENTIFIER, tag_occurrence51)
+scene_store.set_occurrence(TOPIC_MAP_IDENTIFIER, tag_occurrence51)
 
 # Prop - 'Desk'.
 prop52 = Prop('desk', 'Desk')
@@ -252,8 +250,8 @@ or metal, although materials such as tempered glass are sometimes seen.
 """
 asset56 = Asset('text', data=prop52_text)
 prop52.add_asset(asset56)
-store.set_prop(TOPIC_MAP_IDENTIFIER, prop52, 'research-area')
-store.set_tags(TOPIC_MAP_IDENTIFIER, 'desk', ['furniture'])
+scene_store.set_prop(TOPIC_MAP_IDENTIFIER, prop52, 'research-area')
+scene_store.set_tags(TOPIC_MAP_IDENTIFIER, 'desk', ['furniture'])
 
 # Prop - 'Chair'.
 prop53 = Prop('chair', 'Chair')
@@ -270,8 +268,8 @@ the entire chair.
 """
 asset58 = Asset('text', data=prop53_text)
 prop53.add_asset(asset58)
-store.set_prop(TOPIC_MAP_IDENTIFIER, prop53, 'research-area')
-store.set_tags(TOPIC_MAP_IDENTIFIER, 'chair', ['furniture'])
+scene_store.set_prop(TOPIC_MAP_IDENTIFIER, prop53, 'research-area')
+scene_store.set_tags(TOPIC_MAP_IDENTIFIER, 'chair', ['furniture'])
 tag52_text = """Furniture is movable objects intended to support various human activities such as seating (e.g., chairs,
 stools, tables and sofas) and sleeping (e.g., beds). Furniture is also used to hold objects at a convenient height for
 work (as horizontal surfaces above the ground, such as tables and desks), or to store things (e.g., cupboards and
@@ -282,7 +280,7 @@ role, ita can serve a symbolic or religious purpose. It can be made from many ma
 wood. Furniture can be made using a variety of woodworking joints which often reflect the local culture.
 """
 tag_occurrence52 = Occurrence(topic_identifier='furniture', instance_of='text', resource_data=bytes(tag52_text, 'utf-8'))
-store.set_occurrence(TOPIC_MAP_IDENTIFIER, tag_occurrence52)
+scene_store.set_occurrence(TOPIC_MAP_IDENTIFIER, tag_occurrence52)
 
 # Prop - 'Bookshelf'.
 prop54 = Prop('bookshelf', 'Bookshelf')
@@ -298,8 +296,8 @@ or other printed materials.
 """
 asset510 = Asset('text', data=prop54_text)
 prop54.add_asset(asset510)
-store.set_prop(TOPIC_MAP_IDENTIFIER, prop54, 'research-area')
-store.set_tags(TOPIC_MAP_IDENTIFIER, 'bookshelf', ['furniture'])
+scene_store.set_prop(TOPIC_MAP_IDENTIFIER, prop54, 'research-area')
+scene_store.set_tags(TOPIC_MAP_IDENTIFIER, 'bookshelf', ['furniture'])
 
 # # Prop - 'Utility Robot.
 # prop55 = Prop('utility-robot', 'Utility Robot')
@@ -353,9 +351,9 @@ the field of bio-inspired robotics. These robots have also created a newer branc
 """
 asset512 = Asset('text', data=character51_text)
 character51.add_asset(asset512)
-store.set_character(TOPIC_MAP_IDENTIFIER, character51, 'research-area')
+scene_store.set_character(TOPIC_MAP_IDENTIFIER, character51, 'research-area')
 
-store.set_tags(TOPIC_MAP_IDENTIFIER, 'utility-robot', ['electronics'])
+scene_store.set_tags(TOPIC_MAP_IDENTIFIER, 'utility-robot', ['electronics'])
 
 
 # Scene 6 - Storage.
@@ -368,17 +366,17 @@ industrial areas of cities, towns and villages.
 """
 asset62 = Asset('text', data=scene6_text)
 scene6.add_asset(asset62)
-store.set_scene(TOPIC_MAP_IDENTIFIER, scene6)
+scene_store.set_scene(TOPIC_MAP_IDENTIFIER, scene6)
 attribute61 = Attribute('type', 'interior', 'storage-area')
-store.set_attribute(TOPIC_MAP_IDENTIFIER, attribute61)
+scene_store.set_attribute(TOPIC_MAP_IDENTIFIER, attribute61)
 attribute62 = Attribute('camera-clamp', 'true', 'storage-area')
-store.set_attribute(TOPIC_MAP_IDENTIFIER, attribute62)
+scene_store.set_attribute(TOPIC_MAP_IDENTIFIER, attribute62)
 
 # Set up navigation.
-store.set_navigation(TOPIC_MAP_IDENTIFIER, 'outpost', 'weapon-factory', 'west', 'east')
-store.set_navigation(TOPIC_MAP_IDENTIFIER, 'weapon-factory', 'research-area', 'south', 'north')
-store.set_navigation(TOPIC_MAP_IDENTIFIER, 'research-area', 'storage-area', 'south', 'north')
+scene_store.set_navigation(TOPIC_MAP_IDENTIFIER, 'outpost', 'weapon-factory', 'west', 'east')
+scene_store.set_navigation(TOPIC_MAP_IDENTIFIER, 'weapon-factory', 'research-area', 'south', 'north')
+scene_store.set_navigation(TOPIC_MAP_IDENTIFIER, 'research-area', 'storage-area', 'south', 'north')
 
 
 # Clean-up.
-store.close()
+scene_store.close()

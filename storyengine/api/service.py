@@ -24,12 +24,12 @@ config.read(SETTINGS_FILE_PATH)
 username = config['DATABASE']['Username']
 password = config['DATABASE']['Password']
 
-store = SceneStore(username, password)
-store.open()
+scene_store = SceneStore(username, password)
+scene_store.open()
 
 
 def get_topic_identifiers(topic_map_identifier, query, offset=0, limit=100):
-    result = store.get_topic_identifiers(topic_map_identifier, query, offset, limit)
+    result = scene_store.get_topic_identifiers(topic_map_identifier, query, offset, limit)
     # TODO: Filter out anything that is not either a prop, character, or scene.
     if result:
         return result, 200
@@ -39,8 +39,8 @@ def get_topic_identifiers(topic_map_identifier, query, offset=0, limit=100):
 
 @functools.lru_cache(maxsize=64)
 def get_topic(topic_map_identifier, identifier):
-    topic = store.get_topic(topic_map_identifier, identifier,
-                            resolve_attributes=RetrievalOption.RESOLVE_ATTRIBUTES)
+    topic = scene_store.get_topic(topic_map_identifier, identifier,
+                                  resolve_attributes=RetrievalOption.RESOLVE_ATTRIBUTES)
     if topic:
         attributes = []
         base_names = []
@@ -74,10 +74,10 @@ def get_topic(topic_map_identifier, identifier):
 
 
 def get_topics(topic_map_identifier, instance_of='topic', offset=0, limit=100):
-    topics = store.get_topics(topic_map_identifier,
-                              instance_of=instance_of,
-                              offset=offset,
-                              limit=limit)
+    topics = scene_store.get_topics(topic_map_identifier,
+                                    instance_of=instance_of,
+                                    offset=offset,
+                                    limit=limit)
     if topics:
         result = []
         for topic in topics:
@@ -139,7 +139,7 @@ def get_topics_hierarchy(topic_map_identifier, identifier):
         for child in children:
             build_topics_hierarchy(child)
 
-    tree = store.get_topics_hierarchy(topic_map_identifier, identifier)
+    tree = scene_store.get_topics_hierarchy(topic_map_identifier, identifier)
     if len(tree) > 1:
         result = {}
         build_topics_hierarchy(identifier)
@@ -155,13 +155,13 @@ def get_network(topic_map_identifier, identifier):
         instance_of = tree[inner_identifier].topic.instance_of
         children = tree[inner_identifier].children
 
-        group = instance_of
-        if inner_identifier == identifier:
-            group = 'active'
+        # group = instance_of
+        # if inner_identifier == identifier:
+        #     group = 'active'
         node = {
             'id': inner_identifier,
             'label': base_name,
-            'group': group,
+            'group': instance_of,
             'instanceOf': instance_of
         }
 
@@ -177,7 +177,7 @@ def get_network(topic_map_identifier, identifier):
                 result[edges].append(edge)
             build_network(child)  # Recursive call.
 
-    tree = store.get_topics_hierarchy(topic_map_identifier, identifier)
+    tree = scene_store.get_topics_hierarchy(topic_map_identifier, identifier)
     if len(tree) > 1:
         nodes = 0
         edges = 1
@@ -190,8 +190,8 @@ def get_network(topic_map_identifier, identifier):
 
 @functools.lru_cache(maxsize=64)
 def get_occurrence(topic_map_identifier, identifier):
-    occurrence = store.get_occurrence(topic_map_identifier, identifier,
-                                      inline_resource_data=RetrievalOption.DONT_INLINE_RESOURCE_DATA)
+    occurrence = scene_store.get_occurrence(topic_map_identifier, identifier,
+                                            inline_resource_data=RetrievalOption.DONT_INLINE_RESOURCE_DATA)
     if occurrence:
         # TODO: Implementation.
         return "Occurrence found", 200
@@ -200,10 +200,10 @@ def get_occurrence(topic_map_identifier, identifier):
 
 
 def get_topic_occurrences(topic_map_identifier, identifier, instance_of=None):
-    occurrences = store.get_topic_occurrences(topic_map_identifier, identifier,
-                                              instance_of=instance_of,
-                                              inline_resource_data=RetrievalOption.INLINE_RESOURCE_DATA,
-                                              resolve_attributes=RetrievalOption.DONT_RESOLVE_ATTRIBUTES)
+    occurrences = scene_store.get_topic_occurrences(topic_map_identifier, identifier,
+                                                    instance_of=instance_of,
+                                                    inline_resource_data=RetrievalOption.INLINE_RESOURCE_DATA,
+                                                    resolve_attributes=RetrievalOption.DONT_RESOLVE_ATTRIBUTES)
     if occurrences:
         result = []
         for occurrence in occurrences:
@@ -237,7 +237,7 @@ def get_topic_occurrences(topic_map_identifier, identifier, instance_of=None):
 
 @functools.lru_cache(maxsize=64)
 def get_association(topic_map_identifier, identifier):
-    association = store.get_association(topic_map_identifier, identifier)
+    association = scene_store.get_association(topic_map_identifier, identifier)
     if association:
         # TODO: Implementation.
         return "Association found", 200
@@ -246,7 +246,7 @@ def get_association(topic_map_identifier, identifier):
 
 
 def get_associations(topic_map_identifier, identifier):
-    associations = store.get_association_groups(topic_map_identifier, identifier)
+    associations = scene_store.get_association_groups(topic_map_identifier, identifier)
     if len(associations):
         level1 = []
         for instance_of in associations.dict:
@@ -254,11 +254,11 @@ def get_associations(topic_map_identifier, identifier):
             for role in associations.dict[instance_of]:
                 level3 = []
                 for topic_ref in associations[instance_of, role]:
-                    topic3 = store.get_topic(topic_map_identifier, topic_ref)
+                    topic3 = scene_store.get_topic(topic_map_identifier, topic_ref)
                     level3.append({'text': topic3.first_base_name.name, 'href': topic_ref, 'instanceOf': instance_of})
-                topic2 = store.get_topic(topic_map_identifier, role)
+                topic2 = scene_store.get_topic(topic_map_identifier, role)
                 level2.append({'text': topic2.first_base_name.name, 'nodes': level3})
-            topic1 = store.get_topic(topic_map_identifier, instance_of)
+            topic1 = scene_store.get_topic(topic_map_identifier, instance_of)
             level1.append({'text': topic1.first_base_name.name, 'nodes': level2})
         return level1, 200
     else:
@@ -267,7 +267,7 @@ def get_associations(topic_map_identifier, identifier):
 
 @functools.lru_cache(maxsize=64)
 def get_attribute(topic_map_identifier, identifier):
-    attribute = store.get_attribute(topic_map_identifier, identifier)
+    attribute = scene_store.get_attribute(topic_map_identifier, identifier)
     if attribute:
         # TODO: Implementation.
         return "Attribute found", 200
@@ -276,7 +276,7 @@ def get_attribute(topic_map_identifier, identifier):
 
 
 def get_attributes(topic_map_identifier, identifier):
-    attributes = store.get_attributes(topic_map_identifier, identifier)
+    attributes = scene_store.get_attributes(topic_map_identifier, identifier)
     if attributes:
         # TODO: Implementation.
         return "Attributes found", 200
@@ -286,7 +286,7 @@ def get_attributes(topic_map_identifier, identifier):
 
 @functools.lru_cache(maxsize=64)
 def get_scene(topic_map_identifier, identifier):
-    scene = store.get_scene(topic_map_identifier, identifier)
+    scene = scene_store.get_scene(topic_map_identifier, identifier)
     if scene:
         assets = []
         props = []
@@ -378,7 +378,7 @@ def get_scene(topic_map_identifier, identifier):
 
 @functools.lru_cache(maxsize=64)
 def get_scene_tags(topic_map_identifier, identifier):
-    entities_tags = store.get_entities_tags(topic_map_identifier, identifier)
+    entities_tags = scene_store.get_entities_tags(topic_map_identifier, identifier)
     if entities_tags:
         result = []
         for tag, tagged_entities in entities_tags.items():
@@ -393,7 +393,7 @@ def get_scene_tags(topic_map_identifier, identifier):
 
 @functools.lru_cache(maxsize=64)
 def get_prop(topic_map_identifier, identifier):
-    prop = store.get_prop(topic_map_identifier, identifier)
+    prop = scene_store.get_prop(topic_map_identifier, identifier)
     if prop:
         assets = []
         attributes = []
@@ -430,7 +430,7 @@ def get_prop(topic_map_identifier, identifier):
 
 @functools.lru_cache(maxsize=64)
 def get_character(topic_map_identifier, identifier):
-    character = store.get_character(topic_map_identifier, identifier)
+    character = scene_store.get_character(topic_map_identifier, identifier)
     if character:
         assets = []
         attributes = []
@@ -467,7 +467,7 @@ def get_character(topic_map_identifier, identifier):
 
 @functools.lru_cache(maxsize=64)
 def get_story(story_identifier):
-    story = store.get_topic_map(story_identifier)
+    story = scene_store.get_topic_map(story_identifier)
     if story:
         result = {
             'story': {
@@ -483,7 +483,7 @@ def get_story(story_identifier):
 
 
 def get_stories():
-    stories = store.get_topic_maps()
+    stories = scene_store.get_topic_maps()
     if stories:
         result = []
         for story in stories:
