@@ -132,13 +132,22 @@ class SceneStore:
                 resource_data=asset.data)
             self.topic_store.set_occurrence(topic_map_identifier, occurrence)
 
-        association = Association(
+        scene_association = Association(
             instance_of='character',
             src_topic_ref=topic.identifier,  # The character's reference.
             dest_topic_ref=scene_identifier,
             src_role_spec='included-in',
             dest_role_spec='includes')
-        self.topic_store.set_association(topic_map_identifier, association)
+        self.topic_store.set_association(topic_map_identifier, scene_association)
+
+        book_association = Association(
+            instance_of='character',
+            src_topic_ref=topic.identifier,  # The character's reference.
+            dest_topic_ref='genesis',
+            src_role_spec='included-in',
+            dest_role_spec='includes',
+            scope='book')
+        self.topic_store.set_association(topic_map_identifier, book_association)
 
     def set_prop(self, topic_map_identifier, prop, scene_identifier):
         topic = Topic(prop.identifier, prop.instance_of, prop.name)
@@ -160,13 +169,22 @@ class SceneStore:
                 resource_data=asset.data)
             self.topic_store.set_occurrence(topic_map_identifier, occurrence)
 
-        association = Association(
+        scene_association = Association(
             instance_of='prop',
             src_topic_ref=topic.identifier,  # The prop's reference.
             dest_topic_ref=scene_identifier,
             src_role_spec='included-in',
             dest_role_spec='includes')
-        self.topic_store.set_association(topic_map_identifier, association)
+        self.topic_store.set_association(topic_map_identifier, scene_association)
+
+        book_association = Association(
+            instance_of='prop',
+            src_topic_ref=topic.identifier,  # The prop's reference.
+            dest_topic_ref='genesis',
+            src_role_spec='included-in',
+            dest_role_spec='includes',
+            scope='book')
+        self.topic_store.set_association(topic_map_identifier, book_association)
 
     def set_scene(self, topic_map_identifier, scene):
         topic = Topic(scene.identifier, scene.instance_of, scene.name)
@@ -188,6 +206,15 @@ class SceneStore:
                 resource_ref=asset.reference,
                 resource_data=asset.data)
             self.topic_store.set_occurrence(topic_map_identifier, occurrence)
+
+        book_association = Association(
+            instance_of='scene',
+            src_topic_ref=topic.identifier,  # The scene's reference.
+            dest_topic_ref='genesis',
+            src_role_spec='included-in',
+            dest_role_spec='includes',
+            scope='book')
+        self.topic_store.set_association(topic_map_identifier, book_association)
 
     def set_navigation(self, topic_map_identifier, src_scene_identifier, dest_scene_identifier,
                        src_scene_role='previous',
@@ -246,8 +273,8 @@ class SceneStore:
                         resolve_occurrences=RetrievalOption.DONT_RESOLVE_OCCURRENCES):
         return self.topic_store.get_association(topic_map_identifier, identifier, language, resolve_attributes, resolve_occurrences)
 
-    def get_association_groups(self, topic_map_identifier, identifier='', associations=None):
-        return self.topic_store.get_association_groups(topic_map_identifier, identifier, associations)
+    def get_association_groups(self, topic_map_identifier, identifier='', associations=None, instance_of=None, scope=None):
+        return self.topic_store.get_association_groups(topic_map_identifier, identifier, associations, instance_of=instance_of, scope=scope)
 
     def get_attributes(self, topic_map_identifier, entity_identifier, scope=None, language=None):
         return self.topic_store.get_attributes(topic_map_identifier, entity_identifier, scope, language)
@@ -284,13 +311,6 @@ class SceneStore:
                    limit=100,
                    resolve_attributes=RetrievalOption.DONT_RESOLVE_ATTRIBUTES):
         return self.topic_store.get_topics(topic_map_identifier, instance_of, language, offset, limit, resolve_attributes)
-
-    def get_topics_hierarchy(self, topic_map_identifier, identifier,
-                             maximum_depth=10,
-                             cumulative_depth=0,
-                             accumulative_tree=None,
-                             accumulative_nodes=None):
-        return self.topic_store.get_topics_hierarchy(topic_map_identifier, identifier, maximum_depth, cumulative_depth, accumulative_tree, accumulative_nodes)
 
     def get_topic_map(self, identifier):
         return self.topic_store.get_topic_map(identifier)

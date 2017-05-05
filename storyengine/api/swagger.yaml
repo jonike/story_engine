@@ -73,6 +73,8 @@ paths:
       parameters:
         - $ref: '#/parameters/topic_map_identifier'
         - $ref: '#/parameters/identifier'
+        - $ref: '#/parameters/instance_of'
+        - $ref: '#/parameters/scope'
       responses:
         200:
           description: Return associations
@@ -126,30 +128,6 @@ paths:
           description: Return character
         404:
           description: Character does not exist
-  '/maps/{topic_map_identifier}/hierarchies/{identifier}':
-    get:
-      operationId: storyengine.api.service.get_topics_hierarchy
-      summary: Pending
-      parameters:
-        - $ref: '#/parameters/topic_map_identifier'
-        - $ref: '#/parameters/identifier'
-      responses:
-        200:
-          description: Return topics hierarchy
-        404:
-          description: Topics hierarchy is not available
-  '/maps/{topic_map_identifier}/networks/{identifier}':
-    get:
-      operationId: storyengine.api.service.get_network
-      summary: Pending
-      parameters:
-        - $ref: '#/parameters/topic_map_identifier'
-        - $ref: '#/parameters/identifier'
-      responses:
-        200:
-          description: Return network data structure
-        404:
-          description: Network data structure is not available
   '/stories':
     get:
       operationId: storyengine.api.service.get_stories
@@ -194,6 +172,13 @@ parameters:
   instance_of:
     name: instance_of
     description: Unique 'instance of' identifier
+    in: query
+    type: string
+    required: false
+    pattern: "^\\*|[a-zA-Z0-9-]+$"
+  scope:
+    name: scope
+    description: Unique 'scope' identifier
     in: query
     type: string
     required: false

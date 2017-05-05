@@ -35,12 +35,9 @@ scene_store.open()
 attribute01 = Attribute('entry-scene', 'cafeteria', 'genesis')
 scene_store.set_attribute(TOPIC_MAP_IDENTIFIER, attribute01)
 
-story_text = """An unexpected or casual meeting with someone or something. She felt totally unnerved by the encounter.
+story_text = """An unexpected or casual meeting with someone or something. She felt totally unnerved by the encounter. I told them of my encounter with the __cardinal__. What do we know about the people we encounter in our daily lives?
 
-I told them of my encounter with the __cardinal__. What do we know about the people we encounter in our daily lives?
-
-Unexpectedly be faced with or experience (something hostile or difficult). The guides will help if you encounter any 
-problems.
+Unexpectedly be faced with or experience (something hostile or difficult). The guides will help if you encounter any problems.
 """
 story_text_occurrence = Occurrence(topic_identifier='genesis', instance_of='text', resource_data=bytes(story_text, 'utf-8'))
 scene_store.set_occurrence(TOPIC_MAP_IDENTIFIER, story_text_occurrence)
@@ -53,7 +50,7 @@ scene_store.set_occurrence(TOPIC_MAP_IDENTIFIER, story_image_occurrence)
 # Scene 01 - Cafeteria.
 asset11 = Asset('scene', 'scene-012.json')
 scene1 = Scene('cafeteria', 'Cafeteria',
-               description='A lunchroom or dining hall, as in a factory, office, or school, where food is served from counters or dispensed from vending machines or where food brought from home may be eaten.',
+               description='A lunchroom or dining hall, as in a factory, office, or school, where food is served from counters or dispensed from vending machines.',
                ordinal=1)
 scene1.add_asset(asset11)
 scene1_text = """A cafeteria is a type of __food service location__ in which there is little or no waiting staff table

@@ -113,81 +113,6 @@ def get_topics(topic_map_identifier, instance_of='topic', offset=0, limit=100):
         return "Not found", 404
 
 
-def get_topics_hierarchy(topic_map_identifier, identifier):
-
-    def build_topics_hierarchy(inner_identifier):
-
-        parent_identifier = tree[inner_identifier].parent
-        base_name = tree[inner_identifier].topic.first_base_name.name
-        instance_of = tree[inner_identifier].topic.instance_of
-        children = tree[inner_identifier].children
-
-        node = {
-            'id': inner_identifier,
-            'name': base_name,
-            'instanceOf': instance_of,
-            'children': []
-        }
-        result[inner_identifier] = node
-
-        if parent_identifier:
-            parent = result[parent_identifier]
-            parent_children = parent['children']
-            parent_children.append(node)
-            parent['children'] = parent_children
-
-        for child in children:
-            build_topics_hierarchy(child)
-
-    tree = scene_store.get_topics_hierarchy(topic_map_identifier, identifier)
-    if len(tree) > 1:
-        result = {}
-        build_topics_hierarchy(identifier)
-        return result[identifier], 200
-    else:
-        return "Not found", 404
-
-
-def get_network(topic_map_identifier, identifier):
-
-    def build_network(inner_identifier):
-        base_name = tree[inner_identifier].topic.first_base_name.name
-        instance_of = tree[inner_identifier].topic.instance_of
-        children = tree[inner_identifier].children
-
-        # group = instance_of
-        # if inner_identifier == identifier:
-        #     group = 'active'
-        node = {
-            'id': inner_identifier,
-            'label': base_name,
-            'group': instance_of,
-            'instanceOf': instance_of
-        }
-
-        if instance_of in ('scene', 'character', 'prop'):
-            result[nodes].append(node)
-
-        for child in children:
-            edge = {
-                'from': inner_identifier,
-                'to': child
-            }
-            if instance_of == 'scene':
-                result[edges].append(edge)
-            build_network(child)  # Recursive call.
-
-    tree = scene_store.get_topics_hierarchy(topic_map_identifier, identifier)
-    if len(tree) > 1:
-        nodes = 0
-        edges = 1
-        result = ([], [])  # The result is a tuple containing two lists of dictionaries.
-        build_network(identifier)
-        return result, 200
-    else:
-        return "Not found", 404
-
-
 @functools.lru_cache(maxsize=64)
 def get_occurrence(topic_map_identifier, identifier):
     occurrence = scene_store.get_occurrence(topic_map_identifier, identifier,
@@ -245,8 +170,8 @@ def get_association(topic_map_identifier, identifier):
         return "Not found", 404
 
 
-def get_associations(topic_map_identifier, identifier):
-    associations = scene_store.get_association_groups(topic_map_identifier, identifier)
+def get_associations(topic_map_identifier, identifier, instance_of=None, scope=None):
+    associations = scene_store.get_association_groups(topic_map_identifier, identifier, instance_of=instance_of, scope=scope)
     if len(associations):
         level1 = []
         for instance_of in associations.dict:
