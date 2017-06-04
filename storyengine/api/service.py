@@ -8,6 +8,9 @@ Brett Alistair Kromkamp (brett.kromkamp@gmail.com)
 import functools
 import os
 import configparser
+import json
+
+import pika
 
 from topicdb.core.store.retrievaloption import RetrievalOption
 
@@ -108,6 +111,46 @@ def get_topics(topic_map_identifier, instance_of='topic', offset=0, limit=100):
                 }
             }
             result.append(topic_json)
+        return result, 200
+    else:
+        return "Not found", 404
+
+
+def get_network(topic_map_identifier, identifier):
+
+    def build_network(inner_identifier):
+        base_name = tree[inner_identifier].topic.first_base_name.name
+        instance_of = tree[inner_identifier].topic.instance_of
+        children = tree[inner_identifier].children
+
+        # group = instance_of
+        # if inner_identifier == identifier:
+        #     group = 'active'
+        node = {
+            'id': inner_identifier,
+            'label': base_name,
+            'group': instance_of,
+            'instanceOf': instance_of
+        }
+
+        if instance_of in ('scene', 'character', 'prop'):
+            result[nodes].append(node)
+
+        for child in children:
+            if instance_of == 'scene':
+                edge = {
+                    'from': inner_identifier,
+                    'to': child
+                }
+                result[edges].append(edge)
+            build_network(child)  # Recursive call.
+
+    tree = scene_store.get_topics_network(topic_map_identifier, identifier)
+    if len(tree) > 1:
+        nodes = 0
+        edges = 1
+        result = ([], [])  # The result is a tuple containing two lists of dictionaries.
+        build_network(identifier)
         return result, 200
     else:
         return "Not found", 404
@@ -425,6 +468,21 @@ def get_stories():
     else:
         return "Not found", 404
 
+
+def put_interaction(topic_map_identifier, json_body):
+    connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
+    channel = connection.channel()
+
+    channel.queue_declare(queue='storytechnologies', durable=True)
+
+    # Example messages:
+    #   {"type": "scene", "command": "start-rotation"}
+    #   {"type": "scene", "command": "navigate-to", "sceneIdentifier": "outpost"}
+
+    channel.basic_publish(exchange='',
+                          routing_key='storytechnologies',
+                          body=json.dumps(json_body))
+    connection.close()
 
 # POST /scenes
 # POST /scenes/{identifier}/assets

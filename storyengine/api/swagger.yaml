@@ -128,6 +128,18 @@ paths:
           description: Return character
         404:
           description: Character does not exist
+  '/maps/{topic_map_identifier}/networks/{identifier}':
+    get:
+      operationId: storyengine.api.service.get_network
+      summary: Pending
+      parameters:
+        - $ref: '#/parameters/topic_map_identifier'
+        - $ref: '#/parameters/identifier'
+      responses:
+        200:
+          description: Return network data structure
+        404:
+          description: Network data structure is not available
   '/stories':
     get:
       operationId: storyengine.api.service.get_stories
@@ -148,6 +160,16 @@ paths:
           description: Return story
         404:
           description: Story does not exist
+  '/stories/{topic_map_identifier}/interactions':
+    post:
+      operationId: storyengine.api.service.put_interaction
+      summary: Send an interaction command
+      parameters:
+        - $ref: '#/parameters/topic_map_identifier'
+        - $ref: '#/parameters/json_body'
+      responses:
+        201:
+          description: Interaction sent
 
 parameters:
   story_identifier:
@@ -197,3 +219,10 @@ parameters:
     type: number
     required: false
     pattern: "^[0-9]+$"
+  json_body:
+    name: json_body
+    description: JSON payload
+    in: body
+    required: true
+    schema:
+      type: object

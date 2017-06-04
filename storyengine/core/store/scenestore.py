@@ -312,6 +312,20 @@ class SceneStore:
                    resolve_attributes=RetrievalOption.DONT_RESOLVE_ATTRIBUTES):
         return self.topic_store.get_topics(topic_map_identifier, instance_of, language, offset, limit, resolve_attributes)
 
+    def get_topics_network(self, topic_map_identifier, identifier,
+                           maximum_depth=10,
+                           cumulative_depth=0,
+                           accumulative_tree=None,
+                           accumulative_nodes=None):
+        return self.topic_store.get_topics_network(topic_map_identifier,
+                                                   identifier,
+                                                   maximum_depth,
+                                                   cumulative_depth,
+                                                   accumulative_tree,
+                                                   accumulative_nodes,
+                                                   instance_of=['prop', 'character', 'scene', 'navigation'],
+                                                   scope='*')
+
     def get_topic_map(self, identifier):
         return self.topic_store.get_topic_map(identifier)
 

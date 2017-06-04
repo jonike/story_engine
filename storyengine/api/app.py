@@ -17,4 +17,4 @@ application = app.app
 
 if __name__ == '__main__':
     # Run standalone gevent server (http://www.gevent.org/index.html).
-    app.run(port=8080, server='gevent')
+    app.run(port=5000, server='gevent')

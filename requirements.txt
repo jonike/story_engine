@@ -1,4 +1,4 @@
-connexion>=1.1.9
+connexion>=1.1.10
 flask-cors>=3.0.2
 gevent>=1.2.1
 topic-db>=0.6.0
