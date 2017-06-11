@@ -476,8 +476,9 @@ def put_interaction(topic_map_identifier, json_body):
     channel.queue_declare(queue='storytechnologies', durable=True)
 
     # Example messages:
-    #   {"type": "scene", "command": "start-rotation"}
+    #   {"type": "scene", "command": "toggle-rotation"}
     #   {"type": "scene", "command": "navigate-to", "sceneIdentifier": "outpost"}
+    #   {"type": "animation", "command": "toggle-animation", "animate": "true", "objectIdentifier": "windmill"}
 
     channel.basic_publish(exchange='',
                           routing_key='storytechnologies',
