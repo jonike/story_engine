@@ -302,7 +302,10 @@ class SceneStore:
         return self.topic_store.get_topic(topic_map_identifier, identifier, language, resolve_attributes, resolve_occurrences)
 
     def get_topic_identifiers(self, topic_map_identifier, query, offset=0, limit=100):
-        return self.topic_store.get_topic_identifiers(topic_map_identifier, query, offset, limit)
+        return self.topic_store.get_topic_identifiers(topic_map_identifier, query,
+                                                      instance_of=['prop', 'character', 'scene'],
+                                                      offset=offset,
+                                                      limit=limit)
 
     def get_topics(self, topic_map_identifier,
                    instance_of=None,
