@@ -111,7 +111,7 @@ def get_topics(topic_map_identifier, instance_of='topic', offset=0, limit=100):
                 }
             }
             result.append(topic_json)
-        return result, 200
+        return {'topics': result}, 200
     else:
         return "Not found", 404
 
@@ -151,7 +151,7 @@ def get_network(topic_map_identifier, identifier):
         edges = 1
         result = ([], [])  # The result is a tuple containing two lists of dictionaries.
         build_network(identifier)
-        return result, 200
+        return {'nodes': result}, 200
     else:
         return "Not found", 404
 
@@ -198,7 +198,7 @@ def get_topic_occurrences(topic_map_identifier, identifier, instance_of=None):
                 }
             }
             result.append(occurrence_json)
-        return result, 200
+        return {'occurrences': result}, 200
     else:
         return "Not found", 404
 
@@ -228,7 +228,7 @@ def get_associations(topic_map_identifier, identifier, instance_of=None, scope=N
                 level2.append({'text': topic2.first_base_name.name, 'nodes': level3})
             topic1 = scene_store.get_topic(topic_map_identifier, instance_of)
             level1.append({'text': topic1.first_base_name.name, 'nodes': level2})
-        return level1, 200
+        return {'associations': level1}, 200
     else:
         return "Not found", 404
 
@@ -354,7 +354,7 @@ def get_scene_tags(topic_map_identifier, identifier):
                 'tag': tag,
                 'entityIdentifiers': list(tagged_entities)
             })
-        return result, 200
+        return {'tags': result}, 200
     else:
         return "Not found", 404
 
@@ -464,7 +464,7 @@ def get_stories():
                 }
             }
             result.append(story_json)
-        return result, 200
+        return {'stories': result}, 200
     else:
         return "Not found", 404
 
