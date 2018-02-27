@@ -259,6 +259,7 @@ def get_scene(topic_map_identifier, identifier):
         assets = []
         props = []
         characters = []
+        quests = []
         paths = []
         attributes = []
         entities_tags = []
@@ -334,6 +335,7 @@ def get_scene(topic_map_identifier, identifier):
                 'ordinal': scene.ordinal,
                 'assets': assets,
                 'entities': entities,
+                'quests': quests,
                 'paths': paths,
                 'attributes': attributes,
                 'tags': entities_tags
