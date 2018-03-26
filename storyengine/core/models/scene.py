@@ -14,6 +14,7 @@ class Scene(Entity):
         super().__init__(identifier, 'scene', name, description)
         self.__associations = []
         self.__entities = []  # Characters and props.
+        self.__quests = []
 
         self.entities_tags = {}  # The tags for the entities (characters and props) in the scene.
         self.ordinal = ordinal  # The ordinal indicates the scene's position in the scene line.
@@ -25,6 +26,10 @@ class Scene(Entity):
     @property
     def entities(self):
         return self.__entities
+
+    @property
+    def quests(self):
+        return self.__quests
 
     def add_association(self, association):
         self.__associations.append(association)
@@ -39,3 +44,10 @@ class Scene(Entity):
     def add_entities(self, entities):
         for entity in entities:
             self.__entities.append(entity)
+
+    def add_quest(self, quest):
+        self.__quests.append(quest)
+    
+    def append_quests(self, quests):
+        for quest in quests:
+            self.__quests.append(quest)

@@ -111,6 +111,11 @@ class SceneStore:
             result.add_attributes(attributes)
             result.entities_tags = self.get_entities_tags(topic_map_identifier, identifier)
         return result
+    
+    def get_quest(self, topic_map_identifier, identifier):
+        result = None
+        # TODO: Implement.
+        return result
 
     def set_character(self, topic_map_identifier, character, scene_identifier):
         topic = Topic(character.identifier, character.instance_of, character.name)
@@ -215,6 +220,10 @@ class SceneStore:
             dest_role_spec='includes',
             scope='book')
         self.topic_store.set_association(topic_map_identifier, book_association)
+
+    def set_quest(self, topic_map_identifier, quest, scene_identifier):
+        # TODO: Implement.
+        pass
 
     def set_navigation(self, topic_map_identifier, src_scene_identifier, dest_scene_identifier,
                        src_scene_role='previous',
