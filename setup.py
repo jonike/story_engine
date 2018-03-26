@@ -23,7 +23,7 @@ setup(name='story-engine',
       license='MIT',
       packages=find_packages(),
       install_requires=[
-            'connexion', 'flask-cors', 'gevent', 'topic-db'
+            'topic-db'
       ],
       include_package_data=True,
       zip_safe=False)
