@@ -66,6 +66,8 @@ scene1.add_asset(asset12)
 scene_store.set_scene(TOPIC_MAP_IDENTIFIER, scene1)
 attribute11 = Attribute('type', 'exterior', 'outpost')
 scene_store.set_attribute(TOPIC_MAP_IDENTIFIER, attribute11)
+attribute12 = Attribute('camera-rotation', '0.30', 'outpost')  # Camera rotation multiplier.
+scene_store.set_attribute(TOPIC_MAP_IDENTIFIER, attribute12)
 
 # Prop - 'ammunition'.
 prop11 = Prop('ammunition', 'Ammunition')
@@ -124,8 +126,6 @@ attribute31 = Attribute('type', 'exterior', 'weapon-factory')
 scene_store.set_attribute(TOPIC_MAP_IDENTIFIER, attribute31)
 attribute32 = Attribute('mist-depth', '35', 'weapon-factory')
 scene_store.set_attribute(TOPIC_MAP_IDENTIFIER, attribute32)
-attribute33 = Attribute('camera-rotation', '0.30', 'weapon-factory')  # Camera rotation multiplier.
-scene_store.set_attribute(TOPIC_MAP_IDENTIFIER, attribute33)
 
 # Prop - 'Telecommunications Facility".
 prop31 = Prop('telecommunications-facility', 'Telecommunications Facility')
@@ -183,6 +183,8 @@ returns on their decade-old fantasy of using aerial robots to collect intelligen
 """
 asset36 = Asset('text', data=character31_text)
 character31.add_asset(asset36)
+asset37 = Asset('augmented-reality', reference='robot-001.json')
+character31.add_asset(asset37)
 scene_store.set_character(TOPIC_MAP_IDENTIFIER, character31, 'weapon-factory')
 
 scene_store.set_tags(TOPIC_MAP_IDENTIFIER, 'robot', ['electronics'])
@@ -351,6 +353,8 @@ the field of bio-inspired robotics. These robots have also created a newer branc
 """
 asset512 = Asset('text', data=character51_text)
 character51.add_asset(asset512)
+asset513 = Asset('augmented-reality', reference='utility-robot-003.json')
+character51.add_asset(asset513)
 scene_store.set_character(TOPIC_MAP_IDENTIFIER, character51, 'research-area')
 
 scene_store.set_tags(TOPIC_MAP_IDENTIFIER, 'utility-robot', ['electronics'])
