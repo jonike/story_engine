@@ -66,10 +66,12 @@ scene1.add_asset(asset12)
 scene_store.set_scene(TOPIC_MAP_IDENTIFIER, scene1)
 attribute11 = Attribute('type', 'exterior', 'outpost')
 scene_store.set_attribute(TOPIC_MAP_IDENTIFIER, attribute11)
+attribute12 = Attribute('camera-rotation', '0.30', 'outpost')  # Camera rotation multiplier.
+scene_store.set_attribute(TOPIC_MAP_IDENTIFIER, attribute12)
 
 # Prop - 'ammunition'.
 prop11 = Prop('ammunition', 'Ammunition')
-prop11.location = '[0.74208, -0.42309, 1.06242]'  # x ("width"), y ("depth"), z ("height")
+prop11.location = '[0.74208, -0.42309, 1.06242]'  
 asset13 = Asset('scene', 'ammunition-001.json')
 prop11.add_asset(asset13)
 prop11_text = """## Ammunition
@@ -93,7 +95,7 @@ scene_store.set_prop(TOPIC_MAP_IDENTIFIER, prop11, 'outpost')
 
 # Prop - 'windmill'.
 prop12 = Prop('windmill', 'Windmill')
-prop12.location = '[7.22397, 7.44645, 5.5]'  # x ("width"), y ("depth"), z ("height")
+prop12.location = '[7.22397, 7.44645, 5.5]'  
 asset15 = Asset('scene', 'windmill-001.json')
 prop12.add_asset(asset15)
 prop12_text = """## Windmill
@@ -124,12 +126,10 @@ attribute31 = Attribute('type', 'exterior', 'weapon-factory')
 scene_store.set_attribute(TOPIC_MAP_IDENTIFIER, attribute31)
 attribute32 = Attribute('mist-depth', '35', 'weapon-factory')
 scene_store.set_attribute(TOPIC_MAP_IDENTIFIER, attribute32)
-attribute33 = Attribute('camera-rotation', '0.30', 'weapon-factory')  # Camera rotation multiplier.
-scene_store.set_attribute(TOPIC_MAP_IDENTIFIER, attribute33)
 
 # Prop - 'Telecommunications Facility".
 prop31 = Prop('telecommunications-facility', 'Telecommunications Facility')
-prop31.location = '[4.09054, 6.29359, 6.07536]'  # x ("width"), y ("depth"), z ("height")
+prop31.location = '[4.09054, 6.29359, 6.07536]'  
 asset33 = Asset('scene', 'telecommunications-facility-001.json')
 prop31.add_asset(asset33)
 prop31_text = """## Telecommunications Facility
@@ -151,7 +151,7 @@ scene_store.set_prop(TOPIC_MAP_IDENTIFIER, prop31, 'weapon-factory')
 
 # # Prop - 'Military Robot.
 # prop32 = Prop('robot', 'Military Robot')
-# prop32.location = '[1.37942, -3.62861, 0.63]'  # x ("width"), y ("depth"), z ("height")
+# prop32.location = '[1.37942, -3.62861, 0.63]'  
 # asset35 = Asset('scene', 'robot-001.json')
 # prop32.add_asset(asset35)
 # prop32_text = """## Military Robot
@@ -169,7 +169,7 @@ scene_store.set_prop(TOPIC_MAP_IDENTIFIER, prop31, 'weapon-factory')
 
 # Character - 'Military Robot.
 character31 = Character('robot', 'Military Robot')
-character31.location = '[1.37942, -3.62861, 0.63]'  # x ("width"), y ("depth"), z ("height")
+character31.location = '[1.37942, -3.62861, 0.63]'  
 asset35 = Asset('scene', 'robot-001.json')
 character31.add_asset(asset35)
 character31_text = """## Military Robot
@@ -183,6 +183,8 @@ returns on their decade-old fantasy of using aerial robots to collect intelligen
 """
 asset36 = Asset('text', data=character31_text)
 character31.add_asset(asset36)
+asset37 = Asset('augmented-reality', reference='robot-001.json')
+character31.add_asset(asset37)
 scene_store.set_character(TOPIC_MAP_IDENTIFIER, character31, 'weapon-factory')
 
 scene_store.set_tags(TOPIC_MAP_IDENTIFIER, 'robot', ['electronics'])
@@ -210,7 +212,7 @@ scene_store.set_attribute(TOPIC_MAP_IDENTIFIER, attribute52)
 
 # Prop - 'Computer research system'.
 prop51 = Prop('computer', 'Research System')
-prop51.location = '[-4.13449, 1.5, 2.40848]'  # x ("width"), y ("depth"), z ("height")
+prop51.location = '[-4.13449, 1.5, 2.40848]'  
 asset53 = Asset('scene', 'computer-001.json')
 prop51.add_asset(asset53)
 prop51_text = """## Computer Research System
@@ -238,7 +240,7 @@ scene_store.set_occurrence(TOPIC_MAP_IDENTIFIER, tag_occurrence51)
 
 # Prop - 'Desk'.
 prop52 = Prop('desk', 'Desk')
-prop52.location = '[-3.96111, 0.97235, 1.88772]'  # x ("width"), y ("depth"), z ("height")
+prop52.location = '[-3.96111, 0.97235, 1.88772]'  
 asset55 = Asset('scene', 'desk-001.json')
 prop52.add_asset(asset55)
 prop52_text = """## Desk
@@ -255,7 +257,7 @@ scene_store.set_tags(TOPIC_MAP_IDENTIFIER, 'desk', ['furniture'])
 
 # Prop - 'Chair'.
 prop53 = Prop('chair', 'Chair')
-prop53.location = '[-3.03917, 1.45503, 1.71397]'  # x ("width"), y ("depth"), z ("height")
+prop53.location = '[-3.03917, 1.45503, 1.71397]'  
 asset57 = Asset('scene', 'chair-001.json')
 prop53.add_asset(asset57)
 prop53_text = """## Chair
@@ -284,7 +286,7 @@ scene_store.set_occurrence(TOPIC_MAP_IDENTIFIER, tag_occurrence52)
 
 # Prop - 'Bookshelf'.
 prop54 = Prop('bookshelf', 'Bookshelf')
-prop54.location = '[-2.00528, 3.53678, 2.21712]'  # x ("width"), y ("depth"), z ("height")
+prop54.location = '[-2.00528, 3.53678, 2.21712]'  
 asset59 = Asset('scene', 'bookshelf-001.json')
 prop54.add_asset(asset59)
 prop54_text = """## Bookshelf
@@ -301,7 +303,7 @@ scene_store.set_tags(TOPIC_MAP_IDENTIFIER, 'bookshelf', ['furniture'])
 
 # # Prop - 'Utility Robot.
 # prop55 = Prop('utility-robot', 'Utility Robot')
-# prop55.location = '[4.07017, -0.00034, 1.42042]'  # x ("width"), y ("depth"), z ("height")
+# prop55.location = '[4.07017, -0.00034, 1.42042]'  
 # asset511 = Asset('scene', 'utility-robot-001.json')
 # prop55.add_asset(asset511)
 # prop55_text = """## Robot
@@ -329,7 +331,7 @@ scene_store.set_tags(TOPIC_MAP_IDENTIFIER, 'bookshelf', ['furniture'])
 
 # Character - 'Utility Robot.
 character51 = Character('utility-robot', 'Utility Robot')
-character51.location = '[4.07017, -0.00034, 1.42042]'  # x ("width"), y ("depth"), z ("height")
+character51.location = '[4.07017, -0.00034, 1.42042]'  
 asset511 = Asset('scene', 'utility-robot-001.json')
 character51.add_asset(asset511)
 character51_text = """## Robot
@@ -351,6 +353,8 @@ the field of bio-inspired robotics. These robots have also created a newer branc
 """
 asset512 = Asset('text', data=character51_text)
 character51.add_asset(asset512)
+asset513 = Asset('augmented-reality', reference='utility-robot-003.json')
+character51.add_asset(asset513)
 scene_store.set_character(TOPIC_MAP_IDENTIFIER, character51, 'research-area')
 
 scene_store.set_tags(TOPIC_MAP_IDENTIFIER, 'utility-robot', ['electronics'])

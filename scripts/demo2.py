@@ -66,7 +66,7 @@ scene_store.set_attribute(TOPIC_MAP_IDENTIFIER, attribute11)
 
 # # Prop - 'power-up'.
 # prop11 = Prop('power-up', 'Power-Up')
-# prop11.location = '[0.0, -6.0, 2.0]'  # x ("width"), y ("depth"), z ("height")
+# prop11.location = '[0.0, -6.0, 2.0]'  
 # asset13 = Asset('scene', 'power-up-001.json')
 # prop11.add_asset(asset13)
 # prop11_text = """## Power-Up
