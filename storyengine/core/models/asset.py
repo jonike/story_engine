@@ -12,7 +12,6 @@ class Asset:
 
     def __init__(self, instance_of, reference='', data=None):
 
-        # The 'scene' asset is a Blender/Blend4Web scene exported as JSON.
         if instance_of not in {'image', 'video', 'sound', 'scene', 'html', 'text', 'augmented-reality'}:
             raise CoreError("Unrecognized 'instance of' parameter")
         self.reference = reference

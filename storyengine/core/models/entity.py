@@ -18,16 +18,21 @@ class Entity:
     def __init__(self, identifier, instance_of,
                  name='Undefined',
                  description=None,
-                 location='[0.0, 0.0, 0.0]',  # The x ("width"), y ("height"), z ("depth") coordinates.
-                 rotation='[0.0, 0.0, 0.0, 0.0]',  # The x, y, z, and w coordinates.
-                 scale='1.0'):
+                 location=None,
+                 rotation=None,
+                 scale=None):
         self.__identifier = slugify(str(identifier))
         self.__instance_of = slugify(str(instance_of))
         self.name = name
         self.description = description
-        self.location = location
-        self.rotation = rotation
-        self.scale = scale
+
+        if location is None:
+            self.location = '[0.0, 0.0, 0.0]'  # Vector3, with x, y and z values.
+        if rotation is None:
+            self.rotation = '[0.0, 0.0, 0.0]'
+        if scale is None:
+            self.scale = '[1.0, 1.0, 1.0]'
+
         self.__assets = []
         self.__paths = []
         self.__tags = []
