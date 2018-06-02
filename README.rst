@@ -8,7 +8,7 @@ Story Engine from StoryTechnologies
 The StoryTechnologies core application provides for a unique storytelling experience by combining the following elements:
 
 -  A high-level semantic description of 3D environments using a bespoke `topic map-based graph library`_
--  WebGL-based interactive scene browser
+-  WebGL-based interactive scene editor and scene player
 
 Technologies
 ------------
