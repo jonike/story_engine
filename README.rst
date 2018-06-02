@@ -9,12 +9,11 @@ The StoryTechnologies core application provides for a unique storytelling experi
 
 -  A high-level semantic description of 3D environments using a bespoke `topic map-based graph library`_
 -  WebGL-based interactive scene browser
--  An opinionated `architecture of stories`_
 
 Technologies
 ------------
 
--  `Blend4Web`_, a tool for interactive 3D visualization for the web
+-  `three.js`_, a tool for interactive 3D visualization for the web
 -  `Blender`_, a free and open source 3D creation suite
 -  `Python 3`_, a high-level dynamic programming language
 
@@ -26,7 +25,6 @@ The scene browser is the first component to use the story engine. Click on the i
 .. image:: http://www.storytechnologies.com/wp-content/uploads/2016/11/desert1-small.png
     :target: http://www.youtube.com/watch?feature=player_embedded&v=RF1-VGqixnM
 
-If you're interested in knowing more about the scene browser take a look at this article: `Interactive Scene Browser for Stories`_. You can also checkout the `StoryTechnologies YouTube channel`_ for more information.
 
 How to Contribute
 -----------------
@@ -44,12 +42,10 @@ Norway.
 
 .. _StoryTechnologies: http://www.storytechnologies.com/
 .. _topic map-based graph library: https://github.com/brettkromkamp/topic_db
-.. _architecture of stories: http://www.storytechnologies.com/2016/05/minimum-viable-story/
-.. _Blend4Web: https://www.blend4web.com/
+.. _three.js: https://threejs.org/
 .. _Blender: https://www.blender.org/
 .. _Python 3: https://www.python.org/
 .. _Brett Kromkamp: https://twitter.com/brettkromkamp
 .. _the repository: https://github.com/brettkromkamp/story_engine
 .. _AUTHORS: https://github.com/brettkromkamp/story_engine/blob/master/AUTHORS.rst
-.. _Interactive Scene Browser for Stories: http://www.storytechnologies.com/2016/10/interactive-scene-browser-for-stories/
 .. _StoryTechnologies YouTube channel: https://www.youtube.com/channel/UCd1QRCmYP9AVxno-AjZvAyg
